@@ -15,6 +15,42 @@ import {
   formatSyncLabel,
   formatUnpublishedForcePushTitle
 } from './source-control-dropdown-labels'
+import {
+  branchAlreadyPublishedTitle,
+  branchUpToDateTitle,
+  checkingBranchStatusTitle,
+  checkingPrStatusTitle,
+  checkoutBeforeFastForwardTitle,
+  checkoutBeforeForcePushTitle,
+  checkoutBeforePublishTitle,
+  checkoutBeforePullTitle,
+  checkoutBeforePushTitle,
+  checkoutBeforeSyncTitle,
+  chooseRemoteBaseToRebaseTitle,
+  linkedReviewTargetUnavailableTitle,
+  nothingNewToFastForwardOlderRemoteTitle,
+  nothingNewToPullOlderRemoteTitle,
+  nothingToFastForwardTitle,
+  nothingToForcePushTitle,
+  nothingToPullTitle,
+  nothingToPushTitle,
+  prAlreadyMergedTitle,
+  preferForcePushOlderRemoteTitle,
+  publishFirstToFastForwardTitle,
+  publishFirstToPullTitle,
+  publishFirstToSyncTitle,
+  pushLinkedReviewUpdatesTitle,
+  pushMayRequireSyncTitle,
+  pushSetUpstreamTitle,
+  rebaseCurrentFromBaseTitle,
+  tryFastForwardMayRejectTitle,
+  tryRebasingDirtyTitle,
+  tryRegularPushMayForceTitle
+} from './source-control-dropdown-status-titles'
+import {
+  linkedReviewBranchExistsTitle,
+  publishBranchToOriginTitle
+} from './source-control-dropdown-review-status-titles'
 
 export type RemoteDropdownItems = {
   push: DropdownItem
@@ -57,21 +93,21 @@ export function buildRemoteDropdownItems(ctx: DropdownActionContext): RemoteDrop
       ahead
     ),
     title: publishBlockedByDetachedHead
-      ? 'Check out a branch before pushing commits'
+      ? checkoutBeforePushTitle()
       : pushBlockedByOpenHostedReviewTarget
-        ? 'Linked review branch target is unavailable'
+        ? linkedReviewTargetUnavailableTitle()
         : upstreamLoading
-          ? 'Push this branch and set an upstream if needed'
+          ? pushSetUpstreamTitle()
           : canPushUntrackedHostedReview
-            ? 'Push updates to the linked review branch'
+            ? pushLinkedReviewUpdatesTitle()
             : !hasUpstream
-              ? 'Push this branch and set an upstream if needed'
+              ? pushSetUpstreamTitle()
               : shouldForcePushWithLease
-                ? 'Try a regular push; git may require force push'
+                ? tryRegularPushMayForceTitle()
                 : behind > 0 && ahead > 0
-                  ? 'Push local commits; git may require syncing first'
+                  ? pushMayRequireSyncTitle()
                   : ahead === 0
-                    ? `Nothing to push${upstreamStatus?.upstreamName ? ` to ${upstreamStatus.upstreamName}` : ''}`
+                    ? nothingToPushTitle(upstreamStatus?.upstreamName)
                     : describePushCount(ahead),
     // Why: Push stays available without an upstream (git resolves --set-upstream) and under force-with-lease; only detached HEAD and unknown review targets block.
     disabled: globalBusy || publishBlockedByDetachedHead || pushBlockedByOpenHostedReviewTarget
@@ -87,15 +123,15 @@ export function buildRemoteDropdownItems(ctx: DropdownActionContext): RemoteDrop
       pushLabelCount
     ),
     title: publishBlockedByDetachedHead
-      ? 'Check out a branch before force pushing commits'
+      ? checkoutBeforeForcePushTitle()
       : pushBlockedByOpenHostedReviewTarget
-        ? 'Linked review branch target is unavailable'
+        ? linkedReviewTargetUnavailableTitle()
         : upstreamLoading
           ? formatUnpublishedForcePushTitle(branchCommitsAhead)
           : !hasUpstream
             ? formatUnpublishedForcePushTitle(branchCommitsAhead)
             : pushLabelCount === 0
-              ? `Nothing to force push${upstreamStatus?.upstreamName ? ` to ${upstreamStatus.upstreamName}` : ''}`
+              ? nothingToForcePushTitle(upstreamStatus?.upstreamName)
               : shouldForcePushWithLease
                 ? forcePushTitle
                 : formatManualForcePushTitle(pushLabelCount, behind, upstreamStatus?.upstreamName),
@@ -110,19 +146,19 @@ export function buildRemoteDropdownItems(ctx: DropdownActionContext): RemoteDrop
       behind
     ),
     title: upstreamLoading
-      ? 'Checking branch status…'
+      ? checkingBranchStatusTitle()
       : publishBlockedByPRLoading
-        ? 'Checking PR status…'
+        ? checkingPrStatusTitle()
         : publishBlockedByMergedPR
-          ? 'PR is already merged'
+          ? prAlreadyMergedTitle()
           : publishBlockedByDetachedHead
-            ? 'Check out a branch before pulling commits'
+            ? checkoutBeforePullTitle()
             : !hasUpstream
-              ? 'Publish the branch first to pull commits'
+              ? publishFirstToPullTitle()
               : shouldForcePushWithLease
-                ? 'Nothing new to pull — remote only has older copies of local commits'
+                ? nothingNewToPullOlderRemoteTitle()
                 : behind === 0
-                  ? 'Nothing to pull'
+                  ? nothingToPullTitle()
                   : describePullCount(behind),
     disabled: globalBusy || upstreamLoading || !hasUpstream || publishBlockedByDetachedHead
   }
@@ -137,21 +173,21 @@ export function buildRemoteDropdownItems(ctx: DropdownActionContext): RemoteDrop
       behind
     ),
     title: upstreamLoading
-      ? 'Checking branch status…'
+      ? checkingBranchStatusTitle()
       : publishBlockedByPRLoading
-        ? 'Checking PR status…'
+        ? checkingPrStatusTitle()
         : publishBlockedByMergedPR
-          ? 'PR is already merged'
+          ? prAlreadyMergedTitle()
           : publishBlockedByDetachedHead
-            ? 'Check out a branch before fast-forwarding'
+            ? checkoutBeforeFastForwardTitle()
             : !hasUpstream
-              ? 'Publish the branch first to fast-forward'
+              ? publishFirstToFastForwardTitle()
               : shouldForcePushWithLease
-                ? 'Nothing new to fast-forward — remote only has older copies of local commits'
+                ? nothingNewToFastForwardOlderRemoteTitle()
                 : behind === 0
-                  ? 'Nothing to fast-forward'
+                  ? nothingToFastForwardTitle()
                   : ahead > 0
-                    ? 'Try a fast-forward pull; git may reject local commits'
+                    ? tryFastForwardMayRejectTitle()
                     : describeFastForwardCount(behind),
     disabled: globalBusy || upstreamLoading || !hasUpstream || publishBlockedByDetachedHead
   }
@@ -164,19 +200,19 @@ export function buildRemoteDropdownItems(ctx: DropdownActionContext): RemoteDrop
       behind
     ),
     title: upstreamLoading
-      ? 'Checking branch status…'
+      ? checkingBranchStatusTitle()
       : publishBlockedByPRLoading
-        ? 'Checking PR status…'
+        ? checkingPrStatusTitle()
         : publishBlockedByMergedPR
-          ? 'PR is already merged'
+          ? prAlreadyMergedTitle()
           : publishBlockedByDetachedHead
-            ? 'Check out a branch before syncing commits'
+            ? checkoutBeforeSyncTitle()
             : !hasUpstream
-              ? 'Publish the branch first to sync commits'
+              ? publishFirstToSyncTitle()
               : shouldForcePushWithLease
-                ? 'Use Force Push — remote only has older copies of local commits'
+                ? preferForcePushOlderRemoteTitle()
                 : ahead === 0 && behind === 0
-                  ? 'Branch is up to date'
+                  ? branchUpToDateTitle()
                   : describeSyncCounts(ahead, behind),
     disabled:
       globalBusy ||
@@ -202,12 +238,12 @@ export function buildRemoteDropdownItems(ctx: DropdownActionContext): RemoteDrop
         ),
     title: ((): string => {
       if (!rebaseBaseLabel || !hasRemoteBaseRef) {
-        return 'Choose a remote base branch to rebase from'
+        return chooseRemoteBaseToRebaseTitle()
       }
       if (hasDirtyLocalChanges) {
-        return 'Try rebasing; git may require committing or stashing local changes first'
+        return tryRebasingDirtyTitle()
       }
-      return `Rebase current branch with latest commits from ${rebaseBaseLabel}`
+      return rebaseCurrentFromBaseTitle(rebaseBaseLabel)
     })(),
     disabled: globalBusy || !rebaseBaseRef || !hasRemoteBaseRef
   }
@@ -248,20 +284,20 @@ export function buildRemoteDropdownItems(ctx: DropdownActionContext): RemoteDrop
                 'Publish Branch'
               ),
     title: upstreamLoading
-      ? 'Checking branch status…'
+      ? checkingBranchStatusTitle()
       : publishBlockedByPRLoading
-        ? 'Checking PR status…'
+        ? checkingPrStatusTitle()
         : publishBlockedByMergedPR
-          ? 'PR is already merged'
+          ? prAlreadyMergedTitle()
           : publishBlockedByOpenHostedReview
             ? canPushLinkedReviewWithoutUpstream
-              ? 'Linked review branch already exists'
-              : 'Linked review branch target is unavailable'
+              ? linkedReviewBranchExistsTitle()
+              : linkedReviewTargetUnavailableTitle()
             : publishBlockedByDetachedHead
-              ? 'Check out a branch before publishing commits'
+              ? checkoutBeforePublishTitle()
               : hasUpstream
-                ? 'Branch is already published'
-                : 'Publish this branch to origin',
+                ? branchAlreadyPublishedTitle()
+                : publishBranchToOriginTitle(),
     disabled:
       globalBusy ||
       upstreamLoading ||

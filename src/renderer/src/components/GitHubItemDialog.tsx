@@ -176,9 +176,9 @@ import {
 import { presentGitHubPRMergeState } from '@/components/github-pr-merge-state'
 import {
   GITHUB_PR_MERGE_METHOD_LABELS,
-  GITHUB_PR_MERGE_METHOD_I18N_KEYS,
-  resolveGitHubPRMergeMethods
+  GITHUB_PR_MERGE_METHOD_I18N_KEYS
 } from '../../../shared/github/pull-request-merge-methods'
+import { resolveLocalizedGitHubPRMergeMethods } from '@/lib/localized-github-pull-request-merge-methods'
 import { githubRepoIdentityKey } from '../../../shared/github/repository-identity-key'
 import {
   findGithubIssueWorkspaceAttachment,
@@ -2779,7 +2779,7 @@ function PRActionsPanel({
   const confirm = useConfirmationDialog()
   const actionItem = { ...item, state: localState }
   const mergePresentation = presentGitHubPRMergeState(actionItem)
-  const mergeMethods = resolveGitHubPRMergeMethods(actionItem.mergeMethodSettings)
+  const mergeMethods = resolveLocalizedGitHubPRMergeMethods(actionItem.mergeMethodSettings)
   const sourceSettings = useAppStore(
     useShallow((s) =>
       getGitHubMutationRoutingSettings(s, item.repoId ?? repoId ?? null, sourceContext)

@@ -348,9 +348,9 @@ import { deriveTaskPagePRCheckSummary } from '@/components/task-page-pr-check-su
 import { presentGitHubPRMergeState } from '@/components/github-pr-merge-state'
 import {
   GITHUB_PR_MERGE_METHOD_LABELS,
-  GITHUB_PR_MERGE_METHOD_I18N_KEYS,
-  resolveGitHubPRMergeMethods
+  GITHUB_PR_MERGE_METHOD_I18N_KEYS
 } from '../../../shared/github/pull-request-merge-methods'
+import { resolveLocalizedGitHubPRMergeMethods } from '@/lib/localized-github-pull-request-merge-methods'
 import type {
   GitHubAssignableUser,
   GitHubOwnerRepo,
@@ -2672,7 +2672,7 @@ function PRMergeCell({
     )
   }
   const mergePresentation = presentGitHubPRMergeState(item)
-  const mergeMethods = resolveGitHubPRMergeMethods(item.mergeMethodSettings)
+  const mergeMethods = resolveLocalizedGitHubPRMergeMethods(item.mergeMethodSettings)
   const prRepo = resolveTaskPullRequestRepo(item)
   const mergeMutationPending = workItemMutation.isIntentPending({
     item,

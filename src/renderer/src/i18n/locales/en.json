@@ -15865,7 +15865,9 @@
           "forcePushBeforeCreateReview": "Force push with lease before creating a {{reviewLabel}}",
           "pushBeforeCreateReview": "Push local commits before creating a {{reviewLabel}}",
           "operationInProgress": "Operation in progress…",
-          "abortConflictInProgress": "Abort the {{operation}} in progress"
+          "abortConflictInProgress": "Abort the {{operation}} in progress",
+          "forcePushBeforeReviewLabel": "Force Push before {{shortLabel}}",
+          "pushBeforeReviewLabel": "Push before {{shortLabel}}"
         }
       },
       "link": {

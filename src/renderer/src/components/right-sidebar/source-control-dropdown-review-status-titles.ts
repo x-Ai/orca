@@ -28,6 +28,13 @@ export function checkoutBranchFirstTitle(): string {
   )
 }
 
+export function switchToFeatureBranchTitle(): string {
+  return translate(
+    'auto.components.rightSidebar.sourceControl.switchToFeatureBranch',
+    'Switch to a feature branch'
+  )
+}
+
 export function pushFirstTitle(): string {
   return translate('auto.components.rightSidebar.sourceControl.pushFirst', 'Push first')
 }

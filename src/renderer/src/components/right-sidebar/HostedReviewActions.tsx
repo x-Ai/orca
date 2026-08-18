@@ -15,7 +15,7 @@ import { presentGitHubPRMergeState } from '@/components/github-pr-merge-state'
 import type { PRInfo } from '../../../../shared/github/pull-request-types'
 import type { Repo } from '../../../../shared/repo-types'
 import type { Worktree } from '../../../../shared/worktree/types'
-import { resolveGitHubPRMergeMethods } from '../../../../shared/github/pull-request-merge-methods'
+import { resolveLocalizedGitHubPRMergeMethods } from '@/lib/localized-github-pull-request-merge-methods'
 import { runWorktreeDelete } from '../sidebar/delete-worktree-flow'
 import { getDeleteStateForWorktreeHost } from '../sidebar/worktree-delete-state-host-match'
 import { presentGitLabMRMergeState } from './gitlab-mr-merge-state'
@@ -117,9 +117,8 @@ export default function HostedReviewActions({
       autoMergeAction: null
     }
   }, [githubPR, isGitLab, review, stackMergeLabel, stackMergeScope, stackUsesMergeQueue])
-  const mergeMethods = useMemo(
-    () => resolveGitHubPRMergeMethods(isGitLab ? null : (githubPR?.mergeMethodSettings ?? null)),
-    [githubPR?.mergeMethodSettings, isGitLab]
+  const mergeMethods = resolveLocalizedGitHubPRMergeMethods(
+    isGitLab ? null : (githubPR?.mergeMethodSettings ?? null)
   )
   const {
     merging,

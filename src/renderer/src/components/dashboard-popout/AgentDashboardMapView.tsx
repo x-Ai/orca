@@ -17,6 +17,7 @@ import {
 import { countAgentMapAgentTypes, filterAgentMapCards } from './agent-map-filter'
 import { selectAgentlessMapWorkspaces } from './agent-map-workspace-visibility'
 import { AgentMapFilterChips } from './AgentMapFilterChips'
+import { dashboardWorkspaceStatusLabel } from './agent-dashboard-filter-options'
 import { AgentMapFilterPanel } from './AgentMapFilterPanel'
 import { useAgentMapFilters } from './useAgentMapFilters'
 
@@ -141,9 +142,10 @@ export function AgentDashboardMapView({
         filters={filters}
         onFiltersChange={onFiltersChange}
         projectLabel={(id) => snapshot.cards.find((card) => card.repoId === id)?.repoName ?? id}
-        statusLabel={(id) =>
-          snapshot.cards.find((card) => card.workspaceStatusId === id)?.workspaceStatusLabel ?? id
-        }
+        statusLabel={(id) => {
+          const card = snapshot.cards.find((candidate) => candidate.workspaceStatusId === id)
+          return card ? dashboardWorkspaceStatusLabel(card) : id
+        }}
         showAgentlessWorkspaces={showAgentlessWorkspaces}
         onShowAgentlessWorkspacesChange={setShowAgentlessWorkspaces}
         showOrchestrationLinks={showOrchestrationLinks}

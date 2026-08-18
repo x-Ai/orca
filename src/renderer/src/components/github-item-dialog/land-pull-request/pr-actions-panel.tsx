@@ -12,10 +12,8 @@ import {
   getGitHubRuntimeRepoId
 } from '@/lib/github-source-runtime-context'
 import { presentGitHubPRMergeState } from '@/components/github-pr-merge-state'
-import {
-  GITHUB_PR_MERGE_METHOD_LABELS,
-  resolveGitHubPRMergeMethods
-} from '../../../../../shared/github/pull-request-merge-methods'
+import { GITHUB_PR_MERGE_METHOD_LABELS } from '../../../../../shared/github/pull-request-merge-methods'
+import { resolveLocalizedGitHubPRMergeMethods } from '@/lib/localized-github-pull-request-merge-methods'
 import type { GitHubPRMergeMethod } from '../../../../../shared/github/pull-request-types'
 import type { GitHubWorkItem } from '../../../../../shared/github/work-item-types'
 import type { TaskSourceContext } from '../../../../../shared/task-source-context'
@@ -54,7 +52,7 @@ export function PRActionsPanel({
   const confirm = useConfirmationDialog()
   const actionItem = { ...item, state: localState }
   const mergePresentation = presentGitHubPRMergeState(actionItem)
-  const mergeMethods = resolveGitHubPRMergeMethods(actionItem.mergeMethodSettings)
+  const mergeMethods = resolveLocalizedGitHubPRMergeMethods(actionItem.mergeMethodSettings)
   const sourceSettings = useAppStore(
     useShallow((s) =>
       getGitHubMutationRoutingSettings(s, item.repoId ?? repoId ?? null, sourceContext)

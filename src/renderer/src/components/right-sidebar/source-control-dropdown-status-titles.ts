@@ -226,6 +226,31 @@ export function branchUpToDateTitle(): string {
   )
 }
 
+export function nothingToPullTitle(): string {
+  return translate('auto.components.rightSidebar.sourceControl.nothingToPull', 'Nothing to pull')
+}
+
+export function nothingToFastForwardTitle(): string {
+  return translate(
+    'auto.components.rightSidebar.sourceControl.nothingToFastForward',
+    'Nothing to fast-forward'
+  )
+}
+
+export function tryRebasingDirtyTitle(): string {
+  return translate(
+    'auto.components.rightSidebar.sourceControl.tryRebasingDirty',
+    'Try rebasing; git may require committing or stashing local changes first'
+  )
+}
+
+export function branchAlreadyPublishedTitle(): string {
+  return translate(
+    'auto.components.rightSidebar.sourceControl.branchAlreadyPublished',
+    'Branch is already published'
+  )
+}
+
 export function chooseRemoteBaseToRebaseTitle(): string {
   return translate(
     'auto.components.rightSidebar.sourceControl.chooseRemoteBaseToRebase',

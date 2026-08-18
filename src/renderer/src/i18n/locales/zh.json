@@ -12398,10 +12398,10 @@
               "dropdown": {
                 "items": {
                   "7aad2c0240": "托管评审操作进行中…",
-                  "9e779995dd": "Create {{value0}}",
-                  "226b85a3a7": "Fetch",
-                  "323bb614aa": "Commit & Sync",
-                  "2b8e6595fd": "Commit",
+                  "9e779995dd": "创建 {{value0}}",
+                  "226b85a3a7": "获取",
+                  "323bb614aa": "提交并同步",
+                  "2b8e6595fd": "提交",
                   "04d709801d": "从远程获取但不合并",
                   "03b0948e17": "发布分支"
                 },
@@ -12447,21 +12447,21 @@
               },
               "primary": {
                 "action": {
-                  "ed93b4f14f": "Commit",
+                  "ed93b4f14f": "提交",
                   "946a8a05ea": "为此分支创建 {{value0}}",
-                  "e7ffa46946": "Create {{value0}}",
-                  "95550cff15": "Push",
-                  "d64292a938": "Pull",
-                  "795f1509c5": "Sync",
-                  "390abeab93": "Force Push",
+                  "e7ffa46946": "创建 {{value0}}",
+                  "95550cff15": "推送",
+                  "d64292a938": "拉取",
+                  "795f1509c5": "同步",
+                  "390abeab93": "强制推送",
                   "1884cf34af": "将此分支发布到 origin",
-                  "7b4d02e6b8": "Publish Branch",
+                  "7b4d02e6b8": "发布分支",
                   "3d5dccef0b": "没有可提交的内容。PR 已合并。",
                   "41d4bcf157": "检查 PR 状态...",
                   "acce237921": "没有可提交的内容。分支没有可发布的更改",
                   "fa3bd4f40c": "暂存至少一个要提交的文件",
                   "5a477d80cb": "暂存所有更改",
-                  "18a0fca877": "Stage All",
+                  "18a0fca877": "全部暂存",
                   "f01f16d77f": "输入提交信息以进行提交",
                   "ab41fb926b": "提交已暂存的更改",
                   "2d8f185fbc": "在提交部分暂存的文件之前暂存所有更改",
@@ -12474,7 +12474,7 @@
                   "e61b0d7a3c": "请先检出分支再发布提交。",
                   "1d47e850cf": "将更新推送到已关联的评审分支",
                   "c39d0c75c3": "已关联的评审分支目标不可用。",
-                  "8c6d15a07d": "Create PR",
+                  "8c6d15a07d": "创建 PR",
                   "d37e68f61d": "正在准备分支以供评审…",
                   "c72e5e65d1": "准备此分支并创建 {{value0}}",
                   "b8e4f2a901": "等待远程操作完成。",
@@ -15780,35 +15780,35 @@
         "sourceControl": {
           "resolveConflictsBeforeCommitting": "提交前请先解决冲突",
           "pushCount": {
-            "one": "Push {{count}} 个提交",
-            "other": "Push {{count}} 个提交"
+            "one": "推送 {{count}} 个提交",
+            "other": "推送 {{count}} 个提交"
           },
           "pullCount": {
-            "one": "Pull {{count}} 个提交",
-            "other": "Pull {{count}} 个提交"
+            "one": "拉取 {{count}} 个提交",
+            "other": "拉取 {{count}} 个提交"
           },
           "fastForwardCount": {
-            "one": "Fast-forward {{count}} 个提交",
-            "other": "Fast-forward {{count}} 个提交"
+            "one": "快进 {{count}} 个提交",
+            "other": "快进 {{count}} 个提交"
           },
-          "syncCounts": "Pull {{behind}}，Push {{ahead}}",
+          "syncCounts": "拉取 {{behind}} 个，推送 {{ahead}} 个",
           "theRemoteBranch": "远程分支",
           "branchCommit": {
             "one": "{{count}} 个分支提交",
             "other": "{{count}} 个分支提交"
           },
           "thisBranch": "此分支",
-          "forcePushOlderRemote": "远程仅有较旧的本地提交副本。Force push {{countText}}(带 lease)以更新 {{remoteTarget}}",
+          "forcePushOlderRemote": "远程仅有较旧的本地提交副本。使用带租约的强制推送将 {{countText}} 更新到 {{remoteTarget}}。",
           "localCommit": {
             "one": "{{count}} 个本地提交",
             "other": "{{count}} 个本地提交"
           },
-          "forcePushReplaceRemote": "Force push {{commitText}}(带 lease)以更新 {{remoteTarget}} 并替换仅存在于远程的提交",
-          "forcePushUpdateRemote": "Force push {{commitText}}(带 lease)以更新 {{remoteTarget}}",
-          "forcePushSetUpstream": "Force push {{countText}}(带 lease)，并在需要时设置上游分支",
-          "nothingToPull": "没有可 Pull 的内容",
-          "nothingToFastForward": "没有可 Fast-forward 的内容",
-          "tryRebasingDirty": "尝试 Rebase，Git 可能要求先提交或 stash 本地更改",
+          "forcePushReplaceRemote": "使用带租约的强制推送将 {{commitText}} 更新到 {{remoteTarget}}，并替换仅存在于远程的提交。",
+          "forcePushUpdateRemote": "使用带租约的强制推送将 {{commitText}} 更新到 {{remoteTarget}}。",
+          "forcePushSetUpstream": "使用带租约的强制推送推送 {{countText}}，并在需要时设置上游分支。",
+          "nothingToPull": "没有可拉取的内容",
+          "nothingToFastForward": "没有可快进的内容",
+          "tryRebasingDirty": "尝试变基；Git 可能要求先提交或暂存本地更改",
           "branchAlreadyPublished": "分支已发布",
           "switchToFeatureBranch": "请切换到功能分支",
           "stageAtLeastOneFileToCommit": "请先暂存至少一个文件再提交",
@@ -15828,33 +15828,33 @@
           "publishFirstToPull": "请先 Publish Branch 再 Pull 提交",
           "publishFirstToFastForward": "请先 Publish Branch 再 Fast-forward",
           "publishFirstToSync": "请先 Publish Branch 再 Sync 提交",
-          "commitAndForcePushWithLease": "提交已暂存更改并 Force push(带 lease)",
-          "commitAndTryPush": "提交已暂存更改并尝试 Push",
-          "commitAndPush": "提交已暂存更改并 Push",
-          "useCommitAndForcePush": "请使用 Commit & Force Push — 远程仅有较旧的本地提交副本",
-          "commitThenPullPush": "先 Commit，再 Pull 和 Push",
-          "pushSetUpstream": "Push 此分支，并在需要时设置上游",
-          "pushLinkedReviewUpdates": "Push 更新到关联评审分支",
-          "tryRegularPushMayForce": "尝试常规 Push；Git 可能要求 Force push",
-          "pushMayRequireSync": "Push 本地提交；Git 可能要求先 Sync",
-          "nothingToPushTo": "没有可 Push 到 {{upstream}} 的内容",
-          "nothingToPush": "没有可 Push 的内容",
-          "nothingToForcePushTo": "没有可 Force push 到 {{upstream}} 的内容",
-          "nothingToForcePush": "没有可 Force push 的内容",
-          "nothingNewToPullOlderRemote": "没有新的可 Pull 内容 — 远程仅有较旧的本地提交副本",
-          "nothingNewToFastForwardOlderRemote": "没有新的可 Fast-forward 内容 — 远程仅有较旧的本地提交副本",
-          "tryFastForwardMayReject": "尝试 Fast-forward Pull；Git 可能拒绝本地提交",
-          "useForcePushOlderRemote": "请使用 Force Push — 远程仅有较旧的本地提交副本",
+          "commitAndForcePushWithLease": "提交已暂存更改并使用带租约的强制推送",
+          "commitAndTryPush": "提交已暂存更改并尝试推送",
+          "commitAndPush": "提交已暂存更改并推送",
+          "useCommitAndForcePush": "请使用“提交并强制推送”——远程仅有较旧的本地提交副本",
+          "commitThenPullPush": "先提交，再拉取并推送",
+          "pushSetUpstream": "推送此分支，并在需要时设置上游",
+          "pushLinkedReviewUpdates": "将更新推送到关联评审分支",
+          "tryRegularPushMayForce": "尝试常规推送；Git 可能要求强制推送",
+          "pushMayRequireSync": "推送本地提交；Git 可能要求先同步",
+          "nothingToPushTo": "没有可推送到 {{upstream}} 的内容",
+          "nothingToPush": "没有可推送的内容",
+          "nothingToForcePushTo": "没有可强制推送到 {{upstream}} 的内容",
+          "nothingToForcePush": "没有可强制推送的内容",
+          "nothingNewToPullOlderRemote": "没有新的可拉取内容——远程仅有较旧的本地提交副本",
+          "nothingNewToFastForwardOlderRemote": "没有新的可快进内容——远程仅有较旧的本地提交副本",
+          "tryFastForwardMayReject": "尝试快进拉取；Git 可能拒绝本地提交",
+          "useForcePushOlderRemote": "请使用强制推送——远程仅有较旧的本地提交副本",
           "branchUpToDate": "分支已是最新",
-          "chooseRemoteBaseToRebase": "请选择要 Rebase 的远程基础分支",
-          "rebaseCurrentFromBase": "用 {{base}} 的最新提交 Rebase 当前分支",
+          "chooseRemoteBaseToRebase": "请选择要变基到的远程基础分支",
+          "rebaseCurrentFromBase": "使用 {{base}} 的最新提交变基当前分支",
           "linkedReviewBranchExists": "关联评审分支已存在",
           "publishBranchToOrigin": "将此分支发布到 origin",
           "commitChangesFirst": "请先提交更改",
           "checkoutBranchFirst": "请先检出分支",
-          "pushFirst": "请先 Push",
-          "forcePushFirst": "请先 Force Push",
-          "syncFirst": "请先 Sync",
+          "pushFirst": "请先推送",
+          "forcePushFirst": "请先强制推送",
+          "syncFirst": "请先同步",
           "authRequiredInEnvironment": "请在此环境中{{instruction}}",
           "unsupportedProvider": "不支持的提供方",
           "reviewAlreadyExists": "已存在 {{reviewLabel}}",
@@ -15862,10 +15862,12 @@
           "baseBranchNotOnRemote": "基础分支不在远程上",
           "branchNotReady": "分支尚未就绪",
           "createReviewForBranch": "为此分支创建 {{reviewLabel}}",
-          "forcePushBeforeCreateReview": "创建 {{reviewLabel}} 前先 Force push(带 lease)",
-          "pushBeforeCreateReview": "创建 {{reviewLabel}} 前先 Push 本地提交",
+          "forcePushBeforeCreateReview": "创建 {{reviewLabel}} 前先使用带租约的强制推送",
+          "pushBeforeCreateReview": "创建 {{reviewLabel}} 前先推送本地提交",
           "operationInProgress": "操作进行中…",
-          "abortConflictInProgress": "中止进行中的 {{operation}}"
+          "abortConflictInProgress": "中止进行中的 {{operation}}",
+          "forcePushBeforeReviewLabel": "创建 {{shortLabel}} 前强制推送",
+          "pushBeforeReviewLabel": "创建 {{shortLabel}} 前推送"
         }
       },
       "link": {
@@ -16524,7 +16526,7 @@
             "unknown": "Not checked"
           },
           "agent": {
-            "working": "Working",
+            "working": "工作中",
             "permission": "Waiting on you",
             "idle": "Idle"
           },
@@ -16683,7 +16685,7 @@
         "neutral": "Neutral",
         "skipped": "Skipped",
         "queued": "Queued",
-        "inProgress": "In progress",
+        "inProgress": "进行中",
         "pending": "Pending"
       }
     },
@@ -16697,7 +16699,7 @@
         "neutral": "Neutral",
         "skipped": "Skipped",
         "queued": "Queued",
-        "inProgress": "In progress",
+        "inProgress": "进行中",
         "pending": "Pending"
       }
     },
@@ -16756,26 +16758,26 @@
         "agentlessWorkspaces": "没有代理的工作区",
         "orchestrationLinks": "编排链接",
         "workspaceVisibility": "地图内容",
-        "lifespan": "Session lifespan",
-        "sinceMessage": "Since last message",
-        "timeInState": "Time in current state",
-        "summaryAll": "All",
-        "summaryCount": "{{shown}} of {{total}}",
-        "timeAny": "any",
-        "timeRangeCount": "{{count}} ranges",
-        "stateChip": "State: {{states}}",
-        "orchestrationLinksHidden": "Orchestration links hidden",
-        "summarySelected": "{{count}} selected",
-        "title": "Map controls",
-        "reset": "Reset",
-        "ofTotalAgents": "of {{total}} agents shown",
-        "quickViews": "Quick views",
-        "agents": "Agents",
-        "time": "Time",
-        "resetRanges": "Reset ranges",
-        "workspace": "Workspace",
-        "timeMinimum": "{{label}} minimum",
-        "timeMaximum": "{{label}} maximum"
+        "lifespan": "会话持续时间",
+        "sinceMessage": "距上次消息",
+        "timeInState": "当前状态持续时间",
+        "summaryAll": "全部",
+        "summaryCount": "已显示 {{shown}} / {{total}}",
+        "timeAny": "任意",
+        "timeRangeCount": "{{count}} 个范围",
+        "stateChip": "状态：{{states}}",
+        "orchestrationLinksHidden": "已隐藏编排关系",
+        "summarySelected": "已选择 {{count}} 项",
+        "title": "地图控制",
+        "reset": "重置",
+        "ofTotalAgents": "共 {{total}} 个代理",
+        "quickViews": "快速视图",
+        "agents": "代理",
+        "time": "时间",
+        "resetRanges": "重置范围",
+        "workspace": "工作区",
+        "timeMinimum": "{{label}}下限",
+        "timeMaximum": "{{label}}上限"
       },
       "liveContainmentMap": "实时包含关系图",
       "hostFilter": "主机筛选",
@@ -16799,17 +16801,17 @@
       "agentCount_other": "{{count}} 个代理",
       "noWorkspaceAgents": "此工作区没有代理。",
       "status": {
-        "doneSeen": "Done, seen"
+        "doneSeen": "已完成、已查看"
       },
       "quickView": {
-        "everything": "Everything",
-        "attention": "Needs me",
-        "stuck": "Stuck",
-        "unread": "Unread",
-        "recent": "Last 30 min",
-        "longRunning": "Long runners",
-        "stale": "Stale > 3d",
-        "orchestration": "Orchestration"
+        "everything": "全部",
+        "attention": "需要我处理",
+        "stuck": "停滞",
+        "unread": "未读",
+        "recent": "最近 30 分钟",
+        "longRunning": "长时间运行",
+        "stale": "超过 3 天未活动",
+        "orchestration": "编排"
       }
     },
     "placeholder": {
@@ -16822,13 +16824,13 @@
     },
     "bucket": {
       "attention": "需要你",
-      "working": "Working",
-      "idle": "Idle",
-      "empty": "None",
+      "working": "工作中",
+      "idle": "空闲",
+      "empty": "无",
       "done": "完成"
     },
     "title": "代理",
-    "total": "{{count}} total",
+    "total": "共 {{count}} 个",
     "close": "关闭仪表板",
     "settings": {
       "showIdle": "显示空闲代理",
@@ -16836,7 +16838,7 @@
     },
     "settingsTooltip": "看板设置",
     "card": {
-      "you": "You",
+      "you": "你",
       "time": {
         "justNow": "刚刚",
         "minutes": "{{count}} 分钟",
@@ -16874,7 +16876,7 @@
       "workspaceStatus": "工作区状态",
       "reviewStatus": "PR / MR 状态",
       "clearAll": "清除所有筛选条件",
-      "removeChip": "Remove {{filter}}"
+      "removeChip": "移除“{{filter}}”筛选条件"
     },
     "search": {
       "placeholder": "搜索工作树、项目或代理…",

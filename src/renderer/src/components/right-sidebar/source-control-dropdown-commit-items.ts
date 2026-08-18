@@ -4,6 +4,22 @@
 import { translate } from '@/i18n/i18n'
 import type { DropdownItem } from './source-control-dropdown-item-types'
 import type { DropdownActionContext } from './source-control-dropdown-action-context'
+import {
+  checkingBranchStatusTitle,
+  checkingPrStatusTitle,
+  checkoutBeforePushTitle,
+  checkoutBeforeSyncTitle,
+  commitAndForcePushWithLeaseTitle,
+  commitAndPushTitle,
+  commitAndTryPushTitle,
+  commitStagedChangesTitle,
+  commitThenPullPushTitle,
+  linkedReviewTargetUnavailableTitle,
+  prAlreadyMergedTitle,
+  preferCommitAndForcePushTitle,
+  publishFirstToPushTitle,
+  publishFirstToSyncTitle
+} from './source-control-dropdown-status-titles'
 
 export type CommitDropdownItems = {
   commit: DropdownItem
@@ -34,29 +50,29 @@ export function buildCommitDropdownItems(ctx: DropdownActionContext): CommitDrop
       'auto.components.right.sidebar.source.control.dropdown.items.2b8e6595fd',
       'Commit'
     ),
-    title: commitDisabledReason ?? 'Commit staged changes',
+    title: commitDisabledReason ?? commitStagedChangesTitle(),
     disabled: !canCommit
   }
 
   // Why: compound commit labels omit counts — the commit itself changes ahead/behind, so pre-commit numbers would mislead.
   const commitPushTitle = upstreamLoading
-    ? 'Checking branch status…'
+    ? checkingBranchStatusTitle()
     : publishBlockedByPRLoading
-      ? 'Checking PR status…'
+      ? checkingPrStatusTitle()
       : publishBlockedByMergedPR
-        ? 'PR is already merged'
+        ? prAlreadyMergedTitle()
         : publishBlockedByDetachedHead
-          ? 'Check out a branch before pushing commits'
+          ? checkoutBeforePushTitle()
           : pushBlockedByOpenHostedReviewTarget
-            ? 'Linked review branch target is unavailable'
+            ? linkedReviewTargetUnavailableTitle()
             : !hasUpstream && !(hasOpenHostedReview && canPushLinkedReviewWithoutUpstream)
-              ? 'Publish the branch first to push commits'
+              ? publishFirstToPushTitle()
               : (commitDisabledReason ??
                 (shouldForcePushWithLease
-                  ? 'Commit staged changes and force push with lease'
+                  ? commitAndForcePushWithLeaseTitle()
                   : behind > 0
-                    ? 'Commit staged changes and try to push'
-                    : 'Commit staged changes and push'))
+                    ? commitAndTryPushTitle()
+                    : commitAndPushTitle()))
   const commitPush: DropdownItem = {
     kind: 'commit_push',
     label: shouldForcePushWithLease
@@ -82,28 +98,25 @@ export function buildCommitDropdownItems(ctx: DropdownActionContext): CommitDrop
 
   const commitSyncTitle = ((): string => {
     if (upstreamLoading) {
-      return 'Checking branch status…'
+      return checkingBranchStatusTitle()
     }
     if (publishBlockedByPRLoading) {
-      return 'Checking PR status…'
+      return checkingPrStatusTitle()
     }
     if (publishBlockedByMergedPR) {
-      return 'PR is already merged'
+      return prAlreadyMergedTitle()
     }
     if (publishBlockedByDetachedHead) {
-      return 'Check out a branch before syncing commits'
+      return checkoutBeforeSyncTitle()
     }
     if (!hasUpstream) {
       // Why: direct the user to Publish Branch (the primary action) rather than naming a nonexistent compound action.
-      return 'Publish the branch first to sync commits'
+      return publishFirstToSyncTitle()
     }
     if (shouldForcePushWithLease) {
-      return (
-        commitDisabledReason ??
-        'Use Commit & Force Push — remote only has older copies of local commits'
-      )
+      return commitDisabledReason ?? preferCommitAndForcePushTitle()
     }
-    return commitDisabledReason ?? 'Commit, then pull and push'
+    return commitDisabledReason ?? commitThenPullPushTitle()
   })()
   const commitSync: DropdownItem = {
     kind: 'commit_sync',

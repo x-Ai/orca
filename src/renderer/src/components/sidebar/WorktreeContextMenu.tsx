@@ -68,6 +68,7 @@ import { translate } from '@/i18n/i18n'
 import { unnestWorktrees } from './worktree-unnest'
 import { parseWorkspaceKey, worktreeWorkspaceKey } from '../../../../shared/workspace-scope'
 import { getDeleteStateForWorktreeHost } from './worktree-delete-state-host-match'
+import { translateWorkspaceBoardStatusLabel } from './workspace-board-status-label'
 
 type Props = {
   worktree: Worktree
@@ -886,7 +887,7 @@ const WorktreeContextMenu = React.memo(function WorktreeContextMenu({
                       onSelect={() => handleAssignWorkspaceStatus(status.id)}
                     >
                       <meta.icon className={cn('size-3.5', meta.tone)} />
-                      {status.label}
+                      {translateWorkspaceBoardStatusLabel(status)}
                     </DropdownMenuRadioItem>
                   )
                 })}

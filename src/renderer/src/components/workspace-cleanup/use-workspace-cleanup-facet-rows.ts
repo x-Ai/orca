@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { useAppStore } from '@/store'
 import { getLiveAgentStatusByWorktreeId } from '@/lib/worktree-activity-state'
+import { translateWorkspaceBoardStatusLabel } from '@/components/sidebar/workspace-board-status-label'
 import type { HostedReviewProvider } from '../../../../shared/hosted-review'
 import type { WorkspaceCleanupCandidate } from '../../../../shared/workspace-cleanup'
 import type {
@@ -261,7 +262,7 @@ export function useWorkspaceCleanupFacetRows({
     return {
       workspaceStatuses: sources.workspaceStatuses.map((status) => ({
         id: status.id,
-        label: status.label
+        label: translateWorkspaceBoardStatusLabel(status)
       })),
       hostIds: [...new Set(facets.map((row) => row.hostId))].sort(),
       repos: [...repoLabels].map(([id, label]) => ({ id, label })),
