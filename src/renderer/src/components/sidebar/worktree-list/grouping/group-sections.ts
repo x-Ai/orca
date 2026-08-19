@@ -29,6 +29,7 @@ import type {
   WorktreeGroupBy
 } from './row-types'
 import { orderMainWorktreeFirst } from './section-order'
+import { translateWorkspaceBoardStatusLabel } from '../../workspace-board-status-label'
 
 /** Everything section emission reads that stays fixed for one buildRows call. */
 export type SectionAppendContext = {
@@ -100,7 +101,9 @@ export function appendOrderedGroups(
               return {
                 type: 'header' as const,
                 key,
-                label: definition?.label ?? workspaceStatus,
+                label: definition
+                  ? translateWorkspaceBoardStatusLabel(definition)
+                  : workspaceStatus,
                 count: group.items.length + folderPairs.length,
                 tone: meta.tone,
                 icon: meta.icon,

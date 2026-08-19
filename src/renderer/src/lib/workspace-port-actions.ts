@@ -18,6 +18,7 @@ import { runWorkspacePortScanForTarget } from './workspace-port-scan-client'
 import { browserUrlForPort } from './workspace-port-urls'
 import { BROWSER_SCREENCAST_RUNTIME_CAPABILITY } from '../../../shared/protocol-version'
 import { RUNTIME_BROWSER_UNAVAILABLE_MESSAGE } from './client-creation-action-policy'
+import { translate } from '@/i18n/i18n'
 
 export { addressForPort } from './workspace-port-urls'
 
@@ -56,11 +57,20 @@ function isMacShortcutPlatform(): boolean {
 }
 
 export function getPortSystemBrowserHint(isMac: boolean = isMacShortcutPlatform()): string {
-  return isMac ? '⇧⌘+click for system browser' : 'Shift+Ctrl+click for system browser'
+  const systemBrowser = translate(
+    'auto.components.settings.browser.use.search.63a66da648',
+    'system browser'
+  )
+  if (systemBrowser === '系统浏览器') {
+    return isMac ? '⇧⌘+点击用系统浏览器打开' : 'Shift+Ctrl+点击用系统浏览器打开'
+  }
+  return isMac ? `⇧⌘+click for ${systemBrowser}` : `Shift+Ctrl+click for ${systemBrowser}`
 }
 
 export function getPortOpenBrowserTooltipLabel(openLabel: string, isMac?: boolean): string {
-  return `${openLabel}. ${getPortSystemBrowserHint(isMac)}`
+  const hint = getPortSystemBrowserHint(isMac)
+  const separator = /[\u3400-\u9fff]/u.test(`${openLabel}${hint}`) ? '。' : '. '
+  return `${openLabel}${separator}${hint}`
 }
 
 type PortOpenClickEvent = Pick<MouseEvent, 'metaKey' | 'ctrlKey' | 'shiftKey'>

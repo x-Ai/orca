@@ -3,6 +3,7 @@ import { GitHubUserAvatar } from '@/components/github/github-user-avatar'
 import type { GitHubAssignableUser } from '../../../../shared/github/pull-request-types'
 import type { GitHubWorkItem } from '../../../../shared/github/work-item-types'
 import { formatUiRelativeTimeFromDate } from '@/i18n/relative-time-format'
+import { translate } from '@/i18n/i18n'
 
 export function formatRelativeTime(input: string): string {
   return formatUiRelativeTimeFromDate(input)
@@ -11,17 +12,19 @@ export function formatRelativeTime(input: string): string {
 export function getStateLabel(item: GitHubWorkItem): string {
   if (item.type === 'pr') {
     if (item.state === 'merged') {
-      return 'Merged'
+      return translate('auto.components.github.pr.merge.state.83ecdbb4a6', 'Merged')
     }
     if (item.state === 'draft') {
-      return 'Draft'
+      return translate('auto.components.github.pr.merge.state.ec8e2cebaa', 'Draft')
     }
     if (item.state === 'closed') {
-      return 'Closed'
+      return translate('auto.components.GitHubItemDialog.ab050dffec', 'Closed')
     }
-    return 'Open'
+    return translate('auto.components.GitHubItemDialog.dc1ca081a8', 'Open')
   }
-  return item.state === 'closed' ? 'Closed' : 'Open'
+  return item.state === 'closed'
+    ? translate('auto.components.GitHubItemDialog.ab050dffec', 'Closed')
+    : translate('auto.components.GitHubItemDialog.dc1ca081a8', 'Open')
 }
 export function ReviewerAvatar({
   login,

@@ -16,6 +16,7 @@ import { createNestedRepoScanId } from './add-repo-dialog-types'
 import { translate } from '@/i18n/i18n'
 import { worktreeRefreshOptions } from './add-repo-runtime-owner'
 import type { ExecutionHostId } from '../../../../shared/execution-host'
+import { addRepoChooseFolderLabel } from './add-repo-busy-labels'
 
 type ShowNestedRepoReview = (args: {
   scan: NestedRepoScanResult
@@ -294,7 +295,7 @@ export function useAddRepoLocalFolderFlow({
   const handleBrowse = useCallback(async (): Promise<void> => {
     const gen = ++localAddGenRef.current
     setIsAdding(true)
-    setAddProjectBusyLabel('Choose a folder...')
+    setAddProjectBusyLabel(addRepoChooseFolderLabel())
     try {
       const paths = await window.api.repos.pickFolders()
       if (paths.length === 0 || gen !== localAddGenRef.current) {

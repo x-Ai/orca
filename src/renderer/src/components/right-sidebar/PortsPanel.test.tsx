@@ -6,6 +6,7 @@ import {
 import type { PortForwardEntry } from '../../../../shared/ssh-types'
 import type { WorkspacePort, WorkspacePortScanResult } from '../../../../shared/workspace-ports'
 import { clearRuntimeCompatibilityCacheForTests } from '@/runtime/runtime-rpc-client'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import {
   addressForPort,
   addressForPortForwardEntry,
@@ -82,7 +83,8 @@ function portOpenClick(
   }
 }
 
-beforeEach(() => {
+beforeEach(async () => {
+  await setRendererUiLanguage('en')
   localScan.mockReset()
   localKill.mockReset()
   runtimeCall.mockReset()
@@ -116,6 +118,15 @@ describe('PortsPanel runtime routing', () => {
     expect(getPortSystemBrowserHint(false)).toBe('Shift+Ctrl+click for system browser')
     expect(getPortOpenBrowserTooltipLabel('Open in Browser', false)).toBe(
       'Open in Browser. Shift+Ctrl+click for system browser'
+    )
+  })
+
+  it('localizes the system-browser hint and tooltip punctuation', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(getPortSystemBrowserHint(false)).toBe('Shift+Ctrl+点击用系统浏览器打开')
+    expect(getPortOpenBrowserTooltipLabel('在浏览器中打开', false)).toBe(
+      '在浏览器中打开。Shift+Ctrl+点击用系统浏览器打开'
     )
   })
 

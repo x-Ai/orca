@@ -3,6 +3,7 @@ import { createRoot, type Root } from 'react-dom/client'
 import { act, type ReactNode } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { WorkspaceStatusDefinition } from '../../../../shared/worktree/types'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 
 const statuses: WorkspaceStatusDefinition[] = [{ id: 'todo', label: 'Todo' }]
 ;(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true
@@ -54,7 +55,7 @@ function renderMenu({
   })
 }
 
-afterEach(() => {
+afterEach(async () => {
   act(() => {
     root?.unmount()
   })
@@ -62,6 +63,7 @@ afterEach(() => {
   container?.remove()
   container = null
   document.body.innerHTML = ''
+  await setRendererUiLanguage('en')
 })
 
 describe('WorkspaceKanbanSettingsMenu', () => {
@@ -100,5 +102,41 @@ describe('WorkspaceKanbanSettingsMenu', () => {
     expect(addStatus?.disabled).toBe(false)
     addStatus?.click()
     expect(onAddStatus).toHaveBeenCalledOnce()
+  })
+
+  it('localizes default workflow status labels without renaming their stored values', async () => {
+    const onRenameStatus = vi.fn()
+    await setRendererUiLanguage('zh')
+    container = document.createElement('div')
+    document.body.appendChild(container)
+    root = createRoot(container)
+
+    act(() => {
+      root?.render(
+        <WorkspaceKanbanSettingsMenu
+          workspaceStatuses={[
+            { id: 'todo', label: 'Todo' },
+            { id: 'in-progress', label: 'In progress' }
+          ]}
+          syncTaskStatusFromWorkspaceBoard={false}
+          onSyncTaskStatusFromWorkspaceBoardChange={vi.fn()}
+          onRenameStatus={onRenameStatus}
+          onChangeStatusColor={vi.fn()}
+          onChangeStatusIcon={vi.fn()}
+          onMoveStatus={vi.fn()}
+          onRemoveStatus={vi.fn()}
+          onAddStatus={vi.fn()}
+        />
+      )
+    })
+
+    const inputs = Array.from(document.querySelectorAll<HTMLInputElement>('input'))
+    expect(inputs.map((input) => input.value)).toEqual(['待办', '进行中'])
+
+    act(() => {
+      inputs[1].focus()
+      inputs[1].blur()
+    })
+    expect(onRenameStatus).toHaveBeenCalledWith('in-progress', 'In progress')
   })
 })

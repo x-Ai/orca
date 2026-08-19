@@ -8,6 +8,7 @@ import {
 import { cn } from '@/lib/utils'
 import type { ParsedTaskQuery } from '../../../../shared/task-query'
 import { translate } from '@/i18n/i18n'
+import { formatGitHubProjectErrorMessage } from '@/lib/github-project-error-copy'
 
 export type PRFilterChange = {
   author?: string | null
@@ -325,7 +326,7 @@ export function SectionDetail({
           options={labelOpts}
           selected={parsed.labels}
           loading={labelsLoading}
-          error={labelsError}
+          error={labelsError ? formatGitHubProjectErrorMessage(labelsError) : null}
           searchPlaceholder={translate(
             'auto.components.github.PRFilterSections.a6912d12b1',
             'Filter labels...'

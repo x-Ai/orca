@@ -1,5 +1,5 @@
-import { getProviderChecksLabel } from '../../../shared/provider-check-summary'
 import type { ProviderCheckSummary } from '../../../shared/github/pull-request-types'
+import { translate } from '@/i18n/i18n'
 
 type ChecksPillItem = { checksSummary?: ProviderCheckSummary }
 
@@ -8,7 +8,33 @@ type ChecksPillItem = { checksSummary?: ProviderCheckSummary }
  * contradict its own colour — a green pill used to read "1 unresolved" whenever neutral > 0.
  */
 export function getChecksLabel(item: ChecksPillItem): string {
-  return getProviderChecksLabel(item.checksSummary)
+  const summary = item.checksSummary
+  if (!summary) {
+    return translate('auto.components.TaskPage.a7396b05c6', 'Checks')
+  }
+  if (summary.total === 0) {
+    return translate('auto.components.pr-check-counts.noChecks', 'No checks found')
+  }
+  if (summary.failed > 0) {
+    return translate('auto.components.pr-check-counts.failingChip', '{{value0}} failing', {
+      value0: summary.failed
+    })
+  }
+  if (summary.pending > 0) {
+    return translate('auto.components.pr-check-counts.pendingChip', '{{value0}} pending', {
+      value0: summary.pending
+    })
+  }
+  if (summary.state === 'neutral') {
+    return translate('auto.components.pr-check-counts.unresolvedChip', '{{value0}} unresolved', {
+      value0: summary.neutral || summary.total
+    })
+  }
+  return translate(
+    'auto.components.pr-check-counts.passingSummary',
+    '{{value0}} of {{value1}} checks passing',
+    { value0: summary.passed, value1: summary.total }
+  )
 }
 
 export function getChecksPillTone(item: ChecksPillItem): string {

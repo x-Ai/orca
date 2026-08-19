@@ -37,7 +37,8 @@ function getLaneLabelForKey(
 ): string {
   if (groupBy === 'workspace-status') {
     const status = getWorkspaceStatusFromGroupKey(key, workspaceStatuses)
-    return workspaceStatuses.find((entry) => entry.id === status)?.label ?? status ?? key
+    const definition = workspaceStatuses.find((entry) => entry.id === status)
+    return definition ? translateWorkspaceBoardStatusLabel(definition) : (status ?? key)
   }
   if (groupBy === 'pr-status') {
     return PR_GROUP_META[key.replace(/^pr:/, '') as PRGroupKey].label
