@@ -31,6 +31,13 @@ export function translateExecutionHostLabel(label: string): string {
   return translateLocalExecutionHostLabel(label)
 }
 
+export function translateExecutionHostDetail(detail: string): string {
+  if (detail === 'Host') {
+    return translate('auto.components.sidebar.hostSection.host', 'Host')
+  }
+  return translateExecutionHostLabel(detail)
+}
+
 export function getTranslatedExecutionHostLabel(id: ExecutionHostScope): string {
   return translateExecutionHostLabel(getExecutionHostLabel(id))
 }

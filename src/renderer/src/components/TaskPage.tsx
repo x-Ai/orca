@@ -127,6 +127,7 @@ import {
   getLinearStateMarkerStyle,
   getLinearStatePillStyle
 } from '@/components/linear-state-pill-style'
+import { translateDefaultWorkflowStateLabel } from '@/components/sidebar/workspace-board-status-label'
 import { parseTaskQuery, stripRepoQualifiers, withQualifier } from '../../../shared/task-query'
 import { githubProjectHost } from '../../../shared/github/project-identity'
 import {
@@ -786,7 +787,7 @@ function LinearStateCell({
           aria-label={translate(
             'auto.components.TaskPage.d45a910c4a',
             'Change Linear state from {{value0}}',
-            { value0: issue.state.name }
+            { value0: translateDefaultWorkflowStateLabel(issue.state.name) }
           )}
           aria-busy={pending || states.loading}
         >
@@ -794,7 +795,7 @@ function LinearStateCell({
             className="size-1.5 shrink-0 rounded-full"
             style={getLinearStateMarkerStyle(issue.state.color)}
           />
-          <span className="truncate">{issue.state.name}</span>
+          <span className="truncate">{translateDefaultWorkflowStateLabel(issue.state.name)}</span>
           {pending || states.loading ? (
             <LoaderCircle className="size-3 shrink-0 animate-spin opacity-70" />
           ) : (
@@ -832,7 +833,7 @@ function LinearStateCell({
                 className="inline-block size-2 rounded-full"
                 style={{ backgroundColor: state.color }}
               />
-              {state.name}
+              {translateDefaultWorkflowStateLabel(state.name)}
             </button>
           ))
         ) : (
@@ -869,7 +870,10 @@ function getLinearIssueGroup(
   groupBy: LinearGroupBy
 ): { key: string; label: string } {
   if (groupBy === 'status') {
-    return { key: `status:${issue.state.name}`, label: issue.state.name }
+    return {
+      key: `status:${issue.state.name}`,
+      label: translateDefaultWorkflowStateLabel(issue.state.name)
+    }
   }
   if (groupBy === 'assignee') {
     return {
@@ -12844,8 +12848,9 @@ export default function TaskPage(): React.JSX.Element {
                             style={{ backgroundColor: selectedState?.color || '#a3a3a3' }}
                           />
                           <span>
-                            {selectedState?.name ||
-                              translate('auto.components.TaskPage.154b0fa623', 'Status')}
+                            {(selectedState
+                              ? translateDefaultWorkflowStateLabel(selectedState.name)
+                              : null) || translate('auto.components.TaskPage.154b0fa623', 'Status')}
                           </span>
                         </>
                       )
@@ -12879,7 +12884,7 @@ export default function TaskPage(): React.JSX.Element {
                               className="size-2 rounded-full flex-shrink-0"
                               style={{ backgroundColor: s.color || '#a3a3a3' }}
                             />
-                            <span>{s.name}</span>
+                            <span>{translateDefaultWorkflowStateLabel(s.name)}</span>
                           </div>
                           {newLinearIssueStateId === s.id && (
                             <Check className="size-3 text-foreground" />
@@ -13066,7 +13071,10 @@ export default function TaskPage(): React.JSX.Element {
                         const selectedProj = newLinearIssueProjects.find(
                           (p) => p.id === newLinearIssueProjectId
                         )
-                        return selectedProj?.name || 'Project'
+                        return (
+                          selectedProj?.name ||
+                          translate('auto.components.TaskPage.00022ec0ba', 'Project')
+                        )
                       })()}
                     </span>
                     <ChevronDown className="size-3 text-muted-foreground/70" />

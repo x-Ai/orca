@@ -1,4 +1,5 @@
 import type React from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   ArchiveRestore,
   Calendar,
@@ -37,6 +38,7 @@ import { translate } from '@/i18n/i18n'
 import type { AiVaultHostScopeOption } from './ai-vault-host-scope'
 import { AiVaultSessionLimitMenu } from './AiVaultSessionLimitMenu'
 import type { AiVaultSessionLimit } from './ai-vault-session-limit'
+import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
 
 const VAULT_HEADER_CONTROL_CLASS = 'size-6 shrink-0'
 
@@ -163,8 +165,11 @@ export function VaultHostScopeMenu({
   hostOptions: readonly AiVaultHostScopeOption[]
   onExecutionHostScopeChange: (scope: ExecutionHostScope) => void
 }): React.JSX.Element {
+  useTranslation()
   const selectedOption = hostOptions.find((option) => option.id === executionHostScope)
-  const label = selectedOption?.label ?? getExecutionHostLabel(executionHostScope)
+  const label = translateExecutionHostLabel(
+    selectedOption?.label ?? getExecutionHostLabel(executionHostScope)
+  )
 
   return (
     <DropdownMenu>
@@ -194,7 +199,7 @@ export function VaultHostScopeMenu({
         >
           {hostOptions.map((option) => (
             <DropdownMenuRadioItem key={option.id} value={option.id}>
-              {option.label}
+              {translateExecutionHostLabel(option.label)}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>

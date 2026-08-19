@@ -14,18 +14,26 @@ export function translateWorkspaceBoardStatusLabel(status: { id: string; label: 
     default:
       break
   }
-  switch (status.label) {
+  return translateDefaultWorkflowStateLabel(status.label)
+}
+
+/** Localize built-in/common workflow names without changing provider-defined custom states. */
+export function translateDefaultWorkflowStateLabel(label: string): string {
+  switch (label) {
     case 'Todo':
+    case 'To do':
       return translate('auto.components.sidebar.workspaceBoardStatus.todo', 'Todo')
     case 'In progress':
+    case 'In Progress':
       return translate('auto.components.sidebar.workspaceBoardStatus.inProgress', 'In progress')
     case 'In review':
+    case 'In Review':
       return translate('auto.components.sidebar.workspaceBoardStatus.inReview', 'In review')
     case 'Done':
     case 'Completed':
       return translate('auto.components.sidebar.workspaceBoardStatus.done', 'Done')
     default:
-      return status.label
+      return label
   }
 }
 

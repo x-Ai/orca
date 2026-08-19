@@ -1,6 +1,7 @@
 /* eslint-disable max-lines -- Why: the Linear drawer co-locates read-only preview, edit controls, and comment input so the full issue surface stays in one file. */
 /* oxlint-disable react-doctor/no-adjust-state-on-prop-change -- Why: Linear drawer state hydrates full issue details and comments from provider IPC for the selected issue. */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   ArrowRight,
   ChevronDown,
@@ -68,6 +69,7 @@ import {
 } from '@/runtime/runtime-linear-client'
 import { translate } from '@/i18n/i18n'
 import { formatUiRelativeTimeFromDate } from '@/i18n/relative-time-format'
+import { translateDefaultWorkflowStateLabel } from '@/components/sidebar/workspace-board-status-label'
 
 function LinearIcon({ className }: { className?: string }): React.JSX.Element {
   return (
@@ -153,6 +155,7 @@ export function LinearIssueEditSection({
   layout = 'chips',
   sourceContext
 }: EditSectionProps): React.JSX.Element {
+  useTranslation()
   const [labelPopoverOpen, setLabelPopoverOpen] = useState(false)
   const [estimatePopoverOpen, setEstimatePopoverOpen] = useState(false)
   const patchLinearIssue = useAppStore((s) => s.patchLinearIssue)
@@ -461,7 +464,9 @@ export function LinearIssueEditSection({
                     className="inline-block size-2.5 shrink-0 rounded-full"
                     style={getLinearStateMarkerStyle(localState.color)}
                   />
-                  <span className="min-w-0 flex-1 truncate">{localState.name}</span>
+                  <span className="min-w-0 flex-1 truncate">
+                    {translateDefaultWorkflowStateLabel(localState.name)}
+                  </span>
                   <LinearEditChipAdornment loading={states.loading} pending={statePending} />
                 </button>
               </PopoverTrigger>
@@ -494,7 +499,7 @@ export function LinearIssueEditSection({
                           className="inline-block size-2 rounded-full"
                           style={{ backgroundColor: s.color }}
                         />
-                        {s.name}
+                        {translateDefaultWorkflowStateLabel(s.name)}
                       </button>
                     ))}
                   </div>
@@ -776,7 +781,7 @@ export function LinearIssueEditSection({
               className="inline-block size-2 shrink-0 rounded-full"
               style={getLinearStateMarkerStyle(localState.color)}
             />
-            <span className="truncate">{localState.name}</span>
+            <span className="truncate">{translateDefaultWorkflowStateLabel(localState.name)}</span>
             <LinearEditChipAdornment loading={states.loading} pending={statePending} />
           </button>
         </PopoverTrigger>
@@ -804,7 +809,7 @@ export function LinearIssueEditSection({
                     className="inline-block size-2 rounded-full"
                     style={{ backgroundColor: s.color }}
                   />
-                  {s.name}
+                  {translateDefaultWorkflowStateLabel(s.name)}
                 </button>
               ))}
             </div>

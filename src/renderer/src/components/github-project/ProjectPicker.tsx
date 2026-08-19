@@ -4,6 +4,7 @@
 // from `listAccessibleProjects` and is cached for 5 minutes. Paste-to-add
 // accepts org/user project URLs and `owner/number` shorthand.
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { AlertTriangle, ChevronDown, Loader, Pin, Search } from 'lucide-react'
 import { toast } from 'sonner'
 import { GhAuthErrorHelp } from '@/components/github-project/GhAuthErrorHelp'
@@ -123,6 +124,7 @@ async function resolveProjectRefForRuntime(
 }
 
 export default function ProjectPicker({ activeProject, onSelect }: Props): React.JSX.Element {
+  useTranslation()
   const settings = useAppStore((s) => s.settings)
   const updateSettings = useAppStore((s) => s.updateSettings)
   const mountedRef = useMountedRef()

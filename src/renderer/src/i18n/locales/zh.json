@@ -4630,6 +4630,12 @@
           "checking": "检查中...",
           "checkFailed": "检查失败"
         },
+        "SkillInstallManagementDialog": {
+          "6cb1fbe039": "此计算机"
+        },
+        "SkillInstallTargetFields": {
+          "8562dd1e6e": "此计算机"
+        },
         "share": {
           "scriptOne": "{{count}} 个脚本",
           "scriptOther": "{{count}} 个脚本",

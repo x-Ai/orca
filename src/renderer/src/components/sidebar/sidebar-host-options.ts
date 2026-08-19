@@ -15,7 +15,7 @@ import type { SshConnectionState, SshConnectionStatus } from '../../../../shared
 import type { RuntimeStatus } from '../../../../shared/runtime-types'
 import type { PublicKnownRuntimeEnvironment } from '../../../../shared/runtime-environments'
 import { translate } from '@/i18n/i18n'
-import { translateExecutionHostLabel } from './execution-host-label'
+import { translateExecutionHostDetail, translateExecutionHostLabel } from './execution-host-label'
 
 export type SidebarHostOption = {
   id: ExecutionHostId
@@ -75,7 +75,11 @@ export function buildSidebarHostOptions(args: {
     runtimeStatusByEnvironmentId: args.runtimeStatusByEnvironmentId,
     hostLabelOverrides: args.hostLabelOverrides
   }).map((host) => {
-    const localizedHost = { ...host, label: translateExecutionHostLabel(host.label) }
+    const localizedHost = {
+      ...host,
+      label: translateExecutionHostLabel(host.label),
+      detail: translateExecutionHostDetail(host.detail)
+    }
     if (host.kind === 'local') {
       return { ...localizedHost, presence: 'local' }
     }

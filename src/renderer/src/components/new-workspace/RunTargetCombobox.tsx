@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Popover, PopoverContent } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 import { translate } from '@/i18n/i18n'
@@ -24,6 +25,10 @@ import {
 } from './run-target-options'
 import { AddHostSubmenuRow, RecipesSubmenuRow } from './RunTargetSubmenus'
 import RunTargetField from './RunTargetField'
+import {
+  translateExecutionHostDetail,
+  translateExecutionHostLabel
+} from '@/components/sidebar/execution-host-label'
 
 type RunTargetComboboxProps = {
   hostOptions: readonly ProjectHostSetupOption[]
@@ -61,6 +66,7 @@ export default function RunTargetCombobox({
   onConnectHost,
   onSetLocation
 }: RunTargetComboboxProps): React.JSX.Element {
+  useTranslation()
   const [submenu, setSubmenu] = useState<'recipes' | 'add-host' | null>(null)
   // Track in-flight connects per host so one stalling connect never blocks the others.
   const [connectingHostIds, setConnectingHostIds] = useState<ReadonlySet<string>>(() => new Set())
@@ -212,7 +218,7 @@ export default function RunTargetCombobox({
 
   const fieldLabel = selectedRecipe
     ? `${getEphemeralVmLabel()} / ${selectedRecipe.name}`
-    : (selectedHost?.label ?? '')
+    : translateExecutionHostLabel(selectedHost?.label ?? '')
   const fieldDetail = selectedRecipe ? getRecipeDetail(selectedRecipe) : (selectedHost?.path ?? '')
 
   return (
@@ -292,7 +298,7 @@ export default function RunTargetCombobox({
                   <RunTargetRow
                     key={row.key}
                     icon={<HostRowIcon hostId={row.option.hostId} />}
-                    label={row.option.label}
+                    label={translateExecutionHostLabel(row.option.label)}
                     detail={row.option.path}
                     armed={isArmed}
                     current={selectedRecipe === null && row.option.id === selectedHost?.id}
@@ -319,10 +325,14 @@ export default function RunTargetCombobox({
                         attention={row.option.attention}
                       />
                     }
-                    label={row.option.label}
+                    label={translateExecutionHostLabel(row.option.label)}
                     // Why: Connect / Set project location already say the next
                     // step, so the detail line would only repeat that.
-                    detail={hasConnect || hasSetLocation ? '' : row.option.detail}
+                    detail={
+                      hasConnect || hasSetLocation
+                        ? ''
+                        : translateExecutionHostDetail(row.option.detail)
+                    }
                     armed={isArmed}
                     current={false}
                     dimmed
@@ -340,7 +350,7 @@ export default function RunTargetCombobox({
                         />
                       ) : hasSetLocation ? (
                         <SetLocationButton
-                          hostLabel={row.option.label}
+                          hostLabel={translateExecutionHostLabel(row.option.label)}
                           onSetLocation={() => setLocation(row.option)}
                         />
                       ) : undefined

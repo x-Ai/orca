@@ -10,6 +10,7 @@ import type { ExecutionHostId } from '../../../../shared/execution-host'
 import { describeRuntimeCompatBlock } from '../../../../shared/protocol-compat'
 import { translate } from '@/i18n/i18n'
 import { canConnectAddRepoHost, canSelectAddRepoHost } from './add-repo-host-availability'
+import { translateExecutionHostDetail, translateExecutionHostLabel } from './execution-host-label'
 
 type AddRepoHostSelectorProps = {
   hosts: SidebarHostOption[]
@@ -26,7 +27,7 @@ function getHostStatusDetail(host: SidebarHostOption): string {
   if (host.compatibility?.kind === 'blocked') {
     return describeRuntimeCompatBlock(host.compatibility)
   }
-  return `${getSidebarHostHealthLabel(host.health)}${host.detail ? ` - ${host.detail}` : ''}`
+  return `${getSidebarHostHealthLabel(host.health)}${host.detail ? ` - ${translateExecutionHostDetail(host.detail)}` : ''}`
 }
 
 export function AddRepoHostSelector({
@@ -63,7 +64,9 @@ export function AddRepoHostSelector({
             aria-expanded={open}
             className="h-7 min-w-0 max-w-[18rem] gap-1.5 rounded-md border border-border bg-muted/30 px-2 text-xs font-medium text-foreground hover:bg-accent hover:text-accent-foreground"
           >
-            <span className="min-w-0 truncate">{selectedHost.label}</span>
+            <span className="min-w-0 truncate">
+              {translateExecutionHostLabel(selectedHost.label)}
+            </span>
             {selectedHost.health !== 'local' ? (
               <span
                 title={getHostStatusDetail(selectedHost)}
@@ -192,7 +195,9 @@ export function AddRepoHostSelector({
                     />
                     <span className="min-w-0 flex-1">
                       <span className="flex min-w-0 items-center gap-2">
-                        <span className="truncate font-medium">{host.label}</span>
+                        <span className="truncate font-medium">
+                          {translateExecutionHostLabel(host.label)}
+                        </span>
                       </span>
                       <span className="mt-0.5 block truncate text-[11px] text-muted-foreground">
                         <span className="min-w-0 flex-1 truncate">{getHostStatusDetail(host)}</span>

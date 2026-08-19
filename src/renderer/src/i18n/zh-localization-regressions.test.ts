@@ -2,6 +2,15 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { getCheckCountChips } from '../components/pr-check-counts'
 import { STATUS_LABELS } from '../components/settings/SshTargetCard'
 import { getTaskSourceContextSummary } from '../components/task-source-context-summary'
+import {
+  translateExecutionHostDetail,
+  translateExecutionHostLabel
+} from '../components/sidebar/execution-host-label'
+import {
+  translateDefaultWorkflowStateLabel,
+  translateWorkspaceBoardStatusLabel
+} from '../components/sidebar/workspace-board-status-label'
+import { formatGitHubProjectErrorMessage } from '../lib/github-project-error-copy'
 import { formatTaskSourceErrorMessage } from '../lib/task-source-error-copy'
 import { getOsRevealLabel } from '../lib/os-reveal-label'
 import { setRendererUiLanguage, translate } from './i18n'
@@ -47,5 +56,22 @@ describe('Chinese localization regressions', () => {
     expect(
       formatTaskSourceErrorMessage('Invalid request — Command failed: gh: Validation Failed')
     ).toBe('请求无效 — 命令执行失败： gh: 验证失败')
+  })
+
+  it('localizes host selectors, project errors, and default workspace statuses', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(translateExecutionHostLabel('Local Windows')).toBe('本地 Windows')
+    expect(translateExecutionHostLabel('All hosts')).toBe('所有主机')
+    expect(translateExecutionHostDetail('This computer')).toBe('此计算机')
+    expect(formatGitHubProjectErrorMessage('Project or view not found.')).toBe('找不到项目或视图。')
+    expect(translateWorkspaceBoardStatusLabel({ id: 'in-progress', label: 'In progress' })).toBe(
+      '进行中'
+    )
+    expect(translateDefaultWorkflowStateLabel('In progress')).toBe('进行中')
+    expect(translate('auto.components.TaskPage.00022ec0ba', 'Project')).toBe('项目')
+    expect(
+      translate('auto.components.skills.SkillInstallTargetFields.8562dd1e6e', 'This computer')
+    ).toBe('此计算机')
   })
 })
