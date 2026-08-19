@@ -9,7 +9,7 @@ export function isMacPlatform(): boolean {
 function terminalLinkActionHintPrefix(showActions: boolean): string {
   return showActions
     ? translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.click.for.actions',
+        'auto.components.terminal.pane.terminal.link.open.hints.clickForActions',
         '单击查看操作，'
       )
     : ''
@@ -25,7 +25,7 @@ export function getTerminalFileOpenHint(showActions = true): string {
 export function getTerminalOrcaFileOpenHint(showActions = true): string {
   const prefix = showActions
     ? translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.click.for.actions.or',
+        'auto.components.terminal.pane.terminal.link.open.hints.clickForActionsOr',
         '单击查看操作或 '
       )
     : ''
@@ -134,7 +134,7 @@ export function getTerminalWorktreePathOpenHint(
   if (!canOpenWithSystemDefault) {
     const directPrefix = showActions
       ? translate(
-          'auto.components.terminal.pane.terminal.link.open.hints.click.for.actions.or',
+          'auto.components.terminal.pane.terminal.link.open.hints.clickForActionsOr',
           '单击查看操作或 '
         )
       : ''

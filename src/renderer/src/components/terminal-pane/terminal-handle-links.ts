@@ -294,7 +294,7 @@ function ptyIdMatchesTerminalHandle(
 function getTerminalHandleFocusHint(showActions: boolean): string {
   const prefix = showActions
     ? translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.click.for.actions.or',
+        'auto.components.terminal.pane.terminal.link.open.hints.clickForActionsOr',
         '单击查看操作或 '
       )
     : ''

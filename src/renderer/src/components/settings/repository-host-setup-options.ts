@@ -6,6 +6,7 @@ import {
 } from '../../../../shared/protocol-version'
 import type { ProjectHostSetup, ProjectHostSetupState } from '../../../../shared/project-types'
 import { translate } from '@/i18n/i18n'
+import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
 
 export type SetupHostOption = {
   id: ExecutionHostId
@@ -56,7 +57,7 @@ export function buildSetupHostOptions({
       const canUsePathActions = host.health === 'local' || host.health === 'available'
       return {
         id: host.id,
-        label: host.label || getExecutionHostLabel(host.id),
+        label: translateExecutionHostLabel(host.label || getExecutionHostLabel(host.id)),
         detail:
           availability.isAvailable && !canUsePathActions
             ? translate(

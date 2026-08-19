@@ -1106,6 +1106,11 @@
       },
       "ephemeralVmWorktreeCreation": {
         "sparseCheckoutUnsupported": "Provisioned-root 配方不支持稀疏检出"
+      },
+      "taskSourceError": {
+        "invalidRequest": "请求无效",
+        "commandFailed": "命令执行失败：",
+        "validationFailed": "验证失败"
       }
     },
     "hooks": {
@@ -1235,11 +1240,13 @@
         "pluginsTitle": "插件",
         "pluginsDescription": "安装和管理实验性插件",
         "tasksDescription": "连接提供商、安装 Linear 技能，并选择任务中显示的内容",
-        "artifactsTitle": "Artifacts",
+        "artifactsTitle": "工件",
         "artifactsDescription": "分享 HTML / Markdown，并管理公开链接",
         "automationsTitle": "自动化",
         "automationsDescription": "安排代理工作，并控制侧边栏是否显示自动化",
-        "floatingWorkspaceWebDescription": "全局终端和 Markdown 选项卡。"
+        "floatingWorkspaceWebDescription": "全局终端和 Markdown 选项卡。",
+        "shareSkillsTitle": "分享技能",
+        "shareSkillsDescription": "通过非公开链接分享技能。任何拥有链接的人都可以安装。"
       },
       "useAppMenuPaste": {
         "pasteTooLarge": "粘贴内容过大。"
@@ -3354,13 +3361,6 @@
             "link": {
               "open": {
                 "hints": {
-                  "click": {
-                    "for": {
-                      "actions": {
-                        "or": "单击查看操作或 "
-                      }
-                    }
-                  },
                   "mac": {
                     "open": {
                       "file": "⌘+点击打开，或 ⇧⌘+点击用默认应用打开",
@@ -3410,7 +3410,9 @@
                     "worktree": {
                       "folder": "Ctrl+点击切换工作区，或 Shift+Ctrl+点击打开文件夹"
                     }
-                  }
+                  },
+                  "clickForActions": "单击查看操作，",
+                  "clickForActionsOr": "单击查看操作或 "
                 }
               }
             },
@@ -3776,7 +3778,7 @@
             "67c4ecda49": "强制退出该终端。窗格中所有未保存的工作都会丢失。这无法撤销。",
             "4bb076fa89": "强制结束",
             "996295bff2": "孤儿终端",
-            "92924a14e3": "查看非活跃工作区 ({{value0}})",
+            "92924a14e3": "清理工作区",
             "27a74f91f0": "现在没有任何运行",
             "1b24a32d3a": "内存",
             "298f4be7f2": "CPU",
@@ -4627,6 +4629,75 @@
           "needsAttention": "评审 skill",
           "checking": "检查中...",
           "checkFailed": "检查失败"
+        },
+        "share": {
+          "scriptOne": "{{count}} 个脚本",
+          "scriptOther": "{{count}} 个脚本",
+          "executableOne": "{{count}} 个可执行文件",
+          "executableOther": "{{count}} 个可执行文件",
+          "noExecutableContent": "无脚本或可执行文件",
+          "fileExecutable": "可执行文件",
+          "fileScript": "脚本",
+          "reviewFiles": "检查可运行的文件",
+          "reviewSkills": "检查包含的技能",
+          "releaseNotesVersion": "发行说明",
+          "releaseNotesOptional": "添加发行说明（可选）",
+          "releaseNotesFirst": "描述此版本",
+          "newVersionDescriptionPlain": "向现有链接添加新版本。",
+          "accessSummaryPlain": "非公开链接——任何拥有链接的人都可以安装。",
+          "manageLinks": "在设置中管理或撤销此链接"
+        },
+        "SkillShareSelectionControls": {
+          "01c5a15e06": "请在此技能所属的设备上打开它以进行分享。",
+          "01c5a15e07": "请先安装此技能再分享。",
+          "01c5a15e08": "只能分享主目录和工作区技能。",
+          "01c5a15e09": "已从其他来源选择了同名技能。",
+          "01c5a15e02": "分享技能"
+        },
+        "SkillShareDialog": {
+          "reconnect": "请重新登录 Orca 账户后再分享。",
+          "unconfigured": "请先连接 Orca Cloud 账户再分享。",
+          "prepareFailed": "无法准备要分享的技能。",
+          "publishCancelled": "上传已取消。准备好的副本仍可用于重试。",
+          "publishFailed": "无法发布此技能。准备好的副本仍可用于重试。",
+          "copied": "分享链接已复制",
+          "preparing": "正在准备预览…",
+          "3af85f6add": "完成",
+          "30985d4fc0": "取消",
+          "e9d652ae3d": "正在取消…",
+          "3a51d0f34f": "取消上传",
+          "7aa4ba0dba": "发布新版本",
+          "publishBundle": "发布技能包",
+          "0f07fa2a79": "发布技能",
+          "ready": "技能链接已就绪",
+          "title": "分享技能"
+        },
+        "SkillSharedLinkRow": {
+          "deleteFailed": "Orca 无法从云端删除此内容。",
+          "deleted": "已从云端删除",
+          "confirmDelete": "确认删除",
+          "moreActions": "{{name}} 的更多操作",
+          "deletePackage": "从云端删除",
+          "contentsUnavailable": "无法加载此链接包含的内容。",
+          "loading": "正在加载内容…"
+        },
+        "SkillSharedLinksView": {
+          "loading": "正在加载分享链接…",
+          "noMatches": "没有符合搜索条件的链接。"
+        },
+        "SkillShareReviewContent": {
+          "f0c0411549": "发行说明",
+          "bf02d6ed9e": "此版本有哪些更改？",
+          "bundleReady": "技能包链接已就绪",
+          "publishBundleVersion": "发布技能包新版本",
+          "2dca0b720b": "发布技能新版本",
+          "shareBundle": "分享技能包",
+          "c15d90c10b": "需要已连接的 Orca Cloud 账户。",
+          "publishingLink": "正在发布链接…",
+          "verifyingPackage": "正在验证技能包…",
+          "0142581727": "正在上传…",
+          "6d6233a3a4": "复制链接",
+          "b3b1d4b911": "SHA-256"
         }
       },
       "sidebar": {
@@ -5013,7 +5084,8 @@
           "0ccba862b8": "打开 GitHub 任务",
           "fee535205b": "任务",
           "d599269755": "从侧边栏隐藏",
-          "artifacts": "Artifacts"
+          "artifacts": "工件",
+          "skills": "技能"
         },
         "SidebarRepositoryFilterSection": {
           "d3a9c4cea1": "清除",
@@ -5068,12 +5140,12 @@
           "3e102f111c": "所有主机",
           "visibleHostsCount": "{{value0}} 个主机",
           "hosts": "主机",
-          "healthLocal": "本地",
+          "healthLocal": "本机",
           "healthConnected": "已连接",
           "healthConnecting": "正在连接",
           "healthUpdateNeeded": "需要更新",
           "healthDisconnected": "已断开连接",
-          "healthNeedsAttention": "需要注意",
+          "healthNeedsAttention": "需要处理",
           "healthMixed": "混合"
         },
         "SidebarHostScopeStrip": {
@@ -5926,7 +5998,7 @@
           "localWindows": "本地 Windows",
           "localMac": "本地 Mac",
           "localLinux": "本地 Linux",
-          "thisComputer": "本机",
+          "thisComputer": "此计算机",
           "host": "主机"
         },
         "AddRepoDialog": {
@@ -8129,7 +8201,7 @@
           "statusDisconnected": "已断开连接",
           "statusConnecting": "正在连接…",
           "statusAuthFailed": "认证失败",
-          "statusDeployingRelay": "正在部署 Relay…",
+          "statusDeployingRelay": "正在部署中继…",
           "statusConnected": "已连接",
           "statusReconnecting": "正在重新连接…",
           "statusReconnectionFailed": "重新连接失败"
@@ -11212,7 +11284,7 @@
           "signInRequired": "上传和管理 Artifacts 需要登录",
           "signingIn": "正在登录…",
           "signIn": "登录 Orca",
-          "title": "Artifacts",
+          "title": "工件",
           "description": "与团队分享 HTML 和 Markdown 文件，并管理其公开链接",
           "howToTitle": "如何使用 Artifacts",
           "howToDescription": "将 HTML 或 Markdown 文件发布为公开链接，然后分享给团队",
@@ -11257,7 +11329,9 @@
           "artifactsTitle": "Artifact 分享",
           "artifactsDescription": "发布 HTML 和 Markdown 文件，然后在 Orca 中管理",
           "relayTitle": "Orca Relay",
-          "relayDescription": "通过蜂窝网络或任意 Wi-Fi 将 Orca Mobile 连接到此桌面"
+          "relayDescription": "通过蜂窝网络或任意 Wi-Fi 将 Orca Mobile 连接到此桌面",
+          "skillsTitle": "技能分享",
+          "skillsDescription": "通过非公开链接分享单个技能或整套技能，并在你使用的任何设备上安装。"
         },
         "automations": {
           "showButton": "显示自动化按钮",
@@ -11358,6 +11432,54 @@
         "TerminalAdvancedTypographyControls": {
           "f5fa1a08f1": "粗体字重",
           "0e0d1ee15a": "独立于字重进行调整。某些字体将多个值映射到一个字面，因此如果粗体看起来没有变化，请降低字重或选择其他字体"
+        },
+        "shareSkills": {
+          "title": "分享技能",
+          "description": "通过非公开链接分享技能。任何拥有链接的人都可以安装。",
+          "linkTitle": "非公开技能链接",
+          "linkDescription": "已分享的技能包不会出现在 Orca 的搜索或列表中。链接即为访问凭证，请仅发送给信任的人。",
+          "searchDescription": "通过非公开链接分享技能。任何拥有链接的人都可以安装。",
+          "allowAgentPublishing": "允许代理和 Orca CLI 发布技能链接",
+          "allowAgentPublishingWebDescription": "仅限桌面端。请在主机设备上打开“设置 → 分享技能”更改此设置。",
+          "allowAgentPublishingDescription": "允许命令发布明确指定的已安装技能。技能文件夹可能包含脚本、配置或密钥，因此默认关闭。",
+          "showButton": "显示“技能”按钮",
+          "showButtonDescription": "在侧边栏显示“技能”快捷入口。",
+          "signInTitle": "登录以分享技能",
+          "signInWebDescription": "请在 Orca 桌面应用中发布和管理链接。",
+          "signInDescription": "使用 Orca 账户发布技能包并管理链接。接收者无需账户。",
+          "signingIn": "正在登录…",
+          "signInAgain": "重新登录",
+          "signIn": "登录 Orca",
+          "activeLinks": "有效的分享链接",
+          "activeLinksDescription": "只有拥有链接的人才能打开。取消分享可阻止后续查看和安装。",
+          "manageInSkills": "在“技能”中管理",
+          "howToTitle": "如何分享技能",
+          "howToDescription": "通过一个链接发布单个技能或包含多个技能的技能包。",
+          "selectTitle": "选择一个或多个技能",
+          "selectDescription": "打开“技能”，选择“分享技能”，然后选择要通过同一链接打包的技能。",
+          "reviewTitle": "检查并发布",
+          "reviewDescription": "上传不可变的技能包前，请检查其中的文件、脚本和可执行文件。",
+          "copyTitle": "复制非公开链接",
+          "copyDescription": "任何拥有链接的人无需登录即可查看并安装全部或所选技能。",
+          "manageTitle": "管理或撤销链接",
+          "manageDescription": "撤销链接会阻止后续访问；已安装到其他设备的技能仍会保留。",
+          "openSkills": "打开“技能”",
+          "openSkillsDescription": "发布技能包、从链接安装，或管理已安装和已分享的技能。",
+          "keywordSkills": "技能",
+          "keywordShare": "分享",
+          "keywordBundle": "技能包",
+          "keywordLink": "链接",
+          "keywordUnlisted": "非公开",
+          "keywordRevoke": "撤销",
+          "linkCopied": "分享链接已复制",
+          "copyLink": "复制链接",
+          "confirmUnshare": "确认取消分享",
+          "unshare": "取消分享",
+          "noActiveLinks": "没有有效链接。请从“技能”中发布技能包以创建链接。",
+          "linksReconnect": "请重新登录以管理分享链接。",
+          "linksUnavailable": "分享链接当前不可用。",
+          "linkRevoked": "链接已撤销",
+          "revokeFailed": "Orca 无法撤销此链接。"
         }
       },
       "right": {
@@ -15902,29 +16024,35 @@
         "sourceUnavailable": "{{value0}} 来源不可用：{{value1}}",
         "someSourceHostsUnavailable": "部分 {{value0}} 来源主机不可用：{{value1}}",
         "reconnectOrUpdateTitle": "重新连接或更新 {{value0}} 以加载此来源",
-        "sourceHostsCount": "{{count}} 个来源主机",
+        "sourceHostsCount": "{{value0}} 个来源主机",
         "noHost": "无主机",
         "accountPrefix": "账户：{{value0}}",
-        "projectsCount": "{{count}} 个项目",
+        "projectsCount": "{{value0}} 个项目",
         "selectedProject": "所选项目",
         "hostPrefix": "主机：{{value0}}",
         "availabilityPrefix": "可用性：{{value0}}",
         "sourcePrefix": "来源：{{value0}}",
-        "selectedProjectsCount": "{{count}} 个所选项目",
+        "selectedProjectsCount": "已选择 {{value0}} 个项目",
         "currentAccount": "当前账户",
         "providerSource": "{{value0}} 来源",
-        "checkingServerCapabilities": "正在检查服务器功能",
+        "checkingServerCapabilities": "正在检查服务器能力",
         "serverUpdateNeededForTaskSources": "任务来源需要更新服务器",
         "providerAuthNeeded": "需要提供商认证",
         "sourceToolUnavailable": "来源工具不可用",
         "providerUnsupportedOnHost": "此主机不支持该提供商",
         "connecting": "正在连接",
         "serverUpdateNeeded": "需要更新服务器",
-        "disconnected": "已断开",
-        "connectionIssue": "连接问题",
-        "unavailableCount": "{{count}} 个不可用",
+        "disconnected": "已断开连接",
+        "connectionIssue": "连接异常",
+        "unavailableCount": "{{value0}} 个不可用",
         "connected": "已连接",
-        "authNeeded": "需要认证"
+        "authNeeded": "需要认证",
+        "account": "账户：{{value0}}",
+        "host": "主机：{{value0}}",
+        "availability": "可用性：{{value0}}",
+        "source": "来源：{{value0}}",
+        "taskSourceServerUpdateNeeded": "任务来源需要更新服务器",
+        "providerUnsupported": "此主机不支持该提供商"
       },
       "ShortcutKeyCombo": {
         "07eb4985a1": "双击 {{value0}}"
@@ -16042,7 +16170,16 @@
         "failingChip": "{{value0}} 失败",
         "pendingChip": "{{value0}} 待处理",
         "needsActionChip": "{{value0}} 个需要操作",
-        "unresolvedChip": "{{value0}} 个未解决"
+        "unresolvedChip": "{{value0}} 个未解决",
+        "noChecks": "未找到检查项",
+        "oneCheckFailing": "1 个检查失败",
+        "checksFailing": "{{value0}} 个检查失败",
+        "oneCheckNeedsAction": "1 个检查需要操作",
+        "checksNeedAction": "{{value0}} 个检查需要操作",
+        "oneCheckPending": "1 个检查待处理",
+        "checksPending": "{{value0}} 个检查待处理",
+        "allPassing": "所有检查均通过",
+        "passingSummary": "{{value0}}/{{value1}} 个检查通过"
       },
       "BrowserCookieImportDisclosure": {
         "title": "Google 登录信息未导入",
@@ -16081,7 +16218,7 @@
           "deleteFailed": "无法删除该 Artifact。",
           "closeArtifacts": "关闭 Artifacts",
           "closeTooltip": "关闭 · Esc",
-          "title": "Artifacts",
+          "title": "工件",
           "refresh": "刷新",
           "signInHeading": "登录 Orca",
           "signInCopy": "登录以查看和管理通过账户分享的 Artifacts",
@@ -16462,148 +16599,148 @@
           "githubPullRequestNumber": "PR #{{value0}}"
         },
         "browse": {
-          "noSizes": "No workspace sizes measured yet.",
-          "noSizesDescription": "Sizes appear after disk usage has been measured.",
-          "notMeasured": "Not measured",
-          "workspaceStatus": "Workspace status: {{value0}}",
-          "sizeOnDisk": "Size on disk: {{value0}}",
-          "checkingGitRow": "Checking git status",
-          "openWorkspaceNamed": "Open {{value0}}",
-          "openWorkspace": "Open workspace",
-          "selectedCount": "{{value0}} selected",
-          "measuringSizesProgress": "Scanning {{value0}}/{{value1}}",
-          "measuringSizes": "Scanning sizes",
-          "measureSizes": "Scan",
-          "measureSizesTitle": "Scan workspace sizes",
-          "measureSizesDescription": "Scan disk usage to compare, sort, and filter workspaces by size.",
+          "noSizes": "尚未测量工作区大小。",
+          "noSizesDescription": "测量磁盘占用后将显示大小。",
+          "notMeasured": "未测量",
+          "workspaceStatus": "工作区状态：{{value0}}",
+          "sizeOnDisk": "磁盘占用：{{value0}}",
+          "checkingGitRow": "正在检查 Git 状态",
+          "openWorkspaceNamed": "打开 {{value0}}",
+          "openWorkspace": "打开工作区",
+          "selectedCount": "已选择 {{value0}} 个",
+          "measuringSizesProgress": "正在扫描 {{value0}}/{{value1}}",
+          "measuringSizes": "正在扫描大小",
+          "measureSizes": "扫描",
+          "measureSizesTitle": "扫描工作区大小",
+          "measureSizesDescription": "扫描磁盘占用，以按大小比较、排序和筛选工作区。",
           "sort": {
-            "lastActivity": "Last activity",
-            "lastVisited": "Last opened",
-            "created": "Created",
-            "size": "Size",
-            "name": "Workspace",
-            "repo": "Repository",
-            "path": "Path",
-            "host": "Host",
-            "workspaceStatus": "Status",
-            "agent": "Agent",
+            "lastActivity": "最近活动",
+            "lastVisited": "最近打开",
+            "created": "创建时间",
+            "size": "大小",
+            "name": "工作区",
+            "repo": "仓库",
+            "path": "路径",
+            "host": "主机",
+            "workspaceStatus": "状态",
+            "agent": "代理",
             "git": "Git",
-            "ahead": "Ahead",
-            "behind": "Behind",
-            "branch": "Branch",
-            "review": "Review",
-            "ticket": "Ticket",
-            "localContext": "Open context",
-            "tier": "Safety",
-            "blockerCount": "Blockers"
+            "ahead": "领先",
+            "behind": "落后",
+            "branch": "分支",
+            "review": "评审",
+            "ticket": "工单",
+            "localContext": "打开的上下文",
+            "tier": "安全性",
+            "blockerCount": "阻碍项"
           },
           "git": {
-            "clean": "Clean",
-            "dirty": "Uncommitted changes",
-            "unpushed": "Unpushed commits",
-            "unknown": "Not checked"
+            "clean": "干净",
+            "dirty": "有未提交更改",
+            "unpushed": "有未推送提交",
+            "unknown": "未检查"
           },
           "agent": {
             "working": "工作中",
-            "permission": "Waiting on you",
-            "idle": "Idle"
+            "permission": "等待你操作",
+            "idle": "空闲"
           },
           "review": {
-            "open": "Open",
-            "draft": "Draft",
-            "merged": "Merged",
-            "closed": "Closed",
-            "unknown": "Unknown",
-            "otherProvider": "Other"
+            "open": "开放",
+            "draft": "草稿",
+            "merged": "已合并",
+            "closed": "已关闭",
+            "unknown": "未知",
+            "otherProvider": "其他"
           },
           "ticket": {
-            "workItem": "Work item",
+            "workItem": "工作项",
             "linear": "Linear",
-            "issue": "Issue"
+            "issue": "议题"
           },
           "tier": {
-            "ready": "Ready",
-            "review": "Needs review",
-            "protected": "Protected"
+            "ready": "可清理",
+            "review": "需要检查",
+            "protected": "受保护"
           },
           "idleSignal": {
-            "lastVisited": "Not opened",
-            "lastActivity": "No activity",
-            "created": "Created before"
+            "lastVisited": "未打开",
+            "lastActivity": "无活动",
+            "created": "早于指定时间创建"
           },
           "triState": {
-            "any": "Any",
-            "only": "Only",
-            "exclude": "Exclude"
+            "any": "任意",
+            "only": "仅包含",
+            "exclude": "排除"
           },
           "presence": {
-            "any": "Any",
-            "some": "Has one",
-            "none": "Has none"
+            "any": "任意",
+            "some": "至少一个",
+            "none": "没有"
           },
-          "blockerModeAny": "Has any",
-          "blockerModeNone": "Has none",
-          "searchPlaceholder": "Search name, repo, branch, path, host",
-          "searchLabel": "Search workspaces",
-          "filters": "Filters",
-          "showingCount": "Showing {{value0}} of {{value1}}",
-          "clearFilters": "Clear filters",
-          "checkingGit": "Checking git status: {{value0}} left",
-          "updatedAgo": "Updated {{value0}}",
-          "refreshing": "Refreshing…",
-          "refreshingProgress": "Refreshing {{value0}}/{{value1}}",
+          "blockerModeAny": "包含任意项",
+          "blockerModeNone": "没有阻碍项",
+          "searchPlaceholder": "搜索名称、仓库、分支、路径或主机",
+          "searchLabel": "搜索工作区",
+          "filters": "筛选器",
+          "showingCount": "显示 {{value0}} / {{value1}}",
+          "clearFilters": "清除筛选器",
+          "checkingGit": "正在检查 Git 状态：剩余 {{value0}} 个",
+          "updatedAgo": "更新于 {{value0}}",
+          "refreshing": "正在刷新…",
+          "refreshingProgress": "正在刷新 {{value0}}/{{value1}}",
           "facet": {
             "git": "Git",
-            "review": "Review",
-            "ticket": "Tickets",
-            "location": "Location",
-            "safety": "Safety",
-            "activity": "Activity",
-            "size": "Size on disk",
-            "status": "Workspace status",
-            "agent": "Agent",
-            "context": "Local context"
+            "review": "评审",
+            "ticket": "工单",
+            "location": "位置",
+            "safety": "安全性",
+            "activity": "活动",
+            "size": "磁盘占用",
+            "status": "工作区状态",
+            "agent": "代理",
+            "context": "本地上下文"
           },
-          "minAhead": "Commits ahead ≥",
-          "minBehind": "Commits behind ≥",
-          "branchQuery": "Branch contains",
-          "prunable": "Prunable",
-          "locked": "Locked",
+          "minAhead": "领先提交数 ≥",
+          "minBehind": "落后提交数 ≥",
+          "branchQuery": "分支包含",
+          "prunable": "可修剪",
+          "locked": "已锁定",
           "reviewPresence": "PR / MR",
-          "reviewProvider": "Provider",
-          "ticketPresence": "Linked ticket",
-          "host": "Host",
-          "repo": "Repository",
-          "pathPrefix": "Path starts with",
-          "tierField": "Cleanup tier",
-          "blockerMode": "Blocker match",
-          "blockers": "Blockers",
-          "dismissed": "Ignored",
-          "selectableOnly": "Only workspaces I can delete now",
-          "idleSignalField": "Idle signal",
-          "idleMinDays": "Idle for at least",
-          "days": "days",
-          "neverVisited": "Never opened",
-          "minSize": "At least",
-          "maxSize": "At most",
-          "includeUnsized": "Include unmeasured workspaces",
-          "matchStatusless": "Include workspaces with no status",
-          "archived": "Archived",
-          "pinned": "Pinned",
-          "unread": "Unread",
-          "comment": "Has comment",
-          "retainedDoneAgents": "Finished agent transcripts",
-          "contextPresence": "Open tabs, terminals, comments",
-          "completelyEmpty": "Nothing left to lose",
-          "noWorkspaces": "No workspaces found.",
-          "noMatches": "No workspaces match these filters.",
-          "noMatchesDescription": "Every workspace is in one list — widen a facet or clear the filters.",
-          "selectionVanishedOne": "1 selected workspace no longer exists.",
-          "selectionVanished": "{{value0}} selected workspaces no longer exist.",
-          "selectAll": "Select all matching workspaces",
-          "sortByField": "Sort by {{value0}}",
-          "sortBy": "Sort by",
-          "measureSizesFailed": "Could not scan workspace sizes"
+          "reviewProvider": "提供商",
+          "ticketPresence": "已关联工单",
+          "host": "主机",
+          "repo": "仓库",
+          "pathPrefix": "路径开头为",
+          "tierField": "清理级别",
+          "blockerMode": "阻碍项匹配",
+          "blockers": "阻碍项",
+          "dismissed": "已忽略",
+          "selectableOnly": "仅显示当前可删除的工作区",
+          "idleSignalField": "空闲依据",
+          "idleMinDays": "至少空闲",
+          "days": "天",
+          "neverVisited": "从未打开",
+          "minSize": "至少",
+          "maxSize": "至多",
+          "includeUnsized": "包含未测量的工作区",
+          "matchStatusless": "包含无状态的工作区",
+          "archived": "已归档",
+          "pinned": "已固定",
+          "unread": "未读",
+          "comment": "有评论",
+          "retainedDoneAgents": "已完成的代理记录",
+          "contextPresence": "打开的标签页、终端和评论",
+          "completelyEmpty": "没有任何需保留的内容",
+          "noWorkspaces": "未找到工作区。",
+          "noMatches": "没有工作区符合这些筛选条件。",
+          "noMatchesDescription": "所有工作区都在同一列表中——请放宽筛选条件或清除筛选器。",
+          "selectionVanishedOne": "所选的 1 个工作区已不存在。",
+          "selectionVanished": "所选的 {{value0}} 个工作区已不存在。",
+          "selectAll": "选择所有匹配的工作区",
+          "sortByField": "按{{value0}}排序",
+          "sortBy": "排序方式",
+          "measureSizesFailed": "扫描工作区大小失败"
         },
         "scan": {
           "progress": "Scanning workspaces ({{value0}}/{{value1}})",

@@ -53,7 +53,12 @@ function getWorktreeVisibilityMenuLabel(
     isLegacyRepoForExternalWorktreeVisibility(repo),
     visibilityDefaults
   )
-  return visibility === 'show' ? 'Hide non-Orca worktrees' : 'Show hidden worktrees'
+  return visibility === 'show'
+    ? translate(
+        'auto.components.sidebar.WorktreeList.hideNonOrcaWorktrees',
+        'Hide non-Orca worktrees'
+      )
+    : translate('auto.components.sidebar.WorktreeList.showHiddenWorktrees', 'Show hidden worktrees')
 }
 
 export type RepoHeaderProjectActions = {

@@ -28,6 +28,7 @@ import { detectLanguage } from '@/lib/language-detect'
 import { openFileInBrowserTab } from '@/lib/file-preview'
 import { isLocalPathOpenBlocked, showLocalPathOpenBlockedToast } from '@/lib/local-path-open-guard'
 import { translate } from '@/i18n/i18n'
+import { getOsRevealLabel } from '@/lib/os-reveal-label'
 import type { FileExplorerRowProps } from './FileExplorerRow'
 import {
   shouldShowCollapseFolderAction,
@@ -40,14 +41,7 @@ import {
 import { copyFileToOsClipboard, downloadRemoteFile } from './file-explorer-row-file-transfer'
 
 const isMac = navigator.userAgent.includes('Mac')
-const isLinux = navigator.userAgent.includes('Linux')
-
-/** Platform-appropriate label: macOS → Finder, Windows → File Explorer, Linux → Files */
-const revealLabel = isMac
-  ? 'Reveal in Finder'
-  : isLinux
-    ? 'Open Containing Folder'
-    : 'Reveal in File Explorer'
+const revealLabel = getOsRevealLabel()
 
 function stopRightButtonMenuSelection(event: React.PointerEvent): void {
   if (event.button !== 2) {

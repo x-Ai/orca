@@ -5,6 +5,7 @@ import {
   toRuntimeExecutionHostId,
   type ExecutionHostId
 } from '../../../../shared/execution-host'
+import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
 import { buildExecutionHostRegistry } from '../../../../shared/execution-host-registry'
 import { getHostDisplayLabelOverrides } from '../../../../shared/host-setting-overrides'
 import type { ProjectHostSetup } from '../../../../shared/project-types'
@@ -197,8 +198,10 @@ export function RepositoryHostSetupsSection({
                   {switchableProjectHostSetups.map((setup) => (
                     <SelectItem key={setup.id} value={setup.id}>
                       <span className="block min-w-0 truncate">
-                        {hostOptionById.get(setup.executionHostId ?? setup.hostId)?.label ??
-                          getExecutionHostLabel(setup.executionHostId ?? setup.hostId)}
+                        {translateExecutionHostLabel(
+                          hostOptionById.get(setup.executionHostId ?? setup.hostId)?.label ??
+                            getExecutionHostLabel(setup.executionHostId ?? setup.hostId)
+                        )}
                       </span>
                     </SelectItem>
                   ))}
@@ -239,8 +242,10 @@ export function RepositoryHostSetupsSection({
             ? toRuntimeExecutionHostId(runtimeOwnerEnvironmentId)
             : null
           const runtimeOwnerHostLabel = runtimeOwnerHostId
-            ? (hostOptionById.get(runtimeOwnerHostId)?.label ??
-              getExecutionHostLabel(runtimeOwnerHostId))
+            ? translateExecutionHostLabel(
+                hostOptionById.get(runtimeOwnerHostId)?.label ??
+                  getExecutionHostLabel(runtimeOwnerHostId)
+              )
             : ''
           const nestedSshStatus =
             runtimeOwnerEnvironmentId && executionHost?.kind === 'ssh'
@@ -298,11 +303,14 @@ export function RepositoryHostSetupsSection({
                       runtimeOwnerEnvironmentId,
                       executionHost.targetId
                     ),
-                    value1:
+                    value1: translateExecutionHostLabel(
                       hostOptionById.get(setup.hostId)?.label ?? getExecutionHostLabel(setup.hostId)
+                    )
                   }
                 )
-              : (hostOptionById.get(setup.hostId)?.label ?? getExecutionHostLabel(setup.hostId))
+              : translateExecutionHostLabel(
+                  hostOptionById.get(setup.hostId)?.label ?? getExecutionHostLabel(setup.hostId)
+                )
           const isCurrentSetup = setup.id === selectedProjectHostSetup?.id
           const canOpenSetup = setup.repoId.trim().length > 0
           const canRemoveSetup = !canOpenSetup && deletingSetupId !== setup.id

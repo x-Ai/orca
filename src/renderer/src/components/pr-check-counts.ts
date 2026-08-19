@@ -99,20 +99,38 @@ export function getCheckCountChips(counts: PRCheckCounts): PRCheckCountChip[] {
 export function getChecksSummaryLabel(checks: readonly PRCheckDetail[]): string {
   const counts = getCheckCounts(checks)
   if (checks.length === 0) {
-    return 'No checks found'
+    return translate('auto.components.pr-check-counts.noChecks', 'No checks found')
   }
   if (counts.failing > 0) {
-    return `${counts.failing} ${counts.failing === 1 ? 'check' : 'checks'} failing`
+    return counts.failing === 1
+      ? translate('auto.components.pr-check-counts.oneCheckFailing', '1 check failing')
+      : translate('auto.components.pr-check-counts.checksFailing', '{{value0}} checks failing', {
+          value0: counts.failing
+        })
   }
   // Why: action_required (e.g. workflow awaiting approval) blocks merge but isn't a failure, so surface it distinctly.
   if (counts.needsAction > 0) {
-    return `${counts.needsAction} ${counts.needsAction === 1 ? 'check needs' : 'checks need'} action`
+    return counts.needsAction === 1
+      ? translate('auto.components.pr-check-counts.oneCheckNeedsAction', '1 check needs action')
+      : translate(
+          'auto.components.pr-check-counts.checksNeedAction',
+          '{{value0}} checks need action',
+          { value0: counts.needsAction }
+        )
   }
   if (counts.pending > 0) {
-    return `${counts.pending} ${counts.pending === 1 ? 'check' : 'checks'} pending`
+    return counts.pending === 1
+      ? translate('auto.components.pr-check-counts.oneCheckPending', '1 check pending')
+      : translate('auto.components.pr-check-counts.checksPending', '{{value0}} checks pending', {
+          value0: counts.pending
+        })
   }
   if (counts.passing === checks.length) {
-    return 'All checks passing'
+    return translate('auto.components.pr-check-counts.allPassing', 'All checks passing')
   }
-  return `${counts.passing} of ${checks.length} checks passing`
+  return translate(
+    'auto.components.pr-check-counts.passingSummary',
+    '{{value0}} of {{value1}} checks passing',
+    { value0: counts.passing, value1: checks.length }
+  )
 }

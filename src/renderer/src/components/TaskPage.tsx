@@ -44,6 +44,7 @@ import { callRuntimeRpc, getActiveRuntimeTarget } from '@/runtime/runtime-rpc-cl
 import { getLocalPreflightContext, localPreflightContextKey } from '@/lib/local-preflight-context'
 import { getProviderRuntimeContextKey } from '@/lib/provider-runtime-context'
 import { compareNumericLocaleText } from '@/lib/locale-text-collators'
+import { formatTaskSourceErrorMessage } from '@/lib/task-source-error-copy'
 import {
   getSettingsFocusedExecutionHostId,
   parseExecutionHostId,
@@ -10140,7 +10141,7 @@ export default function TaskPage(): React.JSX.Element {
                           <span className="font-mono">
                             {err.source.owner}/{err.source.repo}
                           </span>{' '}
-                          — {err.message}
+                          — {formatTaskSourceErrorMessage(err.message)}
                         </span>
                         <Button
                           variant="outline"
