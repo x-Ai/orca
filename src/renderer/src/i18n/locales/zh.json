@@ -7232,7 +7232,9 @@
           "nServers": "{{count}} 个服务器",
           "httpServer": "HTTP 服务器",
           "stdioServer": "stdio 服务器",
-          "invalidServer": "无效的服务器"
+          "invalidServer": "无效的服务器",
+          "workspace": "工作区",
+          "claudeWorkspace": "Claude 工作区"
         },
         "McpConfigSection": {
           "4d16a0d9ac": "已检查",
@@ -15035,7 +15037,7 @@
           },
           "ContextualTourProgressDots": {
             "7734cb8ad3": "的",
-            "dcd6e6b03e": "{{value1}} 的步骤 {{value0}}"
+            "dcd6e6b03e": "第 {{value0}} 步，共 {{value1}} 步"
           },
           "contextual": {
             "tour": {
@@ -15067,7 +15069,17 @@
                     "k1l2m3n4o5": "在泳道间移动工作",
                     "p6q7r8s9t0": "随着工作区状态变化，在泳道间拖动工作区。",
                     "31ca5cb3e0": "拆分终端",
-                    "012036e8ca": "下一步"
+                    "012036e8ca": "下一步",
+                    "browserGrabTitle": "为代理获取页面上下文",
+                    "browserGrabBody": "使用抓取工具复制页面元素的上下文并提供给代理",
+                    "browserAnnotateTitle": "直接标注设计反馈",
+                    "browserAnnotateBody": "标注页面元素，并将这些备注发送给代理",
+                    "browserImportTitle": "保持登录状态",
+                    "browserImportBody": "将现有登录信息导入 Orca，立即保持登录状态",
+                    "floatingAllReposTitle": "让代理跨所有仓库工作",
+                    "floatingAllReposBody": "这里的代理可以在你选择的任意文件夹中运行。选择各服务的上级目录，即可一次处理所有仓库",
+                    "floatingScratchpadTitle": "也可将其用作临时工作区",
+                    "floatingScratchpadBody": "打开代理、临时终端、笔记和浏览器标签页，同时避免弄乱当前聚焦的工作树"
                   }
                 }
               }

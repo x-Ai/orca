@@ -4,6 +4,7 @@ import React, { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import SidebarHeader from './SidebarHeader'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 
 ;(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true
 
@@ -56,9 +57,10 @@ beforeEach(() => {
   root = createRoot(container)
 })
 
-afterEach(() => {
+afterEach(async () => {
   act(() => root.unmount())
   container.remove()
+  await setRendererUiLanguage('en')
 })
 
 describe('SidebarHeader', () => {
@@ -89,5 +91,15 @@ describe('SidebarHeader', () => {
 
     expect(newWorkspaceButton().disabled).toBe(false)
     expect(mocks.openWorkspaceCreationComposerWithTourHandoff).toHaveBeenCalledTimes(1)
+  })
+
+  it('renders localized project and workspace tooltips', async () => {
+    await setRendererUiLanguage('zh')
+    act(() => {
+      root.render(<SidebarHeader onWorkspaceBoardMenuOpenChange={vi.fn()} />)
+    })
+
+    expect(container.textContent).toContain('添加项目')
+    expect(container.textContent).toContain('新工作区 (⌘N)')
   })
 })

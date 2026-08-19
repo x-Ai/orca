@@ -7525,7 +7525,9 @@
           "nServers": "{{count}} servers",
           "httpServer": "HTTP server",
           "stdioServer": "stdio server",
-          "invalidServer": "Invalid server"
+          "invalidServer": "Invalid server",
+          "workspace": "Workspace",
+          "claudeWorkspace": "Claude workspace"
         },
         "McpConfigSection": {
           "4d16a0d9ac": "Checked",
@@ -15371,6 +15373,16 @@
                     "f6g7h8i9j0": "Use the board when you want to see workspaces by status instead of by project.",
                     "k1l2m3n4o5": "Move work through lanes",
                     "p6q7r8s9t0": "Drag workspaces between lanes as their status changes.",
+                    "browserGrabTitle": "Grab page context for agents",
+                    "browserGrabBody": "Use the grab tool to copy a page element's context for agents.",
+                    "browserAnnotateTitle": "Mark design feedback in place",
+                    "browserAnnotateBody": "Annotate elements and send those notes to an agent.",
+                    "browserImportTitle": "Stay logged in",
+                    "browserImportBody": "Bring your existing logins into Orca to stay signed in immediately.",
+                    "floatingAllReposTitle": "Run an agent across every repo",
+                    "floatingAllReposBody": "Agents here run in any folder you choose. Point one at the directory above your services to work across all your repos at once.",
+                    "floatingScratchpadTitle": "Or use it as a scratchpad",
+                    "floatingScratchpadBody": "Open agents, scratch terminals, notes, and browser tabs without cluttering the worktree you’re focused on.",
                     "31ca5cb3e0": "Split terminal",
                     "012036e8ca": "Next"
                   }

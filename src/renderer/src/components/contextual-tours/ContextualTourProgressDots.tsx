@@ -1,6 +1,7 @@
 import type { JSX } from 'react'
 import { cn } from '@/lib/utils'
 import { translate } from '@/i18n/i18n'
+import { useTranslation } from 'react-i18next'
 
 export function ContextualTourProgressDots({
   current,
@@ -9,6 +10,7 @@ export function ContextualTourProgressDots({
   current: number
   total: number
 }): JSX.Element {
+  useTranslation()
   if (total <= 1) {
     return <span aria-hidden="true" className="h-1.5 w-4" />
   }
@@ -45,9 +47,7 @@ export function ContextualTourProgressDots({
         })}
       </span>
       <span className="whitespace-nowrap text-[11px] font-medium leading-none text-muted-foreground">
-        {current}{' '}
-        {translate('auto.components.contextual.tours.ContextualTourProgressDots.7734cb8ad3', 'of')}{' '}
-        {total}
+        {current} / {total}
       </span>
     </div>
   )

@@ -147,6 +147,66 @@ export const LOCALIZED_STEP_COPY: Record<string, { title: () => string; body: ()
         'auto.components.contextual.tours.contextual.tour.step.localized.copy.p6q7r8s9t0',
         'Drag workspaces between lanes as their status changes.'
       )
+  },
+  'browser-grab-context': {
+    title: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.browserGrabTitle',
+        'Grab page context for agents'
+      ),
+    body: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.browserGrabBody',
+        "Use the grab tool to copy a page element's context for agents."
+      )
+  },
+  'browser-annotate-feedback': {
+    title: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.browserAnnotateTitle',
+        'Mark design feedback in place'
+      ),
+    body: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.browserAnnotateBody',
+        'Annotate elements and send those notes to an agent.'
+      )
+  },
+  'browser-import-logins': {
+    title: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.browserImportTitle',
+        'Stay logged in'
+      ),
+    body: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.browserImportBody',
+        'Bring your existing logins into Orca to stay signed in immediately.'
+      )
+  },
+  'floating-workspace-all-repos': {
+    title: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.floatingAllReposTitle',
+        'Run an agent across every repo'
+      ),
+    body: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.floatingAllReposBody',
+        'Agents here run in any folder you choose. Point one at the directory above your services to work across all your repos at once.'
+      )
+  },
+  'floating-workspace-scratchpad': {
+    title: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.floatingScratchpadTitle',
+        'Or use it as a scratchpad'
+      ),
+    body: () =>
+      translate(
+        'auto.components.contextual.tours.contextual.tour.step.localized.copy.floatingScratchpadBody',
+        'Open agents, scratch terminals, notes, and browser tabs without cluttering the worktree you’re focused on.'
+      )
   }
 }
 

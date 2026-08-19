@@ -7,6 +7,7 @@ import SidebarWorkspaceOptionsMenu from './SidebarWorkspaceOptionsMenu'
 import { useShortcutLabel } from '@/hooks/useShortcutLabel'
 import { openWorkspaceCreationComposerWithTourHandoff } from '../contextual-tours/workspace-creation-tour-handoff'
 import { translate } from '@/i18n/i18n'
+import { useTranslation } from 'react-i18next'
 
 type SidebarHeaderProps = {
   onWorkspaceBoardMenuOpenChange: (open: boolean) => void
@@ -15,6 +16,7 @@ type SidebarHeaderProps = {
 const SidebarHeader = React.memo(function SidebarHeader({
   onWorkspaceBoardMenuOpenChange
 }: SidebarHeaderProps) {
+  useTranslation()
   const openModal = useAppStore((s) => s.openModal)
   const newWorktreeShortcutLabel = useShortcutLabel('workspace.create')
   const groupBy = useAppStore((s) => s.groupBy)

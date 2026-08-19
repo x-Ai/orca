@@ -24,8 +24,11 @@ import {
 import { requestActiveTerminalPaneSplit } from '@/components/tab-bar/request-active-terminal-pane-split'
 import { performContextualTourStepAction } from './contextual-tour-step-actions'
 import { openWorkspaceCreationComposerWithTourHandoff } from './workspace-creation-tour-handoff'
+import { useTranslation } from 'react-i18next'
 
 export function ContextualTourOverlay(): JSX.Element | null {
+  const { i18n } = useTranslation()
+  const language = i18n.resolvedLanguage ?? i18n.language
   const activeTourId = useAppStore((s) => s.activeContextualTourId)
   const activeStepIndex = useAppStore((s) => s.activeContextualTourStepIndex)
   const activeTourSource = useAppStore((s) => s.activeContextualTourSource)
@@ -192,6 +195,7 @@ export function ContextualTourOverlay(): JSX.Element | null {
     cancelContextualTour,
     emitContextualTourOutcome,
     keybindings,
+    language,
     measureVersion,
     sidebarOpen
   ])

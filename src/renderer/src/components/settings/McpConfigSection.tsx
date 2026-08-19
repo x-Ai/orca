@@ -16,7 +16,11 @@ import { joinPath } from '../../lib/path'
 import { extractIpcErrorMessage } from '../../lib/ipc-error'
 import { Button } from '../ui/button'
 import { isWindowsUserAgent } from '../terminal-pane/pane-helpers'
-import { McpConfigFileRow, type LoadedMcpConfigInspection } from './McpConfigFileRow'
+import {
+  McpConfigFileRow,
+  mcpServerCountLabel,
+  type LoadedMcpConfigInspection
+} from './McpConfigFileRow'
 import { McpMissingConfigList } from './McpMissingConfigList'
 import { loadMcpConfigInspections } from './mcp-config-inspection'
 import { translate } from '@/i18n/i18n'
@@ -302,9 +306,7 @@ export function McpConfigSection({ repo }: McpConfigSectionProps): React.JSX.Ele
           <span>
             {detectedCount}{' '}
             {translate('auto.components.settings.McpConfigSection.251b96564a', 'detected ·')}{' '}
-            {serverCount}{' '}
-            {translate('auto.components.settings.McpConfigSection.3b224167ff', 'server')}
-            {serverCount === 1 ? '' : 's'}
+            {mcpServerCountLabel(serverCount)}
           </span>
           {loading ? <LoaderCircle className="size-3.5 animate-spin" /> : null}
         </div>

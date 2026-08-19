@@ -3,6 +3,8 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { getContextualTour } from '../../../../shared/contextual-tours'
 import { setRendererUiLanguage } from '@/i18n/i18n'
+import { CONTEXTUAL_TOURS } from '../../../../shared/contextual-tours'
+import { LOCALIZED_STEP_COPY } from './contextual-tour-step-localized-copy'
 import {
   getContextualTourDisplayProgress,
   getContextualTourMeasurementAction,
@@ -16,6 +18,38 @@ afterEach(async () => {
 })
 
 describe('contextual tour overlay measurement', () => {
+  it('keeps every instructional popup connected to localized copy', () => {
+    for (const tour of CONTEXTUAL_TOURS) {
+      for (const step of tour.steps) {
+        const stepId = step.id
+        expect(stepId, `${tour.id}: missing stable step id`).toBeTruthy()
+        if (!stepId) {
+          continue
+        }
+        expect(
+          LOCALIZED_STEP_COPY[stepId],
+          `${tour.id}:${stepId}: missing localized copy`
+        ).toBeTruthy()
+      }
+    }
+  })
+
+  it('renders every browser tour step in Chinese', async () => {
+    await setRendererUiLanguage('zh')
+    const tour = getContextualTour('browser')
+
+    expect(tour.steps.map((step) => LOCALIZED_STEP_COPY[step.id ?? ''].title())).toEqual([
+      '为代理获取页面上下文',
+      '直接标注设计反馈',
+      '保持登录状态'
+    ])
+    expect(tour.steps.map((step) => LOCALIZED_STEP_COPY[step.id ?? ''].body())).toEqual([
+      '使用抓取工具复制页面元素的上下文并提供给代理',
+      '标注页面元素，并将这些备注发送给代理',
+      '将现有登录信息导入 Orca，立即保持登录状态'
+    ])
+  })
+
   it('renders the automation tour copy in Korean when the UI locale is Korean', async () => {
     await setRendererUiLanguage('ko')
     const target = document.createElement('button')

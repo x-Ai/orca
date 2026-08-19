@@ -102,6 +102,7 @@ export const CONTEXTUAL_TOURS = [
     id: 'browser',
     steps: [
       {
+        id: 'browser-grab-context',
         title: 'Grab page context for agents',
         body: "Use the grab tool to copy a page element's context for agents.",
         targetSelector: '[data-contextual-tour-target="browser-grab-control"]',
@@ -109,12 +110,14 @@ export const CONTEXTUAL_TOURS = [
         preferredPlacement: 'bottom'
       },
       {
+        id: 'browser-annotate-feedback',
         title: 'Mark design feedback in place',
         body: 'Annotate elements and send those notes to an agent.',
         targetSelector: '[data-contextual-tour-target="browser-annotation-control"]',
         preferredPlacement: 'bottom'
       },
       {
+        id: 'browser-import-logins',
         title: 'Stay logged in',
         body: 'Bring your existing logins into Orca to stay signed in immediately.',
         // Prefer the always-visible Import button; fall back to the overflow-menu
@@ -173,6 +176,7 @@ export const CONTEXTUAL_TOURS = [
     id: 'floating-workspace',
     steps: [
       {
+        id: 'floating-workspace-all-repos',
         title: 'Run an agent across every repo',
         body: 'Agents here run in any folder you choose. Point one at the directory above your services to work across all your repos at once.',
         // Why: the per-action anchors only render in the empty state; fall back
@@ -183,6 +187,7 @@ export const CONTEXTUAL_TOURS = [
         preferredPlacement: 'left'
       },
       {
+        id: 'floating-workspace-scratchpad',
         title: 'Or use it as a scratchpad',
         body: 'Open agents, scratch terminals, notes, and browser tabs without cluttering the worktree you’re focused on.',
         targetSelector:

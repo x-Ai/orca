@@ -26,11 +26,28 @@ function statusLabel(config: LoadedMcpConfigInspection): string {
   if (config.servers.length === 0) {
     return translate('auto.components.settings.McpConfigFileRow.noServers', 'No servers')
   }
-  return config.servers.length === 1
+  return mcpServerCountLabel(config.servers.length)
+}
+
+export function mcpServerCountLabel(count: number): string {
+  return count === 1
     ? translate('auto.components.settings.McpConfigFileRow.oneServer', '1 server')
     : translate('auto.components.settings.McpConfigFileRow.nServers', '{{count}} servers', {
-        count: config.servers.length
+        count
       })
+}
+
+export function mcpConfigCandidateLabel(candidate: LoadedMcpConfigInspection['candidate']): string {
+  if (candidate.relativePath === '.mcp.json') {
+    return translate('auto.components.settings.McpConfigFileRow.workspace', 'Workspace')
+  }
+  if (candidate.relativePath === '.claude/mcp.json') {
+    return translate(
+      'auto.components.settings.McpConfigFileRow.claudeWorkspace',
+      'Claude workspace'
+    )
+  }
+  return candidate.label
 }
 
 function statusClassName(config: LoadedMcpConfigInspection): string {
@@ -72,7 +89,9 @@ export function McpConfigFileRow({ config, onOpen }: McpConfigFileRowProps): Rea
         )}
         <div className="min-w-0 flex-1">
           <div className="flex min-w-0 items-center gap-2">
-            <p className="truncate text-sm font-medium">{config.candidate.label}</p>
+            <p className="truncate text-sm font-medium">
+              {mcpConfigCandidateLabel(config.candidate)}
+            </p>
             <p className="truncate font-mono text-[11px] text-muted-foreground">
               {config.candidate.relativePath}
             </p>

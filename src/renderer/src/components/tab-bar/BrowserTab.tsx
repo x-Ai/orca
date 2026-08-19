@@ -39,10 +39,11 @@ import { TabWorkspaceLayoutMenuSection } from './TabWorkspaceLayoutMenuSection'
 import { useTabStripPointerActivation } from './tab-strip-pointer-activation'
 import { TAB_CONTEXT_MENU_CONTENT_CLASS } from './tab-context-menu-sizing'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 function formatBrowserTabUrlLabel(url: string): string {
   if (url === ORCA_BROWSER_BLANK_URL || url === 'about:blank') {
-    return 'New Tab'
+    return translate('auto.components.browser.pane.BrowserPane.366bf5d62c', 'New Tab')
   }
   try {
     const parsed = new URL(url)
@@ -53,6 +54,9 @@ function formatBrowserTabUrlLabel(url: string): string {
 }
 
 export function getBrowserTabLabel(tab: BrowserTabState): string {
+  if (isBlankBrowserTab(tab) && tab.title === 'New Tab') {
+    return translate('auto.components.browser.pane.BrowserPane.366bf5d62c', 'New Tab')
+  }
   if (
     !tab.title ||
     tab.title === tab.url ||
@@ -148,6 +152,7 @@ export default function BrowserTab({
   dropIndicator?: DropIndicator
   includeTopTabBorder?: boolean
 }): React.JSX.Element {
+  useTranslation()
   // Why: no transform/transition/isDragging styling — the drag design is
   // that tabs stay visually anchored; only the blue insertion bar moves.
   const { attributes, listeners, setNodeRef } = useSortable({

@@ -1,5 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { BrowserTab as BrowserTabState } from '../../../../shared/browser-workspace-types'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 
 const reactHookRuntime = vi.hoisted(() => ({
   states: [] as unknown[],
@@ -40,6 +41,12 @@ vi.mock('@dnd-kit/sortable', () => ({
     setNodeRef: vi.fn()
   })
 }))
+
+vi.mock('react-i18next', async () => {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports -- vi.importActual requires inline import()
+  const actual = await vi.importActual<typeof import('react-i18next')>('react-i18next')
+  return { ...actual, useTranslation: () => ({ i18n: {} }) }
+})
 
 vi.mock('lucide-react', () => ({
   ArrowDown: function ArrowDown(props: Record<string, unknown>) {
@@ -308,5 +315,20 @@ describe('BrowserTab favicon', { timeout: 30_000 }, () => {
     expect(images).toHaveLength(1)
     expect(images[0].props.src).toBe(nextIconUrl)
     expect(findElementsByType(resetRender, 'Globe')).toHaveLength(0)
+  })
+})
+
+describe('BrowserTab localization', () => {
+  afterEach(async () => {
+    await setRendererUiLanguage('en')
+  })
+
+  it('localizes the canonical blank-tab title', async () => {
+    await setRendererUiLanguage('zh')
+    const { getBrowserTabLabel } = await import('./BrowserTab')
+
+    expect(getBrowserTabLabel(baseBrowserTab({ url: 'about:blank', title: 'New Tab' }))).toBe(
+      '新标签'
+    )
   })
 })
