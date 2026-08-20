@@ -11,6 +11,7 @@ import type { FilterState, Section, Worktree } from './workspace-list-types'
 import type { MobileGroupMode, MobileSortMode } from './workspace-view-settings'
 import { sortWorktrees } from './workspace-list-ordering'
 import { translate } from '../../../src/renderer/src/i18n/i18n'
+import { getWorktreeRowIdentity } from './worktree-host-row-identity'
 
 export type { FilterState, Section, Worktree } from './workspace-list-types'
 export { CREATE_GRACE_MS, getWorktreeStatus, sortWorktrees } from './workspace-list-ordering'
@@ -45,7 +46,7 @@ function makeSection(
     ...(icon ? { icon } : {}),
     data: rows.map((worktree) => ({
       ...worktree,
-      sectionListKey: `${key}:${worktree.worktreeId}`
+      sectionListKey: `${key}:${getWorktreeRowIdentity(worktree)}`
     }))
   }
 }

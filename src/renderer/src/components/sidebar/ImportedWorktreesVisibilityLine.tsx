@@ -4,6 +4,8 @@ import { ChevronRight, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
+import NoticeHostGlyph from './NoticeHostGlyph'
+import type { ExecutionHostId } from '../../../../shared/execution-host'
 import { getExternalWorktreeParentPath } from '../../../../shared/external-worktree-visibility'
 import { normalizeRuntimePathForComparison } from '../../../../shared/cross-platform-path'
 import { translate } from '@/i18n/i18n'
@@ -20,6 +22,10 @@ export type ImportedWorktreeVisibilityPreview = {
 
 type ImportedWorktreesVisibilityLineProps = {
   repoDisplayName: string
+  /** Host this checkout lives on. Set only when the project is checked out on
+   *  more than one host, where the line alone cannot identify the row. */
+  hostContextLabel?: string
+  hostContextHostId?: ExecutionHostId
   hiddenWorktrees: readonly ImportedWorktreeVisibilityPreview[]
   placement: ImportedWorktreesVisibilityPlacement
   pending: boolean
@@ -70,6 +76,8 @@ export function groupWorktreesByParentPath(
 
 export default function ImportedWorktreesVisibilityLine({
   repoDisplayName,
+  hostContextLabel,
+  hostContextHostId,
   hiddenWorktrees,
   placement,
   pending,
@@ -84,6 +92,10 @@ export default function ImportedWorktreesVisibilityLine({
   const worktreeGroups = groupWorktreesByParentPath(hiddenWorktrees)
   const visibleWorktreeGroups = worktreeGroups.slice(0, GROUP_LIMIT)
   const remainingGroupCount = Math.max(0, worktreeGroups.length - visibleWorktreeGroups.length)
+  // Why: two hosts checking out one project render two identical lines.
+  const repoScopeLabel = hostContextLabel
+    ? `${repoDisplayName} on ${hostContextLabel}`
+    : repoDisplayName
   const keepHiddenLabel = translate(
     'auto.components.sidebar.ImportedWorktreesVisibilityLine.keepHidden',
     'Keep hidden - recover from the project menu'
@@ -93,12 +105,12 @@ export default function ImportedWorktreesVisibilityLine({
       ? translate(
           'auto.components.sidebar.ImportedWorktreesVisibilityLine.keepHiddenAriaOne',
           'Keep 1 discovered worktree hidden for {{name}}; recover from the project menu',
-          { name: repoDisplayName }
+          { name: repoScopeLabel }
         )
       : translate(
           'auto.components.sidebar.ImportedWorktreesVisibilityLine.keepHiddenAriaOther',
           'Keep {{count}} discovered worktrees hidden for {{name}}; recover from the project menu',
-          { count: hiddenCount, name: repoDisplayName }
+          { count: hiddenCount, name: repoScopeLabel }
         )
 
   if (hiddenCount === 0) {
@@ -111,12 +123,12 @@ export default function ImportedWorktreesVisibilityLine({
         ? translate(
             'auto.components.sidebar.ImportedWorktreesVisibilityLine.hidingInRepoOne',
             'Hiding 1 discovered worktree in {{name}}',
-            { name: repoDisplayName }
+            { name: repoScopeLabel }
           )
         : translate(
             'auto.components.sidebar.ImportedWorktreesVisibilityLine.hidingInRepoOther',
             'Hiding {{count}} discovered worktrees in {{name}}',
-            { count: hiddenCount, name: repoDisplayName }
+            { count: hiddenCount, name: repoScopeLabel }
           )
       : hiddenCount === 1
         ? translate(
@@ -172,7 +184,7 @@ export default function ImportedWorktreesVisibilityLine({
                     'auto.components.sidebar.ImportedWorktreesVisibilityLine.expand',
                     'Expand'
                   ),
-              value1: repoDisplayName
+              value1: repoScopeLabel
             }
           )}
           onClick={() => setIsExpanded((value) => !value)}
@@ -184,6 +196,20 @@ export default function ImportedWorktreesVisibilityLine({
           />
         </Button>
         <span className="min-w-0 flex-1 truncate">{lineText}</span>
+        {hostContextLabel && placement !== 'pinned-fallback' ? (
+          <span className="inline-flex min-w-0 shrink items-center gap-1">
+            {hostContextHostId ? (
+              <NoticeHostGlyph
+                hostId={hostContextHostId}
+                hostLabel={hostContextLabel}
+                keyboardFocusable
+              />
+            ) : null}
+            <span className="min-w-0 truncate text-[10px] leading-none text-muted-foreground">
+              {hostContextLabel}
+            </span>
+          </span>
+        ) : null}
         {onKeepHidden ? (
           <Tooltip>
             <TooltipTrigger asChild>

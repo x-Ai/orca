@@ -5850,6 +5850,12 @@
           "7f18c5b0d3": "在 {{value1}} 中查看 {{value0}} 个隐藏的工作树",
           "4e2b7a9c05": "在 {{value1}} 中查看 {{value0}} 个隐藏的工作树"
         },
+        "NoticeHostGlyph": {
+          "hostDisconnected": "{{hostName}} 已断开连接",
+          "sshHostProject": "SSH 主机 {{hostName}} 上的项目",
+          "localHostProject": "此主机上的项目",
+          "runtimeHostProject": "{{hostName}} 上的项目"
+        },
         "newExternalWorktreesInboxActions": {
           "a11c2f6d89": "无法保持外部工作树隐藏。请重试。",
           "b7e4d1a062": "无法导入外部工作树。请重试。",
