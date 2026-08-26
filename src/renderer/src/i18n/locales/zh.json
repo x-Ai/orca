@@ -11421,7 +11421,7 @@
           "relayTitle": "Orca Relay",
           "relayDescription": "通过蜂窝网络或任意 Wi-Fi 将 Orca Mobile 连接到此桌面",
           "skillsTitle": "技能分享",
-          "skillsDescription": "通过非公开链接分享单个技能或整套技能，并在你使用的任何设备上安装，"
+          "skillsDescription": "通过非公开链接分享单个技能或整套技能，并在你使用的任何设备上安装"
         },
         "automations": {
           "showButton": "显示自动化按钮",
