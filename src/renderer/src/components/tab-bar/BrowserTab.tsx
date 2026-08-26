@@ -41,7 +41,7 @@ import { TAB_CONTEXT_MENU_CONTENT_CLASS } from './tab-context-menu-sizing'
 import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
 
-function formatBrowserTabUrlLabel(url: string): string {
+export function formatBrowserTabUrlLabel(url: string): string {
   if (url === ORCA_BROWSER_BLANK_URL || url === 'about:blank') {
     return translate('auto.components.browser.pane.BrowserPane.366bf5d62c', 'New Tab')
   }

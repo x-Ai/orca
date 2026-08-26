@@ -25,6 +25,7 @@ import { requestActiveTerminalPaneSplit } from '@/components/tab-bar/request-act
 import { performContextualTourStepAction } from './contextual-tour-step-actions'
 import { openWorkspaceCreationComposerWithTourHandoff } from './workspace-creation-tour-handoff'
 import { useTranslation } from 'react-i18next'
+import { BROWSER_CLIENT_HOSTED_REMOTE_SETTINGS_TARGET_ID } from '@/lib/settings-navigation-types'
 
 export function ContextualTourOverlay(): JSX.Element | null {
   const { i18n } = useTranslation()
@@ -52,6 +53,8 @@ export function ContextualTourOverlay(): JSX.Element | null {
   const setSidebarOpen = useAppStore((s) => s.setSidebarOpen)
   const openTaskPage = useAppStore((s) => s.openTaskPage)
   const openModal = useAppStore((s) => s.openModal)
+  const openSettingsTarget = useAppStore((s) => s.openSettingsTarget)
+  const openSettingsPage = useAppStore((s) => s.openSettingsPage)
   const [renderState, setRenderState] = useState<ActiveTourRenderState | null>(null)
   const [measureVersion, setMeasureVersion] = useState(0)
   const panelRef = useRef<HTMLElement | null>(null)
@@ -319,6 +322,14 @@ export function ContextualTourOverlay(): JSX.Element | null {
       setSidebarOpen,
       openTaskPage,
       openModal,
+      openClientHostedBrowserSettings: () => {
+        openSettingsTarget({
+          pane: 'browser',
+          repoId: null,
+          sectionId: BROWSER_CLIENT_HOSTED_REMOTE_SETTINGS_TARGET_ID
+        })
+        openSettingsPage()
+      },
       openWorkspaceComposer: openWorkspaceCreationComposerWithTourHandoff,
       dispatchTerminalPaneSplit: requestActiveTerminalPaneSplit,
       schedule: (callback) => {

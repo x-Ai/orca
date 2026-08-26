@@ -12,7 +12,10 @@ import {
   getGitHubRuntimeRepoId
 } from '@/lib/github-source-runtime-context'
 import { presentGitHubPRMergeState } from '@/components/github-pr-merge-state'
-import { GITHUB_PR_MERGE_METHOD_LABELS } from '../../../../../shared/github/pull-request-merge-methods'
+import {
+  GITHUB_PR_MERGE_METHOD_I18N_KEYS,
+  GITHUB_PR_MERGE_METHOD_LABELS
+} from '../../../../../shared/github/pull-request-merge-methods'
 import { resolveLocalizedGitHubPRMergeMethods } from '@/lib/localized-github-pull-request-merge-methods'
 import type { GitHubPRMergeMethod } from '../../../../../shared/github/pull-request-types'
 import type { GitHubWorkItem } from '../../../../../shared/github/work-item-types'
@@ -172,7 +175,10 @@ export function PRActionsPanel({
     if (mergeDisabled) {
       return
     }
-    const label = GITHUB_PR_MERGE_METHOD_LABELS[method]
+    const label = translate(
+      GITHUB_PR_MERGE_METHOD_I18N_KEYS[method],
+      GITHUB_PR_MERGE_METHOD_LABELS[method]
+    )
     const confirmed = await confirm({
       title: translate(
         'auto.components.GitHubItemDialog.03d7216d62',

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { monaco } from '@/lib/monaco-setup'
 import type { OpenFile } from '@/store/slices/editor'
 import {
-  cursorPositionCache,
+  editorSelectionCache,
   diffViewStateCache,
   pdfViewPositionCache,
   scrollTopCache
@@ -49,8 +49,8 @@ function disposeClosedEditorTab(prevId: string, prevFile: OpenFile): void {
       scrollTopCache.delete(`${prevFile.filePath}:rich`)
       scrollTopCache.delete(`${prevFile.filePath}:preview`)
       scrollTopCache.delete(`${prevFile.filePath}:mermaid-diagram`)
-      cursorPositionCache.delete(prevFile.filePath)
-      deleteCacheEntriesByPrefix(cursorPositionCache, `${prevFile.filePath}::`)
+      editorSelectionCache.delete(prevFile.filePath)
+      deleteCacheEntriesByPrefix(editorSelectionCache, `${prevFile.filePath}::`)
       // Why: only 'edit' tabs ever get a PDF scroll key (see EditorContent).
       sweepClosedPdfViewPositions(pdfViewPositionCache, prevFile.filePath)
       break

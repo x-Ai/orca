@@ -4,7 +4,10 @@ import type { RuntimeClientTarget } from '@/runtime/runtime-client-target'
 import { notifyWorkItemDetailsMutation } from '@/components/github/github-work-item-comment-mutations'
 import { runPullRequestStateUpdate } from '@/components/github/github-work-item-edit-mutations'
 import { getGitHubRuntimeRepoId } from '@/lib/github-source-runtime-context'
-import { GITHUB_PR_MERGE_METHOD_LABELS } from '../../../../../shared/github/pull-request-merge-methods'
+import {
+  GITHUB_PR_MERGE_METHOD_I18N_KEYS,
+  GITHUB_PR_MERGE_METHOD_LABELS
+} from '../../../../../shared/github/pull-request-merge-methods'
 import type { resolveGitHubPRMergeMethods } from '../../../../../shared/github/pull-request-merge-methods'
 import type {
   GitHubOwnerRepo,
@@ -126,7 +129,10 @@ export async function mergePullRequest(args: {
   if (args.mergeDisabled) {
     return
   }
-  const label = GITHUB_PR_MERGE_METHOD_LABELS[args.method]
+  const label = translate(
+    GITHUB_PR_MERGE_METHOD_I18N_KEYS[args.method],
+    GITHUB_PR_MERGE_METHOD_LABELS[args.method]
+  )
   const confirmed = await args.confirm({
     title: translate('auto.components.PullRequestPage.eec3706a6a', '{{value0}} PR #{{value1}}?', {
       value0: label,
