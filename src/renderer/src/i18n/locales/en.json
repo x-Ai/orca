@@ -416,7 +416,7 @@
       "createHint": "Create worktree from Linear issue",
       "loadingHint": "Loading Linear issue…"
     },
-    "renderCapOverflow": "{{value0}} more — scroll or keep typing to narrow",
+    "renderCapOverflow": "{{value0}} more",
     "filter": {
       "emptyTitle": "No results match the active filter",
       "emptySubtitle": "Clear the filter above, or widen it to more hosts and projects.",
@@ -446,7 +446,8 @@
     "taskUrl": {
       "loadingHint": "Loading {{value0}}…",
       "createHint": "Create worktree from {{value0}}"
-    }
+    },
+    "seeMore": "See more"
   },
   "auto": {
     "App": {
@@ -642,7 +643,10 @@
               }
             }
           },
-          "preservedBranchCleanupHostAmbiguous": "Multiple preserved branch cleanups are pending for \"{{value0}}\"; specify the host."
+          "preservedBranchCleanupHostAmbiguous": "Multiple preserved branch cleanups are pending for \"{{value0}}\"; specify the host.",
+          "createdWithoutParentNesting": "Created without nesting under \"{{value0}}\"",
+          "createdWithoutParentNestingUnnamed": "Created without nesting under the selected parent",
+          "createdWithoutParentNestingDetail": "The parent workspace was no longer available. You can set it from the workspace menu."
         },
         "repos": {
           "2975400634": "Update Orca server to open non-Git folders on this runtime.",
@@ -1255,6 +1259,11 @@
         "invalidRequest": "Invalid request",
         "commandFailed": "Command failed:",
         "validationFailed": "Validation Failed"
+      },
+      "file": {
+        "preview": {
+          "pairedOutsideWorktree": "Files outside the workspace can't be previewed on a paired server yet."
+        }
       }
     },
     "hooks": {
@@ -1262,7 +1271,8 @@
         "59718b120b": "The target workspace is no longer available.",
         "16a21d6413": "SSH reconnect requires interactive credentials.",
         "386db94f3e": "The target project is no longer available.",
-        "3ad7d77f57": "The target workspace is on a different host than this automation run target."
+        "3ad7d77f57": "The target workspace is on a different host than this automation run target.",
+        "workspaceHostUnresolved": "The target workspace spans more than one host, so this run has no single host to use."
       },
       "useComposerState": {
         "7eb3f44ff7": "Selected agent is disabled. Choose an enabled agent before creating.",
@@ -1412,6 +1422,13 @@
       },
       "useInstalledAgentSkills": {
         "unreadableSkillSource": "A skill folder did not respond, so this status may be incomplete."
+      },
+      "ipc": {
+        "events": {
+          "browserStateIpcBridge": {
+            "docPreviewLinkFailed": "Could not open this link in Orca Browser."
+          }
+        }
       }
     },
     "components": {
@@ -1708,7 +1725,8 @@
         "3a051b8ade": "Work item",
         "32f8bef818": "No log output.",
         "4168eb2c51": "Resolve",
-        "commentTooLarge": "Comment is too large to submit safely."
+        "commentTooLarge": "Comment is too large to submit safely.",
+        "gitlabActionFailed": "GitLab action failed."
       },
       "JiraIssueWorkspace": {
         "b0b92666c9": "Comment",
@@ -2552,7 +2570,8 @@
         "61ed600d29": "\"{{value0}}\" has unsaved changes. Do you want to save before closing?",
         "cdc9ac4b2d": "editor",
         "e57db40c11": "Could not build launch command for {{value0}}.",
-        "5b2c1a9e44": "No agent CLI detected — install one or pick a default agent in Settings."
+        "5b2c1a9e44": "No agent CLI detected — install one or pick a default agent in Settings.",
+        "quitSnapshotSaveFailed": "Quit canceled: the session snapshot could not be saved ({{value0}})."
       },
       "TerminalSearch": {
         "db234b7519": "Close",
@@ -3462,7 +3481,9 @@
             "copyLink": "Copy link",
             "copied": "Copied",
             "copiedLink": "Copied link",
-            "copyLinkFailed": "Failed to copy link"
+            "copyLinkFailed": "Failed to copy link",
+            "downloadOpenWithDefaultApp": "Download & open with default app",
+            "downloadOpenFailed": "Failed to download '{{value0}}'."
           },
           "TerminalSessionStateSaveFailureDialog": {
             "6bee0c8f17": "Open Disk Space Analyzer",
@@ -3997,8 +4018,8 @@
             "81cd37af99": "Main",
             "fa6d36758d": "Kill session {{value0}}",
             "b8f4a2c1d0e3": "{{value0}} orphans",
-            "c7e3b1a0d9f2": "Kill {{value0}} orphan terminal",
-            "d8f4c2b1e0a3": "Kill {{value0}} orphan terminals",
+            "c7e3b1a0d9f2": "End {{value0}} orphan terminal",
+            "d8f4c2b1e0a3": "End {{value0}} orphan terminals",
             "e9a5d3c2b1f0": "Kill {{value0}}?"
           },
           "SshStatusSegment": {
@@ -4322,8 +4343,9 @@
           "resource": {
             "memory": {
               "metric": {
-                "workingSetDescription": "Summed working set (WS). Shared pages can appear in more than one process.",
-                "rssDescription": "Summed resident set size (RSS). Shared or aliased pages can appear in more than one process."
+                "workingSetDescription": "Summed working set (WS): pages resident in RAM right now. Shared pages can appear in more than one process, and memory Windows has paged out is not counted here.",
+                "rssDescription": "Summed resident set size (RSS). Shared or aliased pages can appear in more than one process.",
+                "privateBytesDescription": "Summed private bytes: memory these processes have committed, counted whether it is resident or paged out. This is what the host charges against its commit limit, so it keeps rising while the working set above shrinks under paging."
               }
             },
             "manager": {
@@ -5006,7 +5028,24 @@
           "selectAll": "Select all",
           "canonicalHeader": "Standard Agents (Always Included)",
           "canonicalExplanation": "These agents natively read {{root}}, which Orca installs to by default:",
-          "additionalAgentsHeader": "Additional Agent Directories"
+          "additionalAgentsHeader": "Additional Agent Directories",
+          "authorizing": "Authorizing package access…",
+          "installing": "Downloading, verifying, and installing…",
+          "selectSkill": "Select at least one skill.",
+          "chooseWorkspace": "Choose a workspace.",
+          "reconnectBeforeInstalling": "Reconnect your Orca account before installing.",
+          "bundleVerificationFailed": "Installation failed before Orca could verify the requested bundle.",
+          "destinationAlreadyFinished": "The destination had already finished this installation.",
+          "enterShareLink": "Enter an Orca skill share link.",
+          "shareUnavailable": "This share is unavailable. The link may be invalid, expired, or revoked.",
+          "requestedVersionVerificationFailed": "Installation failed before Orca could verify the requested version.",
+          "versionVerificationFailed": "Orca could not verify the requested version.",
+          "inspectManagedFailed": "Orca could not inspect managed installs on this machine.",
+          "reconnectForVersionHistory": "Reconnect your Orca account to load version history.",
+          "versionHistoryUnavailable": "Version history is unavailable for this skill.",
+          "bundleSkillsMissing": "This version does not contain any of the installed bundle skills.",
+          "reconnectBeforeVersionChange": "Reconnect your Orca account before changing versions.",
+          "removeFailed": "Orca could not safely remove this skill."
         },
         "SkillBundleInstallReview": {
           "01c5a11e0d": "Select all",
@@ -5162,7 +5201,8 @@
           "newVersionDescription": "Review the exact files, then publish an immutable version to the existing Cloud package.",
           "description": "Review the exact files, choose who can access them, then publish an immutable version.",
           "readyDescriptionV2": "Anyone with this unlisted link can inspect and install the skills.",
-          "descriptionV2": "Review the exact files, then publish an immutable version behind an unlisted link."
+          "descriptionV2": "Review the exact files, then publish an immutable version behind an unlisted link.",
+          "cancelRequestFailed": "Orca could not send the cancellation request. The upload may still finish."
         },
         "SkillSharedLinkRow": {
           "deleteFailed": "Orca could not delete this from the Cloud.",
@@ -7692,7 +7732,10 @@
           "d0f914a528": "Placeholder toggle",
           "1014ddbfaf": "Does nothing today. Reserved as the first slot for hidden experimental options.",
           "232cf83de8": "Unlisted toggles for internal testing. Nothing here is supported.",
-          "3e9e827ca5": "Hidden experimental"
+          "3e9e827ca5": "Hidden experimental",
+          "7c4e18d2f6": "Arms the bold-glitch capture gestures on this machine: {{samplingShortcut}} starts a sampling burst; {{captureShortcut}} captures pane evidence to disk.",
+          "b09f24a51d": "Terminal render diagnostics",
+          "f2c81d904a": "Hidden experimental settings"
         },
         "InputPane": {
           "db15068196": "Enabled by default on Linux and macOS. Linux uses the system selection clipboard; other platforms use a private buffer.",
@@ -8036,7 +8079,9 @@
           "9bedd2a6e5": "Enables agents to hand off context and coordinate work through Orca.",
           "07641b9768": "Orchestration skill",
           "2aacdb0517": "Coordinate coding agents across handoffs, worktree handovers, and child-agent work.",
-          "191ac34567": "Agent Orchestration"
+          "191ac34567": "Agent Orchestration",
+          "nestedWorkerDepthTitle": "Nested worker depth",
+          "nestedWorkerDepthDescription": "How many generations of dispatched workers may spawn their own workers. 1 keeps the agent tree flat: a coordinator dispatches workers, and those workers do not dispatch."
         },
         "OrchestrationSetupCard": {
           "e7d2a5146c": "Enables agents to hand off context and coordinate work through Orca.",
@@ -12096,6 +12141,9 @@
           "linkRevoked": "Link revoked",
           "revokeFailed": "Orca could not revoke this link.",
           "refreshLinks": "Refresh"
+        },
+        "NativeChatSupportedAgents": {
+          "label": "Supported agents:"
         }
       },
       "right": {
@@ -12619,7 +12667,13 @@
             "ad0504a58a": "Use a shorter file filter.",
             "362b97ec5c": "No matching files",
             "d5103e47c1": "No changed files match \"{{value0}}\"",
-            "stageAtLeastOneFileToGenerate": "Stage at least one file to generate a message."
+            "stageAtLeastOneFileToGenerate": "Stage at least one file to generate a message.",
+            "branchFilesChangedVsBaseOne": "1 file changed vs {{ref}}",
+            "branchFilesChangedVsBaseOther": "{{count}} files changed vs {{ref}}",
+            "compareBaseCommitsAheadOne": "1 commit ahead of {{ref}}",
+            "compareBaseCommitsAheadOther": "{{count}} commits ahead of {{ref}}",
+            "compareBaseCommitsBehindOne": "1 commit behind {{ref}}",
+            "compareBaseCommitsBehindOther": "{{count}} commits behind {{ref}}"
           },
           "SourceControlAgentActionDialog": {
             "8e856842d1": "Could not start the selected agent.",
@@ -15445,14 +15499,16 @@
           "d5a8c2f1b9": "Start the default AI agent to fix this check",
           "e2b4d7c8a1": "Choose an agent for this check",
           "f1c9e3a6d4": "Choose agent to fix check",
-          "actionRequired": "Action required"
+          "actionRequired": "Action required",
+          "copyOutput": "Copy output"
         },
         "CheckRunJobs": {
           "1c0a4d7e02": "succeeded",
           "2d3b8f1a55": "skipped",
           "3e6c9a2b71": "pending",
           "4f7d0c3e88": "steps failed",
-          "5a8e1d4f23": " · "
+          "5a8e1d4f23": " · ",
+          "copy": "Copy jobs"
         },
         "check": {
           "run": {
@@ -15547,6 +15603,41 @@
           "checkDetails": "Check details",
           "checkDetailsCopied": "Check details copied",
           "filePathCopied": "File path copied"
+        },
+        "CheckRunAnnotations": {
+          "copy": "Copy annotations"
+        },
+        "CheckRunCopyButton": {
+          "copied": "Copied",
+          "failed": "Couldn't copy",
+          "empty": "Nothing to copy"
+        },
+        "HtmlDocPreview": {
+          "documentTooLargePanel": "This document is too large to preview. Open it in the editor instead.",
+          "documentUnreadablePanel": "Orca could not read this file from the workspace.",
+          "multipleAssetsFailedNotice": "{{count}} files in this document could not be loaded.",
+          "assetTooLargeNotice": "{{path}} is too large to load in this preview.",
+          "assetUnsupportedNotice": "This workspace cannot send {{path}} to a preview.",
+          "assetUnreadableNotice": "Orca could not read {{path}} from the workspace.",
+          "previewAriaLabel": "HTML preview",
+          "reloadPreviewControl": "Reload preview",
+          "previewUnavailableTitle": "Preview unavailable",
+          "copyDocumentPathControl": "Copy file path",
+          "documentPathCopied": "Copied",
+          "workspaceFileChipLabel": "Workspace file",
+          "previewMenuControl": "Preview options",
+          "openSourceControl": "Open source file",
+          "openExternallyControl": "Open with default app",
+          "copyDocumentRelativePathControl": "Copy relative path",
+          "openExternallyUnknownHostError": "Can't open '{{value0}}': the host that owns it is no longer known.",
+          "downloadBlockedNotice": "Downloads are disabled in document previews.",
+          "directoryAuthorizationFailed": "Could not allow access to this directory.",
+          "directoryAccessRequest": "This preview wants to read files in {{path}}.",
+          "dismissAccessRequest": "Dismiss",
+          "allowDirectory": "Allow folder",
+          "directoryAccessRequestOverflow": "{{folders}}, and {{count}} more",
+          "directoryAccessRequestMultiple": "This preview wants to read files in {{folders}}.",
+          "allowDirectories": "Allow {{count}} folders"
         }
       },
       "diff": {
@@ -15909,7 +16000,8 @@
             "6e776f9ef9": "Download failed",
             "756bfc25c9": "Open",
             "09a9489aa5": "Show",
-            "2a4c4b8e1f": "Copy"
+            "2a4c4b8e1f": "Copy",
+            "fileUrlUnsupported": "This browser tab cannot open local files. Use \"Open Preview to the Side\" on the file instead."
           },
           "BrowserToolbarMenu": {
             "429ef481f9": "Cancel",
@@ -16052,7 +16144,8 @@
           "51a470b966": "ssh",
           "b09b2384fd": "Paused",
           "eaa02014f8": "Enabled",
-          "29baf8f4c2": "Source"
+          "29baf8f4c2": "Source",
+          "host": "Host"
         },
         "AutomationEditorDialog": {
           "fb1896a5e7": "Cancel",
@@ -16118,7 +16211,8 @@
           "8faaa00726": "Run",
           "53fc5f07ab": "Run history",
           "a00e38d1a3": "n/a",
-          "fdb3caa8fb": "known"
+          "fdb3caa8fb": "known",
+          "historyUnavailable": "Run history could not be loaded for this automation."
         },
         "AutomationRunPageFrame": {
           "40a511bed4": "Run context",
@@ -16240,7 +16334,12 @@
           "newAutomation": "New Automation",
           "rowActions": "Automation actions",
           "tableLastRun": "Last run",
-          "noListMatches": "No automations match."
+          "noListMatches": "No automations match.",
+          "moved": "Automation moved to {host}.",
+          "moveOriginalKept": "Created on {host}, but the original could not be deleted. Remove it on the old host.",
+          "moveOriginalUnverified": "Created on {host}, but the original deletion could not be verified. Check the old host before retrying.",
+          "tableHost": "Host",
+          "destinationProjectUnavailable": "Choose a project owned by the selected automation destination."
         },
         "AutomationsPageSkeleton": {
           "55527b7bcf": "Loading automations"
@@ -16424,6 +16523,111 @@
         "AutomationPromptDisclosure": {
           "showLess": "Show less",
           "showMore": "Show more"
+        },
+        "hostSummary": {
+          "partialFailure": "{{failed}} of {{total}} hosts could not be loaded"
+        },
+        "emptyState": {
+          "unknownHost": "this host",
+          "hostLoading": "Loading host…",
+          "hostLoadingDetail": "Waiting for {{hostLabel}} to report its automations.",
+          "hostError": "Automations could not be loaded from {{hostLabel}}",
+          "hostUnavailableDetail": "The host could not be reached, so its automations are unknown.",
+          "hostIncompatibleDetail": "This server is too old to scope automations by host.",
+          "hostStaleDetail": "The most recent refresh did not complete.",
+          "hostNotConnected": "{{hostLabel}} is not connected",
+          "hostNotConnectedDetail": "Connect to this host to see the automations stored for it.",
+          "hostEmpty": "No automations on {{hostLabel}}",
+          "searchNoMatch": "No automations match your search",
+          "filtersNoMatch": "No automations match your filters",
+          "allHostsEmpty": "No automations across loaded hosts"
+        },
+        "hostNotice": {
+          "loading": "Loading host…",
+          "unavailable": "{{hostLabel}} could not be reached. Showing the automations last loaded from it.",
+          "ghost": "{{hostLabel}} was removed. Automations still assigned to it remain listed.",
+          "removed": "The selected host is no longer available. Showing all hosts."
+        },
+        "hostPicker": {
+          "allHosts": "All hosts",
+          "loadingHost": "Loading host…"
+        },
+        "ownerConflict": {
+          "dismiss": "Dismiss"
+        },
+        "capturedOwner": {
+          "orphan": "This automation has no host to run on. Delete it, or re-add the host it belongs to.",
+          "unfenced": "This host cannot confirm which automation it is changing, so this automation is read-only here."
+        },
+        "hostStatus": {
+          "authority": {
+            "loading": "Loading",
+            "loadingDescription": "Loading automations from this host.",
+            "fresh": "Up to date",
+            "freshDescription": "Automations loaded from this host.",
+            "refreshing": "Refreshing",
+            "refreshingDescription": "Checking this host for changes.",
+            "staleError": "Not refreshed",
+            "staleErrorDescription": "Showing the automations last loaded from this host. The most recent refresh did not complete.",
+            "unavailable": "Unreachable",
+            "unavailableDescription": "This host could not be reached, so its automations could not be loaded.",
+            "incompatible": "Update server",
+            "incompatibleDescription": "This server does not support host-scoped automation queries. Update it to load automations for this host."
+          },
+          "execution": {
+            "connected": "Connected",
+            "connectedDescription": "This host is connected and can run automations.",
+            "connecting": "Connecting",
+            "connectingDescription": "Connecting to this host.",
+            "disconnected": "Not connected",
+            "disconnectedDescription": "Automations on this host cannot run until the connection is restored.",
+            "unavailable": "Unavailable",
+            "unavailableDescription": "This execution target is no longer available.",
+            "unknown": "Connection unknown",
+            "unknownDescription": "The connection state for this host has not loaded yet."
+          },
+          "query": {
+            "legacyUnscopedDescription": "This server lists automations without host scoping, so they cannot be edited or run from here.",
+            "incompatible": "Update server",
+            "incompatibleDescription": "This server is too old to scope automations by host. Update it to manage automations here.",
+            "viewOnly": "View only",
+            "targetRemovedDescription": "This host was removed, so its automations can no longer be edited or run from here.",
+            "targetUnverifiedDescription": "This host has not been verified since its connection dropped, so its automations cannot be edited or run from here.",
+            "targetUnregisteredDescription": "This host has no registration record, so its automations cannot be edited or run from here."
+          },
+          "action": {
+            "retry": "Retry",
+            "reconnect": "Reconnect",
+            "updateServer": "Update server"
+          }
+        },
+        "ownerAction": {
+          "failed": "That automation action did not complete."
+        },
+        "externalScope": {
+          "unknownManager": "This external automation is no longer listed for any host in view.",
+          "uncheckedHost": "External automation managers on {{hostLabel}} could not be checked.",
+          "uncheckedHosts": "External automation managers on {{count}} hosts could not be checked."
+        },
+        "enablement": {
+          "paused": "Paused"
+        },
+        "runHistory": {
+          "occurrencesWithLatest": "{{times}} times, most recently {{date}}",
+          "occurrences": "{{times}} times"
+        },
+        "createDestination": {
+          "label": "Host",
+          "placeholder": "Select a host",
+          "storedOn": "Stored and scheduled by {authority}.",
+          "unselected": "Choose the host that stores and schedules this automation.",
+          "orphan": "Automations with no host cannot hold new ones. Choose a host to create this automation on.",
+          "unavailable": "That host cannot hold a new automation yet. Choose another host to create this one on.",
+          "stale": "{host} changed while this form was open. Choose it again before saving.",
+          "projectMismatch": "That project is not on {host}. Choose a project on that host, or another host.",
+          "noProjects": "No projects are set up on {host}. Add one there, or choose another host.",
+          "updateRequired": "Update the Orca server on {hosts} to store automations there.",
+          "move": "Saving creates this automation on {host} and deletes the original and its run history."
         }
       },
       "agent": {
@@ -16740,6 +16944,114 @@
               "chooseSource": "Choose task source"
             }
           }
+        },
+        "page": {
+          "chrome": {
+            "task": {
+              "page": {
+                "gitlab": {
+                  "filters": {
+                    "e157d7ce4d": "MRs",
+                    "2328f6a40c": "My Todos"
+                  }
+                }
+              }
+            }
+          },
+          "dialogs": {
+            "new": {
+              "github": {
+                "issue": {
+                  "dialog": {
+                    "e02508846c": "this repository"
+                  }
+                }
+              },
+              "linear": {
+                "issue": {
+                  "dialog": {
+                    "dialogTitle": "New Linear issue",
+                    "dialogDescription": "Create a Linear issue for the selected team."
+                  }
+                }
+              }
+            },
+            "task": {
+              "page": {
+                "connect": {
+                  "dialogs": {
+                    "353c7dc71d": "Update access"
+                  }
+                }
+              }
+            }
+          },
+          "github": {
+            "github": {
+              "detail": {
+                "host": {
+                  "8d5cde4770": "Pull requests",
+                  "312ca15778": "GitHub list"
+                }
+              },
+              "issue": {
+                "label": {
+                  "selector": {
+                    "2a1862c470": "Loading labels…"
+                  }
+                }
+              },
+              "work": {
+                "item": {
+                  "row": {
+                    "draftPullRequest": "Draft pull request",
+                    "pullRequest": "Pull request",
+                    "issue": "Issue"
+                  }
+                }
+              }
+            }
+          },
+          "hooks": {
+            "use": {
+              "task": {
+                "page": {
+                  "jira": {
+                    "create": {
+                      "dialog": {
+                        "jiraRequiredFieldsLoadFailed": "Failed to load required Jira fields."
+                      }
+                    }
+                  },
+                  "linear": {
+                    "active": {
+                      "collection": {
+                        "d8b3cd9488": "Project: {{value0}}",
+                        "68462f8b29": "View: {{value0}}"
+                      }
+                    }
+                  },
+                  "session": {
+                    "resume": {
+                      "savedLinearProjectMissing": "Saved Linear project was not found.",
+                      "savedLinearProjectRestoreFailed": "Failed to restore saved Linear project.",
+                      "savedLinearViewMissing": "Saved Linear view was not found.",
+                      "savedLinearViewRestoreFailed": "Failed to restore saved Linear view."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "linear": {
+            "linear": {
+              "connect": {
+                "empty": {
+                  "3e00e8ebd4": "Loading Linear"
+                }
+              }
+            }
+          }
         }
       },
       "taskPageEmptyState": {
@@ -17006,7 +17318,7 @@
           "publishingOffDescription": "Learn about public links and enable sharing in Settings.",
           "openSettings": "Open Artifacts settings",
           "sharing": "Sharing…",
-          "sharePublicLink": "Share public link",
+          "sharePublicLink": "Generate link",
           "publishedDescription": "Anyone with this link can view the shared file.",
           "checkingLink": "Checking for an existing link…",
           "checkFailed": "Could not check for an existing link.",
@@ -17098,6 +17410,20 @@
         "remoteLabel": "Browsers on {{value0}}",
         "clientNoteLocalStorage": "Imports read this device’s browsers. Cookies are stored locally.",
         "remoteNoteRemoteStorage": "Imports read browsers on {{value0}}. Cookies are stored on that machine, and a permission prompt may appear on its screen."
+      },
+      "ComposerParentWorktreePicker": {
+        "label": "Parent worktree",
+        "noParent": "No parent",
+        "description": "Nests this workspace under another in the sidebar. Does not change the base branch.",
+        "searchPlaceholder": "Search workspaces...",
+        "noMatches": "No matches."
+      },
+      "browserPane": {
+        "workspaceDoc": {
+          "externalLinkTitle": "Open link to {{host}}?",
+          "externalLinkConfirm": "Open link",
+          "externalLinkCancel": "Cancel"
+        }
       }
     },
     "i18n": {
@@ -17136,6 +17462,9 @@
       },
       "githubCheckDetailsTimeout": {
         "timedOut": "Timed out loading check details."
+      },
+      "gitlabIpcTimeout": {
+        "timedOut": "Timed out talking to GitLab."
       }
     },
     "ssh": {
@@ -17886,5 +18215,11 @@
   },
   "quickOpen": {
     "moreMatchesAvailable": "More matches may be available. Refine your search to narrow the results."
+  },
+  "editor": {
+    "richMarkdown": {
+      "tooLarge": "File is larger than the {{limit}} rich editing limit. Showing source mode instead.",
+      "openAnyway": "Open anyway"
+    }
   }
 }

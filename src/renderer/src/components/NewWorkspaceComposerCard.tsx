@@ -55,6 +55,11 @@ export default function NewWorkspaceComposerCard(
     setupConfig,
     setupControlsEnabled = true,
     selectedProjectId = null,
+    parentWorktreeId,
+    onParentWorktreeIdChange,
+    selectedRepoExecutionHostId,
+    selectedRepoProjectId,
+    activeFolderWorkspaceId,
     onAddProjectOverride,
     onNestedDialogOpenChange
   } = props
@@ -330,6 +335,11 @@ export default function NewWorkspaceComposerCard(
           setupRunButtonLabel={setupRunButtonLabel}
           setupSkipButtonLabel={setupSkipButtonLabel}
           showSetupAgentStartupPolicy={showSetupAgentStartupPolicy}
+          parentWorktreeId={parentWorktreeId}
+          onParentWorktreeIdChange={onParentWorktreeIdChange}
+          selectedRepoExecutionHostId={selectedRepoExecutionHostId}
+          selectedRepoProjectId={selectedRepoProjectId}
+          activeFolderWorkspaceId={activeFolderWorkspaceId}
         />
       </div>
       <NewWorkspaceComposerFooter

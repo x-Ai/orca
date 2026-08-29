@@ -79,6 +79,7 @@ import {
 import TabGroupSplitLayout from './tab-group/TabGroupSplitLayout'
 import AiVaultSessionDropLayer from './tab-group/AiVaultSessionDropLayer'
 import { shouldAutoCreateInitialTerminal } from './terminal/initial-terminal'
+import { createWorkspaceTerminalHostAuthoritySelector } from '@/lib/workspace-terminal-host-authority'
 import { useActiveTerminalRepair } from './terminal/use-active-terminal-repair'
 import { scheduleBackgroundTerminalWorktreeMeasure } from './terminal/background-terminal-worktree-visibility'
 import {
@@ -137,7 +138,11 @@ import {
 } from './terminal-pane/terminal-parked-tab-watchers'
 import { isMainTerminalSideEffectAuthorityForPty } from './terminal-pane/terminal-side-effect-facts-handler'
 import { appendUniqueOpenFileIds } from './terminal/unsaved-close-queue'
-import { setWindowCloseRequestHandler } from './window-close-request-coordinator'
+import {
+  runWithWindowCloseCheckpointScope,
+  setWindowCloseRequestHandler
+} from './window-close-request-coordinator'
+import { showShutdownCheckpointFailureToast } from '@/lib/shutdown-checkpoint-failure-toast'
 import {
   findActivityTerminalPortal,
   useActivityTerminalPortals,
@@ -523,8 +528,14 @@ function Terminal(): React.JSX.Element | null {
   const confirmNativeWindowClose = useCallback(() => {
     // Why: capture only after every close guard has committed. A canceled child-
     // process prompt must not consume App's synthetic/native unload guard.
-    const accepted = window.dispatchEvent(new Event('beforeunload', { cancelable: true }))
+    const accepted = runWithWindowCloseCheckpointScope(() =>
+      window.dispatchEvent(new Event('beforeunload', { cancelable: true }))
+    )
     if (!accepted) {
+      // Why: a checkpoint-vetoed quit used to die here with no dialog and no log,
+      // leaving SIGKILL as the only exit (#15352). The dirty-file veto publishes
+      // no reason — its deferred dialog flow already gives the user a surface.
+      showShutdownCheckpointFailureToast()
       return
     }
     window.api.ui.confirmWindowClose()
@@ -1504,6 +1515,15 @@ function Terminal(): React.JSX.Element | null {
   const activeWorktreeHasTerminalState = activeWorktreeId
     ? Object.hasOwn(tabsByWorktree, activeWorktreeId)
     : false
+  // Why a store subscription rather than a read inside the effects: the verdict flips to `none` the
+  // moment the execution host answers, and that transition is what re-runs the passes below.
+  // Why the retained selector: resolution walks the owner catalogs, so recomputing it on every store
+  // write would be the STA-3363 render-path multiplier again.
+  const hostAuthoritySelector = useMemo(
+    () => createWorkspaceTerminalHostAuthoritySelector(activeWorktreeId),
+    [activeWorktreeId]
+  )
+  const activeWorktreeHostAuthority = useAppStore(hostAuthoritySelector)
   useEffect(() => {
     if (!workspaceSessionReady) {
       return
@@ -1511,8 +1531,9 @@ function Terminal(): React.JSX.Element | null {
     if (!activeWorktreeId) {
       return
     }
-    // Why: host session-tabs are authoritative in the paired web client; a local fallback races the host's initial terminal and duplicates tabs.
-    if (isWebRuntimeSessionActive(getActiveWorktreeRuntimeEnvironmentId(activeWorktreeId))) {
+    // Why: the execution host owns terminal creation, and a host that has not answered is not a host
+    // with no terminals — seeding into that gap duplicates its tabs on every launch (STA-4658).
+    if (activeWorktreeHostAuthority !== 'none') {
       return
     }
 
@@ -1527,6 +1548,7 @@ function Terminal(): React.JSX.Element | null {
     workspaceSessionReady,
     activeWorktreeId,
     activeWorktreeHasTerminalState,
+    activeWorktreeHostAuthority,
     createTab,
     reconcileWorktreeTabModel
   ])
@@ -1539,10 +1561,15 @@ function Terminal(): React.JSX.Element | null {
     if (startupResumeWorktreeIdsRef.current.has(activeWorktreeId)) {
       return
     }
+    // Why not consume the one-shot here: the sweep declines outright while the host is unanswered,
+    // so marking it done would strand every sleeping agent on the workspace for the session.
+    if (activeWorktreeHostAuthority === 'unverifiable') {
+      return
+    }
     startupResumeWorktreeIdsRef.current.add(activeWorktreeId)
     // Why: startup hydration restores the worktree without activateAndRevealWorktree, so orphaned live/quit records need a terminal-surface pass after cold restore.
     resumeSleepingAgentSessionsForWorktree(activeWorktreeId)
-  }, [activeWorktreeId, hydrationSucceeded, workspaceSessionReady])
+  }, [activeWorktreeId, activeWorktreeHostAuthority, hydrationSucceeded, workspaceSessionReady])
 
   const handleNewTab = useCallback(
     (shellOverride?: string) => {
