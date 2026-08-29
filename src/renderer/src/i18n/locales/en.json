@@ -1151,6 +1151,7 @@
           "devLauncherOnly": "Development mode uses a generated launcher for validation only.",
           "launcherMissing": "The bundled CLI launcher is missing from this Orca build.",
           "platformUnsupported": "CLI registration is not implemented on this platform.",
+          "wslDistroUnreachable": "Could not reach the WSL distro. Try again.",
           "registerForWsl": "Register {{path}} to use Orca from WSL.",
           "registerForTerminal": "Register {{path}} to use Orca from the terminal.",
           "registerForWindowsShell": "Register {{path}} to use Orca from Command Prompt or PowerShell."

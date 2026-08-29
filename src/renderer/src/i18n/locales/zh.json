@@ -1027,6 +1027,7 @@
           "devLauncherOnly": "开发模式仅使用生成的启动器进行验证",
           "launcherMissing": "此 Orca 构建缺少捆绑的 CLI 启动器",
           "platformUnsupported": "此平台尚未实现 CLI 注册",
+          "wslDistroUnreachable": "无法连接到 WSL 发行版，请重试。",
           "registerForWsl": "注册 {{path}} 以从 WSL 使用 Orca",
           "registerForTerminal": "注册 {{path}} 以从终端使用 Orca",
           "registerForWindowsShell": "注册 {{path}} 以从命令提示符或 PowerShell 使用 Orca"

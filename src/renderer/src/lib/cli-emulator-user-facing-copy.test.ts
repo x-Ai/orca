@@ -1,5 +1,10 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import { formatCliUserFacingDetail } from './cli-emulator-user-facing-copy'
+
+afterEach(async () => {
+  await setRendererUiLanguage('en')
+})
 
 describe('formatCliUserFacingDetail', () => {
   it('localizes WSL timeouts wrapped in Electron invoke errors', () => {
@@ -8,6 +13,16 @@ describe('formatCliUserFacingDetail', () => {
         "Error invoking remote method 'cli:getWslInstallStatus': Error: WSL command timed out after 10000ms."
       )
     ).toBe('WSL command timed out after 10000ms.')
+  })
+
+  it('localizes an unreachable WSL distro wrapped in an Electron invoke error', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      formatCliUserFacingDetail(
+        "Error invoking remote method 'cli:getWslInstallStatus': Error: Could not reach the WSL distro. Try again."
+      )
+    ).toBe('无法连接到 WSL 发行版，请重试。')
   })
 
   it('localizes Windows shell registration details including a blank path', () => {

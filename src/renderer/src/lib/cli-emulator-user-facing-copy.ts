@@ -52,6 +52,11 @@ const KNOWN_CLI_DETAILS: {
     fallback: 'Unable to resolve the WSL home directory.'
   },
   {
+    test: 'Could not reach the WSL distro. Try again.',
+    key: 'auto.lib.cli.detail.wslDistroUnreachable',
+    fallback: 'Could not reach the WSL distro. Try again.'
+  },
+  {
     test: 'WSL Windows interop is unavailable; Orca cannot launch the Windows CLI from WSL.',
     key: 'auto.lib.cli.detail.wslInteropUnavailable',
     fallback: 'WSL Windows interop is unavailable; Orca cannot launch the Windows CLI from WSL.'
