@@ -9,6 +9,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { translate } from '@/i18n/i18n'
+import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
 import { AutomationHostLabel, AutomationHostStatusBadges } from './AutomationHostBadges'
 import { Field } from './automation-page-parts'
 import {
@@ -53,7 +54,7 @@ export function AutomationDestinationField({
         <SelectContent>
           {groups.map((group) => (
             <SelectGroup key={group.authorityKey} data-authority-key={group.authorityKey}>
-              <SelectLabel>{group.authorityLabel}</SelectLabel>
+              <SelectLabel>{translateExecutionHostLabel(group.authorityLabel)}</SelectLabel>
               {group.entries.map((entry) => (
                 <SelectItem
                   key={entry.stableKey}
@@ -77,7 +78,7 @@ export function AutomationDestinationField({
           {translate(
             'auto.components.automations.createDestination.noProjects',
             'No projects are set up on {host}. Add one there, or choose another host.'
-          ).replace('{host}', selected.label)}
+          ).replace('{host}', translateExecutionHostLabel(selected.label))}
         </p>
       ) : control.moveWarning ? (
         // Replaces the storedOn line: both name the same host, and the move is
@@ -91,7 +92,7 @@ export function AutomationDestinationField({
             ? translate(
                 'auto.components.automations.createDestination.storedOn',
                 'Stored and scheduled by {authority}.'
-              ).replace('{authority}', selected.authorityLabel)
+              ).replace('{authority}', translateExecutionHostLabel(selected.authorityLabel))
             : translate(
                 'auto.components.automations.createDestination.unselected',
                 'Choose the host that stores and schedules this automation.'

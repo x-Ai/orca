@@ -40,6 +40,24 @@
         "description": "在 macOS 菜单栏中保留 Orca 快捷方式和活动指示器"
       }
     },
+    "browser": {
+      "clientHostedRemote": {
+        "optionDevice": "此设备",
+        "optionServer": "服务器（串流）",
+        "rowTitle": "远程服务器工作区",
+        "rowDescription": "设置页面的渲染位置。流量始终通过远程服务器；仅适用于新页面。"
+      },
+      "sshWorkspaceRouting": {
+        "optionHost": "SSH 主机",
+        "optionDevice": "此设备",
+        "rowTitle": "SSH 工作区",
+        "rowDescription": "设置浏览器流量的出口位置。页面始终在此设备上渲染。"
+      },
+      "remoteBrowsing": {
+        "heading": "远程浏览",
+        "headingDescription": "设置远程工作区页面的渲染位置，以及其网络流量的出口位置。"
+      }
+    },
     "shortcuts": {
       "actions": {
         "worktree": {
@@ -7541,7 +7559,9 @@
           "9bedd2a6e5": "使代理能够通过 Orca 传递上下文并协调工作",
           "07641b9768": "编排技能",
           "2aacdb0517": "跨切换、工作树切换和子代理工作协调编码代理",
-          "191ac34567": "代理编排"
+          "191ac34567": "代理编排",
+          "nestedWorkerDepthTitle": "嵌套工作进程深度",
+          "nestedWorkerDepthDescription": "允许已调度的工作进程继续派生工作进程的最大代数。设为 1 时，代理树保持扁平：协调器调度工作进程，而这些工作进程不会继续调度。"
         },
         "OrchestrationSetupCard": {
           "e7d2a5146c": "使代理能够通过 Orca 传递上下文并协调工作",
@@ -15924,6 +15944,17 @@
           "noProjects": "{host} 上未设置任何项目。请在该主机上添加一个，或选择另一台主机。",
           "updateRequired": "更新 {hosts} 上的 Orca 服务器即可在其中存储自动化。",
           "move": "保存后会在 {host} 上创建此自动化，并删除原有自动化及其运行历史。"
+        },
+        "emptyState": {
+          "allHostsEmpty": "已加载的主机中没有自动化"
+        },
+        "hostPicker": {
+          "allHosts": "所有主机"
+        },
+        "hostStatus": {
+          "execution": {
+            "disconnected": "未连接"
+          }
         }
       },
       "agent": {
@@ -17016,7 +17047,11 @@
           "selectAll": "选择所有匹配的工作区",
           "sortByField": "按{{value0}}排序",
           "sortBy": "排序方式",
-          "measureSizesFailed": "扫描工作区大小失败"
+          "measureSizesFailed": "扫描工作区大小失败",
+          "selectionWithheldOne": "当前筛选条件隐藏了 1 个已选工作区，已取消选择。",
+          "selectionWithheld": "当前筛选条件隐藏了 {{value0}} 个已选工作区，已取消选择。",
+          "selectAllCountOne": "选择 1 个通过安全检查的工作区",
+          "selectAllCount": "选择全部 {{value0}} 个通过安全检查的工作区"
         },
         "scan": {
           "readyOne": "找到 1 个工作区。",

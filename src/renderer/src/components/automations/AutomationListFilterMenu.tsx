@@ -19,6 +19,7 @@ import {
 import { AgentIcon, getAgentCatalog } from '@/lib/agent-catalog'
 import { searchAgentPickerEntries } from '@/lib/agent-picker-search'
 import { translate } from '@/i18n/i18n'
+import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
 import type { AutomationHostCatalogEntry } from './automation-host-catalog-types'
 import {
   countAutomationListFilters,
@@ -218,7 +219,7 @@ export function AutomationListFilterMenu({
                     onCheckedChange={() => toggleHost(entry.stableKey)}
                     onSelect={(event) => event.preventDefault()}
                   >
-                    {entry.label}
+                    {translateExecutionHostLabel(entry.label)}
                   </DropdownMenuCheckboxItem>
                 ))}
               </DropdownMenuSubContent>

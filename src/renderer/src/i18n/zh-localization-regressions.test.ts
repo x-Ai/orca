@@ -74,4 +74,34 @@ describe('Chinese localization regressions', () => {
       translate('auto.components.skills.SkillInstallTargetFields.8562dd1e6e', 'This computer')
     ).toBe('此计算机')
   })
+
+  it('localizes automation and remote browsing settings copy', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      translate(
+        'auto.components.automations.emptyState.allHostsEmpty',
+        'No automations across loaded hosts'
+      )
+    ).toBe('已加载的主机中没有自动化')
+    expect(translate('auto.components.automations.hostPicker.allHosts', 'All hosts')).toBe(
+      '所有主机'
+    )
+    expect(
+      translate('auto.components.automations.hostStatus.execution.disconnected', 'Not connected')
+    ).toBe('未连接')
+    expect(
+      translate(
+        'auto.components.settings.OrchestrationPane.nestedWorkerDepthTitle',
+        'Nested worker depth'
+      )
+    ).toBe('嵌套工作进程深度')
+    expect(translate('settings.browser.remoteBrowsing.heading', 'Remote browsing')).toBe('远程浏览')
+    expect(translate('settings.browser.clientHostedRemote.optionDevice', 'This device')).toBe(
+      '此设备'
+    )
+    expect(translate('settings.browser.sshWorkspaceRouting.optionHost', 'SSH host')).toBe(
+      'SSH 主机'
+    )
+  })
 })
