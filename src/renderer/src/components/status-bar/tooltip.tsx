@@ -15,6 +15,7 @@ import {
   type UsagePercentageDisplay
 } from '../../../../shared/usage-percentage-display'
 import { formatUsagePercentageLabel } from './usage-percentage-label'
+import { useResetCountdownClock } from '@/hooks/useResetCountdownClock'
 
 // Re-exported from its shared home so status-bar callers keep a single import.
 export { clampUsedPercent }
@@ -211,7 +212,8 @@ function ProviderRateLimitWindowSection({
   textClass,
   mutedClass,
   emptyBarClass,
-  usagePercentageDisplay
+  usagePercentageDisplay,
+  now
 }: {
   window: RateLimitWindow | null
   label: string
@@ -219,13 +221,14 @@ function ProviderRateLimitWindowSection({
   mutedClass: string
   emptyBarClass: string
   usagePercentageDisplay: UsagePercentageDisplay
+  now: number
 }): React.JSX.Element | null {
   if (!window) {
     return null
   }
   const usedPct = clampUsedPercent(window.usedPercent)
   const displayedPct = getDisplayedUsagePercentage(usedPct, usagePercentageDisplay)
-  const resetLabel = window.resetsAt ? formatResetCountdown(window.resetsAt - Date.now()) : null
+  const resetLabel = window.resetsAt ? formatResetCountdown(window.resetsAt - now) : null
 
   return (
     <div className="space-y-1">
@@ -258,6 +261,8 @@ export function ProviderPanel({
   showResetCredits?: boolean
   usagePercentageDisplay?: UsagePercentageDisplay
 }): React.JSX.Element {
+  const windowSections = p ? getWindowSections(p) : []
+  const now = useResetCountdownClock(windowSections.map((section) => section.window?.resetsAt))
   const textClass = inverted ? 'text-background' : 'text-foreground'
   const mutedClass = inverted ? 'text-background/60' : 'text-muted-foreground'
   const faintClass = inverted ? 'text-background/50' : 'text-muted-foreground/80'
@@ -349,7 +354,7 @@ export function ProviderPanel({
 
       <div className={`border-t ${dividerClass}`} />
 
-      {getWindowSections(p).map((s) => (
+      {windowSections.map((s) => (
         <ProviderRateLimitWindowSection
           key={s.label}
           window={s.window}
@@ -358,6 +363,7 @@ export function ProviderPanel({
           mutedClass={mutedClass}
           emptyBarClass={emptyBarClass}
           usagePercentageDisplay={usagePercentageDisplay}
+          now={now}
         />
       ))}
 
