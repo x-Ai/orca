@@ -36,6 +36,7 @@ import {
   getWslCliDistroRequest
 } from './CliSkillRuntimeSetup'
 import { translate } from '@/i18n/i18n'
+import { formatCliUserFacingDetail } from '@/lib/cli-emulator-user-facing-copy'
 
 type BrowserUseSetupProps = {
   onConfigureMoreBrowsers?: () => void
@@ -102,7 +103,7 @@ export function BrowserUseSetup({
       if (mountedRef.current) {
         toast.error(
           error instanceof Error
-            ? error.message
+            ? formatCliUserFacingDetail(error.message) || error.message
             : translate(
                 'auto.components.settings.BrowserUsePane.180a9abf3a',
                 'Failed to load CLI status.'

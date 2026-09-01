@@ -45,7 +45,7 @@ export function WslCliRegistration({
       if (mountedRef.current) {
         toast.error(
           error instanceof Error
-            ? error.message
+            ? formatCliUserFacingDetail(error.message) || error.message
             : translate(
                 'auto.components.settings.WslCliRegistration.26b4b3b00f',
                 'Failed to load WSL CLI status.'
@@ -93,7 +93,7 @@ export function WslCliRegistration({
       if (mountedRef.current) {
         toast.error(
           error instanceof Error
-            ? error.message
+            ? formatCliUserFacingDetail(error.message) || error.message
             : translate(
                 'auto.components.settings.WslCliRegistration.6f91ad1333',
                 'Failed to register `{{value0}}` in WSL.',
@@ -128,7 +128,7 @@ export function WslCliRegistration({
       if (mountedRef.current) {
         toast.error(
           error instanceof Error
-            ? error.message
+            ? formatCliUserFacingDetail(error.message) || error.message
             : translate(
                 'auto.components.settings.WslCliRegistration.52d990420e',
                 'Failed to remove `{{value0}}` from WSL.',
