@@ -15,10 +15,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getSettingsForRepoRuntimeOwner } from '@/lib/repo-runtime-owner'
 import { presentGitHubPRMergeState } from '@/components/github-pr-merge-state'
-import {
-  GITHUB_PR_MERGE_METHOD_LABELS,
-  resolveGitHubPRMergeMethods
-} from '../../../../../shared/github/pull-request-merge-methods'
+import { resolveLocalizedGitHubPRMergeMethods } from '@/lib/localized-github-pull-request-merge-methods'
 import {
   getTaskSourceRuntimeSettings,
   type TaskSourceContext
@@ -65,7 +62,7 @@ export function PRMergeCell({
     )
   }
   const mergePresentation = presentGitHubPRMergeState(item)
-  const mergeMethods = resolveGitHubPRMergeMethods(item.mergeMethodSettings)
+  const mergeMethods = resolveLocalizedGitHubPRMergeMethods(item.mergeMethodSettings)
   const prRepo = resolveTaskPullRequestRepo(item)
   const mergeMutationPending = workItemMutation.isIntentPending({
     item,
@@ -89,7 +86,10 @@ export function PRMergeCell({
     if (!repo || mergeDisabled) {
       return
     }
-    const label = GITHUB_PR_MERGE_METHOD_LABELS[method]
+    const label = mergeMethods.methods.find((option) => option.method === method)?.label
+    if (!label) {
+      return
+    }
     const confirmed = await confirm({
       title: translate('auto.components.TaskPage.844dc193c7', '{{value0}} PR #{{value1}}?', {
         value0: label,
