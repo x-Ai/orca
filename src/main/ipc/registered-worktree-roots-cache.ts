@@ -43,6 +43,7 @@ export function invalidateAuthorizedRootsCache(): void {
 }
 
 export async function rebuildAuthorizedRootsCache(store: Store): Promise<void> {
+  const revisionAtStart = registeredWorktreeRootsRevisionSequence
   // Why: bounded parallelism keeps the Windows speedup without one git process per repo.
   // Why no realpath here: canonicalizing every root on invalidation would trigger macOS TCC prompts; handlers still canonicalize the target before any operation.
   const repos = getLocalRepos(store)
@@ -66,6 +67,11 @@ export async function rebuildAuthorizedRootsCache(store: Store): Promise<void> {
     }
   )
   await pruneCreatedWorktreeRoots(perProjectResults, new Set(repos.map((repo) => repo.id)))
+
+  // Why: a newer targeted registration or invalidation must win over this older full scan.
+  if (registeredWorktreeRootsRevisionSequence !== revisionAtStart) {
+    return
+  }
 
   registeredWorktreeRoots.clear()
   registeredWorktreeRootsByRepo.clear()

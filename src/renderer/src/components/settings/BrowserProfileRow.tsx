@@ -1,5 +1,6 @@
 import { Import, Loader2, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { formatBrowserCookieImportFailure } from '@/lib/browser-cookie-import-failure'
 import { emitBrowserCookieImportToast } from '@/lib/browser-cookie-import-toast'
 import type {
   BrowserCookieImportSummary,
@@ -91,7 +92,7 @@ export function BrowserProfileRow({
         result
       )
     } else {
-      toast.error(result.reason)
+      toast.error(formatBrowserCookieImportFailure(result.reason))
     }
   }
 
@@ -108,7 +109,7 @@ export function BrowserProfileRow({
         result
       )
     } else if (result.reason !== 'canceled') {
-      toast.error(result.reason)
+      toast.error(formatBrowserCookieImportFailure(result.reason))
     }
   }
 

@@ -222,7 +222,7 @@ describe('filesystem auth worktree roots', () => {
 
   it('preserves roots registered while an older full rebuild is pending', async () => {
     let resolveScan: (worktrees: GitWorktreeInfo[]) => void = () => {}
-    vi.mocked(listRepoWorktrees).mockImplementation(
+    vi.mocked(listRepoWorktreeGraph).mockImplementation(
       () =>
         new Promise((resolve) => {
           resolveScan = resolve
@@ -230,7 +230,7 @@ describe('filesystem auth worktree roots', () => {
     )
     const store = makeStore()
     const pendingRebuild = rebuildAuthorizedRootsCache(store)
-    await vi.waitFor(() => expect(listRepoWorktrees).toHaveBeenCalledTimes(1))
+    await vi.waitFor(() => expect(listRepoWorktreeGraph).toHaveBeenCalledTimes(1))
 
     registerWorktreeRootsForRepo(store, repo.id, [repo.path, '/linked/new-worktree'])
     resolveScan([])
@@ -243,7 +243,7 @@ describe('filesystem auth worktree roots', () => {
 
   it('does not restore roots from a rebuild invalidated while pending', async () => {
     let resolveScan: (worktrees: GitWorktreeInfo[]) => void = () => {}
-    vi.mocked(listRepoWorktrees).mockImplementation(
+    vi.mocked(listRepoWorktreeGraph).mockImplementation(
       () =>
         new Promise((resolve) => {
           resolveScan = resolve
@@ -251,7 +251,7 @@ describe('filesystem auth worktree roots', () => {
     )
     const store = makeStore()
     const pendingRebuild = rebuildAuthorizedRootsCache(store)
-    await vi.waitFor(() => expect(listRepoWorktrees).toHaveBeenCalledTimes(1))
+    await vi.waitFor(() => expect(listRepoWorktreeGraph).toHaveBeenCalledTimes(1))
 
     invalidateAuthorizedRootsCache()
     resolveScan([
@@ -265,7 +265,7 @@ describe('filesystem auth worktree roots', () => {
     ])
     await pendingRebuild
 
-    vi.mocked(listRepoWorktrees).mockResolvedValue([])
+    vi.mocked(listRepoWorktreeGraph).mockResolvedValue([])
     await expect(resolveRegisteredWorktreePath('/linked/stale-worktree', store)).rejects.toThrow(
       'Access denied: unknown repository or worktree path'
     )

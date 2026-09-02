@@ -103,5 +103,23 @@ describe('Chinese localization regressions', () => {
     expect(translate('settings.browser.sshWorkspaceRouting.optionHost', 'SSH host')).toBe(
       'SSH 主机'
     )
+    expect(
+      translate(
+        'auto.components.terminal.pane.TerminalLinkActionPopover.systemBrowser',
+        'System Browser'
+      )
+    ).toBe('系统浏览器')
+    expect(
+      translate(
+        'auto.components.terminal.pane.TerminalLinkActionPopover.orcaBrowser',
+        'Orca Browser'
+      )
+    ).toBe('Orca 浏览器')
+    expect(
+      translate(
+        'auto.components.BrowserCookieImportMachineNotice.clientLabel',
+        'Browsers on this device'
+      )
+    ).toBe('此设备上的浏览器')
   })
 })

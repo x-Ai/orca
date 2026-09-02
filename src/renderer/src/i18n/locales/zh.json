@@ -989,7 +989,52 @@
             "toast": {
               "restartFallbackUnavailableNone": "{{value0}} 个 Cookie 均无法加载，且重启回退不可用，此配置文件的旧 Cookie 已被替换，请重试导入",
               "restartFallbackUnavailablePartial": "已导入 {{value1}} 个 Cookie 中的 {{value0}} 个，其余无法加载，且重启回退不可用，请重试导入",
-              "googleCookiesSkipped": "未导入 Google cookie，使用此配置文件在 {{value0}} 上的 Orca 中打开浏览器，然后登录 Google，"
+              "googleCookiesSkipped": "未导入 Google Cookie。请在 {{value0}} 上的 Orca 中使用此配置文件打开浏览器，然后登录 Google。",
+              "unrecognizedWarning": "Cookie 导入已完成，但出现了此版本 Orca 无法识别的警告。请更新 Orca 以查看详情，并在使用此配置文件的 Cookie 前进行检查。",
+              "undecryptableUnrecognizedReason": "由于此版本 Orca 无法识别的原因，{{value0}} 个 Cookie 无法解密并已跳过。请更新 Orca 以查看详情，然后重试导入。",
+              "undecryptableAppBoundMixed": "Orca 无法解密此浏览器中使用应用绑定加密的 {{value0}} 个 Cookie；另有 {{value1}} 个 Cookie 因其他原因无法解密。你可以使用“从文件…”导入 Cookie。",
+              "undecryptableAppBound": "Orca 无法解密此浏览器中使用应用绑定加密的 {{value0}} 个 Cookie。你可以使用“从文件…”导入 Cookie。",
+              "undecryptableKeyringMixed": "由于系统密钥环不可用，{{value0}} 个 Cookie 无法解密；另有 {{value1}} 个 Cookie 因其他原因无法解密。请解锁登录密钥环（或安装 gnome-keyring 等 Secret Service 提供程序）后重新导入。",
+              "undecryptableKeyring": "由于系统密钥环不可用，{{value0}} 个 Cookie 无法解密。请解锁登录密钥环（或安装 gnome-keyring 等 Secret Service 提供程序）后重新导入。",
+              "undecryptableUnknown": "{{value0}} 个 Cookie 无法解密并已跳过。请完全关闭源浏览器后重新导入。",
+              "partitionSkipped": "由于无法读取站点分区，{{value0}} 个 Cookie 未被导入。请在 Orca 中重新登录这些站点。",
+              "locationClientHosted": "已从此设备读取，并存储在此设备上的 {{value0}} 工作区中。",
+              "locationRemoteHost": "已从 {{value0}} 上的浏览器读取并存储在该设备上。",
+              "googleCookiesSkippedLocal": "未导入 Google Cookie。请在 Orca 中使用此配置文件打开浏览器，然后登录 Google。",
+              "googleCookiesSkippedClientHosted": "未导入 Google Cookie。请在 {{value0}} 工作区中使用此配置文件打开浏览器标签页（该标签页会在此设备上打开），然后登录 Google。",
+              "googleCookiesSkippedRemoteWorkspace": "未导入 Google Cookie。请在 {{value0}} 工作区中使用此配置文件打开浏览器标签页，然后登录 Google。"
+            },
+            "failure": {
+              "notAuthorized": "未获授权",
+              "sessionProfileMissing": "找不到会话配置文件。",
+              "invalidBrowserProfile": "浏览器配置文件名称无效。",
+              "browserNotFound": "在此系统上找不到该浏览器。",
+              "targetDatabaseMissing": "找不到目标 Cookie 数据库。请先打开一个浏览器标签页。",
+              "unreadablePartitionUnprotected": "无法导入：一个站点分区不可读的 Cookie 没有可注册域名，因此无法保护其现有会话。",
+              "partitionReportUnsupported": "此 Orca 客户端无法报告因站点分区不可读而跳过的 Cookie。请更新此设备上的 Orca 后重试。",
+              "replaceExistingFailed": "无法替换已导入站点的现有 Cookie。",
+              "replaceSafelyFailed": "无法安全替换已导入站点的 Cookie。",
+              "readFileFailed": "无法读取所选文件。",
+              "invalidJson": "文件不是有效的 JSON。",
+              "expectedJsonArray": "应为由 Cookie 对象组成的 JSON 数组。",
+              "emptyFile": "Cookie 文件为空。",
+              "safariFullDiskAccess": "macOS 拒绝访问 Safari Cookie。请在“系统设置”→“隐私与安全性”→“完全磁盘访问权限”中授予 Orca 权限。",
+              "connectionEnded": "导入期间与此服务器的连接已中断。请重新连接后重试。",
+              "serverRepaired": "导入期间此服务器被重新配对。请重试。",
+              "routePartitionConflict": "浏览器存储绑定已更改。请重新连接后再次导入。",
+              "profileDatabaseMissing": "找不到配置文件“{{value0}}”的 Cookie 数据库。",
+              "copyDatabaseFailed": "无法复制 {{value0}} Cookie 数据库。请先关闭 {{value1}} 后重试。",
+              "sourceDatabaseMissing": "找不到 {{value0}} Cookie 数据库。",
+              "noCookies": "在 {{value0}} 中未找到 Cookie。",
+              "noValidCookies": "在 {{value0}} 中未找到有效 Cookie。",
+              "encryptionKeyDenied": "无法访问 {{value0}} 加密密钥。操作系统可能拒绝了访问。",
+              "importFailedCloseBrowser": "无法从 {{value0}} 导入 Cookie。请先关闭 {{value1}} 后重试。",
+              "importFailedWithDetail": "无法从 {{value0}} 导入 Cookie：{{value1}}。",
+              "readBrowserCookiesFailed": "无法读取 {{value0}} Cookie。",
+              "allBrowserCookiesExpired": "{{value0}} 中的所有 Cookie 均已过期。",
+              "importFailed": "无法从 {{value0}} 导入 Cookie。",
+              "invalidEntries": "未找到有效 Cookie。由于字段缺失或无效，已跳过 {{value0}} 个条目。",
+              "diagnosticDetails": "{{value0}}详细信息已写入 {{value1}}。"
             }
           }
         }
@@ -3518,12 +3563,14 @@
             "switchTerminal": "切换终端",
             "openTaskTerminal": "打开任务终端",
             "systemBrowser": "系统浏览器",
-            "orcaBrowser": "Orca Browser",
+            "orcaBrowser": "Orca 浏览器",
             "terminalLinkSettings": "终端链接设置",
             "copyLink": "复制链接",
             "copied": "已复制",
             "copiedLink": "已复制链接",
-            "copyLinkFailed": "复制链接失败"
+            "copyLinkFailed": "复制链接失败",
+            "downloadOpenWithDefaultApp": "下载并使用默认应用打开",
+            "downloadOpenFailed": "下载“{{value0}}”失败。"
           },
           "TerminalQuickCommandsSubmenu": {
             "3ccc7981bb": "主机不可用",
@@ -16563,7 +16610,13 @@
       },
       "BrowserCookieImportDisclosure": {
         "title": "Google 登录信息未导入",
-        "description": "直接在 Orca 中登录 Google，"
+        "description": "请直接在 Orca 中登录 Google。"
+      },
+      "BrowserCookieImportMachineNotice": {
+        "clientLabel": "此设备上的浏览器",
+        "remoteLabel": "{{value0}} 上的浏览器",
+        "clientNoteLocalStorage": "导入操作会读取此设备上的浏览器，Cookie 存储在本机。",
+        "remoteNoteRemoteStorage": "导入操作会读取 {{value0}} 上的浏览器，Cookie 存储在该设备上，其屏幕上可能会出现权限提示。"
       },
       "WorktreeBaseFallbackDialog": {
         "title": "工作区已从本地基创建",

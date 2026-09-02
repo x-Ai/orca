@@ -1121,6 +1121,38 @@
               "googleCookiesSkippedLocal": "Google cookies were not imported. Open a browser in Orca with this profile, then sign into Google.",
               "googleCookiesSkippedClientHosted": "Google cookies were not imported. Open a browser tab in the {{value0}} workspace with this profile — it opens on this device — then sign into Google.",
               "googleCookiesSkippedRemoteWorkspace": "Google cookies were not imported. Open a browser tab in the {{value0}} workspace with this profile, then sign into Google."
+            },
+            "failure": {
+              "notAuthorized": "Not authorized",
+              "sessionProfileMissing": "Session profile not found.",
+              "invalidBrowserProfile": "Invalid browser profile name.",
+              "browserNotFound": "Browser not found on this system.",
+              "targetDatabaseMissing": "Target cookie database not found. Open a browser tab first.",
+              "unreadablePartitionUnprotected": "Could not import: a cookie with an unreadable site partition has no registrable domain, so its existing session cannot be protected.",
+              "partitionReportUnsupported": "This Orca client cannot report cookies skipped for an unreadable site partition. Update Orca on this device and try again.",
+              "replaceExistingFailed": "Could not replace existing cookies for the imported sites.",
+              "replaceSafelyFailed": "Could not safely replace cookies for the imported sites.",
+              "readFileFailed": "Could not read the selected file.",
+              "invalidJson": "File is not valid JSON.",
+              "expectedJsonArray": "Expected a JSON array of cookie objects.",
+              "emptyFile": "Cookie file is empty.",
+              "safariFullDiskAccess": "macOS denied access to Safari cookies. Grant Full Disk Access to Orca in System Settings → Privacy & Security → Full Disk Access.",
+              "connectionEnded": "The connection to this server ended during the import. Reconnect and try again.",
+              "serverRepaired": "This server was re-paired during the import. Try again.",
+              "routePartitionConflict": "The browser storage binding changed. Reconnect and try the import again.",
+              "profileDatabaseMissing": "No cookies database found for profile \"{{value0}}\".",
+              "copyDatabaseFailed": "Could not copy {{value0}} cookies database. Try closing {{value1}} first.",
+              "sourceDatabaseMissing": "{{value0}} cookies database not found.",
+              "noCookies": "No cookies found in {{value0}}.",
+              "noValidCookies": "No valid cookies found in {{value0}}.",
+              "encryptionKeyDenied": "Could not access {{value0}} encryption key. The OS may have denied access.",
+              "importFailedCloseBrowser": "Could not import cookies from {{value0}}. Try closing {{value1}} first.",
+              "importFailedWithDetail": "Could not import cookies from {{value0}}: {{value1}}.",
+              "readBrowserCookiesFailed": "Could not read {{value0}} cookies.",
+              "allBrowserCookiesExpired": "All {{value0}} cookies are expired.",
+              "importFailed": "Could not import cookies from {{value0}}.",
+              "invalidEntries": "No valid cookies found. {{value0}} entries were skipped due to missing or invalid fields.",
+              "diagnosticDetails": "{{value0}} Details were written to {{value1}}."
             }
           }
         }
