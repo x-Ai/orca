@@ -5,6 +5,10 @@ import type { SshTarget } from '../../../../shared/ssh-types'
 import { useAppStore } from '@/store'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { Button } from '../ui/button'
+import {
+  describeSshTerminateOutcome,
+  terminateSshSessionsWithReconnect
+} from './ssh-session-termination'
 import { SshTargetCard } from './SshTargetCard'
 import { SshTargetDestructiveActions } from './SshTargetDestructiveActions'
 import { SshTargetForm, EMPTY_FORM, type EditingTarget } from './SshTargetForm'
@@ -17,7 +21,6 @@ import {
   importSshPaneConfig,
   removeSshPaneTarget,
   resetSshPaneRelay,
-  terminateSshPaneSessions,
   testSshPaneConnection
 } from './ssh-pane-host-actions'
 import { HostRemoveDialog } from '../sidebar/HostRemoveDialog'
@@ -196,7 +199,19 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
   }
 
   const handleTerminateSessions = async (targetId: string): Promise<void> => {
-    await terminateSshPaneSessions(targetId)
+    try {
+      const report = describeSshTerminateOutcome(await terminateSshSessionsWithReconnect(targetId))
+      toast[report.level](report.message)
+    } catch (err) {
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : translate(
+              'auto.components.settings.SshPane.025e107643',
+              'Failed to end remote terminals'
+        )
+      )
+    }
   }
 
   const handleResetRelay = async (targetId: string): Promise<void> => {

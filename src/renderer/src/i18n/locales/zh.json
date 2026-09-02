@@ -3290,10 +3290,10 @@
             "e4aa243f8c": "重新启动守护进程",
             "a7e2fd2699": "提交议题",
             "5c8ce20be6": "如果这种情况持续存在，请",
-            "cc6d997c65": "从此处重新启动终端守护进程以清除失效的守护进程状态",
-            "7ee11bc0db": "Orca 无法确认此终端的上一会话是否仍在运行，因此未改动该会话，请重新打开此窗格以重试",
+            "cc6d997c65": "从此处重新启动终端守护进程以清除失效的守护进程状态。",
             "e16012e31e": "拥有该会话的终端守护程序已退出，因此该会话及其回滚无法恢复，打开新终端以继续",
-            "sessionUnavailable": "Orca 无法重新连接到此窗格在主机上的终端会话，打开新终端以继续"
+            "sessionUnavailable": "Orca 无法重新连接到此窗格在主机上的终端会话，打开新终端以继续",
+            "remoteTerminalClosed": "远程终端已关闭。"
           },
           "TerminalProcessExitOverlay": {
             "capacityTitle": "已达到 Git Bash 控制台上限",
@@ -16572,7 +16572,6 @@
       },
       "LinuxPackageInstallRecoveryCard": {
         "e3de29c86a": "显示软件包",
-        "3da99454c6": "再次尝试自动安装",
         "55c86654b7": "复制安装命令",
         "53e1559f99": "自动安装失败",
         "a7ac6ec78b": "Orca 已下载更新，但无法自动安装系统包",
@@ -16866,7 +16865,10 @@
         "SortableTabContextMenu": {
           "switchToTerminalView": "切换到终端视图",
           "switchToChatView": "切换到聊天视图",
-          "closeTabsToLeft": "关闭左侧的选项卡"
+          "closeTabsToLeft": "关闭左侧的选项卡",
+          "copySessionId": "复制会话 ID",
+          "copySessionIdSuccess": "已复制会话 ID",
+          "copySessionIdError": "复制会话 ID 失败"
         },
         "BrowserTab": {
           "closeOthers": "关闭其他",
