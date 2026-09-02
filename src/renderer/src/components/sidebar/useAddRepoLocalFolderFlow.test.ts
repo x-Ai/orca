@@ -1,7 +1,8 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type * as ReactModule from 'react'
 import type { NestedRepoScanResult } from '../../../../shared/project-group-types'
 import type { Repo } from '../../../../shared/repo-types'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 
 vi.mock('react', async (importOriginal) => {
   const actual = await importOriginal<typeof ReactModule>()
@@ -83,6 +84,10 @@ describe('useAddRepoLocalFolderFlow', () => {
     onGitRepoReady.mockResolvedValue(undefined)
   })
 
+  afterEach(async () => {
+    await setRendererUiLanguage('en')
+  })
+
   it('adds every selected local folder and completes one default-checkout handoff', async () => {
     pickFolders.mockResolvedValue(['/projects/alpha', '/projects/beta'])
     const { useAddRepoLocalFolderFlow } = await import('./useAddRepoLocalFolderFlow')
@@ -128,6 +133,33 @@ describe('useAddRepoLocalFolderFlow', () => {
     })
     expect(onGitRepoReady).toHaveBeenCalledTimes(1)
     expect(onGitRepoReady).toHaveBeenCalledWith('alpha', 'local_folder_picker', 'local')
+  })
+
+  it('localizes local project scan and opening labels', async () => {
+    await setRendererUiLanguage('zh')
+    pickFolders.mockResolvedValue(['/projects/alpha'])
+    const { useAddRepoLocalFolderFlow } = await import('./useAddRepoLocalFolderFlow')
+
+    const { handleBrowse } = useAddRepoLocalFolderFlow({
+      isOpen: true,
+      droppedLocalPath: '',
+      activeRuntimeEnvironmentId: null,
+      addRepoPath,
+      closeModal,
+      fetchWorktrees,
+      scanNestedRepos,
+      setActiveNestedScanId,
+      setNestedScanInProgress,
+      showNestedRepoReview,
+      onGitRepoReady,
+      setIsAdding,
+      setAddProjectBusyLabel
+    })
+
+    await handleBrowse()
+
+    expect(setAddProjectBusyLabel).toHaveBeenCalledWith('正在扫描仓库…')
+    expect(setAddProjectBusyLabel).toHaveBeenCalledWith('正在打开项目…')
   })
 
   it('skips nested-review folders in a multi-folder add and continues with git folders', async () => {
