@@ -10,6 +10,10 @@ import {
 import type { PluginHostListEntry, PluginHostLogLine } from '../../../../preload/api-types'
 import { translate } from '@/i18n/i18n'
 import { PluginCatalogAvatar } from '../plugin-catalog/PluginCatalogAvatar'
+import {
+  localizedPluginDescription,
+  localizedPluginName
+} from '../plugin-catalog/plugin-localized-metadata'
 import { invalidPluginErrorMessage } from './plugin-error-presentation'
 import { cn } from '@/lib/utils'
 import { Badge } from '../ui/badge'
@@ -138,6 +142,12 @@ export function PluginSettingsRow({
   onRollbackRequest,
   onRemoveRequest
 }: PluginSettingsRowProps): React.JSX.Element {
+  const name = localizedPluginName(plugin.pluginKey, plugin.name, plugin.official)
+  const description = localizedPluginDescription(
+    plugin.pluginKey,
+    plugin.description,
+    plugin.official
+  )
   const status = statusPresentation(plugin)
   const needsReview = plugin.needsReconsent || plugin.status === 'pending'
   const enabled =
@@ -169,10 +179,10 @@ export function PluginSettingsRow({
       data-plugin-key={plugin.pluginKey}
     >
       <div className="flex items-start gap-3">
-        <PluginCatalogAvatar name={plugin.name} />
+        <PluginCatalogAvatar name={name} />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <h4 className="text-sm font-semibold">{plugin.name}</h4>
+            <h4 className="text-sm font-semibold">{name}</h4>
             {plugin.official ? (
               <BadgeCheck
                 className="size-4 shrink-0 text-muted-foreground"
@@ -208,7 +218,7 @@ export function PluginSettingsRow({
             {plugin.publisher ? `${plugin.publisher} · ` : null}v{plugin.version}
           </p>
           <p className="mt-3 line-clamp-2 min-h-10 text-sm leading-5 text-muted-foreground">
-            {plugin.description ??
+            {description ??
               translate(
                 'auto.components.settings.PluginSettingsRow.noDescription',
                 'No description provided.'
@@ -273,7 +283,7 @@ export function PluginSettingsRow({
                 aria-label={translate(
                   'auto.components.settings.PluginSettingsRow.moreActions',
                   'More actions for {{value0}}',
-                  { value0: plugin.name }
+                  { value0: name }
                 )}
               >
                 <MoreHorizontal />
@@ -312,12 +322,12 @@ export function PluginSettingsRow({
                 ? translate(
                     'auto.components.settings.PluginSettingsRow.disableLabel',
                     'Disable {{value0}}',
-                    { value0: plugin.name }
+                    { value0: name }
                   )
                 : translate(
                     'auto.components.settings.PluginSettingsRow.enableLabel',
                     'Enable {{value0}}',
-                    { value0: plugin.name }
+                    { value0: name }
                   )
             }
           />

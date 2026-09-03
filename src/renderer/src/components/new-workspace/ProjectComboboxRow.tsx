@@ -4,6 +4,7 @@ import { RepoBadgeMark } from '@/components/repo/RepoBadgeLabel'
 import { cn } from '@/lib/utils'
 import type { NewWorkspaceProjectOption } from '@/lib/new-workspace-project-options'
 import { splitDetailForElision } from './project-combobox-matching'
+import { translateProjectOptionDetail } from './project-combobox-localized-copy'
 
 /** Identity mark shared by the field and every row, so a project reads the same in both. */
 export function ProjectOptionMark({
@@ -70,16 +71,21 @@ export function ProjectOptionDetail({
   hits?: readonly number[]
   className?: string
 }): React.JSX.Element {
-  const split = splitDetailForElision(detail)
+  const displayDetail = translateProjectOptionDetail(detail)
+  const displayHits = displayDetail === detail ? hits : undefined
+  const split = splitDetailForElision(displayDetail)
   if (!split) {
     return (
-      <span className={cn('min-w-0 truncate', className)} title={detail}>
-        {hits ? <MatchedText text={detail} hits={hits} /> : detail}
+      <span className={cn('min-w-0 truncate', className)} title={displayDetail}>
+        {displayHits ? <MatchedText text={displayDetail} hits={displayHits} /> : displayDetail}
       </span>
     )
   }
   return (
-    <span className={cn('flex min-w-0 items-baseline overflow-hidden', className)} title={detail}>
+    <span
+      className={cn('flex min-w-0 items-baseline overflow-hidden', className)}
+      title={displayDetail}
+    >
       {/* Head collapses first; the tail only truncates once the head is gone. */}
       <span className="min-w-0 shrink-[999] truncate">{split.head}</span>
       <span className="min-w-0 shrink truncate">/{split.tail}</span>

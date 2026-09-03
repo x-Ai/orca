@@ -284,6 +284,11 @@
     "minimize": "最小化",
     "zoom": "缩放"
   },
+  "notifications": {
+    "testTitle": "Orca 通知已开启",
+    "testBody": "这是一条来自 Orca 的测试通知。",
+    "permissionProbeBody": "当代理完成任务或终端需要关注时，Orca 会通知您。"
+  },
   "tray": {
     "openOrca": "打开 Orca",
     "quit": "退出",
@@ -6282,7 +6287,8 @@
           "todo": "待办",
           "inProgress": "进行中",
           "inReview": "评审中",
-          "done": "完成"
+          "done": "完成",
+          "numbered": "状态 {{number}}"
         },
         "workspaceKanbanStatusLane": {
           "newWorkspaceInStatus": "在「{{status}}」中新建工作区",
@@ -7117,6 +7123,8 @@
           "45c6e85c4d": "编辑",
           "8f1afdfbd8": "差异自动换行",
           "4aa4d9fb73": "在差异编辑器中换行显示长行，而不是要求水平滚动",
+          "f1b3ceeb98": "在差异中显示空白字符",
+          "94a479cef3": "显示差异中行首和行尾空白字符的区别",
           "bf16ef0af2": "关闭",
           "3f6892f307": "开启",
           "b82f86d7d2": "Markdown 拼写检查(富文本)",
@@ -11249,6 +11257,18 @@
           "checkUpdate": "检查更新",
           "install": "安装"
         },
+        "PluginCatalogMetadata": {
+          "multipassRecipesName": "Orca Multipass 配方",
+          "multipassRecipesDescription": "为一次性 Multipass 工作区提供经过审查的基础生命周期流程。",
+          "navigationShortcutsName": "Orca 导航快捷键",
+          "navigationShortcutsDescription": "为常用 Orca 视图提供命令别名和可选快捷键。",
+          "portugueseName": "Orca 葡萄牙语",
+          "portugueseDescription": "为 Orca 常用导航提供葡萄牙语（巴西）翻译。",
+          "categoryLanguages": "语言",
+          "categoryOfficial": "官方",
+          "categoryVmRecipes": "VM 配方",
+          "categoryKeybindings": "快捷键"
+        },
         "PluginMarketplacePreviewDialog": {
           "languagePacksOne": "1 个语言包",
           "languagePacks": "{{value0}} 个语言包",
@@ -13596,7 +13616,11 @@
             "label": "项目",
             "browse": "浏览项目",
             "listLabel": "项目",
-            "noProjects": "尚无项目，"
+            "noProjects": "尚无项目",
+            "recentSection": "最近使用",
+            "projectsSection": "项目",
+            "foldersSection": "文件夹",
+            "projectDetail": "项目"
           },
           "RunTargetCombobox": {
             "listLabel": "运行目标",

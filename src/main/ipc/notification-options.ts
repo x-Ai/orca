@@ -1,4 +1,5 @@
 import type { NotificationDispatchRequest } from '../../shared/notification-settings-types'
+import { translateMain } from '../i18n/main-i18n'
 
 const NOTIFICATION_AGENT_LABEL_MAX_LENGTH = 40
 const NOTIFICATION_TITLE_CONTEXT_MAX_LENGTH = 80
@@ -35,8 +36,8 @@ export function buildNotificationOptions(args: NotificationDispatchRequest): {
 
   if (args.source === 'test') {
     return {
-      title: 'Orca notifications are on',
-      body: 'This is a test notification from Orca.'
+      title: translateMain('notifications.testTitle', 'Orca notifications are on'),
+      body: translateMain('notifications.testBody', 'This is a test notification from Orca.')
     }
   }
 

@@ -10,6 +10,15 @@ import {
   translateDefaultWorkflowStateLabel,
   translateWorkspaceBoardStatusLabel
 } from '../components/sidebar/workspace-board-status-label'
+import {
+  translateProjectOptionDetail,
+  translateProjectOptionSectionHeading
+} from '../components/new-workspace/project-combobox-localized-copy'
+import {
+  localizedPluginCategory,
+  localizedPluginDescription,
+  localizedPluginName
+} from '../components/plugin-catalog/plugin-localized-metadata'
 import { formatGitHubProjectErrorMessage } from '../lib/github-project-error-copy'
 import { formatTaskSourceErrorMessage } from '../lib/task-source-error-copy'
 import { getOsRevealLabel } from '../lib/os-reveal-label'
@@ -69,10 +78,46 @@ describe('Chinese localization regressions', () => {
       '进行中'
     )
     expect(translateDefaultWorkflowStateLabel('In progress')).toBe('进行中')
+    expect(translateDefaultWorkflowStateLabel('Status 5')).toBe('状态 5')
+    expect(translateProjectOptionSectionHeading({ key: 'recent', heading: 'Recent' })).toBe(
+      '最近使用'
+    )
+    expect(translateProjectOptionDetail('Project')).toBe('项目')
+    expect(translateProjectOptionDetail('/workspace/Project')).toBe('/workspace/Project')
     expect(translate('auto.components.TaskPage.00022ec0ba', 'Project')).toBe('项目')
     expect(
       translate('auto.components.skills.SkillInstallTargetFields.8562dd1e6e', 'This computer')
     ).toBe('此计算机')
+  })
+
+  it('localizes official plugin metadata and diff whitespace settings', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      localizedPluginName('stablyai.orca-navigation-shortcuts', 'Orca Navigation Shortcuts', true)
+    ).toBe('Orca 导航快捷键')
+    expect(
+      localizedPluginDescription(
+        'stablyai.orca-navigation-shortcuts',
+        'Command aliases and optional shortcuts for frequent Orca views.',
+        true
+      )
+    ).toBe('为常用 Orca 视图提供命令别名和可选快捷键。')
+    expect(localizedPluginCategory('keybindings')).toBe('快捷键')
+    expect(localizedPluginName('example.plugin', 'External Plugin', false)).toBe('External Plugin')
+    expect(
+      localizedPluginDescription(
+        'stablyai.orca-navigation-shortcuts',
+        'A newer marketplace description.',
+        true
+      )
+    ).toBe('A newer marketplace description.')
+    expect(
+      translate(
+        'auto.components.settings.GeneralEditorSettingsSection.f1b3ceeb98',
+        'Diff Show Whitespace'
+      )
+    ).toBe('在差异中显示空白字符')
   })
 
   it('localizes automation and remote browsing settings copy', async () => {

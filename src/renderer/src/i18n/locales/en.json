@@ -390,6 +390,11 @@
     "minimize": "Minimize",
     "zoom": "Zoom"
   },
+  "notifications": {
+    "testTitle": "Orca notifications are on",
+    "testBody": "This is a test notification from Orca.",
+    "permissionProbeBody": "Orca will alert you when agents finish or terminals need attention."
+  },
   "tray": {
     "openOrca": "Open Orca",
     "quit": "Quit",
@@ -6752,7 +6757,8 @@
           "todo": "Todo",
           "inProgress": "In progress",
           "inReview": "In review",
-          "done": "Done"
+          "done": "Done",
+          "numbered": "Status {{number}}"
         },
         "workspaceKanbanStatusLane": {
           "newWorkspaceInStatus": "New workspace in {{status}}",
@@ -11768,6 +11774,18 @@
           "checkUpdate": "Check for update",
           "install": "Install"
         },
+        "PluginCatalogMetadata": {
+          "multipassRecipesName": "Orca Multipass Recipes",
+          "multipassRecipesDescription": "A reviewed starter lifecycle for disposable Multipass workspaces.",
+          "navigationShortcutsName": "Orca Navigation Shortcuts",
+          "navigationShortcutsDescription": "Command aliases and optional shortcuts for frequent Orca views.",
+          "portugueseName": "Orca Portuguese",
+          "portugueseDescription": "Brazilian Portuguese translations for common Orca navigation.",
+          "categoryLanguages": "Languages",
+          "categoryOfficial": "Official",
+          "categoryVmRecipes": "VM recipes",
+          "categoryKeybindings": "Keybindings"
+        },
         "PluginMarketplacePreviewDialog": {
           "languagePacksOne": "1 language pack",
           "languagePacks": "{{value0}} language packs",
@@ -14127,7 +14145,11 @@
             "label": "Project",
             "browse": "Browse projects",
             "listLabel": "Projects",
-            "noProjects": "No projects yet."
+            "noProjects": "No projects yet.",
+            "recentSection": "Recent",
+            "projectsSection": "Projects",
+            "foldersSection": "Folders",
+            "projectDetail": "Project"
           },
           "RunTargetCombobox": {
             "listLabel": "Run targets",

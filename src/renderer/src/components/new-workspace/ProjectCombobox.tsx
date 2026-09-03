@@ -9,6 +9,7 @@ import {
   rankProjectOptions,
   sectionProjectOptions
 } from './project-combobox-matching'
+import { translateProjectOptionSectionHeading } from './project-combobox-localized-copy'
 import { ProjectOptionDetail, ProjectOptionMark, ProjectOptionRow } from './ProjectComboboxRow'
 import { useRecentProjectIds } from './use-recent-project-ids'
 import { isWithinComboboxRoot, useTypeAheadCombobox } from './use-type-ahead-combobox'
@@ -297,35 +298,38 @@ export default function ProjectCombobox({
                     )}
               </p>
             ) : null}
-            {sections.map((section) => (
-              // Why: `role="group"` — a bare div between a listbox and its
-              // options breaks the ownership relationship for screen readers,
-              // which is the only thing that makes the headings announceable.
-              <div key={section.key} role="group" aria-label={section.heading ?? undefined}>
-                {section.heading ? (
-                  <div
-                    aria-hidden="true"
-                    className="px-2 pt-2.5 pb-1 text-[11px] font-semibold tracking-[0.05em] text-muted-foreground uppercase"
-                  >
-                    {section.heading}
-                  </div>
-                ) : null}
-                {section.items.map((scored) => (
-                  <ProjectOptionRow
-                    key={scored.option.id}
-                    option={scored.option}
-                    nameHits={scored.nameHits}
-                    detailHits={scored.detailHits}
-                    armed={armedKey === scored.option.id}
-                    current={scored.option.id === value}
-                    ambiguous={ambiguous.has(scored.option.id)}
-                    optionId={armedKey === scored.option.id ? `${listId}-armed` : undefined}
-                    onArm={() => arm(scored.option.id)}
-                    onCommit={() => commit(scored.option.id)}
-                  />
-                ))}
-              </div>
-            ))}
+            {sections.map((section) => {
+              const heading = translateProjectOptionSectionHeading(section)
+              return (
+                // Why: `role="group"` — a bare div between a listbox and its
+                // options breaks the ownership relationship for screen readers,
+                // which is the only thing that makes the headings announceable.
+                <div key={section.key} role="group" aria-label={heading ?? undefined}>
+                  {heading ? (
+                    <div
+                      aria-hidden="true"
+                      className="px-2 pt-2.5 pb-1 text-[11px] font-semibold tracking-[0.05em] text-muted-foreground uppercase"
+                    >
+                      {heading}
+                    </div>
+                  ) : null}
+                  {section.items.map((scored) => (
+                    <ProjectOptionRow
+                      key={scored.option.id}
+                      option={scored.option}
+                      nameHits={scored.nameHits}
+                      detailHits={scored.detailHits}
+                      armed={armedKey === scored.option.id}
+                      current={scored.option.id === value}
+                      ambiguous={ambiguous.has(scored.option.id)}
+                      optionId={armedKey === scored.option.id ? `${listId}-armed` : undefined}
+                      onArm={() => arm(scored.option.id)}
+                      onCommit={() => commit(scored.option.id)}
+                    />
+                  ))}
+                </div>
+              )
+            })}
           </div>
           {onAddProject ? (
             <div

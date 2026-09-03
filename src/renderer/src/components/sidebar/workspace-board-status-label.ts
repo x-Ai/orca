@@ -33,8 +33,14 @@ export function translateDefaultWorkflowStateLabel(label: string): string {
     case 'Completed':
       return translate('auto.components.sidebar.workspaceBoardStatus.done', 'Done')
     default:
-      return label
+      break
   }
+  const numberedStatus = /^Status (\d+)$/.exec(label)
+  return numberedStatus
+    ? translate('auto.components.sidebar.workspaceBoardStatus.numbered', 'Status {{number}}', {
+        number: numberedStatus[1]
+      })
+    : label
 }
 
 export function newWorkspaceInStatusTooltip(statusLabel: string): string {

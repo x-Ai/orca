@@ -6,6 +6,11 @@ import type {
 import { translate } from '@/i18n/i18n'
 import { PluginCatalogAvatar } from '../plugin-catalog/PluginCatalogAvatar'
 import { pluginDisplayNameFromKey } from '../plugin-catalog/plugin-display-name'
+import {
+  localizedPluginCategory,
+  localizedPluginDescription,
+  localizedPluginName
+} from '../plugin-catalog/plugin-localized-metadata'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 
@@ -24,7 +29,16 @@ export function PluginMarketplaceListingRow({
 }: PluginMarketplaceListingRowProps): React.JSX.Element {
   const blocked = listing.blockedByKillList
   const canCheckUpdate = installed?.source?.kind === 'marketplace'
-  const name = pluginDisplayNameFromKey(listing.pluginKey)
+  const name = localizedPluginName(
+    listing.pluginKey,
+    pluginDisplayNameFromKey(listing.pluginKey),
+    listing.official
+  )
+  const description = localizedPluginDescription(
+    listing.pluginKey,
+    listing.description,
+    listing.official
+  )
   return (
     <article
       className="flex min-h-36 flex-col rounded-xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs transition-colors hover:border-border"
@@ -62,7 +76,7 @@ export function PluginMarketplaceListingRow({
       </div>
 
       <p className="mt-3 line-clamp-2 min-h-10 text-sm leading-5 text-muted-foreground">
-        {listing.description ??
+        {description ??
           translate(
             'auto.components.settings.PluginMarketplaceListingRow.noDescription',
             'No description provided.'
@@ -86,7 +100,7 @@ export function PluginMarketplaceListingRow({
         <div className="flex min-w-0 flex-wrap gap-1">
           {listing.categories.slice(0, 3).map((category) => (
             <Badge key={category} variant="outline" className="text-[10px] text-muted-foreground">
-              {category}
+              {localizedPluginCategory(category)}
             </Badge>
           ))}
         </div>
