@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest'
+import { getNotificationSoundOptions } from '../components/notification-sound-options'
 import { getCheckCountChips } from '../components/pr-check-counts'
 import { STATUS_LABELS } from '../components/settings/SshTargetCard'
 import { getTaskSourceContextSummary } from '../components/task-source-context-summary'
@@ -118,6 +119,23 @@ describe('Chinese localization regressions', () => {
         'Diff Show Whitespace'
       )
     ).toBe('在差异中显示空白字符')
+  })
+
+  it('keeps notification sound names in English', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(getNotificationSoundOptions(null).map((option) => option.title)).toEqual([
+      '系统默认值',
+      'Two Tone',
+      'Bong',
+      'Thump',
+      'Blip',
+      'Sonar',
+      'Blop',
+      'Ding',
+      'Clack',
+      'Beep'
+    ])
   })
 
   it('localizes automation and remote browsing settings copy', async () => {
