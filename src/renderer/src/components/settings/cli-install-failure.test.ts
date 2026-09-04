@@ -1,8 +1,13 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import type { CliInstallStatus } from '../../../../shared/cli-install-types'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import { readCliInstallFailure, readCliInstallRejection } from './cli-install-failure'
 
 const FALLBACK = 'Orca could not finish CLI registration and reported no reason.'
+
+afterEach(async () => {
+  await setRendererUiLanguage('en')
+})
 
 function cliStatus(overrides: Partial<CliInstallStatus> = {}): CliInstallStatus {
   return {
@@ -65,6 +70,20 @@ describe('readCliInstallFailure', () => {
       conflictCommandPath: null
     })
   })
+
+  it('localizes a stable status reason', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      readCliInstallFailure(
+        cliStatus({ state: 'unsupported', detail: 'No WSL distribution is available.' }),
+        FALLBACK
+      )
+    ).toEqual({
+      reason: '没有可用的 WSL 发行版',
+      conflictCommandPath: null
+    })
+  })
 })
 
 describe('readCliInstallRejection', () => {
@@ -102,6 +121,22 @@ describe('readCliInstallRejection', () => {
   it('falls back for a non-Error rejection with no message', () => {
     expect(readCliInstallRejection(new Error('   '), FALLBACK)).toEqual({
       reason: FALLBACK,
+      conflictCommandPath: null
+    })
+  })
+
+  it('localizes a stable Electron-wrapped rejection', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      readCliInstallRejection(
+        new Error(
+          "Error invoking remote method 'cli:installWsl': Error: WSL command timed out after 10000ms."
+        ),
+        FALLBACK
+      )
+    ).toEqual({
+      reason: 'WSL 命令在 10000 毫秒后超时',
       conflictCommandPath: null
     })
   })

@@ -3779,9 +3779,25 @@
       "cli": {
         "detail": {
           "devLauncherOnly": "Development mode uses a generated launcher for validation only.",
+          "differentLauncher": "{{path}} points to a different launcher.",
           "launcherMissing": "The bundled CLI launcher is missing from this Orca build.",
+          "noWslDistro": "No WSL distribution is available.",
+          "notOrcaLauncherScript": "{{path}} exists but is not an Orca launcher script.",
+          "notOrcaSymlink": "{{path}} exists but is not an Orca symlink.",
+          "olderLauncher": "{{path}} contains an older Orca launcher.",
           "platformUnsupported": "CLI registration is not implemented on this platform.",
-          "wslDistroUnreachable": "Could not reach the WSL distro. Try again."
+          "registeredAt": "Registered at {{path}}.",
+          "registeredInDistroAt": "Registered in {{distro}} at {{path}}.",
+          "registrationUnavailable": "CLI registration is unavailable on this build.",
+          "windowsLauncherMissing": "The Windows Orca CLI launcher is missing.",
+          "windowsPathCheckFailed": "The Orca launcher exists, but Orca could not check your Windows user PATH.",
+          "windowsPathTimedOut": "Windows PATH command timed out after {{ms}}ms.",
+          "wslCommandTimedOut": "WSL command timed out after {{ms}}ms.",
+          "wslDistroUnreachable": "Could not reach the WSL distro. Try again.",
+          "wslHomeUnresolved": "Unable to resolve the WSL home directory.",
+          "wslInteropUnavailable": "WSL Windows interop is unavailable; Orca cannot launch the Windows CLI from WSL.",
+          "wslRegistrationUnavailable": "WSL CLI registration is unavailable.",
+          "wslWindowsOnly": "WSL CLI registration is only available on Windows."
         }
       },
       "emulator": {
