@@ -5,6 +5,7 @@ import { useAppStore } from '@/store'
 import { settingsForRuntimeOwner } from '@/runtime/runtime-rpc-client'
 import { extractIpcErrorMessage } from './rich-markdown-ipc-error-message'
 import { insertRichMarkdownImageFromPath } from './rich-markdown-image-insert'
+import { translate } from '@/i18n/i18n'
 
 export type RichMarkdownImagePasteArgs = {
   editor: Editor | null
@@ -55,7 +56,12 @@ export function handleRichMarkdownImagePaste({
       })
     })
     .catch((err) => {
-      toast.error(extractIpcErrorMessage(err, 'Failed to insert image.'))
+      toast.error(
+        extractIpcErrorMessage(
+          err,
+          translate('components.toastFallbacks.imageInsertFailed', 'Failed to insert image.')
+        )
+      )
     })
 
   return true

@@ -24,6 +24,7 @@ import {
   getReplaceablePreviewFileId,
   removeEditorStateForReplacedPreview
 } from '../tabs/workspace-editor-item'
+import { translate } from '@/i18n/i18n'
 
 export type OpenFileApplyScratch = {
   editorItemFileId: string
@@ -57,7 +58,15 @@ export function applyOpenFileToState(
         options?.suppressActiveRuntimeFallback === true || file.runtimeEnvironmentId !== undefined
       )
     } catch (error) {
-      toast.error(extractIpcErrorMessage(error, 'Failed to resolve file owner.'))
+      toast.error(
+        extractIpcErrorMessage(
+          error,
+          translate(
+            'components.toastFallbacks.fileOwnerResolveFailed',
+            'Failed to resolve file owner.'
+          )
+        )
+      )
       // Why: mirrored tabs can arrive before their graph row; allow convergence while mutation paths still fail closed without provenance.
     }
   }

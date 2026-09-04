@@ -3,6 +3,7 @@ import type { Editor } from '@tiptap/react'
 import { toast } from 'sonner'
 import { insertRichMarkdownImageFromPath } from './rich-markdown-image-insert'
 import { extractIpcErrorMessage } from './rich-markdown-ipc-error-message'
+import { translate } from '@/i18n/i18n'
 
 export function useLocalImagePick(
   editor: Editor | null,
@@ -36,7 +37,12 @@ export function useLocalImagePick(
           !candidate.isDestroyed && candidate.view.dom === targetDom && targetDom.isConnected
       })
     } catch (err) {
-      toast.error(extractIpcErrorMessage(err, 'Failed to insert image.'))
+      toast.error(
+        extractIpcErrorMessage(
+          err,
+          translate('components.toastFallbacks.imageInsertFailed', 'Failed to insert image.')
+        )
+      )
     }
   }, [editor, filePath, runtimeEnvironmentId, worktreeId])
 }

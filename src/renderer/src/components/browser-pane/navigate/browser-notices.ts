@@ -19,70 +19,123 @@ type BrowserLoadErrorLike = BrowserLoadError | null
 function humanizePermission(permission: string): string {
   switch (permission) {
     case 'media':
-      return 'camera or microphone access'
+      return translate('browser.notices.permissions.media', 'camera or microphone access')
     case 'pointerLock':
-      return 'pointer lock'
+      return translate('browser.notices.permissions.pointerLock', 'pointer lock')
     case 'storage-access':
-      return 'access to its own cookies and storage while embedded on this page'
+      return translate(
+        'browser.notices.permissions.storageAccess',
+        'access to its own cookies and storage while embedded on this page'
+      )
     case 'top-level-storage-access':
-      return 'cookie access on behalf of an embedded site'
+      return translate(
+        'browser.notices.permissions.topLevelStorageAccess',
+        'cookie access on behalf of an embedded site'
+      )
     case 'geolocation':
-      return 'your location'
+      return translate('browser.notices.permissions.geolocation', 'your location')
     case 'idle-detection':
-      return 'permission to detect when you are idle'
+      return translate(
+        'browser.notices.permissions.idleDetection',
+        'permission to detect when you are idle'
+      )
     case 'display-capture':
-      return 'permission to capture your screen'
+      return translate(
+        'browser.notices.permissions.displayCapture',
+        'permission to capture your screen'
+      )
     case 'window-management':
-      return 'screen information and multi-screen window placement'
+      return translate(
+        'browser.notices.permissions.windowManagement',
+        'screen information and multi-screen window placement'
+      )
     case 'keyboardLock':
-      return 'permission to capture keyboard input'
+      return translate(
+        'browser.notices.permissions.keyboardLock',
+        'permission to capture keyboard input'
+      )
     case 'openExternal':
-      return 'permission to open a link outside Orca'
+      return translate(
+        'browser.notices.permissions.openExternal',
+        'permission to open a link outside Orca'
+      )
     case 'fileSystem':
-      return 'access to your files or folders'
+      return translate('browser.notices.permissions.fileSystem', 'access to your files or folders')
     case 'hid':
-      return 'access to a connected human interface device'
+      return translate(
+        'browser.notices.permissions.hid',
+        'access to a connected human interface device'
+      )
     case 'usb':
-      return 'access to a USB device'
+      return translate('browser.notices.permissions.usb', 'access to a USB device')
     case 'serial':
-      return 'access to a serial device'
+      return translate('browser.notices.permissions.serial', 'access to a serial device')
     case 'midi':
-      return 'access to your MIDI devices'
+      return translate('browser.notices.permissions.midi', 'access to your MIDI devices')
     case 'midiSysex':
-      return 'access to system-exclusive MIDI messages'
+      return translate(
+        'browser.notices.permissions.midiSysex',
+        'access to system-exclusive MIDI messages'
+      )
     case 'mediaKeySystem':
-      return 'access to protected media playback'
+      return translate(
+        'browser.notices.permissions.mediaKeySystem',
+        'access to protected media playback'
+      )
     case 'speaker-selection':
-      return 'permission to choose an audio output device'
+      return translate(
+        'browser.notices.permissions.speakerSelection',
+        'permission to choose an audio output device'
+      )
     default:
       return permission
   }
 }
 
 export function formatPermissionNotice(event: BrowserPermissionDeniedEvent): string {
-  const target = event.origin === 'unknown' ? 'this page' : event.origin
-  return `${target} asked for ${humanizePermission(event.permission)}, and Orca denied it.`
+  const target =
+    event.origin === 'unknown' ? translate('browser.notices.thisPage', 'this page') : event.origin
+  return translate(
+    'browser.notices.permissionDenied',
+    '{{target}} asked for {{permission}}, and Orca denied it.',
+    { target, permission: humanizePermission(event.permission) }
+  )
 }
 
 export function formatPopupNotice(event: BrowserPopupEvent): string {
-  const target = event.origin === 'unknown' ? 'A site' : event.origin
+  const target =
+    event.origin === 'unknown' ? translate('browser.notices.aSite', 'A site') : event.origin
   if (event.action === 'opened-in-orca') {
-    return `${target} opened a new page in Orca.`
+    return translate('browser.notices.popupOpenedInOrca', '{{target}} opened a new page in Orca.', {
+      target
+    })
   }
   if (event.action === 'opened-external') {
-    return `${target} opened a new window in your default browser.`
+    return translate(
+      'browser.notices.popupOpenedExternal',
+      '{{target}} opened a new window in your default browser.',
+      { target }
+    )
   }
-  return `${target} tried to open a popup Orca does not support here.`
+  return translate(
+    'browser.notices.popupUnsupported',
+    '{{target}} tried to open a popup Orca does not support here.',
+    { target }
+  )
 }
 
 export function formatDownloadFinishedNotice(event: BrowserDownloadFinishedEvent): string {
   if (event.status === 'completed') {
-    return event.savePath ? `Downloaded to ${event.savePath}.` : 'Download complete.'
+    return event.savePath
+      ? translate('browser.notices.downloadedTo', 'Downloaded to {{path}}.', {
+          path: event.savePath
+        })
+      : translate('browser.notices.downloadComplete', 'Download complete.')
   }
   if (event.status === 'failed') {
-    return event.error ?? 'Download failed.'
+    return event.error ?? translate('browser.notices.downloadFailed', 'Download failed.')
   }
-  return event.error ?? 'Download canceled.'
+  return event.error ?? translate('browser.notices.downloadCanceled', 'Download canceled.')
 }
 
 export function formatByteCount(bytes: number | null): string | null {

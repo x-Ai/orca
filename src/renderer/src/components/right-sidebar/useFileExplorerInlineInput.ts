@@ -14,6 +14,7 @@ import {
   captureFileExplorerOperationGuard,
   getFileExplorerOperationOwner
 } from './file-explorer-operation-owner'
+import { translate } from '@/i18n/i18n'
 
 type UseFileExplorerInlineInputParams = {
   activeWorktreeId: string | null
@@ -227,7 +228,16 @@ export function useFileExplorerInlineInput({
           } catch (err) {
             // Refresh the directory even on failure so the tree stays consistent
             await refreshDir(inlineInput.parentPath)
-            toast.error(extractIpcErrorMessage(err, `Failed to create '${name}'.`))
+            toast.error(
+              extractIpcErrorMessage(
+                err,
+                translate(
+                  'components.toastFallbacks.fileCreateFailed',
+                  "Failed to create '{{name}}'.",
+                  { name }
+                )
+              )
+            )
           }
         }
       }

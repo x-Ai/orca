@@ -4,6 +4,7 @@ import { basename, dirname, joinPath } from '@/lib/path'
 import type { TreeNode } from './file-explorer-types'
 import { copyRuntimePath, runtimePathExists } from '@/runtime/runtime-file-client'
 import { captureFileExplorerOperationGuard } from './file-explorer-operation-owner'
+import { translate } from '@/i18n/i18n'
 
 /**
  * Electron's ipcRenderer.invoke wraps errors as:
@@ -45,7 +46,16 @@ export function useFileDuplicate({
         try {
           operationGuard = captureFileExplorerOperationGuard(activeWorktreeId, node.operationOwner)
         } catch (err) {
-          toast.error(extractIpcErrorMessage(err, `Failed to duplicate '${name}'.`))
+          toast.error(
+            extractIpcErrorMessage(
+              err,
+              translate(
+                'components.toastFallbacks.fileDuplicateFailed',
+                "Failed to duplicate '{{name}}'.",
+                { name }
+              )
+            )
+          )
           return
         }
         const context = {
@@ -75,7 +85,6 @@ export function useFileDuplicate({
         // in degenerate scenarios.
         const MAX_RETRIES = 10
         let retries = 0
-        // eslint-disable-next-line no-constant-condition
         while (true) {
           try {
             operationGuard.assertCurrent()
@@ -93,7 +102,16 @@ export function useFileDuplicate({
               retries += 1
               continue
             }
-            toast.error(extractIpcErrorMessage(err, `Failed to duplicate '${name}'.`))
+            toast.error(
+              extractIpcErrorMessage(
+                err,
+                translate(
+                  'components.toastFallbacks.fileDuplicateFailed',
+                  "Failed to duplicate '{{name}}'.",
+                  { name }
+                )
+              )
+            )
             return
           }
         }

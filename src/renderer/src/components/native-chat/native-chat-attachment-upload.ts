@@ -133,7 +133,12 @@ export async function uploadNativeChatAttachmentPaths(
     reportTerminalDropUploadSkipsAndFailures(skipped, failed)
     return resolvedPaths
   } catch (err) {
-    toast.error(extractIpcErrorMessage(err, 'Failed to upload files.'))
+    toast.error(
+      extractIpcErrorMessage(
+        err,
+        translate('components.toastFallbacks.filesUploadFailed', 'Failed to upload files.')
+      )
+    )
     return null
   } finally {
     toast.dismiss(pending)

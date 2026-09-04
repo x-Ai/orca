@@ -41,6 +41,15 @@ describe('localization coverage candidates', () => {
 
     expect(reports).toEqual([])
   })
+
+  it('sees copy passed to the base toast function', () => {
+    const reports = candidates(
+      'Sample.ts',
+      `export function showNotice() { toast('Choose a speech model first.') }`
+    )
+
+    expect(reports.map((report) => report.text)).toEqual(['Choose a speech model first.'])
+  })
 })
 
 describe('localization coverage file skipping', () => {

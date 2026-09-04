@@ -197,6 +197,9 @@
           "splitRight": "向右拆分终端",
           "splitDown": "向下拆分终端",
           "switchInputSource": "切换输入法/语言(系统)"
+        },
+        "dashboard": {
+          "toggle": "切换代理仪表盘"
         }
       },
       "groups": {
@@ -557,7 +560,9 @@
           "15cf5319ec": "已在 {{hostName}} 上检查 {{path}}，但该主机未报告可用文件夹",
           "2dcd706774": "该项目也存在于另一个配置文件中",
           "presenceProfileOverflow": "{{names}} 及另外 {{count}} 个",
-          "removeProjectFailed": "移除项目失败"
+          "removeProjectFailed": "移除项目失败",
+          "wslFilesystemBoundaryTitle": "此项目存储在 Windows 驱动器上",
+          "wslFilesystemBoundaryDescription": "此项目的 Git 在 {{distro}} 中运行，并通过 WSL 文件系统桥访问 Windows 驱动器。其速度预计比存储在 {{distro}} 内部的副本慢约 20 倍。"
         },
         "settings": {
           "e12dab333b": "切换服务器失败",
@@ -1198,6 +1203,14 @@
       },
       "worktreeJumpNavigation": {
         "filteredNotice": "此工作树已被侧边栏筛选条件隐藏。工作区已打开，但不会显示在“空间”中"
+      },
+      "file": {
+        "preview": {
+          "pairedOutsideWorktree": "暂不支持在配对服务器上预览工作区外的文件"
+        }
+      },
+      "activateAiVaultStructuredSession": {
+        "unavailable": "结构化代理会话尚不可用，请稍后重试"
       }
     },
     "hooks": {
@@ -1352,6 +1365,24 @@
         "description": "正在运行的 Orca 终端由先前安装的 Orca 启动的守护进程托管，macOS 可能不会将 Orca 的辅助功能、自动化或受保护文件权限应用到它们，从管理会话重启守护进程以恢复访问权限，这将关闭所有正在运行的 Orca 终端",
         "openManageSessions": "打开管理会话",
         "dismiss": "关闭"
+      },
+      "ipc": {
+        "events": {
+          "browserStateIpcBridge": {
+            "docPreviewLinkFailed": "无法在 Orca 浏览器中打开此链接"
+          },
+          "os": {
+            "markdown": {
+              "file": {
+                "open": {
+                  "bridge": {
+                    "1e9a1a63c4": "打开 Markdown 文件失败"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "components": {
@@ -1571,7 +1602,9 @@
         "5dddefdf58": "在 GitHub 中打开",
         "e15a8b77ef": "此检查没有可用的内联详细信息",
         "e45324fbed": "无法加载检查详细信息",
-        "dcb3c546fe": "重试"
+        "dcb3c546fe": "重试",
+        "09d67a0f9b": "关闭拉取请求失败",
+        "88809e79db": "重新打开拉取请求失败"
       },
       "GitLabItemDialog": {
         "65e784c1f1": "重新打开",
@@ -1636,7 +1669,8 @@
         "3a051b8ade": "工作项目",
         "32f8bef818": "无日志输出",
         "4168eb2c51": "解决",
-        "commentTooLarge": "评论过长，无法安全提交，"
+        "commentTooLarge": "评论过长，无法安全提交，",
+        "gitlabActionFailed": "GitLab 操作失败"
       },
       "JiraIssueWorkspace": {
         "b0b92666c9": "评论",
@@ -2477,7 +2511,8 @@
         "61ed600d29": "\"{{value0}}\"有未保存的更改，您想在关闭前保存吗？",
         "cdc9ac4b2d": "编辑",
         "e57db40c11": "无法为 {{value0}} 构建启动命令",
-        "5b2c1a9e44": "未检测到代理 CLI，请安装一个，或在设置中选择默认代理"
+        "5b2c1a9e44": "未检测到代理 CLI，请安装一个，或在设置中选择默认代理",
+        "quitSnapshotSaveFailed": "退出已取消：无法保存会话快照（{{value0}}）"
       },
       "TerminalSearch": {
         "db234b7519": "关闭",
@@ -5627,7 +5662,9 @@
           "sidebarRowMissing": "目标不再存在",
           "failedUnnestWorkspace": "展开工作区失败",
           "hideNonOrcaWorktrees": "隐藏非 Orca 工作树",
-          "showHiddenWorktrees": "显示隐藏的工作树"
+          "showHiddenWorktrees": "显示隐藏的工作树",
+          "groupRenameFailed": "重命名组失败",
+          "groupRenameFailedDesc": "Orca 无法与该组所属主机确认新名称，请在重新连接后检查该组"
         },
         "WorktreeMetaDialog": {
           "3db0a2a593": "取消",
@@ -11942,7 +11979,8 @@
             "3de88351c5": "GitHub 会将此拉取请求及其下面的每个拉取请求添加到合并队列中",
             "a32fe6dba6": "GitHub 将合并此拉取请求以及堆栈中其下方的每个拉取请求",
             "73e0e1819d": "排队堆栈...",
-            "e555a41d32": "合并堆栈..."
+            "e555a41d32": "合并堆栈...",
+            "readyToast": "{{value0}}已标记为可供评审"
           },
           "PortsPanel": {
             "3ea4a02a8f": "取消",
@@ -15229,6 +15267,10 @@
           "checkDetails": "检查详情",
           "checkDetailsCopied": "检查详情已复制",
           "filePathCopied": "文件路径已复制"
+        },
+        "HtmlDocPreview": {
+          "directoryAuthorizationFailed": "无法授权访问此目录",
+          "openExternallyUnknownHostError": "无法打开“{{value0}}”：已无法确定其所属主机"
         }
       },
       "diff": {
@@ -15262,7 +15304,11 @@
           "2d5b9fabf9": "麦克风访问被拒绝，在系统设置中授予访问权限，然后重新启动 Orca",
           "5d2c3e7ae3": "未检测到语音",
           "micFallback": "所选麦克风不可用，改用系统默认",
-          "micDisconnected": "麦克风已断开，听写已停止，"
+          "micDisconnected": "麦克风已断开，听写已停止，",
+          "noSpeechModel": "尚未选择语音模型，请前往“设置 > 语音”下载模型",
+          "dictationDisabled": "语音听写已禁用，请前往“设置 > 语音”启用",
+          "speechModelNotReady": "语音模型尚未就绪，请前往“设置 > 语音”下载模型",
+          "speechModelUnavailable": "所选模型已不可用，请前往“设置 > 语音”选择其他模型"
         },
         "DictationIndicator": {
           "335e1bc6cb": "停止听写",
@@ -15570,7 +15616,8 @@
             "756bfc25c9": "打开",
             "09a9489aa5": "显示",
             "2a4c4b8e1f": "复制",
-            "b71dc3d930": "重新连接"
+            "b71dc3d930": "重新连接",
+            "fileUrlUnsupported": "此浏览器标签页无法打开本地文件，请改用文件的“在侧边打开预览”操作"
           },
           "BrowserToolbarMenu": {
             "429ef481f9": "取消",
@@ -17012,7 +17059,10 @@
         "allow": "允许",
         "deny": "拒绝"
       },
-      "launchPromptNotDelivered": "未送达 — 请检查终端"
+      "launchPromptNotDelivered": "未送达 — 请检查终端",
+      "structuredSessionCloseFailed": "无法关闭此 Codex 聊天",
+      "structuredSessionCloseFailedDescription": "终端保持打开，以便仍可恢复提供商会话",
+      "structuredSessionLaunchFailed": "无法打开 Codex 聊天"
     },
     "tab": {
       "bar": {
@@ -17330,6 +17380,52 @@
         "copySessionIdSuccess": "已复制会话 ID",
         "copySessionIdError": "复制会话 ID 失败"
       }
+    },
+    "quickActions": {
+      "workspaceLoading": "无法{{action}}：工作区仍在加载",
+      "noActiveWorkspace": "无法{{action}}：当前没有活动工作区",
+      "workspaceDisconnected": "无法{{action}}：工作区连接已断开",
+      "noTabGroup": "无法{{action}}：没有可用的标签页组",
+      "unsupported": "无法{{action}}：此客户端和运行时不支持该操作"
+    },
+    "toastFallbacks": {
+      "imageInsertFailed": "插入图片失败",
+      "markdownCreateFailed": "创建无标题 Markdown 文件失败",
+      "markdownOpenFailed": "打开 Markdown 文件失败",
+      "filesUploadFailed": "上传文件失败",
+      "fileDuplicateFailed": "复制“{{name}}”失败",
+      "filesImportFailed": "导入文件失败",
+      "fileCreateFailed": "创建“{{name}}”失败",
+      "fileMoveFailed": "移动“{{name}}”失败",
+      "mcpCreateFailed": "创建 MCP 配置失败",
+      "diagnosticsCreateReviewFailed": "无法创建审查文件",
+      "diagnosticsOpenReviewFailed": "无法打开审查文件",
+      "diagnosticsSendFailed": "无法发送诊断信息",
+      "diagnosticsDiscardReviewFailed": "无法丢弃审查文件",
+      "diagnosticsDeleteSentFailed": "无法删除已发送的诊断信息",
+      "filesDropFailed": "拖放文件失败",
+      "filesResolveDroppedFailed": "解析拖放的文件失败",
+      "fileRenameFailed": "重命名“{{name}}”失败",
+      "worktreeCreateFailed": "创建工作树失败",
+      "missingBaseBranchHelp": "请先创建初始提交（例如在 main 分支上），或在“创建来源”中选择现有分支，然后重试",
+      "dropTooManyPaths": "拖放内容包含的路径过多",
+      "dropPathsTooLarge": "拖放路径列表过大",
+      "fileOwnerResolveFailed": "解析文件所属主机失败"
+    },
+    "agentNotes": {
+      "targetSelected": "所选",
+      "targetActive": "当前",
+      "empty": "没有可发送的备注",
+      "selectedTerminalUnavailable": "所选终端已不可用",
+      "activeTerminalUnavailable": "请打开此工作树中的代理终端，然后重新发送备注",
+      "notAgentSession": "{{target}}终端不是可识别的代理会话",
+      "selectedAgentNeedsPermission": "所选代理需要权限",
+      "activeAgentNeedsPermission": "当前代理需要权限",
+      "statusUnverified": "无法验证{{target}}代理的状态",
+      "notReady": "{{target}}代理尚未准备好接收输入",
+      "notWritable": "{{target}}终端未接受这些备注",
+      "selectedSubmitFailed": "备注可能已粘贴到所选终端，但 Orca 无法提交",
+      "activeSubmitFailed": "备注可能已粘贴到当前终端，但 Orca 无法提交"
     }
   },
   "dashboardPopout": {
@@ -17519,6 +17615,50 @@
     "guestRecovery": {
       "title": "浏览器页面已停止",
       "failed": "浏览器页面意外停止，请重试以恢复，"
+    },
+    "clientHosted": {
+      "download": {
+        "started": "正在下载 {{filename}}…",
+        "completed": "已下载 {{filename}}",
+        "canceled": "下载已取消",
+        "failed": "无法完成下载"
+      },
+      "hostRowCloseFailed": "无法关闭此页面，托管该页面的设备可能正忙，请重试"
+    },
+    "reopenOnServer": {
+      "failed": "无法在远程主机上打开此页面，请检查连接后重试"
+    },
+    "notices": {
+      "permissions": {
+        "media": "摄像头或麦克风访问权限",
+        "pointerLock": "鼠标指针锁定权限",
+        "storageAccess": "嵌入此页面时访问自身 Cookie 和存储空间的权限",
+        "topLevelStorageAccess": "代表嵌入式网站访问 Cookie 的权限",
+        "geolocation": "你的位置信息",
+        "idleDetection": "检测你是否空闲的权限",
+        "displayCapture": "捕获屏幕的权限",
+        "windowManagement": "访问屏幕信息和多屏窗口布局的权限",
+        "keyboardLock": "捕获键盘输入的权限",
+        "openExternal": "在 Orca 外部打开链接的权限",
+        "fileSystem": "访问你的文件或文件夹的权限",
+        "hid": "访问已连接人机接口设备的权限",
+        "usb": "访问 USB 设备的权限",
+        "serial": "访问串行设备的权限",
+        "midi": "访问你的 MIDI 设备的权限",
+        "midiSysex": "访问 MIDI 系统专属消息的权限",
+        "mediaKeySystem": "访问受保护媒体播放的权限",
+        "speakerSelection": "选择音频输出设备的权限"
+      },
+      "thisPage": "此页面",
+      "permissionDenied": "{{target}}请求了{{permission}}，Orca 已拒绝该请求",
+      "aSite": "某个网站",
+      "popupOpenedInOrca": "{{target}}已在 Orca 中打开新页面",
+      "popupOpenedExternal": "{{target}}已在默认浏览器中打开新窗口",
+      "popupUnsupported": "{{target}}尝试打开 Orca 在此处不支持的弹窗",
+      "downloadedTo": "已下载到 {{path}}",
+      "downloadComplete": "下载完成",
+      "downloadFailed": "下载失败",
+      "downloadCanceled": "下载已取消"
     }
   },
   "runtimeRpc": {
@@ -17562,6 +17702,11 @@
           "commitDiff": "commit diff"
         }
       }
+    },
+    "lib": {
+      "filePreview": {
+        "remoteFileUnsupported": "仅本地文件可在 Orca 浏览器中打开"
+      }
     }
   },
   "featureTips": {
@@ -17603,6 +17748,38 @@
       "hide": "隐藏智能体",
       "action": "试用智能体",
       "hiddenToast": "智能体标签页已隐藏。可在设置 → 实验性功能中重新启用。"
+    }
+  },
+  "sourceControl": {
+    "remoteErrors": {
+      "operationFailedWithDetail": "{{operation}}失败：{{detail}}",
+      "generic": "远程操作失败",
+      "rebaseExistingConflicts": "变基已阻止，请先解决现有冲突",
+      "syncExistingConflicts": "同步已阻止，请先解决现有合并冲突",
+      "pullExistingConflicts": "拉取已阻止，请先解决现有合并冲突",
+      "rebaseNewConflicts": "变基因冲突而停止，请在源代码管理中解决冲突后继续变基",
+      "syncNewConflicts": "同步因合并冲突而停止，请在源代码管理中解决冲突后提交合并",
+      "pullNewConflicts": "拉取因合并冲突而停止，请在源代码管理中解决冲突后提交合并",
+      "hookBlocked": "{{operation}}已阻止：{{detail}}",
+      "syncRemoteMoved": "同步失败：同步期间远程分支发生变化，请重试",
+      "forcePushRemoteChanged": "强制推送被拒绝：远程分支在上次获取后发生变化，请先获取再重试",
+      "pushRemoteChanged": "推送被拒绝：远程分支有新更改，请先拉取再重试",
+      "localChangesBlocked": "{{operation}}已阻止，请先提交或暂存本地更改",
+      "pullLocalChangesBlocked": "拉取已阻止，请先提交或暂存本地更改",
+      "untrackedFilesBlocked": "{{operation}}已阻止，请先移动、删除或添加未跟踪文件",
+      "pullUntrackedFilesBlocked": "拉取已阻止，请先移动、删除或添加未跟踪文件",
+      "failedWithRemoteAccessDetail": "{{operation}}失败：{{detail}}。请检查远程访问权限后重试",
+      "failedRemoteAccess": "{{operation}}失败，请检查远程访问权限后重试",
+      "failedConnection": "{{operation}}失败，请检查连接后重试",
+      "labels": {
+        "publish": "发布分支",
+        "sync": "同步",
+        "forcePush": "强制推送",
+        "push": "推送",
+        "fetch": "获取",
+        "fastForward": "快进",
+        "rebase": "变基"
+      }
     }
   }
 }

@@ -12,6 +12,7 @@ import type { OpenFile } from '../types/open-file'
 import { resolveEditorFileIdForOwner } from '../file-ids/editor-file-ids'
 import { buildEditorActiveResult } from '../tabs/editor-open-target-group'
 import { openWorkspaceEditorItem } from '../tabs/workspace-editor-item'
+import { translate } from '@/i18n/i18n'
 
 export function createMarkdownPreviewActions(
   set: EditorSet,
@@ -67,7 +68,15 @@ export function createMarkdownPreviewActions(
         })
         get().recordFeatureInteraction('markdown-file-created')
       } catch (err) {
-        toast.error(extractIpcErrorMessage(err, 'Failed to create untitled markdown file.'))
+        toast.error(
+          extractIpcErrorMessage(
+            err,
+            translate(
+              'components.toastFallbacks.markdownCreateFailed',
+              'Failed to create untitled markdown file.'
+            )
+          )
+        )
       }
     },
 

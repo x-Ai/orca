@@ -74,7 +74,15 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       )
     } catch (error) {
       if (mountedRef.current) {
-        toast.error(getDiagnosticsErrorMessage(error, 'Could not create review file'))
+        toast.error(
+          getDiagnosticsErrorMessage(
+            error,
+            translate(
+              'components.toastFallbacks.diagnosticsCreateReviewFailed',
+              'Could not create review file'
+            )
+          )
+        )
       }
     } finally {
       if (mountedRef.current) {
@@ -102,7 +110,15 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       )
     } catch (error) {
       if (mountedRef.current) {
-        toast.error(getDiagnosticsErrorMessage(error, 'Could not open review file'))
+        toast.error(
+          getDiagnosticsErrorMessage(
+            error,
+            translate(
+              'components.toastFallbacks.diagnosticsOpenReviewFailed',
+              'Could not open review file'
+            )
+          )
+        )
       }
     } finally {
       if (mountedRef.current) {
@@ -136,7 +152,15 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       )
     } catch (error) {
       if (mountedRef.current) {
-        toast.error(getDiagnosticsErrorMessage(error, 'Could not send diagnostics'))
+        toast.error(
+          getDiagnosticsErrorMessage(
+            error,
+            translate(
+              'components.toastFallbacks.diagnosticsSendFailed',
+              'Could not send diagnostics'
+            )
+          )
+        )
       }
     } finally {
       if (mountedRef.current) {
@@ -166,7 +190,15 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       )
     } catch (error) {
       if (mountedRef.current) {
-        toast.error(getDiagnosticsErrorMessage(error, 'Could not discard review file'))
+        toast.error(
+          getDiagnosticsErrorMessage(
+            error,
+            translate(
+              'components.toastFallbacks.diagnosticsDiscardReviewFailed',
+              'Could not discard review file'
+            )
+          )
+        )
       }
     } finally {
       if (mountedRef.current) {
@@ -226,7 +258,15 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       )
     } catch (error) {
       if (mountedRef.current) {
-        toast.error(getDiagnosticsErrorMessage(error, 'Could not delete sent diagnostics'))
+        toast.error(
+          getDiagnosticsErrorMessage(
+            error,
+            translate(
+              'components.toastFallbacks.diagnosticsDeleteSentFailed',
+              'Could not delete sent diagnostics'
+            )
+          )
+        )
       }
     } finally {
       if (mountedRef.current) {

@@ -235,7 +235,12 @@ export function McpConfigSection({ repo }: McpConfigSectionProps): React.JSX.Ele
         }
       )
     } catch (error) {
-      toast.error(extractIpcErrorMessage(error, 'Failed to create MCP config.'))
+      toast.error(
+        extractIpcErrorMessage(
+          error,
+          translate('components.toastFallbacks.mcpCreateFailed', 'Failed to create MCP config.')
+        )
+      )
     }
   }
 

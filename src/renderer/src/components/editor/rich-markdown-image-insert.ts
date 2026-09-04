@@ -96,7 +96,12 @@ export async function insertRichMarkdownImageFromPath({
       )
     }
   } catch (err) {
-    toast.error(extractIpcErrorMessage(err, 'Failed to insert image.'))
+    toast.error(
+      extractIpcErrorMessage(
+        err,
+        translate('components.toastFallbacks.imageInsertFailed', 'Failed to insert image.')
+      )
+    )
   }
 }
 

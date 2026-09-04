@@ -98,6 +98,38 @@
     },
     "remote": {
       "findUnavailable": "Find in page is not available while this page streams from the remote host."
+    },
+    "notices": {
+      "permissions": {
+        "media": "camera or microphone access",
+        "pointerLock": "pointer lock",
+        "storageAccess": "access to its own cookies and storage while embedded on this page",
+        "topLevelStorageAccess": "cookie access on behalf of an embedded site",
+        "geolocation": "your location",
+        "idleDetection": "permission to detect when you are idle",
+        "displayCapture": "permission to capture your screen",
+        "windowManagement": "screen information and multi-screen window placement",
+        "keyboardLock": "permission to capture keyboard input",
+        "openExternal": "permission to open a link outside Orca",
+        "fileSystem": "access to your files or folders",
+        "hid": "access to a connected human interface device",
+        "usb": "access to a USB device",
+        "serial": "access to a serial device",
+        "midi": "access to your MIDI devices",
+        "midiSysex": "access to system-exclusive MIDI messages",
+        "mediaKeySystem": "access to protected media playback",
+        "speakerSelection": "permission to choose an audio output device"
+      },
+      "thisPage": "this page",
+      "permissionDenied": "{{target}} asked for {{permission}}, and Orca denied it.",
+      "aSite": "A site",
+      "popupOpenedInOrca": "{{target}} opened a new page in Orca.",
+      "popupOpenedExternal": "{{target}} opened a new window in your default browser.",
+      "popupUnsupported": "{{target}} tried to open a popup Orca does not support here.",
+      "downloadedTo": "Downloaded to {{path}}.",
+      "downloadComplete": "Download complete.",
+      "downloadFailed": "Download failed.",
+      "downloadCanceled": "Download canceled."
     }
   },
   "githubChecks": {
@@ -155,6 +187,9 @@
           "delete": "Delete Workspace",
           "openBoard": "Open Workspace Board",
           "selectByIndex": "Select Workspace 1–9"
+        },
+        "dashboard": {
+          "toggle": "Toggle Agent Dashboard"
         },
         "voice": {
           "dictation": "Dictation"
@@ -15849,7 +15884,11 @@
           "2d5b9fabf9": "Microphone access denied. Grant access in system settings, then restart Orca.",
           "5d2c3e7ae3": "No speech detected.",
           "micFallback": "Selected microphone unavailable. Using system default.",
-          "micDisconnected": "Microphone disconnected. Dictation stopped."
+          "micDisconnected": "Microphone disconnected. Dictation stopped.",
+          "speechModelNotReady": "Speech model not ready. Download it in Settings > Voice.",
+          "speechModelUnavailable": "Selected model is no longer available. Please choose another in Settings > Voice.",
+          "noSpeechModel": "No speech model selected. Download one in Settings > Voice.",
+          "dictationDisabled": "Voice dictation is disabled. Enable it in Settings > Voice."
         },
         "DictationIndicator": {
           "335e1bc6cb": "Stop dictation",
@@ -18291,6 +18330,52 @@
         "copySessionIdSuccess": "Session ID copied",
         "copySessionIdError": "Unable to copy session ID"
       }
+    },
+    "quickActions": {
+      "workspaceLoading": "Can't {{action}} — workspace is still loading.",
+      "noActiveWorkspace": "Can't {{action}} — no workspace is active.",
+      "workspaceDisconnected": "Can't {{action}} — workspace is disconnected.",
+      "noTabGroup": "Can't {{action}} — no tab group is available.",
+      "unsupported": "Can't {{action}} — this client and runtime do not support it."
+    },
+    "toastFallbacks": {
+      "imageInsertFailed": "Failed to insert image.",
+      "markdownCreateFailed": "Failed to create untitled markdown file.",
+      "markdownOpenFailed": "Failed to open markdown file.",
+      "filesUploadFailed": "Failed to upload files.",
+      "fileDuplicateFailed": "Failed to duplicate '{{name}}'.",
+      "filesImportFailed": "Failed to import files.",
+      "fileCreateFailed": "Failed to create '{{name}}'.",
+      "fileMoveFailed": "Failed to move '{{name}}'.",
+      "mcpCreateFailed": "Failed to create MCP config.",
+      "diagnosticsCreateReviewFailed": "Could not create review file",
+      "diagnosticsOpenReviewFailed": "Could not open review file",
+      "diagnosticsSendFailed": "Could not send diagnostics",
+      "diagnosticsDiscardReviewFailed": "Could not discard review file",
+      "diagnosticsDeleteSentFailed": "Could not delete sent diagnostics",
+      "filesDropFailed": "Failed to drop files.",
+      "filesResolveDroppedFailed": "Failed to resolve dropped files.",
+      "fileRenameFailed": "Failed to rename '{{name}}'.",
+      "worktreeCreateFailed": "Failed to create worktree.",
+      "missingBaseBranchHelp": "Create an initial commit (for example on main), or select an existing branch in Create From, then try again.",
+      "dropTooManyPaths": "Drop contains too many paths.",
+      "dropPathsTooLarge": "Drop path list is too large.",
+      "fileOwnerResolveFailed": "Failed to resolve file owner."
+    },
+    "agentNotes": {
+      "targetSelected": "selected",
+      "targetActive": "active",
+      "empty": "No notes to send.",
+      "selectedTerminalUnavailable": "The selected terminal is no longer available.",
+      "activeTerminalUnavailable": "Open the agent terminal in this worktree, then send the notes again.",
+      "notAgentSession": "The {{target}} terminal is not a recognized agent session.",
+      "selectedAgentNeedsPermission": "The selected agent needs permission.",
+      "activeAgentNeedsPermission": "The active agent needs permission.",
+      "statusUnverified": "The {{target}} agent status could not be verified.",
+      "notReady": "The {{target}} agent was not ready for input yet.",
+      "notWritable": "The {{target}} terminal did not accept the notes.",
+      "selectedSubmitFailed": "The notes may already be pasted in the selected terminal, but Orca could not submit them.",
+      "activeSubmitFailed": "The notes may already be pasted in the active terminal, but Orca could not submit them."
     }
   },
   "dashboardPopout": {
@@ -18549,6 +18634,36 @@
   "sourceControl": {
     "unlinkedPr": {
       "status": "PR #{{number}} unlinked"
+    },
+    "remoteErrors": {
+      "operationFailedWithDetail": "{{operation}} failed. {{detail}}",
+      "generic": "Remote operation failed",
+      "rebaseExistingConflicts": "Rebase blocked — resolve existing conflicts first.",
+      "syncExistingConflicts": "Sync blocked — resolve existing merge conflicts first.",
+      "pullExistingConflicts": "Pull blocked — resolve existing merge conflicts first.",
+      "rebaseNewConflicts": "Rebase stopped with conflicts. Resolve them in Source Control, then continue the rebase.",
+      "syncNewConflicts": "Sync stopped with merge conflicts. Resolve them in Source Control, then commit the merge.",
+      "pullNewConflicts": "Pull stopped with merge conflicts. Resolve them in Source Control, then commit the merge.",
+      "hookBlocked": "{{operation}} blocked — {{detail}}",
+      "syncRemoteMoved": "Sync failed — remote moved while syncing. Try again.",
+      "forcePushRemoteChanged": "Force push rejected — remote changed since last fetch. Fetch first, then try again.",
+      "pushRemoteChanged": "Push rejected — remote has changes. Pull first, then try again.",
+      "localChangesBlocked": "{{operation}} blocked — commit or stash your local changes first.",
+      "pullLocalChangesBlocked": "Pull blocked — commit or stash your local changes first.",
+      "untrackedFilesBlocked": "{{operation}} blocked — move, remove, or add untracked files first.",
+      "pullUntrackedFilesBlocked": "Pull blocked — move, remove, or add untracked files first.",
+      "failedWithRemoteAccessDetail": "{{operation}} failed. {{detail}}. Check your remote access and try again.",
+      "failedRemoteAccess": "{{operation}} failed. Check your remote access and try again.",
+      "failedConnection": "{{operation}} failed. Check your connection and try again.",
+      "labels": {
+        "publish": "Publish Branch",
+        "sync": "Sync",
+        "forcePush": "Force Push",
+        "push": "Push",
+        "fetch": "Fetch",
+        "fastForward": "Fast-forward",
+        "rebase": "Rebase"
+      }
     }
   },
   "agentsSidebarIntro": {

@@ -15,6 +15,10 @@ import { showDictationStartErrorToast } from './dictation-start-error-toast'
 import { useHoldDictationGesture } from './use-hold-dictation-gesture'
 import { DICTATION_CONTROL_EVENT, type DictationControlAction } from './dictation-control-events'
 import { publishDictationMeter } from './dictation-meter-store'
+import {
+  dictationDisabledToastMessage,
+  missingSpeechModelToastMessage
+} from './dictation-toast-copy'
 
 export function DictationController() {
   const dictationState = useAppStore((s) => s.dictationState)
@@ -44,8 +48,7 @@ export function DictationController() {
   const erroredSessionIdsRef = useRef(new Set<string>())
   const intentionalTargetCancellationRef = useRef(false)
   const insertedFinalTranscriptRef = useRef('')
-  // Why: push-to-talk restarts capture per utterance; toast once per preference,
-  // not once per press, while the selected mic stays gone.
+  // Why: push-to-talk restarts capture, so toast once while the selected mic stays gone.
   const micFallbackNotifiedForRef = useRef<string | null>(null)
   const stopDictationRef = useRef<(() => void) | null>(null)
 
@@ -61,7 +64,7 @@ export function DictationController() {
       try {
         await window.api.speech.stopDictation(sessionId)
       } catch {
-        // Swallow stop errors — the worker may already be torn down.
+        /* worker may already be torn down */
       }
       // Why: stopDictation() resolves on main-process completion, while final
       // transcript delivery is renderer IPC. Wait for this session's stopped
@@ -98,7 +101,7 @@ export function DictationController() {
 
     const modelId = settings?.voice?.sttModel
     if (!modelId) {
-      toast('No speech model selected. Download one in Settings > Voice.', {
+      toast(missingSpeechModelToastMessage(), {
         action: {
           label: translate(
             'auto.components.dictation.DictationController.bb7f599ee7',
@@ -114,7 +117,7 @@ export function DictationController() {
     }
 
     if (!settings?.voice?.enabled) {
-      toast('Voice dictation is disabled. Enable it in Settings > Voice.')
+      toast(dictationDisabledToastMessage())
       return
     }
 

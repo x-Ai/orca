@@ -3,6 +3,7 @@ import { findWorktreeById } from '@/store/slices/worktree-helpers'
 import type { Worktree } from '../../../../shared/worktree/types'
 import type { SshConnectionStatus } from '../../../../shared/ssh-types'
 import { getClientCreationActionPolicy } from '@/lib/client-creation-action-policy'
+import { translate } from '@/i18n/i18n'
 
 export type CmdJUnavailableReason =
   | 'loading'
@@ -191,14 +192,34 @@ export function getUnavailableQuickActionMessage(
 ): string {
   switch (reason) {
     case 'loading':
-      return `Can't ${actionTitle.toLowerCase()} — workspace is still loading.`
+      return translate(
+        'components.quickActions.workspaceLoading',
+        "Can't {{action}} — workspace is still loading.",
+        { action: actionTitle.toLowerCase() }
+      )
     case 'no-active-workspace':
-      return `Can't ${actionTitle.toLowerCase()} — no workspace is active.`
+      return translate(
+        'components.quickActions.noActiveWorkspace',
+        "Can't {{action}} — no workspace is active.",
+        { action: actionTitle.toLowerCase() }
+      )
     case 'ssh-disconnected':
-      return `Can't ${actionTitle.toLowerCase()} — workspace is disconnected.`
+      return translate(
+        'components.quickActions.workspaceDisconnected',
+        "Can't {{action}} — workspace is disconnected.",
+        { action: actionTitle.toLowerCase() }
+      )
     case 'no-active-group':
-      return `Can't ${actionTitle.toLowerCase()} — no tab group is available.`
+      return translate(
+        'components.quickActions.noTabGroup',
+        "Can't {{action}} — no tab group is available.",
+        { action: actionTitle.toLowerCase() }
+      )
     case 'client-action-unsupported':
-      return `Can't ${actionTitle.toLowerCase()} — this client and runtime do not support it.`
+      return translate(
+        'components.quickActions.unsupported',
+        "Can't {{action}} — this client and runtime do not support it.",
+        { action: actionTitle.toLowerCase() }
+      )
   }
 }

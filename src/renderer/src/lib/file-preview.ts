@@ -23,6 +23,13 @@ export type PreviewableLanguage = 'html'
 export const REMOTE_FILE_BROWSER_UNSUPPORTED_MESSAGE =
   'Open in Orca Browser is only available for local files.'
 
+function remoteFileBrowserUnsupportedMessage(): string {
+  return translate(
+    'renderer.lib.filePreview.remoteFileUnsupported',
+    'Open in Orca Browser is only available for local files.'
+  )
+}
+
 /** Localized lazily: a module constant would freeze the language at import time. */
 function pairedOutsideWorktreeMessage(): string {
   return translate(
@@ -56,7 +63,7 @@ export function getWorkspaceFilePreviewPlan(
     // remote path to this machine's filesystem.
     return {
       status: 'unsupported',
-      message: REMOTE_FILE_BROWSER_UNSUPPORTED_MESSAGE,
+      message: remoteFileBrowserUnsupportedMessage(),
       reason: 'no-channel'
     }
   }
@@ -153,7 +160,7 @@ export function getWorkspaceFileBrowserOpenTarget(params: {
     return {
       status: 'unsupported',
       reason: 'remote-worktree',
-      message: REMOTE_FILE_BROWSER_UNSUPPORTED_MESSAGE
+      message: remoteFileBrowserUnsupportedMessage()
     }
   }
 

@@ -23,6 +23,7 @@ import {
 import { formatGitHubProjectErrorMessage } from '../lib/github-project-error-copy'
 import { formatTaskSourceErrorMessage } from '../lib/task-source-error-copy'
 import { getOsRevealLabel } from '../lib/os-reveal-label'
+import { resolveRemoteOperationErrorMessage } from '../lib/source-control-remote-error'
 import { setRendererUiLanguage, translate } from './i18n'
 
 afterEach(async () => {
@@ -184,5 +185,25 @@ describe('Chinese localization regressions', () => {
         'Browsers on this device'
       )
     ).toBe('此设备上的浏览器')
+  })
+
+  it('localizes the agent dashboard shortcut and toast copy', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(translate('settings.shortcuts.actions.dashboard.toggle', 'Toggle Agent Dashboard')).toBe(
+      '切换代理仪表盘'
+    )
+    expect(
+      translate(
+        'auto.components.dictation.DictationController.noSpeechModel',
+        'No speech model selected. Go to Settings > Voice to download a model.'
+      )
+    ).toBe('尚未选择语音模型，请前往“设置 > 语音”下载模型')
+    expect(translate('components.toastFallbacks.imageInsertFailed', 'Failed to insert image')).toBe(
+      '插入图片失败'
+    )
+    expect(
+      resolveRemoteOperationErrorMessage(new Error('updates were rejected'), { isPush: true })
+    ).toBe('推送被拒绝：远程分支有新更改，请先拉取再重试')
   })
 })
