@@ -195,19 +195,19 @@ export function ThemeStep({ theme, onThemeChange, settings, updateSettings }: Th
     {
       id: 'system',
       label: translate('auto.components.onboarding.ThemeStep.827ea7b4a2', 'System'),
-      hint: translate('auto.components.onboarding.ThemeStep.2189af5738', 'Match OS'),
+      hint: translate('components.onboarding.theme.hints.system', 'Match OS'),
       icon: Monitor
     },
     {
       id: 'dark',
       label: translate('auto.components.onboarding.ThemeStep.fa7b673ea9', 'Dark'),
-      hint: translate('auto.components.onboarding.ThemeStep.ed0fb2c7b0', 'Easy on the eyes'),
+      hint: translate('components.onboarding.theme.hints.dark', 'Easy on the eyes'),
       icon: Moon
     },
     {
       id: 'light',
       label: translate('auto.components.onboarding.ThemeStep.ad192706e6', 'Light'),
-      hint: translate('auto.components.onboarding.ThemeStep.e2c598f69a', 'Bright & crisp'),
+      hint: translate('components.onboarding.theme.hints.light', 'Bright & crisp'),
       icon: Sun
     }
   ]

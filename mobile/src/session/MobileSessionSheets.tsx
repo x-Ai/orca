@@ -44,6 +44,8 @@ export function MobileSessionSheets({ controller }: { controller: MobileSessionC
     setFileActionTarget,
     browserActionTarget,
     setBrowserActionTarget,
+    agentSessionActionTarget,
+    setAgentSessionActionTarget,
     discardMarkdownTarget,
     setDiscardMarkdownTarget,
     leaveDrafts,
@@ -267,6 +269,14 @@ export function MobileSessionSheets({ controller }: { controller: MobileSessionC
         onNavigate={handleBrowserNavigationCommand}
         onCloseTab={handleCloseSessionTab}
         bulkCloseActions={bulkCloseActions}
+      />
+      <ActionSheetModal
+        visible={agentSessionActionTarget != null}
+        title={agentSessionActionTarget?.title || 'Chat'}
+        actions={closeWithBulkActions(agentSessionActionTarget, () =>
+          setAgentSessionActionTarget(null)
+        )}
+        onClose={() => setAgentSessionActionTarget(null)}
       />
       <ActionSheetModal
         visible={leaveDrafts != null}

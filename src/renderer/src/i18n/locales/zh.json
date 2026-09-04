@@ -20,7 +20,8 @@
         "chinese": "中文（简体）",
         "korean": "한국어",
         "japanese": "日本語",
-        "spanish": "Español"
+        "spanish": "Español",
+        "french": "Français"
       },
       "statusBar": {
         "claudeToggleDescription": "显示当前工作区的 Claude Token 与费用消耗情况",
@@ -3692,7 +3693,7 @@
             "6e0bc8f3a8": "在浏览器中打开",
             "9dd880bd56": "关闭右侧的选项卡",
             "1611a1324b": "关闭",
-            "5d6e89891f": "重复选项卡",
+            "5d6e89891f": "复制选项卡",
             "966feb9ad5": "向右拆分",
             "7e8106899f": "向左拆分",
             "2186a8407c": "向下拆分",
@@ -11925,7 +11926,7 @@
             "7ac885bd2f": "下载文件夹",
             "dd112c81d2": "在 Orca 浏览器中打开",
             "1bb9be455c": "添加为项目...",
-            "0fec99bfd7": "复制",
+            "0fec99bfd7": "创建副本",
             "f61af83316": "新建文件夹",
             "37c875d827": "新文件",
             "b3e288bf41": "无法下载\"{{value0}}\"",
@@ -13548,10 +13549,7 @@
           "699ddf83c2": "无法导入 Ghostty 设置",
           "16a9f0446a": "找不到要导入的 Ghostty 设置",
           "ad19e5c916": "导入中…",
-          "906c4373fe": "设置",
-          "2189af5738": "跟随系统",
-          "ed0fb2c7b0": "更护眼",
-          "e2c598f69a": "明亮清晰"
+          "906c4373fe": "设置"
         },
         "use": {
           "onboarding": {
@@ -17444,6 +17442,15 @@
       "notWritable": "{{target}}终端未接受这些备注",
       "selectedSubmitFailed": "备注可能已粘贴到所选终端，但 Orca 无法提交",
       "activeSubmitFailed": "备注可能已粘贴到当前终端，但 Orca 无法提交"
+    },
+    "onboarding": {
+      "theme": {
+        "hints": {
+          "system": "跟随系统",
+          "dark": "更护眼",
+          "light": "明亮清晰"
+        }
+      }
     }
   },
   "dashboardPopout": {
