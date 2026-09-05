@@ -15279,6 +15279,7 @@
           }
         },
         "fileLoadError": {
+          "fileNotFound": "ENOENT：无法打开 {{path}}，文件或目录不存在",
           "pathAccessDenied": "拒绝访问：路径解析到允许目录之外，如果这阻碍了合法工作流，请提交 GitHub issue"
         },
         "editorHeader": {

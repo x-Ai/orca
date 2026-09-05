@@ -9,6 +9,14 @@ function unwrapIpcErrorMessage(message: string): string {
 
 export function formatFileLoadErrorMessage(message: string): string {
   const unwrapped = unwrapIpcErrorMessage(message)
+  const missingFile = unwrapped.match(/^ENOENT: no such file or directory, open ([\s\S]+)$/)
+  if (missingFile) {
+    return translate(
+      'auto.components.editor.fileLoadError.fileNotFound',
+      'ENOENT: no such file or directory, open {{path}}',
+      { path: missingFile[1] }
+    )
+  }
   if (unwrapped.startsWith(PATH_ACCESS_DENIED_PREFIX)) {
     return translate(
       'auto.components.editor.fileLoadError.pathAccessDenied',

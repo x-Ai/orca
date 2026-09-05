@@ -16038,6 +16038,7 @@
           }
         },
         "fileLoadError": {
+          "fileNotFound": "ENOENT: no such file or directory, open {{path}}",
           "pathAccessDenied": "Access denied: path resolves outside allowed directories. If this blocks a legitimate workflow, please file a GitHub issue."
         },
         "editorHeader": {

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useShortcutLabel } from '@/hooks/useShortcutLabel'
+import { translate } from '@/i18n/i18n'
 import { useAppStore } from '../../store'
 import { selectFloatingWorkspaceHasUnread } from '../../store/selectors'
 import type { ProviderRateLimits } from '../../../../shared/rate-limit-types'
@@ -186,8 +187,14 @@ export function useStatusBarController(floatingTerminalOpen: boolean) {
   const compact = containerWidth < 900
   const iconOnly = containerWidth < 500
   const floatingTerminalActionLabel = floatingTerminalOpen
-    ? 'Minimize Floating Workspace'
-    : 'Show Floating Workspace'
+    ? translate(
+        'auto.components.floating.terminal.FloatingTerminalToggleButton.5785dd9148',
+        'Minimize floating workspace'
+      )
+    : translate(
+        'auto.components.floating.terminal.FloatingTerminalToggleButton.3b04b065b5',
+        'Show floating workspace'
+      )
   const showFloatingWorkspaceAttentionDot = !floatingTerminalOpen && hasFloatingUnread
 
   // Why: the roster must contain only status items the user left visible;
