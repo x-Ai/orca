@@ -3303,6 +3303,7 @@
       "errors": {
         "authMethodsFailed": "All configured authentication methods failed",
         "badPassphrase": "Cannot parse privateKey: OpenSSH key integrity check failed -- bad passphrase?",
+        "passphraseRequired": "Cannot parse privateKey: Encrypted private OpenSSH key detected, but no passphrase given",
         "connectionRefused": "Connection refused",
         "connectionTimedOut": "Connection timed out",
         "handshakeLost": "Connection lost before handshake",

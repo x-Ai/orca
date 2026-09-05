@@ -9,6 +9,12 @@ const KNOWN_SSH_ERRORS: { test: RegExp; key: string; fallback: string }[] = [
     fallback: 'Connection lost before handshake'
   },
   {
+    test: /encrypted private (?:OpenSSH )?key detected, but no passphrase given/i,
+    key: 'settings.ssh.errors.passphraseRequired',
+    fallback:
+      'Cannot parse privateKey: Encrypted private OpenSSH key detected, but no passphrase given'
+  },
+  {
     test: /cannot parse privateKey:.*bad passphrase/i,
     key: 'settings.ssh.errors.badPassphrase',
     fallback: 'Cannot parse privateKey: OpenSSH key integrity check failed -- bad passphrase?'

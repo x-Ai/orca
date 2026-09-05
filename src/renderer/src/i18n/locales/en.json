@@ -354,6 +354,7 @@
       "errors": {
         "handshakeLost": "Connection lost before handshake",
         "badPassphrase": "Cannot parse privateKey: OpenSSH key integrity check failed -- bad passphrase?",
+        "passphraseRequired": "Cannot parse privateKey: Encrypted private OpenSSH key detected, but no passphrase given",
         "authMethodsFailed": "All configured authentication methods failed",
         "handshakeTimeout": "Timed out while waiting for handshake",
         "hostKeyVerificationFailed": "Host key verification failed",
