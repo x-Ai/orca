@@ -29,8 +29,21 @@ createHelperApp()
 
 function buildUniversalBinary() {
   const builtBinaries = universalTriples.map((triple) => {
-    run('swift', ['build', '-c', 'release', '--package-path', packagePath, '--triple', triple])
-    return path.join(packagePath, '.build', triple, 'release', 'orca-computer-use-macos')
+    const scratchPath = path.join(packagePath, '.build', `orca-${triple}`)
+    const buildArgs = [
+      'build',
+      '-c',
+      'release',
+      '--package-path',
+      packagePath,
+      '--scratch-path',
+      scratchPath,
+      '--triple',
+      triple
+    ]
+    run('swift', buildArgs)
+    const binaryDirectory = runWithOutput('swift', [...buildArgs, '--show-bin-path'])
+    return path.join(binaryDirectory, 'orca-computer-use-macos')
   })
   mkdirSync(path.dirname(binaryPath), { recursive: true })
   run('lipo', ['-create', ...builtBinaries, '-output', binaryPath])
@@ -91,6 +104,18 @@ function run(command, args) {
   if (result.status !== 0) {
     process.exit(result.status ?? 1)
   }
+}
+
+function runWithOutput(command, args) {
+  const result = spawnSync(command, args, { encoding: 'utf8' })
+  if (result.signal) {
+    process.kill(process.pid, result.signal)
+  }
+  if (result.status !== 0) {
+    process.stderr.write(result.stderr ?? '')
+    process.exit(result.status ?? 1)
+  }
+  return result.stdout.trim()
 }
 
 function infoPlist() {
