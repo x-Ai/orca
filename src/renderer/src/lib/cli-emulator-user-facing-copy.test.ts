@@ -1,6 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { setRendererUiLanguage } from '@/i18n/i18n'
-import { formatCliUserFacingDetail } from './cli-emulator-user-facing-copy'
+import {
+  formatCliUserFacingDetail,
+  formatEmulatorAvailabilityUserFacingMessage
+} from './cli-emulator-user-facing-copy'
 
 afterEach(async () => {
   await setRendererUiLanguage('en')
@@ -28,6 +31,18 @@ describe('formatCliUserFacingDetail', () => {
     )
   })
 
+  it('localizes unavailable Xcode Simulator guidance in Chinese', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      formatEmulatorAvailabilityUserFacingMessage(
+        'Xcode Simulator tools are unavailable. Install full Xcode, open it once, then select it with `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`.'
+      )
+    ).toBe(
+      'Xcode 模拟器工具不可用。请安装完整的 Xcode，打开一次，然后运行 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 选择它。'
+    )
+  })
+
   it.each([
     "EACCES: permission denied, readlink '/usr/local/bin/orca'",
     "Error invoking remote method 'cli:getInstallStatus': Error: EACCES: permission denied, readlink '/usr/local/bin/orca'"
@@ -35,7 +50,7 @@ describe('formatCliUserFacingDetail', () => {
     await setRendererUiLanguage('zh')
 
     expect(formatCliUserFacingDetail(raw)).toBe(
-      'Orca 没有权限检查 /usr/local/bin/orca。请检查该路径及其父目录的权限，然后重试。'
+      'Orca 没有权限检查 /usr/local/bin/orca，请检查该路径及其父目录的权限，然后重试。'
     )
   })
 

@@ -1321,6 +1321,7 @@
         }
       },
       "emulator": {
+        "xcodeSimulatorToolsUnavailable": "Xcode Simulator tools are unavailable. Install full Xcode, open it once, then select it with `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`.",
         "androidSdkNotFound": "Android SDK not found. Install Android Studio and set ANDROID_HOME."
       },
       "rateLimits": {

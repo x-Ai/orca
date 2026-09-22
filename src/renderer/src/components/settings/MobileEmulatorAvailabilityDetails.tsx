@@ -3,7 +3,10 @@ import type React from 'react'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import { translate } from '@/i18n/i18n'
-import { formatAndroidSdkUserFacingMessage } from '@/lib/cli-emulator-user-facing-copy'
+import {
+  formatAndroidSdkUserFacingMessage,
+  formatEmulatorAvailabilityUserFacingMessage
+} from '@/lib/cli-emulator-user-facing-copy'
 
 type EmulatorAvailability = {
   platform: string
@@ -192,8 +195,9 @@ export function MobileEmulatorAvailabilityDetails({
             detail={
               iosOk
                 ? translate('auto.components.settings.MobileEmulatorSdkStatus.c6f3ea4f12', 'Ready')
-                : availability.simctl?.message ||
-                  availability.serveSim?.message ||
+                : formatEmulatorAvailabilityUserFacingMessage(
+                    availability.simctl?.message || availability.serveSim?.message
+                  ) ||
                   translate(
                     'auto.components.settings.MobileEmulatorSdkStatus.e4f14b50d7',
                     'Install Xcode and add an iOS Simulator runtime.'

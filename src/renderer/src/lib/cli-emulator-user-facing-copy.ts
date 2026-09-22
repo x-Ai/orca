@@ -134,6 +134,15 @@ const KNOWN_ANDROID_MESSAGES: { test: string; key: string; fallback: string }[] 
   }
 ]
 
+const KNOWN_IOS_MESSAGES: { test: string; key: string; fallback: string }[] = [
+  {
+    test: 'Xcode Simulator tools are unavailable. Install full Xcode, open it once, then select it with `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`.',
+    key: 'auto.lib.emulator.xcodeSimulatorToolsUnavailable',
+    fallback:
+      'Xcode Simulator tools are unavailable. Install full Xcode, open it once, then select it with `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`.'
+  }
+]
+
 function stripElectronInvokePrefix(raw: string): string {
   const match = raw.match(/Error invoking remote method '[^']+': Error:\s*(.+)$/s)
   return match?.[1]?.trim() || raw
@@ -205,6 +214,11 @@ export function formatEmulatorAvailabilityUserFacingMessage(
 ): string {
   if (!raw?.trim()) {
     return ''
+  }
+  for (const known of KNOWN_IOS_MESSAGES) {
+    if (raw === known.test || raw.includes(known.test)) {
+      return translate(known.key, known.fallback)
+    }
   }
   const android = formatAndroidSdkUserFacingMessage(raw)
   if (android !== raw) {
