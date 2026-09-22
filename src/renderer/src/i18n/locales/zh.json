@@ -19401,7 +19401,7 @@
   },
   "notifications": {
     "testTitle": "Orca 通知已开启",
-    "testBody": "这是一条来自 Orca 的测试通知",
+    "testBody": "这是一条来自 Orca 的测试通知。",
     "permissionProbeBody": "当代理完成任务或终端需要关注时，Orca 会通知您",
     "agentStatus": {
       "needsInput": "需要输入",

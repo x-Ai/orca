@@ -99,6 +99,10 @@ export async function setMainUiLanguage(language: UiLanguage): Promise<string> {
   return locale
 }
 
+export function getMainUiLocale(): string {
+  return initialized ? mainI18n.resolvedLanguage || mainI18n.language : DEFAULT_UI_LOCALE
+}
+
 function applyMainPluginLanguagePacks(): void {
   for (const language of registeredPluginLanguages) {
     mainI18n.removeResourceBundle(language, 'translation')

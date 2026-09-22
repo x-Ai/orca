@@ -19,6 +19,7 @@ import {
 } from '../../shared/ui-language'
 import {
   ensureMainI18n,
+  getMainUiLocale,
   setMainPluginLanguagePacks,
   setMainUiLanguage,
   translateMain
@@ -56,6 +57,7 @@ describe('main-i18n lazy locale loading', () => {
     expect(translateMain('menu.file', 'File')).not.toBe('File')
 
     await setMainUiLanguage(UI_LANGUAGE_CHINESE)
+    expect(getMainUiLocale()).toBe('zh')
     expect(translateMain('menu.file', 'File')).not.toBe('File')
     expect(translateMain('notifications.testTitle', 'Orca notifications are on')).toBe(
       'Orca 通知已开启'

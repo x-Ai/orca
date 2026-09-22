@@ -3,6 +3,7 @@ import { RuntimeClientError } from './runtime-client-error'
 import { readMacosBundleId, resetMacosTccPermission } from '../macos-tcc-reset'
 import { resolveMacOSComputerUseAppPath } from './macos-native-provider-paths'
 import { getComputerUsePermissionStatus } from './macos-computer-use-permission-status'
+import { getMainUiLocale } from '../i18n/main-i18n'
 import type {
   ComputerUsePermissionId,
   ComputerUsePermissionResetResult,
@@ -62,6 +63,7 @@ async function openComputerUsePermissionsAsync(
 
   closeExistingPermissionHelpers()
   const helperArgs = permissionId ? ['--permission', permissionId] : ['--permissions']
+  helperArgs.push('--locale', getMainUiLocale())
   const helper = spawn('/usr/bin/open', ['-n', helperAppPath, '--args', ...helperArgs], {
     detached: true,
     stdio: 'ignore'

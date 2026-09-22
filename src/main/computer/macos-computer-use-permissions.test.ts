@@ -123,7 +123,7 @@ describe('openComputerUsePermissions', () => {
     })
     expect(spawn).not.toHaveBeenCalledWith(
       '/usr/bin/open',
-      ['-n', '/Applications/Orca Computer Use.app', '--args', '--permissions'],
+      ['-n', '/Applications/Orca Computer Use.app', '--args', '--permissions', '--locale', 'en'],
       { detached: true, stdio: 'ignore' }
     )
   })
@@ -156,7 +156,7 @@ describe('openComputerUsePermissions', () => {
     )
     expect(spawn).toHaveBeenCalledWith(
       '/usr/bin/open',
-      ['-n', '/Applications/Orca Computer Use.app', '--args', '--permissions'],
+      ['-n', '/Applications/Orca Computer Use.app', '--args', '--permissions', '--locale', 'en'],
       { detached: true, stdio: 'ignore' }
     )
   })
@@ -179,7 +179,15 @@ describe('openComputerUsePermissions', () => {
     })
     expect(spawn).toHaveBeenCalledWith(
       '/usr/bin/open',
-      ['-n', '/Applications/Orca Computer Use.app', '--args', '--permission', 'accessibility'],
+      [
+        '-n',
+        '/Applications/Orca Computer Use.app',
+        '--args',
+        '--permission',
+        'accessibility',
+        '--locale',
+        'en'
+      ],
       { detached: true, stdio: 'ignore' }
     )
   })
@@ -202,7 +210,15 @@ describe('openComputerUsePermissions', () => {
     })
     expect(spawn).toHaveBeenCalledWith(
       '/usr/bin/open',
-      ['-n', '/Applications/Orca Computer Use.app', '--args', '--permission', 'accessibility'],
+      [
+        '-n',
+        '/Applications/Orca Computer Use.app',
+        '--args',
+        '--permission',
+        'accessibility',
+        '--locale',
+        'en'
+      ],
       { detached: true, stdio: 'ignore' }
     )
   })
