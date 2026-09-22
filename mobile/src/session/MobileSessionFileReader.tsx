@@ -30,6 +30,7 @@ import type {
   RenderableDiffLine
 } from './mobile-session-route-types'
 import { DiffLineRow } from './MobileSessionDiffLineRow'
+import { translate } from '../../../src/renderer/src/i18n/i18n'
 
 export function FileReader({
   doc,
@@ -227,7 +228,9 @@ export function FileReader({
                 accessibilityLabel="Send review notes to AI"
               >
                 <Send size={13} color={colors.textSecondary} strokeWidth={2.2} />
-                <Text style={styles.diffNotesActionText}>Send</Text>
+                <Text style={styles.diffNotesActionText}>
+                  {translate('mobile.app.h.hostId.session.worktreeId.send', 'Send')}
+                </Text>
               </Pressable>
             </View>
           </View>

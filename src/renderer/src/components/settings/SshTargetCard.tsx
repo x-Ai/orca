@@ -23,13 +23,33 @@ import { translate } from '@/i18n/i18n'
 // ── Shared status helpers ────────────────────────────────────────────
 
 export const STATUS_LABELS: Record<SshConnectionStatus, string> = {
-  disconnected: 'Disconnected',
-  connecting: 'Connecting\u2026',
-  'auth-failed': 'Auth failed',
-  'deploying-relay': 'Deploying relay\u2026',
-  connected: 'Connected',
-  reconnecting: 'Reconnecting\u2026',
-  'reconnection-failed': 'Reconnection failed',
+  get disconnected() {
+    return translate('auto.components.settings.SshTargetCard.statusDisconnected', 'Disconnected')
+  },
+  get connecting() {
+    return translate('auto.components.settings.SshTargetCard.statusConnecting', 'Connecting…')
+  },
+  get 'auth-failed'() {
+    return translate('auto.components.settings.SshTargetCard.statusAuthFailed', 'Auth failed')
+  },
+  get 'deploying-relay'() {
+    return translate(
+      'auto.components.settings.SshTargetCard.statusDeployingRelay',
+      'Deploying relay…'
+    )
+  },
+  get connected() {
+    return translate('auto.components.settings.SshTargetCard.statusConnected', 'Connected')
+  },
+  get reconnecting() {
+    return translate('auto.components.settings.SshTargetCard.statusReconnecting', 'Reconnecting…')
+  },
+  get 'reconnection-failed'() {
+    return translate(
+      'auto.components.settings.SshTargetCard.statusReconnectionFailed',
+      'Reconnection failed'
+    )
+  },
   get error() {
     return translate('auto.components.settings.SshTargetCard.18968ede9e', 'Error')
   }

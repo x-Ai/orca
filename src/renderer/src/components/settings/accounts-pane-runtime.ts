@@ -96,7 +96,7 @@ export function getSelectedAccountRuntime(
       wslDistro: selectedDistro,
       label: selectedDistro
         ? `WSL ${selectedDistro}`
-        : translate('auto.components.settings.AccountsPane.2358ac71d2', 'WSL default')
+        : translate('auto.components.settings.AccountsPane.2358ac71d2', 'WSL')
     }
   }
   return { runtime: 'host', label: getHostRuntimeLabel() }

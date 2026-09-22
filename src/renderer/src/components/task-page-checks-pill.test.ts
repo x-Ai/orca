@@ -1,5 +1,10 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { getChecksLabel, getChecksPillTone } from './task-page-checks-pill'
+import { setRendererUiLanguage } from '@/i18n/i18n'
+
+afterEach(async () => {
+  await setRendererUiLanguage('en')
+})
 
 describe('task page checks pill', () => {
   // Why: the pill's tone reads `state`, so a label branch keyed off `neutral > 0` painted a green
@@ -16,7 +21,7 @@ describe('task page checks pill', () => {
       }
     }
 
-    expect(getChecksLabel(item)).toBe('1/2 passed')
+    expect(getChecksLabel(item)).toBe('1 of 2 checks passing')
     expect(getChecksPillTone(item)).toContain('emerald')
   })
 
@@ -32,7 +37,7 @@ describe('task page checks pill', () => {
       }
     }
 
-    expect(getChecksLabel(item)).toBe('Unresolved checks')
+    expect(getChecksLabel(item)).toBe('1 unresolved')
     expect(getChecksPillTone(item)).toContain('text-muted-foreground')
   })
 
@@ -49,6 +54,47 @@ describe('task page checks pill', () => {
           neutral: 0
         }
       })
-    ).toBe('No checks')
+    ).toBe('No checks found')
+  })
+
+  it('localizes failure, pending, empty, and passing summaries', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      getChecksLabel({
+        checksSummary: {
+          state: 'failure',
+          total: 3,
+          passed: 0,
+          failed: 3,
+          pending: 0,
+          neutral: 0
+        }
+      })
+    ).toBe('3 失败')
+    expect(
+      getChecksLabel({
+        checksSummary: {
+          state: 'pending',
+          total: 14,
+          passed: 0,
+          failed: 0,
+          pending: 14,
+          neutral: 0
+        }
+      })
+    ).toBe('14 待处理')
+    expect(
+      getChecksLabel({
+        checksSummary: {
+          state: 'success',
+          total: 11,
+          passed: 11,
+          failed: 0,
+          pending: 0,
+          neutral: 0
+        }
+      })
+    ).toBe('11/11 个检查通过')
   })
 })

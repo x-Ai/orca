@@ -9,6 +9,7 @@ import { getRecentUsageDays } from './usage-overview-daily-series'
 import { buildUsageOverview, formatUsageCost, formatUsageTokens } from './usage-overview-model'
 import { DailyIntensityGrid, ProviderUsageRow, TokenMixBar } from './usage-overview-sections'
 import { translate } from '@/i18n/i18n'
+import { formatUpdatedAt } from './usage-formatters'
 
 const RECENT_DAY_COUNT = 42
 
@@ -17,13 +18,6 @@ function formatPercent(value: number | null): string {
     return 'n/a'
   }
   return `${Math.round(value * 100)}%`
-}
-
-function formatUpdatedAt(timestamp: number | null): string {
-  if (!timestamp) {
-    return 'Not scanned yet'
-  }
-  return `Updated ${new Date(timestamp).toLocaleString()}`
 }
 
 export function UsageOverviewPane(): React.JSX.Element {

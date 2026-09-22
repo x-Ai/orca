@@ -4,7 +4,7 @@ import { CommandGroup, CommandItem, CommandList } from '@/components/ui/command'
 import { PopoverContent } from '@/components/ui/popover'
 import { translate } from '@/i18n/i18n'
 import { cn } from '@/lib/utils'
-import { getSmartWorkspaceEmptyHint } from './smart-workspace-source-results'
+import { translateSmartWorkspaceEmptyHint } from './smart-workspace-empty-hint'
 import { getRowItemClassName, RowIcon, RowLabel } from './smart-workspace-source-row-content'
 import type { SmartWorkspaceNameFieldController } from './use-smart-workspace-name-field-controller'
 
@@ -123,7 +123,7 @@ export function renderSmartWorkspaceSourceResults(
                     'auto.components.new.workspace.SmartWorkspaceNameField.3e8bb1176a',
                     'Connect Linear in Settings to search issues.'
                   )
-                : getSmartWorkspaceEmptyHint(mode)}
+                : translateSmartWorkspaceEmptyHint(mode)}
           </div>
         ) : searchResultRows.length > 0 ? (
           <CommandGroup className="p-1">

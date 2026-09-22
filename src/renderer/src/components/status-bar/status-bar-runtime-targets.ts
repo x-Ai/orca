@@ -2,6 +2,7 @@ import type { GlobalSettings } from '../../../../shared/global-settings-types'
 import type { RateLimitRuntimeTarget } from '../../../../shared/rate-limit-types'
 import { resolveLocalAccountRuntimeTarget } from '../../../../shared/local-account-runtime'
 import { getRendererAppPlatform } from '../../lib/renderer-app-platform'
+import { translate } from '@/i18n/i18n'
 
 export type CodexStatusRuntimeTarget = {
   runtime: 'host' | 'wsl'
@@ -58,7 +59,9 @@ export function getCodexStatusRuntimeLabel(
   if (target.runtime === 'host') {
     return hostLabel
   }
-  return target.wslDistro ? `WSL ${target.wslDistro}` : 'WSL default'
+  return target.wslDistro
+    ? `WSL ${target.wslDistro}`
+    : translate('auto.components.status.bar.StatusBar.wslRuntime', 'WSL')
 }
 
 export function getCodexStatusRuntimeKey(target: CodexStatusRuntimeTarget): string {

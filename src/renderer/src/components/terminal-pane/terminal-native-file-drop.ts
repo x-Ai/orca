@@ -1,6 +1,5 @@
 import { toast } from 'sonner'
 import { getConnectionId } from '@/lib/connection-context'
-import { extractIpcErrorMessage } from '@/lib/ipc-error'
 import { getLocalProjectExecutionRuntimeContext } from '@/lib/local-preflight-context'
 import { CLIENT_PLATFORM } from '@/lib/new-workspace'
 import type { PaneManager } from '@/lib/pane-manager/pane-manager'
@@ -28,6 +27,7 @@ import {
   resolveTerminalDropWorktreePath
 } from './terminal-drop-worktree-path'
 import { captureRuntimeTerminalDropOwner } from './terminal-drop-runtime-owner'
+import { terminalFileDropErrorMessage } from './terminal-native-file-drop-error'
 
 export type NativeTerminalFileDropArgs = {
   manager: PaneManager
@@ -53,7 +53,7 @@ export async function handleNativeTerminalFileDrop(
     await handleNativeTerminalFileDropWithCapturedOwner(args)
   } catch (err) {
     // Why: native drop listeners fire-and-forget, so owner-capture failures must terminate here.
-    toast.error(extractIpcErrorMessage(err, 'Failed to drop files.'))
+    toast.error(terminalFileDropErrorMessage(err, 'drop'))
   }
 }
 
@@ -213,7 +213,7 @@ async function uploadRuntimeDropPaths(
       results.filter((result) => result.status === 'failed')
     )
   } catch (err) {
-    toast.error(extractIpcErrorMessage(err, 'Failed to upload files.'))
+    toast.error(terminalFileDropErrorMessage(err, 'upload'))
   } finally {
     toast.dismiss(pending)
   }
@@ -233,7 +233,7 @@ async function pasteLocalDropPaths(
       await pasteResolvedDropPaths({ ...args, paths: resolvedPaths, targetShell: 'posix' })
       reportTerminalDropUploadSkipsAndFailures(skipped, failed)
     } catch (err) {
-      toast.error(extractIpcErrorMessage(err, 'Failed to resolve dropped files.'))
+      toast.error(terminalFileDropErrorMessage(err, 'resolve'))
     }
     return
   }
@@ -269,7 +269,7 @@ async function uploadRemoteDropPaths(
     await pasteResolvedDropPaths({ ...args, paths: resolvedPaths, targetShell: args.targetShell })
     reportTerminalDropUploadSkipsAndFailures(skipped, failed)
   } catch (err) {
-    toast.error(extractIpcErrorMessage(err, 'Failed to upload files.'))
+    toast.error(terminalFileDropErrorMessage(err, 'upload'))
   } finally {
     toast.dismiss(pending)
   }

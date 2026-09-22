@@ -25,29 +25,9 @@ import { useOptionalShortcutLabel } from '@/hooks/useShortcutLabel'
 import type { OpenFile } from '../../store/slices/editor'
 import { shouldBlockEditorTabLocalOpen } from './editor-tab-local-open-guard'
 import { translate } from '@/i18n/i18n'
+import { getOsRevealLabel } from '@/lib/os-reveal-label'
 import { TabWorkspaceLayoutMenuSection } from './TabWorkspaceLayoutMenuSection'
 import { TAB_CONTEXT_MENU_CONTENT_CLASS } from './tab-context-menu-sizing'
-
-const isMac = navigator.userAgent.includes('Mac')
-const isLinux = navigator.userAgent.includes('Linux')
-
-/** Platform-appropriate label: macOS → Finder, Windows → File Explorer, Linux → Files */
-function getRevealLabel(): string {
-  return isMac
-    ? translate(
-        'auto.components.tab.bar.EditorFileTabContextMenu.revealInFinder',
-        'Reveal in Finder'
-      )
-    : isLinux
-      ? translate(
-          'auto.components.tab.bar.EditorFileTabContextMenu.openContainingFolder',
-          'Open Containing Folder'
-        )
-      : translate(
-          'auto.components.tab.bar.EditorFileTabContextMenu.revealInFileExplorer',
-          'Reveal in File Explorer'
-        )
-}
 
 type EditorFileTabContextMenuProps = {
   open: boolean
@@ -262,7 +242,7 @@ export function EditorFileTabContextMenu({
           }}
         >
           <ExternalLink className="size-3.5" />
-          {getRevealLabel()}
+          {getOsRevealLabel()}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

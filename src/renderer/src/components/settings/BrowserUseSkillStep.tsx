@@ -46,8 +46,14 @@ export function BrowserUseSkillStep({
       )}
       command={command}
       installedCommand={installedCommand}
-      terminalTitle="Browser Use setup"
-      terminalAriaLabel="Browser Use skill install terminal"
+      terminalTitle={translate(
+        'auto.components.settings.AgentSkillSetupPanel.browserUseTerminalTitle',
+        'Browser Use setup'
+      )}
+      terminalAriaLabel={translate(
+        'auto.components.settings.AgentSkillSetupPanel.browserUseTerminalAria',
+        'Browser Use skill install terminal'
+      )}
       terminalWorktreeId="settings-browser-use-skill-terminal"
       terminalShellOverride={terminalShellOverride}
       terminalRuntime={terminalRuntime}

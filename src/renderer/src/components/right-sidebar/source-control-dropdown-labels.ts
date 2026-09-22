@@ -1,20 +1,44 @@
 // Why: label/title wording for the dropdown rows, kept apart from the priority ladder so copy edits
 // do not touch the state machine.
 
+import { translate } from '@/i18n/i18n'
+
 export function describePushCount(ahead: number): string {
-  return `Push ${ahead} commit${ahead === 1 ? '' : 's'}`
+  return translate(
+    ahead === 1
+      ? 'auto.components.rightSidebar.sourceControl.pushCount.one'
+      : 'auto.components.rightSidebar.sourceControl.pushCount.other',
+    ahead === 1 ? 'Push {{count}} commit' : 'Push {{count}} commits',
+    { count: ahead }
+  )
 }
 
 export function describePullCount(behind: number): string {
-  return `Pull ${behind} commit${behind === 1 ? '' : 's'}`
+  return translate(
+    behind === 1
+      ? 'auto.components.rightSidebar.sourceControl.pullCount.one'
+      : 'auto.components.rightSidebar.sourceControl.pullCount.other',
+    behind === 1 ? 'Pull {{count}} commit' : 'Pull {{count}} commits',
+    { count: behind }
+  )
 }
 
 export function describeFastForwardCount(behind: number): string {
-  return `Fast-forward ${behind} commit${behind === 1 ? '' : 's'}`
+  return translate(
+    behind === 1
+      ? 'auto.components.rightSidebar.sourceControl.fastForwardCount.one'
+      : 'auto.components.rightSidebar.sourceControl.fastForwardCount.other',
+    behind === 1 ? 'Fast-forward {{count}} commit' : 'Fast-forward {{count}} commits',
+    { count: behind }
+  )
 }
 
 export function describeSyncCounts(ahead: number, behind: number): string {
-  return `Pull ${behind}, push ${ahead}`
+  return translate(
+    'auto.components.rightSidebar.sourceControl.syncCounts',
+    'Pull {{behind}}, push {{ahead}}',
+    { ahead, behind }
+  )
 }
 
 export function formatCountLabel(base: string, count: number): string {
@@ -32,11 +56,23 @@ export function formatForcePushTitle(
   branchCommitsAhead: number | undefined,
   upstreamName?: string
 ): string {
-  const countText =
-    branchCommitsAhead && branchCommitsAhead > 0
-      ? `${branchCommitsAhead} branch commit${branchCommitsAhead === 1 ? '' : 's'}`
-      : 'this branch'
-  return `Remote only has older copies of local commits. Force push ${countText} with lease to update ${upstreamName ?? 'the remote branch'}.`
+  const countText = branchCommitsAhead
+    ? translate(
+        branchCommitsAhead === 1
+          ? 'auto.components.rightSidebar.sourceControl.branchCommit.one'
+          : 'auto.components.rightSidebar.sourceControl.branchCommit.other',
+        branchCommitsAhead === 1 ? '{{count}} branch commit' : '{{count}} branch commits',
+        { count: branchCommitsAhead }
+      )
+    : translate('auto.components.rightSidebar.sourceControl.thisBranch', 'this branch')
+  const remoteTarget =
+    upstreamName ??
+    translate('auto.components.rightSidebar.sourceControl.theRemoteBranch', 'the remote branch')
+  return translate(
+    'auto.components.rightSidebar.sourceControl.forcePushOlderRemote',
+    'Remote only has older copies of local commits. Force push {{countText}} with lease to update {{remoteTarget}}.',
+    { countText, remoteTarget }
+  )
 }
 
 export function formatManualForcePushTitle(
@@ -44,19 +80,45 @@ export function formatManualForcePushTitle(
   behind: number,
   upstreamName?: string
 ): string {
-  const commitText = ahead === 1 ? '1 local commit' : `${ahead} local commits`
+  const commitText = translate(
+    ahead === 1
+      ? 'auto.components.rightSidebar.sourceControl.localCommit.one'
+      : 'auto.components.rightSidebar.sourceControl.localCommit.other',
+    ahead === 1 ? '{{count}} local commit' : '{{count}} local commits',
+    { count: ahead }
+  )
+  const remoteTarget =
+    upstreamName ??
+    translate('auto.components.rightSidebar.sourceControl.theRemoteBranch', 'the remote branch')
   if (behind > 0) {
-    return `Force push ${commitText} with lease to update ${upstreamName ?? 'the remote branch'} and replace remote-only commits.`
+    return translate(
+      'auto.components.rightSidebar.sourceControl.forcePushReplaceRemote',
+      'Force push {{commitText}} with lease to update {{remoteTarget}} and replace remote-only commits.',
+      { commitText, remoteTarget }
+    )
   }
-  return `Force push ${commitText} with lease to update ${upstreamName ?? 'the remote branch'}.`
+  return translate(
+    'auto.components.rightSidebar.sourceControl.forcePushUpdateRemote',
+    'Force push {{commitText}} with lease to update {{remoteTarget}}.',
+    { commitText, remoteTarget }
+  )
 }
 
 export function formatUnpublishedForcePushTitle(branchCommitsAhead: number | undefined): string {
-  const countText =
-    branchCommitsAhead && branchCommitsAhead > 0
-      ? `${branchCommitsAhead} branch commit${branchCommitsAhead === 1 ? '' : 's'}`
-      : 'this branch'
-  return `Force push ${countText} with lease and set an upstream if needed.`
+  const countText = branchCommitsAhead
+    ? translate(
+        branchCommitsAhead === 1
+          ? 'auto.components.rightSidebar.sourceControl.branchCommit.one'
+          : 'auto.components.rightSidebar.sourceControl.branchCommit.other',
+        branchCommitsAhead === 1 ? '{{count}} branch commit' : '{{count}} branch commits',
+        { count: branchCommitsAhead }
+      )
+    : translate('auto.components.rightSidebar.sourceControl.thisBranch', 'this branch')
+  return translate(
+    'auto.components.rightSidebar.sourceControl.forcePushSetUpstream',
+    'Force push {{countText}} with lease and set an upstream if needed.',
+    { countText }
+  )
 }
 
 export function formatRebaseBaseRef(baseRef: string): string {

@@ -26,6 +26,7 @@ import { TerminalRenderingSection } from './TerminalRenderingSection'
 import { TerminalSetupScriptSection } from './TerminalSetupScriptSection'
 import { TerminalWindowsShellSection } from './TerminalWindowsShellSection'
 import { SettingsSegmentedControl, SettingsSubsectionHeader } from './SettingsFormControls'
+import { translate } from '@/i18n/i18n'
 
 type TerminalPaneProps = {
   settings: GlobalSettings
@@ -63,7 +64,7 @@ export function TerminalPane({
   const showWindowsPowerShellImplementation =
     showWindowsHostSettings && windowsShell === 'powershell.exe'
 
-  const [shellValidationError, setShellValidationError] = useState<string | null>(null)
+  const [missingShellPath, setMissingShellPath] = useState<string | null>(null)
   const configuredShell = settings.terminalDefaultShell?.trim() ?? ''
   const shellMode = configuredShell ? 'custom' : 'system'
   const systemShell =
@@ -73,36 +74,64 @@ export function TerminalPane({
     const shell = configuredShell
     const isAbsolute = shell.startsWith('/') || /^[A-Za-z]:[\\/]/.test(shell)
     if (!isAbsolute) {
-      setShellValidationError(null)
+      setMissingShellPath(null)
       return
     }
     const exists = await window.api.shell.pathExists(shell)
-    setShellValidationError(exists ? null : `Shell not found: ${shell}`)
+    setMissingShellPath(exists ? null : shell)
   }
 
   const defaultShellSection =
     !showWindowsHostSettings &&
     matchesSettingsSearch(searchQuery, {
-      title: 'Default shell',
-      description: 'Shell used for new terminal panes',
+      title: translate(
+        'auto.components.settings.TerminalPane.defaultShell.searchTitle',
+        'Default shell'
+      ),
+      description: translate(
+        'auto.components.settings.TerminalPane.defaultShell.searchDescription',
+        'Shell used for new terminal panes'
+      ),
       keywords: ['shell', 'terminal', 'fish', 'zsh', 'bash', 'nushell', 'default']
     }) ? (
       <section key="default-shell" className="space-y-3">
         <SettingsSubsectionHeader
-          title="Terminal shell"
-          description="Choose what Orca opens for new local terminal panes."
+          title={translate(
+            'auto.components.settings.TerminalPane.defaultShell.title',
+            'Terminal shell'
+          )}
+          description={translate(
+            'auto.components.settings.TerminalPane.defaultShell.description',
+            'Choose what Orca opens for new local terminal panes.'
+          )}
         />
         <div className="space-y-3">
           <SettingsSegmentedControl
-            ariaLabel="Terminal shell"
+            ariaLabel={translate(
+              'auto.components.settings.TerminalPane.defaultShell.ariaLabel',
+              'Terminal shell'
+            )}
             value={shellMode}
             onChange={(value) => {
-              setShellValidationError(null)
+              setMissingShellPath(null)
               updateSettings({ terminalDefaultShell: value === 'system' ? '' : configuredShell })
             }}
             options={[
-              { value: 'system', label: `System shell (${systemShell})` },
-              { value: 'custom', label: 'Custom shell' }
+              {
+                value: 'system',
+                label: translate(
+                  'auto.components.settings.TerminalPane.defaultShell.systemOption',
+                  'System shell ({{shell}})',
+                  { shell: systemShell }
+                )
+              },
+              {
+                value: 'custom',
+                label: translate(
+                  'auto.components.settings.TerminalPane.defaultShell.customOption',
+                  'Custom shell'
+                )
+              }
             ]}
           />
           {shellMode === 'custom' ? (
@@ -111,22 +140,31 @@ export function TerminalPane({
                 value={settings.terminalDefaultShell ?? ''}
                 placeholder="fish, nu, or /bin/zsh"
                 onChange={(event) => {
-                  setShellValidationError(null)
+                  setMissingShellPath(null)
                   updateSettings({ terminalDefaultShell: event.target.value.trimStart() })
                 }}
                 onBlur={() => void validateShell()}
                 className="w-full"
-                aria-label="Custom shell executable"
-                aria-invalid={shellValidationError != null}
-                aria-describedby={shellValidationError ? 'default-shell-error' : undefined}
+                aria-label={translate(
+                  'auto.components.settings.TerminalPane.defaultShell.customExecutableAria',
+                  'Custom shell executable'
+                )}
+                aria-invalid={missingShellPath != null}
+                aria-describedby={missingShellPath ? 'default-shell-error' : undefined}
               />
               <p id="default-shell-help" className="text-xs text-muted-foreground">
-                Enter a shell name on PATH or an executable path. Orca starts it as a login shell.
+                {translate(
+                  'auto.components.settings.TerminalPane.defaultShell.help',
+                  'Enter a shell name on PATH or an executable path. Orca starts it as a login shell.'
+                )}
               </p>
-              {shellValidationError ? (
+              {missingShellPath ? (
                 <p id="default-shell-error" role="alert" className="text-xs text-destructive">
-                  {shellValidationError}. Switch to System shell or choose an executable on this
-                  host.
+                  {translate(
+                    'auto.components.settings.TerminalPane.defaultShell.notFound',
+                    'Shell not found: {{shell}}. Switch to System shell or choose an executable on this host.',
+                    { shell: missingShellPath }
+                  )}
                 </p>
               ) : null}
             </div>

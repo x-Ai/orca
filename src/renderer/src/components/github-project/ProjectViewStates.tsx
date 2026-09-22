@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 import { cn } from '@/lib/utils'
 import { translate } from '@/i18n/i18n'
+import { formatGitHubProjectErrorMessage } from '@/lib/github-project-error-copy'
 import { GhAuthErrorHelp } from './GhAuthErrorHelp'
 import type { GitHubProjectViewSummary } from '../../../../shared/github/project-types'
 import type { GitHubProjectViewError } from '../../../../shared/github/project-result-types'
@@ -156,7 +157,15 @@ export function ProjectViewErrorState({
   }
   const copy =
     error.type === 'too_large'
-      ? `This view has ${totalCount ?? 'many'} items — too large to render in Orca. Narrow the view's filter on GitHub.`
+      ? translate(
+          'auto.components.github.project.ProjectViewWrapper.a435c479d5',
+          "This view has {{value0}} items — too large to render in Orca. Narrow the view's filter on GitHub.",
+          {
+            value0:
+              totalCount ??
+              translate('auto.components.github.project.ProjectViewWrapper.6f5c52db05', 'many')
+          }
+        )
       : error.type === 'unsupported_layout'
         ? // Why: an older paired host still reports roadmaps as unsupported, so this
           // copy must not name the layout — the tab strip already does that.
@@ -165,10 +174,16 @@ export function ProjectViewErrorState({
             'Orca renders table and roadmap project views. This view uses a layout it cannot render yet.'
           )
         : error.type === 'not_found'
-          ? 'Could not find this project or view.'
+          ? translate(
+              'auto.components.github.project.ProjectViewWrapper.768f6f3014',
+              'Could not find this project or view.'
+            )
           : error.type === 'schema_drift'
-            ? 'Could not read this project view.'
-            : error.message
+            ? translate(
+                'auto.components.github.project.ProjectViewWrapper.e8f5b063b4',
+                'Could not read this project view.'
+              )
+            : formatGitHubProjectErrorMessage(error.message)
   return (
     <div className="flex flex-1 flex-col items-start gap-3 p-6 text-sm">
       <div className="text-muted-foreground">{copy}</div>

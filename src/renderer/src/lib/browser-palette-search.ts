@@ -18,6 +18,7 @@ import type { ExecutionHostId } from '../../../shared/execution-host'
 import type { MatchRange } from './palette-match/normalized-text'
 import type { PaletteDocument, PaletteDocumentRank } from './palette-match/palette-document'
 import type { PaletteResultQualityClass } from './palette-match/match-quality'
+import { translate } from '@/i18n/i18n'
 import {
   createPaletteSearchContext,
   encodePaletteIdentity,
@@ -96,7 +97,7 @@ export function isBlankBrowserUrl(url: string): boolean {
 
 export function formatBrowserPaletteUrl(url: string): string {
   if (isBlankBrowserUrl(url)) {
-    return 'New Tab'
+    return translate('auto.components.browser.pane.BrowserPane.366bf5d62c', 'New Tab')
   }
   try {
     const parsed = new URL(url)

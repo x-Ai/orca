@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { buildRows } from './build-rows'
 import { getFolderWorkspaceLaneKey } from './folder-workspace-lanes'
 import { getPRGroupKey, getPRLaneKey } from './group-keys'
@@ -8,6 +8,12 @@ import type { FolderWorkspace } from '../../../../../../shared/folder-workspace-
 import type { ProjectGroup } from '../../../../../../shared/project-group-types'
 import type { Repo } from '../../../../../../shared/repo-types'
 import type { ExecutionHostId } from '../../../../../../shared/execution-host'
+import { setRendererUiLanguage } from '@/i18n/i18n'
+import { translateWorkspaceBoardStatusLabel } from '../../workspace-board-status-label'
+
+afterEach(async () => {
+  await setRendererUiLanguage('en')
+})
 
 const GROUP: ProjectGroup = {
   id: 'group-1',
@@ -105,6 +111,17 @@ describe('a folder workspace can be the only member of a lane', () => {
     const header = rows.find((row) => row.type === 'header')
     expect(header).toBeDefined()
     expect(header && 'count' in header ? header.count : null).toBe(1)
+  })
+
+  it('localizes a folder-only default status lane', async () => {
+    await setRendererUiLanguage('zh')
+    expect(translateWorkspaceBoardStatusLabel({ id: 'in-progress', label: 'In progress' })).toBe(
+      '进行中'
+    )
+
+    const rows = buildSidebarRows({ groupBy: 'workspace-status', worktrees: [] })
+    const header = rows.find((row) => row.type === 'header')
+    expect(header && 'label' in header ? header.label : null).toBe('进行中')
   })
 
   it('renders in flat mode with no worktrees present', () => {

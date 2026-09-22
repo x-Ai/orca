@@ -83,16 +83,13 @@ export function renderAccountsLocationSection(
                             'auto.components.settings.AccountsPane.ad47a33f72',
                             'Loading WSL'
                           )
-                        : translate(
-                            'auto.components.settings.AccountsPane.2358ac71d2',
-                            'WSL default'
-                          )
+                        : translate('auto.components.settings.AccountsPane.2358ac71d2', 'WSL')
                     }
                   />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={WSL_DEFAULT_DISTRO_KEY}>
-                    {translate('auto.components.settings.AccountsPane.2358ac71d2', 'WSL default')}
+                    {translate('auto.components.settings.AccountsPane.2358ac71d2', 'WSL')}
                   </SelectItem>
                   {wslDistros.map((distro) => (
                     <SelectItem key={distro} value={distro}>

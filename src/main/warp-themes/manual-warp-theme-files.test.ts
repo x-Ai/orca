@@ -1,9 +1,51 @@
 import path from 'node:path'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('electron', () => ({ BrowserWindow: {}, dialog: {} }))
+const showOpenDialogMock = vi.hoisted(() => vi.fn())
 
-import { createManualWarpThemeFileCandidates } from './manual-warp-theme-files'
+vi.mock('electron', () => ({
+  app: { getLocale: () => 'en-US' },
+  BrowserWindow: {},
+  dialog: { showOpenDialog: showOpenDialogMock }
+}))
+
+import {
+  chooseManualWarpThemeFiles,
+  chooseManualWarpThemeFolderPath,
+  createManualWarpThemeFileCandidates
+} from './manual-warp-theme-files'
+import { setMainUiLanguage } from '../i18n/main-i18n'
+
+afterEach(async () => {
+  showOpenDialogMock.mockReset()
+  await setMainUiLanguage('en')
+})
+
+describe('manual theme native dialog localization', () => {
+  it.each([
+    ['en', 'Import Warp Theme', 'Import Warp Theme Folder', 'Warp theme YAML'],
+    ['zh', '导入 Warp 主题', '导入 Warp 主题文件夹', 'Warp 主题 YAML']
+  ] as const)(
+    'uses the %s locale without changing file selections',
+    async (language, fileTitle, folderTitle, filterName) => {
+      await setMainUiLanguage(language)
+      showOpenDialogMock.mockResolvedValue({ canceled: true, filePaths: [] })
+
+      await expect(chooseManualWarpThemeFiles()).resolves.toEqual({ canceled: true })
+      expect(showOpenDialogMock).toHaveBeenLastCalledWith({
+        title: fileTitle,
+        properties: ['openFile', 'multiSelections'],
+        filters: [{ name: filterName, extensions: ['yaml', 'yml'] }]
+      })
+
+      await expect(chooseManualWarpThemeFolderPath()).resolves.toBeNull()
+      expect(showOpenDialogMock).toHaveBeenLastCalledWith({
+        title: folderTitle,
+        properties: ['openDirectory']
+      })
+    }
+  )
+})
 
 describe('manual theme ordering', () => {
   it('reuses one collator for labels and path ties without changing the selected order', () => {

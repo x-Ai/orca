@@ -31,6 +31,7 @@ import {
 import { useWorktreeContextMenuCommands } from './use-worktree-context-menu-commands'
 import { useWorktreeParentPickerTransition } from './use-worktree-parent-picker-transition'
 import { useWorktreeContextMenuSecondaryActions } from './use-worktree-context-menu-secondary-actions'
+import { getWorktreeContextMenuCountLabels } from './worktree-context-menu-count-labels'
 
 export type WorktreeContextMenuProps = {
   worktree: Worktree
@@ -180,14 +181,11 @@ export function useWorktreeContextMenuModel({
     [activeContextWorktrees, repoMap]
   )
   const removesProject = shouldRemoveProjectFromContextMenu(repo, worktree)
-  const sleepLabel =
-    isMultiContext && sleepableWorktrees.length > 0
-      ? `Sleep ${sleepableWorktrees.length} Workspace${sleepableWorktrees.length === 1 ? '' : 's'}`
-      : 'Sleep'
-  const deleteLabel =
-    isMultiContext && batchDeleteWorktrees.length > 0
-      ? `Delete ${batchDeleteWorktrees.length} Workspace${batchDeleteWorktrees.length === 1 ? '' : 's'}`
-      : 'Delete Selected'
+  const { sleepLabel, deleteLabel } = getWorktreeContextMenuCountLabels({
+    isMultiContext,
+    sleepCount: sleepableWorktrees.length,
+    deleteCount: batchDeleteWorktrees.length
+  })
   const hasParentLink = hasWorktreeParentLink(
     worktree,
     worktreeLineageById,

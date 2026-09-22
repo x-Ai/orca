@@ -5,6 +5,7 @@ import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import type { Worktree } from '../../../../shared/worktree/types'
 import { ActivityThreadHoverCard } from './activity-thread-hover-card'
 import { ActivityThreadRow } from './activity-thread-row'
@@ -106,10 +107,12 @@ describe('ActivityThreadHoverCard and ActivityThreadRow', () => {
     root = createRoot(container)
   })
 
-  afterEach(() => {
+  afterEach(async () => {
     act(() => root.unmount())
     container.remove()
     document.body.replaceChildren()
+    vi.unstubAllGlobals()
+    await setRendererUiLanguage('en')
   })
 
   it('renders the thread row with task title and workspace label', async () => {
@@ -232,6 +235,40 @@ describe('ActivityThreadHoverCard and ActivityThreadRow', () => {
 
     expect(onSelect).toHaveBeenCalledTimes(1)
   })
+
+  it.each([
+    ['Windows NT 10.0', 'Local Windows', '本地 Windows'],
+    ['Macintosh', 'Local Mac', '本地 Mac'],
+    ['Linux', 'Local Linux', '本地 Linux']
+  ])(
+    'localizes the %s host in the workspace hover details',
+    async (userAgent, englishLabel, expectedLabel) => {
+      vi.stubGlobal('navigator', { userAgent })
+      const thread = createTestThread({ worktree: { ...makeWorktree(), hostId: 'local' } })
+
+      await act(async () => {
+        root.render(
+          <TooltipProvider>
+            <ActivityThreadHoverCard thread={thread}>
+              <div>Hover Target</div>
+            </ActivityThreadHoverCard>
+          </TooltipProvider>
+        )
+      })
+
+      expect(container.querySelector('[data-testid="hover-card-content"]')?.textContent).toContain(
+        englishLabel
+      )
+      await act(async () => {
+        await setRendererUiLanguage('zh')
+      })
+      const content =
+        container.querySelector('[data-testid="hover-card-content"]')?.textContent ?? ''
+      expect(content).toContain('工作区')
+      expect(content).toContain(expectedLabel)
+      expect(content).not.toMatch(/Local (Windows|Mac|Linux)/)
+    }
+  )
 
   it('triggers jump to workspace from the hover card crosshair locator button', async () => {
     const onJump = vi.fn()

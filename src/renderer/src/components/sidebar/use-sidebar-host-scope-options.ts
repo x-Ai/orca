@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAppStore } from '@/store'
 import { getHostDisplayLabelOverrides } from '../../../../shared/host-setting-overrides'
 import {
@@ -15,6 +16,8 @@ export function useSidebarHostScopeOptions(): {
   hostOptions: SidebarHostOption[]
   hostScopeOptions: SidebarHostScopeOption[]
 } {
+  const { i18n } = useTranslation()
+  const language = i18n.resolvedLanguage ?? i18n.language
   const repos = useAppStore((s) => s.repos)
   const sshTargetLabels = useAppStore((s) => s.sshTargetLabels)
   const sshConnectionStates = useAppStore((s) => s.sshConnectionStates)
@@ -23,18 +26,9 @@ export function useSidebarHostScopeOptions(): {
   const runtimeStatusByEnvironmentId = useAppStore((s) => s.runtimeStatusByEnvironmentId)
 
   const hostLabelOverrides = useMemo(() => getHostDisplayLabelOverrides(settings), [settings])
-  const hostOptions = useMemo(
-    () =>
-      buildSidebarHostOptions({
-        repos,
-        sshTargetLabels,
-        sshConnectionStates,
-        settings,
-        runtimeEnvironments,
-        runtimeStatusByEnvironmentId,
-        hostLabelOverrides
-      }),
-    [
+  const hostOptions = useMemo(() => {
+    void language
+    return buildSidebarHostOptions({
       repos,
       sshTargetLabels,
       sshConnectionStates,
@@ -42,8 +36,17 @@ export function useSidebarHostScopeOptions(): {
       runtimeEnvironments,
       runtimeStatusByEnvironmentId,
       hostLabelOverrides
-    ]
-  )
+    })
+  }, [
+    repos,
+    sshTargetLabels,
+    sshConnectionStates,
+    settings,
+    runtimeEnvironments,
+    runtimeStatusByEnvironmentId,
+    hostLabelOverrides,
+    language
+  ])
   const hostScopeOptions = useMemo(() => buildSidebarHostScopeOptions(hostOptions), [hostOptions])
 
   return { hostOptions, hostScopeOptions }

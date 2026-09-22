@@ -117,7 +117,12 @@ export function useFileExplorerImport({
             )
           }
         } catch (err) {
-          toast.error(extractIpcErrorMessage(err, 'Failed to import files.'))
+          toast.error(
+            extractIpcErrorMessage(
+              err,
+              translate('components.toastFallbacks.filesImportFailed', 'Failed to import files.')
+            )
+          )
         } finally {
           clearNativeDragStateRef.current()
         }

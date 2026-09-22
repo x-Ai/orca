@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/context-menu'
 import type { WorkspacePort } from '../../../../shared/workspace-ports'
 import { translate } from '@/i18n/i18n'
+import { translateUnassignedLabel } from '@/i18n/unassigned-label'
 
 const LOCAL_PORT_MENU_CONTENT_CLASS =
   '!rounded-md !border-border/60 !bg-popover !text-popover-foreground !shadow-[0_10px_24px_rgba(0,0,0,0.18)] !backdrop-blur-none'
@@ -82,7 +83,7 @@ export function LocalPortRow({
       ? port.owner.displayName
       : port.kind === 'container'
         ? 'Container or forwarded service'
-        : 'Unassigned'
+        : translateUnassignedLabel()
   const openBrowserLabel = translate(
     'auto.components.right.sidebar.PortsPanel.b22b128b2a',
     'Open in Browser'

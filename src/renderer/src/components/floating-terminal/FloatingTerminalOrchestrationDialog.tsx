@@ -11,7 +11,7 @@ import { IntegrationStatusPill } from '@/components/integration-status-pill'
 import { SkillFreshnessStatusPill } from '@/components/skills/SkillFreshnessStatusPill'
 import { ORCHESTRATION_SKILL_NAME } from '@/lib/agent-feature-install-commands'
 import {
-  AGENT_SKILL_CLI_PREREQUISITE_NOTICE,
+  getAgentSkillCliPrerequisiteNotice,
   ensureOrcaCliAvailableForAgentSkillTerminal
 } from '@/lib/agent-skill-cli-prerequisite'
 import {
@@ -142,8 +142,14 @@ export function FloatingTerminalOrchestrationDialog({
           )}
           command={installCommand}
           installedCommand={updateCommand}
-          terminalTitle="Orchestration setup"
-          terminalAriaLabel="Orchestration skill install terminal"
+          terminalTitle={translate(
+            'auto.components.settings.AgentSkillSetupPanel.orchestrationTerminalTitle',
+            'Orchestration setup'
+          )}
+          terminalAriaLabel={translate(
+            'auto.components.settings.AgentSkillSetupPanel.orchestrationTerminalAria',
+            'Orchestration skill install terminal'
+          )}
           terminalWorktreeId="floating-terminal-orchestration-skill-terminal"
           terminalShellOverride={activeSkillRuntime.terminalShellOverride}
           terminalRuntime={activeSkillRuntime.agentRuntime}
@@ -154,7 +160,7 @@ export function FloatingTerminalOrchestrationDialog({
           variant="inline"
           hideHeader
           installLabel="Install CLI & skill"
-          preInstallNotice={AGENT_SKILL_CLI_PREREQUISITE_NOTICE}
+          preInstallNotice={getAgentSkillCliPrerequisiteNotice()}
           getPrerequisiteStatus={() =>
             activeSkillRuntime.agentRuntime?.runtime === 'wsl'
               ? window.api.cli.getWslInstallStatus(

@@ -188,6 +188,16 @@
         }
       }
     },
+    "relay": {
+      "fsHandler": {
+        "fileTooLarge": "ファイルが大きすぎます：{{actualSize}}MB が {{maxSize}}MB の制限を超えています"
+      }
+    },
+    "shared": {
+      "nodeBoundedFileReader": {
+        "fileTooLarge": "ファイルが大きすぎます：{{actualSize}}MB が {{maxSize}}MB の制限を超えています"
+      }
+    },
     "store": {
       "slices": {
         "browser": {
@@ -1348,6 +1358,19 @@
         "createMultiple": "さらに作成",
         "waitForSetupBeforeAgent": "セットアップが完了するまで待ってから Agent を開始してください",
         "waitForSetupBeforeAgentHelp": "セットアップによって、起動時に Agent に必要な依存関係、MCP サーバー、または構成ファイルがインストールされるときに、これをオンにします。",
+        "setupScript": "Setup script",
+        "runSetupCommand": "Run setup command",
+        "defaultTabCommands": "Default tab commands",
+        "setupAndDefaultTabCommands": "Setup and default tab commands",
+        "runDefaultTabCommands": "Run default tab commands",
+        "runSetupAndDefaultTabCommands": "Run setup and default tab commands",
+        "runDefaultTabCommandsNow": "Run default tab commands now?",
+        "runSetupAndDefaultTabCommandsNow": "Run setup and default tab commands now?",
+        "runSetupNowQuestion": "Run setup now?",
+        "runCommandsNow": "Run commands now",
+        "runSetupNow": "Run setup now",
+        "skipForNow": "Skip for now",
+        "skipCommands": "Skip commands",
         "destroyDisabled": "破壊は無効です",
         "destroyConfigured": "設定されたものを破棄する",
         "noDestroyConfigured": "破壊しない",
@@ -2958,7 +2981,8 @@
             "ec2adf093e": "新規ターミナルで {{value0}} を起動",
             "465e432ef1": "{{value0}} の起動コマンドを作成できませんでした。",
             "e518f544b1": "Agent が検出されませんでした",
-            "8dea9b5cdf": "有効な Agent がありません"
+            "8dea9b5cdf": "有効な Agent がありません",
+            "launchTerminalDidNotStart": "Couldn't launch {{value0}} — the terminal did not start."
           },
           "RecentTabSwitcher": {
             "329638ff6f": "タブの切り替え",
@@ -3865,6 +3889,7 @@
           "b3a500c623": "名前",
           "16223dde6a": "プリセットをロードする",
           "a683a4bc8e": "プリセットの読み込みを再試行",
+          "loadingPresets": "Loading presets...",
           "14952d451e": "{{value0}} ディレクトリ",
           "e9283eb171": "1 ディレクトリ",
           "69c020eddc": "プリセットの編集",
@@ -13486,7 +13511,8 @@
             "4a9568f773": "戻る",
             "4f86e2a10b": "ツアーをスキップ",
             "d974f32a83": "ツアーを閉じる",
-            "ffa4412b66": "次"
+            "ffa4412b66": "次",
+            "d74ca948aa": "次へ"
           },
           "ContextualTourProgressDots": {
             "7734cb8ad3": "の",
@@ -13494,9 +13520,19 @@
           },
           "contextual": {
             "tour": {
-              "overlay": {
-                "measurement": {
-                  "38b3155418": "次へ"
+              "step": {
+                "localized": {
+                  "copy": {
+                    "dc2d7ebbfa": "自動化とは何ですか？",
+                    "1a9ac96bc5": "自動化はスケジュールに従って Agent の作業を実行します。このボタンをクリックして自動化を追加します。",
+                    "e69e126045": "結果を確認する",
+                    "65a7cf9b63": "実行では、自動化がいつ実行されたか、何が起こったか、出力をどこで確認できるかが表示されます。",
+                    "a1b2c3d4e5": "ボードで作業を計画する",
+                    "f6g7h8i9j0": "プロジェクト別ではなくステータス別にワークスペースを表示したい場合は、ボードを使用します。",
+                    "k1l2m3n4o5": "レーン間で作業を移動する",
+                    "p6q7r8s9t0": "ステータスが変わったら、レーン間でワークスペースをドラッグします。",
+                    "012036e8ca": "次へ"
+                  }
                 }
               }
             }
@@ -14582,6 +14618,11 @@
       }
     },
     "main": {
+      "ipc": {
+        "filesystem": {
+          "fileTooLarge": "ファイルが大きすぎます：{{actualSize}}MB が {{maxSize}}MB の制限を超えています"
+        }
+      },
       "window": {
         "editableContextMenu": {
           "table": "テーブル",

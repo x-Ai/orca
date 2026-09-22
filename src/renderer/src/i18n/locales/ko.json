@@ -188,6 +188,16 @@
         }
       }
     },
+    "relay": {
+      "fsHandler": {
+        "fileTooLarge": "파일이 너무 큽니다: {{actualSize}}MB가 {{maxSize}}MB 제한을 초과합니다"
+      }
+    },
+    "shared": {
+      "nodeBoundedFileReader": {
+        "fileTooLarge": "파일이 너무 큽니다: {{actualSize}}MB가 {{maxSize}}MB 제한을 초과합니다"
+      }
+    },
     "store": {
       "slices": {
         "browser": {
@@ -1353,6 +1363,19 @@
         "createMultiple": "더 만들기",
         "waitForSetupBeforeAgent": "agent를 시작하기 전에 설정이 완료될 때까지 기다리세요.",
         "waitForSetupBeforeAgentHelp": "설치 프로그램이 시작 중에 agent에 필요한 종속성, MCP 서버 또는 구성 파일을 설치할 때 이 기능을 켜십시오.",
+        "setupScript": "Setup script",
+        "runSetupCommand": "Run setup command",
+        "defaultTabCommands": "Default tab commands",
+        "setupAndDefaultTabCommands": "Setup and default tab commands",
+        "runDefaultTabCommands": "Run default tab commands",
+        "runSetupAndDefaultTabCommands": "Run setup and default tab commands",
+        "runDefaultTabCommandsNow": "Run default tab commands now?",
+        "runSetupAndDefaultTabCommandsNow": "Run setup and default tab commands now?",
+        "runSetupNowQuestion": "Run setup now?",
+        "runCommandsNow": "Run commands now",
+        "runSetupNow": "Run setup now",
+        "skipForNow": "Skip for now",
+        "skipCommands": "Skip commands",
         "destroyDisabled": "비활성화된 파괴",
         "destroyConfigured": "구성된 파괴",
         "noDestroyConfigured": "파괴하지 마세요",
@@ -2963,7 +2986,8 @@
             "ec2adf093e": "새 terminal에서 {{value0}} 실행",
             "465e432ef1": "{{value0}}에 대한 실행 명령을 작성할 수 없습니다.",
             "e518f544b1": "감지된 agents가 없습니다.",
-            "8dea9b5cdf": "활성화된 agents가 없습니다."
+            "8dea9b5cdf": "활성화된 agents가 없습니다.",
+            "launchTerminalDidNotStart": "Couldn't launch {{value0}} — the terminal did not start."
           },
           "RecentTabSwitcher": {
             "329638ff6f": "탭 전환",
@@ -3870,6 +3894,7 @@
           "b3a500c623": "이름",
           "16223dde6a": "사전 설정 로드",
           "a683a4bc8e": "사전 설정 로드를 다시 시도하세요.",
+          "loadingPresets": "Loading presets...",
           "14952d451e": "{{value0}} 디렉터리",
           "e9283eb171": "디렉터리 1개",
           "69c020eddc": "사전 설정 편집",
@@ -12459,6 +12484,13 @@
           },
           "feature": {
             "wall": {
+              "usage": {
+                "tracking": {
+                  "b94ec70eda": "추적이 설정되지 않았습니다.",
+                  "cc39a87288": "연결됨 · 시스템 기본값",
+                  "00087eecb2": "연결됨 · {{value0}}"
+                }
+              },
               "setup": {
                 "checklist": {
                   "localized": {
@@ -12481,13 +12513,6 @@
                       "42525ba8a4": "주요 저장소를 Orca로 가져와 폴더를 일일이 찾을 필요 없이 에이전트 작업을 시작하세요."
                     }
                   }
-                }
-              },
-              "usage": {
-                "tracking": {
-                  "b94ec70eda": "추적이 설정되지 않았습니다.",
-                  "cc39a87288": "연결됨 · 시스템 기본값",
-                  "00087eecb2": "연결됨 · {{value0}}"
                 }
               }
             }
@@ -13553,7 +13578,8 @@
             "4f86e2a10b": "둘러보기 건너뛰기",
             "d974f32a83": "투어 닫기",
             "ffa4412b66": "다음",
-            "complete": "완료"
+            "complete": "완료",
+            "d74ca948aa": "다음"
           },
           "ContextualTourProgressDots": {
             "7734cb8ad3": "중",
@@ -13561,6 +13587,21 @@
           },
           "contextual": {
             "tour": {
+              "step": {
+                "localized": {
+                  "copy": {
+                    "dc2d7ebbfa": "자동화란 무엇인가요?",
+                    "1a9ac96bc5": "자동화는 일정에 따라 agent 작업을 실행합니다. 이 버튼을 눌러 자동화를 추가하세요.",
+                    "e69e126045": "결과 확인",
+                    "65a7cf9b63": "실행 내역에서 자동화가 언제 실행되었는지, 어떤 일이 발생했는지, 출력을 어디서 확인할 수 있는지 볼 수 있습니다.",
+                    "a1b2c3d4e5": "보드에서 작업 계획하기",
+                    "f6g7h8i9j0": "프로젝트별이 아닌 상태별로 워크스페이스를 보고 싶을 때 보드를 사용하세요.",
+                    "k1l2m3n4o5": "레인 간에 작업 이동하기",
+                    "p6q7r8s9t0": "상태가 변경되면 레인 간에 워크스페이스를 드래그하세요.",
+                    "012036e8ca": "다음"
+                  }
+                }
+              },
               "overlay": {
                 "measurement": {
                   "38b3155418": "다음",
@@ -14659,6 +14700,11 @@
       }
     },
     "main": {
+      "ipc": {
+        "filesystem": {
+          "fileTooLarge": "파일이 너무 큽니다: {{actualSize}}MB가 {{maxSize}}MB 제한을 초과합니다"
+        }
+      },
       "window": {
         "editableContextMenu": {
           "table": "표",
@@ -14843,16 +14889,27 @@
     },
     "workspace": {
       "cleanup": {
+        "scan": {
+          "readyOne": "워크스페이스 1개를 찾았습니다.",
+          "readyMany": "워크스페이스 {{value0}}개를 찾았습니다."
+        },
+        "presentationFixtures": {
+          "reviewAlphaCleanup": "알파 정리 검토"
+        },
+        "presentation": {
+          "gitlabMergeRequestNumber": "MR #{{value0}}",
+          "githubPullRequestNumber": "PR #{{value0}}"
+        },
         "browse": {
+          "selectionWithheldOne": "선택한 워크스페이스 1개가 현재 필터에 의해 숨겨져 선택이 해제되었습니다.",
+          "selectionWithheld": "선택한 워크스페이스 {{value0}}개가 현재 필터에 의해 숨겨져 선택이 해제되었습니다.",
+          "selectAllCountOne": "안전 검사를 통과한 워크스페이스 1개 선택",
+          "selectAllCount": "안전 검사를 통과한 워크스페이스 {{value0}}개 모두 선택",
           "gitStatusCheckFailed": "Git 상태 확인 실패",
           "gitStatusUnverified": "Git 상태를 확인할 수 없음",
           "deleteAnyway": "그래도 삭제",
           "forceDeleteProjectionOne": "현재 워크스페이스 {{count}}개에 위험 요소가 표시되며 강제 삭제가 필요할 수 있습니다",
           "forceDeleteProjectionMany": "현재 워크스페이스 {{count}}개에 위험 요소가 표시되며 강제 삭제가 필요할 수 있습니다",
-          "selectionWithheldOne": "선택한 워크스페이스 1개가 현재 필터에 의해 숨겨져 선택이 해제되었습니다.",
-          "selectionWithheld": "선택한 워크스페이스 {{value0}}개가 현재 필터에 의해 숨겨져 선택이 해제되었습니다.",
-          "selectAllCountOne": "안전 검사를 통과한 워크스페이스 1개 선택",
-          "selectAllCount": "안전 검사를 통과한 워크스페이스 {{value0}}개 모두 선택",
           "appliedFilters": "적용된 필터",
           "removeFilter": "{{value0}} 필터 제거",
           "chip": {
@@ -14899,17 +14956,6 @@
               "retainedAgents": "완료된 에이전트"
             }
           }
-        },
-        "scan": {
-          "readyOne": "워크스페이스 1개를 찾았습니다.",
-          "readyMany": "워크스페이스 {{value0}}개를 찾았습니다."
-        },
-        "presentationFixtures": {
-          "reviewAlphaCleanup": "알파 정리 검토"
-        },
-        "presentation": {
-          "gitlabMergeRequestNumber": "MR #{{value0}}",
-          "githubPullRequestNumber": "PR #{{value0}}"
         }
       }
     },

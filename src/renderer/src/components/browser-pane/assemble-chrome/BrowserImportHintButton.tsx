@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Import } from 'lucide-react'
 import { toast } from 'sonner'
+import { formatBrowserCookieImportFailure } from '@/lib/browser-cookie-import-failure'
 import { emitBrowserCookieImportToast } from '@/lib/browser-cookie-import-toast'
 import { Button } from '@/components/ui/button'
 import { BrowserCookieImportDisclosure } from '@/components/BrowserCookieImportDisclosure'
@@ -107,7 +108,7 @@ export function BrowserImportHintButton({
         )
         return
       }
-      toast.error(result.reason)
+      toast.error(formatBrowserCookieImportFailure(result.reason))
     },
     [detectedBrowsers, effectiveProfileId, importCookiesFromBrowser]
   )
@@ -129,7 +130,7 @@ export function BrowserImportHintButton({
       return
     }
     if (result.reason !== 'canceled') {
-      toast.error(result.reason)
+      toast.error(formatBrowserCookieImportFailure(result.reason))
     }
   }, [effectiveProfileId, importCookiesToProfile])
 

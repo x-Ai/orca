@@ -24,6 +24,7 @@ import {
   translateMain
 } from './main-i18n'
 import { pluginLanguageResourceId } from '../../shared/plugins/plugin-language-pack-artifact'
+import { buildNotificationOptions } from '../ipc/notification-options'
 
 describe('main-i18n lazy locale loading', () => {
   beforeEach(async () => {
@@ -56,6 +57,16 @@ describe('main-i18n lazy locale loading', () => {
 
     await setMainUiLanguage(UI_LANGUAGE_CHINESE)
     expect(translateMain('menu.file', 'File')).not.toBe('File')
+    expect(translateMain('notifications.testTitle', 'Orca notifications are on')).toBe(
+      'Orca 通知已开启'
+    )
+    expect(translateMain('notifications.testBody', 'This is a test notification from Orca.')).toBe(
+      '这是一条来自 Orca 的测试通知。'
+    )
+    expect(buildNotificationOptions({ source: 'test' })).toEqual({
+      title: 'Orca 通知已开启',
+      body: '这是一条来自 Orca 的测试通知。'
+    })
   })
 
   it('uses caller English when a target catalog omits a key', async () => {

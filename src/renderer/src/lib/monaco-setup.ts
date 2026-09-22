@@ -1,22 +1,10 @@
 import { loader } from '@monaco-editor/react'
-import * as monaco from 'monaco-editor'
-import { typescript as monacoTS } from 'monaco-editor'
-import 'monaco-editor/min/vs/editor/editor.main.css'
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
 import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
 import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
 import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
-import { registerAstroLanguage } from './monaco-languages/register-astro'
-import { registerJsonlLanguage } from './monaco-languages/register-jsonl'
-import { registerNimLanguage } from './monaco-languages/register-nim'
-import { registerShellMarkdownAliases } from './monaco-languages/register-shell-markdown-aliases'
-import { registerSvelteLanguage } from './monaco-languages/register-svelte'
-import { registerVueLanguage } from './monaco-languages/register-vue'
-import { installMonacoDelayerCancellationGuard } from './monaco-delayer-cancellation-guard'
-import { installMonacoDiffEditorDisposalGuard } from './monaco-diff-editor-disposal'
-import { installMonacoPeekReferencesPreviewOptions } from './monaco-peek-preview-options'
-import { installMonacoContextMenuPaste } from '@/components/editor/install-monaco-context-menu-paste'
+import { monacoNlsBootstrap } from './monaco-nls'
 
 globalThis.MonacoEnvironment = {
   getWorker(_workerId, label) {
@@ -39,6 +27,30 @@ globalThis.MonacoEnvironment = {
     }
   }
 }
+
+// Why: nls.messages.* must land on globalThis before monaco-editor evaluates
+// contribution modules that call localize() for action/context-menu labels.
+// The bootstrap also waits for the persisted uiLanguage, since i18n boots in
+// 'en' before settings arrive over IPC.
+await monacoNlsBootstrap()
+
+const monaco = await import('monaco-editor')
+const { typescript: monacoTS } = monaco
+await import('monaco-editor/min/vs/editor/editor.main.css')
+
+const { registerAstroLanguage } = await import('./monaco-languages/register-astro')
+const { registerJsonlLanguage } = await import('./monaco-languages/register-jsonl')
+const { registerNimLanguage } = await import('./monaco-languages/register-nim')
+const { registerShellMarkdownAliases } =
+  await import('./monaco-languages/register-shell-markdown-aliases')
+const { registerSvelteLanguage } = await import('./monaco-languages/register-svelte')
+const { registerVueLanguage } = await import('./monaco-languages/register-vue')
+const { installMonacoDelayerCancellationGuard } =
+  await import('./monaco-delayer-cancellation-guard')
+const { installMonacoDiffEditorDisposalGuard } = await import('./monaco-diff-editor-disposal')
+const { installMonacoPeekReferencesPreviewOptions } = await import('./monaco-peek-preview-options')
+const { installMonacoContextMenuPaste } =
+  await import('@/components/editor/install-monaco-context-menu-paste')
 
 // Why: Monaco here is a viewer/diff surface, not a type checker — users edit
 // real code in their own IDE. The sandboxed TS worker cannot resolve imports
@@ -92,5 +104,4 @@ installMonacoContextMenuPaste(monaco)
 // Configure Monaco to use the locally bundled editor instead of CDN
 loader.config({ monaco })
 
-// Re-export for convenience
 export { monaco }

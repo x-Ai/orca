@@ -7,7 +7,7 @@ import {
   ORCA_CLI_SKILL_UPDATE_COMMAND
 } from '@/lib/agent-feature-install-commands'
 import {
-  AGENT_SKILL_CLI_PREREQUISITE_NOTICE,
+  getAgentSkillCliPrerequisiteNotice,
   ensureOrcaCliAvailableForAgentSkillTerminal,
   isOrcaCliAvailableOnPath
 } from '@/lib/agent-skill-cli-prerequisite'
@@ -36,6 +36,7 @@ import {
   getWslCliDistroRequest
 } from './CliSkillRuntimeSetup'
 import { translate } from '@/i18n/i18n'
+import { formatCliUserFacingDetail } from '@/lib/cli-emulator-user-facing-copy'
 
 type BrowserUseSetupProps = {
   onConfigureMoreBrowsers?: () => void
@@ -102,7 +103,7 @@ export function BrowserUseSetup({
       if (mountedRef.current) {
         toast.error(
           error instanceof Error
-            ? error.message
+            ? formatCliUserFacingDetail(error.message) || error.message
             : translate(
                 'auto.components.settings.BrowserUsePane.180a9abf3a',
                 'Failed to load CLI status.'
@@ -283,7 +284,7 @@ export function BrowserUseSetup({
             disabled={step2Blocked}
             terminalShellOverride={activeSkillRuntime.terminalShellOverride}
             terminalRuntime={activeSkillRuntime.agentRuntime}
-            preInstallNotice={AGENT_SKILL_CLI_PREREQUISITE_NOTICE}
+            preInstallNotice={getAgentSkillCliPrerequisiteNotice()}
             getPrerequisiteStatus={() =>
               activeSkillRuntime.agentRuntime?.runtime === 'wsl'
                 ? window.api.cli.getWslInstallStatus(

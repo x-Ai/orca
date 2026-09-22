@@ -50,8 +50,17 @@ vi.mock('@/hooks/use-window-stream-visibility', () => ({
   useWindowStreamVisible: () => mocks.visible
 }))
 vi.mock('@/i18n/i18n', () => ({
-  translate: (_key: string, fallback: string, args?: Record<string, unknown>) =>
-    fallback.replace(/{{(\w+)}}/g, (_, key: string) => String(args?.[key]))
+  getIntlLocale: () => 'en',
+  translate: (key: string, fallback: string, args?: Record<string, unknown>) => {
+    const localizedHostLabels: Record<string, string> = {
+      'auto.components.sidebar.hostSection.localWindows': '本地 Windows',
+      'auto.components.sidebar.hostSection.localMac': '本地 Mac',
+      'auto.components.sidebar.hostSection.localLinux': '本地 Linux'
+    }
+    return (localizedHostLabels[key] ?? fallback).replace(/{{(\w+)}}/g, (_, placeholder: string) =>
+      String(args?.[placeholder])
+    )
+  }
 }))
 vi.mock('sonner', () => ({ toast: { success: vi.fn() } }))
 
@@ -389,6 +398,9 @@ it('leaves a lone computer to its own switch, with no roll-up above it', async (
   pane(true)
   await act(async () => {})
   expect(screen.getAllByRole('switch')).toHaveLength(1)
+  expect(screen.getByRole('switch').getAttribute('aria-label')).toMatch(
+    /^Search sessions on 本地 (Windows|Mac|Linux)$/
+  )
   expect(enableAllButton()).not.toBeInTheDocument()
   expect(screen.queryByText('This computer')).not.toBeInTheDocument()
   expect(screen.queryByText('Orca remote servers')).not.toBeInTheDocument()

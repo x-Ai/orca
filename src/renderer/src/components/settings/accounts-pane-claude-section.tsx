@@ -40,7 +40,7 @@ export function renderClaudeAccountsSection(model: AccountsPaneSectionModel): Re
         <p className="text-xs text-muted-foreground">
           {translate(
             'auto.components.settings.AccountsPane.72b36ea174',
-            'Optional. Orca can use your normal Claude login; add accounts only if you want quick switching without moving chat sessions.'
+            'Orca can use your normal Claude login; add accounts only if you want quick switching without moving chat sessions'
           )}
         </p>
       </div>

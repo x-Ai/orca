@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { getDefaultOnboardingState, getDefaultSettings } from '../../../../shared/constants'
 import { useAppStore } from '@/store'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import OnboardingFlow from './OnboardingFlow'
 import { ONBOARDING_SKIP_CONFIRMATION_COPY } from './OnboardingSkipConfirmationDialog'
 
@@ -25,9 +26,10 @@ describe('OnboardingFlow', () => {
     vi.stubGlobal('navigator', { userAgent: 'Macintosh' })
   })
 
-  afterEach(() => {
+  afterEach(async () => {
     useAppStore.setState(useAppStore.getInitialState(), true)
     vi.unstubAllGlobals()
+    await setRendererUiLanguage('en')
   })
 
   it('does not render the removed agent setup or tour steps', () => {
@@ -210,6 +212,40 @@ describe('OnboardingFlow', () => {
     expect(html).toContain(
       'Linear, GitLab, Bitbucket, Azure DevOps, Gitea, and Jira live in Settings'
     )
+  })
+
+  it('localizes GitHub task setup and footer actions in Chinese', async () => {
+    await setRendererUiLanguage('zh')
+    useAppStore.setState({
+      preflightStatus: {
+        git: { installed: true },
+        gh: { installed: false, authenticated: false }
+      },
+      preflightStatusChecked: true
+    })
+
+    const integrationsHtml = renderOnboardingFlow({
+      onboarding: {
+        ...getDefaultOnboardingState(),
+        lastCompletedStep: 2
+      },
+      onOnboardingChange: vi.fn()
+    })
+
+    expect(integrationsHtml).toContain('无需离开 Orca，即可在任务视图中浏览 GitHub 议题和拉取请求')
+    expect(integrationsHtml).toContain('在每个工作树中查看议题状态、评审状态和 CI 检查')
+    expect(integrationsHtml).toContain('无需离开 Orca，即可阅读、评论和合并拉取请求')
+    expect(integrationsHtml).toContain('继续')
+
+    const notificationsHtml = renderOnboardingFlow({
+      onboarding: {
+        ...getDefaultOnboardingState(),
+        lastCompletedStep: 3
+      },
+      onOnboardingChange: vi.fn()
+    })
+
+    expect(notificationsHtml).toContain('添加第一个项目')
   })
 
   it('renders onboarding inside a centered modal shell', () => {

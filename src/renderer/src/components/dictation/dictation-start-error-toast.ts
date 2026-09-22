@@ -1,6 +1,10 @@
 import { toast } from 'sonner'
 import { useAppStore } from '@/store'
 import { translate } from '@/i18n/i18n'
+import {
+  speechModelNotReadyToastMessage,
+  speechModelUnavailableToastMessage
+} from './dictation-toast-copy'
 
 function openVoiceSettings(): void {
   useAppStore.getState().openSettingsTarget({ pane: 'voice', repoId: null })
@@ -16,9 +20,9 @@ export function showDictationStartErrorToast(message: string): void {
       )
     )
   } else if (message.includes('not ready')) {
-    toast('Speech model not ready. Download it in Settings > Voice.')
+    toast(speechModelNotReadyToastMessage())
   } else if (message.includes('Unknown model')) {
-    toast('Selected model is no longer available. Please choose another in Settings > Voice.', {
+    toast(speechModelUnavailableToastMessage(), {
       action: {
         label: translate(
           'auto.components.dictation.DictationController.bb7f599ee7',

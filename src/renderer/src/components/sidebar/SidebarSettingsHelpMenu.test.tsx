@@ -4,6 +4,7 @@ import { act, type ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import { SidebarSettingsHelpMenu } from './SidebarSettingsHelpMenu'
 
 const mocks = vi.hoisted(() => ({
@@ -184,11 +185,12 @@ describe('SidebarSettingsHelpMenu', () => {
     }
   })
 
-  afterEach(() => {
+  afterEach(async () => {
     roots.splice(0).forEach((root) => {
       act(() => root.unmount())
     })
     document.body.replaceChildren()
+    await setRendererUiLanguage('en')
   })
 
   it('renders the help button with correct aria-label', () => {
@@ -289,6 +291,23 @@ describe('SidebarSettingsHelpMenu', () => {
     expect(html).toContain('Check for Updates')
     expect(html).toMatch(/(⇧\+click|Shift\+click) checks the latest RC/)
     expect(html).toMatch(/(⌘\+click|Ctrl\+click) checks the latest perf build/)
+  })
+
+  it('renders the update-check menu hint in Chinese', async () => {
+    await setRendererUiLanguage('zh')
+    const container = document.createElement('div')
+    container.innerHTML = renderToStaticMarkup(<SidebarSettingsHelpMenu />)
+    const title =
+      container.querySelector('[data-testid="menu-item"][title]')?.getAttribute('title') ?? ''
+
+    expect(title).toMatch(
+      /^(⇧|Shift)\+ 点击检查最新候选发布版\(RC\)，(⌘|Ctrl)\+ 点击检查最新性能测试构建/
+    )
+    if (navigator.userAgent.includes('Mac')) {
+      expect(title).toContain('⌥+点击选择本地 macOS 构建')
+    }
+    expect(title).not.toContain('checks the latest')
+    expect(title).not.toContain('+click')
   })
 
   it('passes update-check modifier options through the updater bridge', async () => {

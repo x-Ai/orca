@@ -12,6 +12,7 @@ import { createBrowserUuid } from '@/lib/browser-uuid'
 import { useAppStore } from '@/store'
 import { linearAddIssueComment } from '@/runtime/runtime-linear-issue-mutations'
 import { translate } from '@/i18n/i18n'
+import { isUnassignedShortcutLabel } from '@/i18n/unassigned-label'
 import type { TaskSourceContext } from '../../../shared/task-source-context'
 import type { LinearLocalComment } from '@/components/linear-item-drawer-types'
 
@@ -140,7 +141,7 @@ export function LinearIssueCommentFooter({
         />
         <div className="flex items-center justify-between px-4 pb-3">
           <span className="text-[11px] text-muted-foreground">
-            {submitShortcutLabel !== 'Unassigned'
+            {!isUnassignedShortcutLabel(submitShortcutLabel)
               ? translate('auto.components.LinearItemDrawer.fda549766e', '{{value0}} to comment', {
                   value0: submitShortcutLabel
                 })

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ChevronDown } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -6,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { useAppStore } from '@/store'
 import { translate } from '@/i18n/i18n'
+import { formatGitHubProjectErrorMessage } from '@/lib/github-project-error-copy'
 import type {
   GitHubProjectOwnerType,
   GitHubProjectSettings,
@@ -55,6 +57,7 @@ const EMPTY_PROJECT_SETTINGS: GitHubProjectSettings = {
 }
 
 export default function ProjectPicker({ activeProject, onSelect }: Props): React.JSX.Element {
+  useTranslation()
   const settings = useAppStore((state) => state.settings)
   const updateSettings = useAppStore((state) => state.updateSettings)
   const mountedRef = useMountedRef()
@@ -154,7 +157,7 @@ export default function ProjectPicker({ activeProject, onSelect }: Props): React
         }
         if (!result.ok) {
           setViewList([])
-          toast.error(result.error.message)
+          toast.error(formatGitHubProjectErrorMessage(result.error.message))
           return
         }
         setViewList(result.views)
@@ -201,7 +204,7 @@ export default function ProjectPicker({ activeProject, onSelect }: Props): React
         return
       }
       if (!result.ok) {
-        setPasteError(result.error.message)
+        setPasteError(formatGitHubProjectErrorMessage(result.error.message))
         return
       }
       setPasteInput('')
@@ -232,7 +235,7 @@ export default function ProjectPicker({ activeProject, onSelect }: Props): React
   )
   const buttonLabel = activeProject
     ? `${activeProject.owner} / ${activeProject.title ?? `#${activeProject.number}`}`
-    : 'Choose a project'
+    : translate('auto.components.github.project.ProjectPicker.chooseAProject', 'Choose a project')
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

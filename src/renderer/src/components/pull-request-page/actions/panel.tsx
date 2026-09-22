@@ -24,7 +24,7 @@ import { useAppStore } from '@/store'
 import { getActiveRuntimeTarget } from '@/runtime/runtime-rpc-client'
 import { getGitHubMutationRoutingSettings } from '@/lib/github-source-runtime-context'
 import { presentGitHubPRMergeState } from '@/components/github-pr-merge-state'
-import { resolveGitHubPRMergeMethods } from '../../../../../shared/github/pull-request-merge-methods'
+import { resolveLocalizedGitHubPRMergeMethods } from '@/lib/localized-github-pull-request-merge-methods'
 import { resolvePullRequestRepo } from '@/components/github/github-work-item-identity'
 import { translate } from '@/i18n/i18n'
 import type { GitHubWorkItem } from '../../../../../shared/github/work-item-types'
@@ -59,7 +59,7 @@ export function PRActionsPanel({
   const confirm = useConfirmationDialog()
   const actionItem = { ...item, state: localState }
   const mergePresentation = presentGitHubPRMergeState(actionItem)
-  const mergeMethods = resolveGitHubPRMergeMethods(actionItem.mergeMethodSettings)
+  const mergeMethods = resolveLocalizedGitHubPRMergeMethods(actionItem.mergeMethodSettings)
   const sourceSettings = useAppStore(
     useShallow((s) =>
       getGitHubMutationRoutingSettings(s, item.repoId ?? repoId ?? null, sourceContext)

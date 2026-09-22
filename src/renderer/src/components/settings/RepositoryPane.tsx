@@ -1,8 +1,9 @@
 import { useCallback, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { OrcaHooks, RepoHookSettings } from '../../../../shared/orca-yaml-hook-types'
 import type { Project, ProjectUpdateArgs } from '../../../../shared/project-types'
 import type { Repo } from '../../../../shared/repo-types'
-import { getRepoKindLabel, isFolderRepo } from '../../../../shared/repo-kind'
+import { isFolderRepo } from '../../../../shared/repo-kind'
 import { getRepoExecutionHostId, type ExecutionHostId } from '../../../../shared/execution-host'
 import { Button } from '../ui/button'
 import { Label } from '../ui/label'
@@ -83,6 +84,7 @@ export function RepositoryPane({
   wslCapabilitiesLoading = false,
   updateProject
 }: RepositoryPaneProps): React.JSX.Element {
+  useTranslation()
   const isFolder = isFolderRepo(repo)
   // Why: this pane renders the switcher-selected host's repo row. Bind every
   // edit to that host so identity/host-specific writes land on the selected
@@ -245,7 +247,11 @@ export function RepositoryPane({
             </p>
             <p className="text-xs text-muted-foreground">
               {translate('auto.components.settings.RepositoryPane.323debba71', 'Type:')}{' '}
-              <span className="text-foreground">{getRepoKindLabel(repo)}</span>
+              <span className="text-foreground">
+                {isFolder
+                  ? translate('auto.components.settings.RepositoryPane.setupKindFolder', 'Folder')
+                  : translate('auto.components.settings.RepositoryPane.setupKindGit', 'Git repo')}
+              </span>
             </p>
             {isFolder ? (
               <p className="text-xs text-muted-foreground">

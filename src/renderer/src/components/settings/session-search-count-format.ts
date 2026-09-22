@@ -1,3 +1,5 @@
+import { getIntlLocale } from '@/i18n/i18n'
+
 /**
  * Counts for the session-search status sentences.
  *
@@ -5,16 +7,15 @@
  * transcript count; messages run to millions, where the exact figure carries
  * nothing the compact form does not.
  */
-const sessionFormatter = new Intl.NumberFormat(undefined, { useGrouping: true })
-const messageFormatter = new Intl.NumberFormat(undefined, {
-  notation: 'compact',
-  maximumFractionDigits: 1
-})
-
 export function formatSessionCount(sessions: number): string {
-  return sessionFormatter.format(Math.max(0, Math.trunc(sessions)))
+  return new Intl.NumberFormat(getIntlLocale(), { useGrouping: true }).format(
+    Math.max(0, Math.trunc(sessions))
+  )
 }
 
 export function formatMessageCount(messages: number): string {
-  return messageFormatter.format(Math.max(0, Math.trunc(messages)))
+  return new Intl.NumberFormat(getIntlLocale(), {
+    notation: 'compact',
+    maximumFractionDigits: 1
+  }).format(Math.max(0, Math.trunc(messages)))
 }

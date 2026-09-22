@@ -150,8 +150,16 @@ export function buildRemediation(
   // diagnosis — env-token or scope advice for github.com would be misleading.
   if (diag.requiredHost && diag.requiredHostAuthenticated === false) {
     return {
-      summary: `\`gh\` is not signed in to ${diag.requiredHost}.`,
-      detail: `GitHub Enterprise hosts need their own \`gh\` login, separate from github.com. Run the login command in a terminal, complete the browser flow on ${diag.requiredHost}, then reload.`,
+      summary: translate(
+        'auto.components.github.project.GhAuthErrorHelp.f263ba462e',
+        '`gh` is not signed in to {{value0}}.',
+        { value0: diag.requiredHost }
+      ),
+      detail: translate(
+        'auto.components.github.project.GhAuthErrorHelp.ae3e9de94d',
+        'GitHub Enterprise hosts need their own `gh` login, separate from github.com. Run the login command in a terminal, complete the browser flow on {{value0}}, then reload.',
+        { value0: diag.requiredHost }
+      ),
       commands: [
         {
           label: translate(
@@ -166,9 +174,14 @@ export function buildRemediation(
 
   if (!diag.ghAvailable) {
     return {
-      summary: 'GitHub CLI (`gh`) is not installed or not on PATH.',
-      detail:
-        'Orca uses `gh` to talk to GitHub Projects. Install it from cli.github.com, then sign in.',
+      summary: translate(
+        'auto.components.github.project.GhAuthErrorHelp.ff4f2afc80',
+        'GitHub CLI (`gh`) is not installed or not on PATH.'
+      ),
+      detail: translate(
+        'auto.components.github.project.GhAuthErrorHelp.d9a254d5fc',
+        'Orca uses `gh` to talk to GitHub Projects. Install it from cli.github.com, then sign in.'
+      ),
       commands: [
         {
           label: translate(
@@ -208,9 +221,22 @@ export function buildRemediation(
     const varName = diag.envTokenInProcess
     return {
       summary: `Orca inherited \`${varName}\` from your shell, and \`gh\` is using that token. \`gh auth refresh\` doesn't apply to env-supplied tokens.`,
-      detail: `Unset \`${varName}\` in the shell that launches Orca${
-        IS_WINDOWS ? ' (or in your user environment variables)' : ' (or in your shell rc file)'
-      }, then restart Orca.`,
+      detail: translate(
+        'auto.components.github.project.GhAuthErrorHelp.945fe2619a',
+        'Unset `{{value0}}` in the shell that launches Orca{{value1}}, then restart Orca.',
+        {
+          value0: varName,
+          value1: IS_WINDOWS
+            ? translate(
+                'auto.components.github.project.GhAuthErrorHelp.7e3d5e0045',
+                ' (or in your user environment variables)'
+              )
+            : translate(
+                'auto.components.github.project.GhAuthErrorHelp.593e49967c',
+                ' (or in your shell rc file)'
+              )
+        }
+      ),
       commands: [findEnvVarCommand(varName), unsetEnvVarCommand(varName)],
       docsUrl: 'https://cli.github.com/manual/gh_help_environment'
     }
@@ -233,14 +259,24 @@ export function buildRemediation(
 
   // Plain missing-scope case on a keyring login — refresh will work.
   if (diag.missingScopes.length > 0) {
+    const scopes = diag.missingScopes.map((s) => `\`${s}\``).join(', ')
     return {
-      summary: `Your \`gh\` token is missing the ${diag.missingScopes
-        .map((s) => `\`${s}\``)
-        .join(
-          ', '
-        )} scope${diag.missingScopes.length === 1 ? '' : 's'} needed for GitHub Projects.`,
-      detail:
-        'Run the refresh command in a terminal. It will open a browser to authorize the new scopes, then come back here and reload.',
+      summary:
+        diag.missingScopes.length === 1
+          ? translate(
+              'auto.components.github.project.GhAuthErrorHelp.missingScope.one',
+              'Your `gh` token is missing the {{scopes}} scope needed for GitHub Projects.',
+              { scopes }
+            )
+          : translate(
+              'auto.components.github.project.GhAuthErrorHelp.missingScope.other',
+              'Your `gh` token is missing the {{scopes}} scopes needed for GitHub Projects.',
+              { scopes }
+            ),
+      detail: translate(
+        'auto.components.github.project.GhAuthErrorHelp.8d8191ec6f',
+        'Run the refresh command in a terminal. It will open a browser to authorize the new scopes, then come back here and reload.'
+      ),
       commands: [
         {
           label: translate(
@@ -258,8 +294,10 @@ export function buildRemediation(
   // can't see. Surface the most likely fix.
   return {
     summary: errorMessage,
-    detail:
-      'Your token has the required scopes but GitHub still denied access. If the project is in an org with SAML SSO, you must authorize this token for the org under Settings → Developer settings → Personal access tokens → Configure SSO.',
+    detail: translate(
+      'auto.components.github.project.GhAuthErrorHelp.f25b51ca76',
+      'Your token has the required scopes but GitHub still denied access. If the project is in an org with SAML SSO, you must authorize this token for the org under Settings → Developer settings → Personal access tokens → Configure SSO.'
+    ),
     commands: [
       {
         label: translate(

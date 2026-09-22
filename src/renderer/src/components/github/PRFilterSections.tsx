@@ -8,6 +8,7 @@ import {
 import { cn } from '@/lib/utils'
 import type { ParsedTaskQuery } from '../../../../shared/task-query'
 import { translate } from '@/i18n/i18n'
+import { formatGitHubProjectErrorMessage } from '@/lib/github-project-error-copy'
 
 export type PRFilterChange = {
   author?: string | null
@@ -193,7 +194,10 @@ export function SectionMenu({
       ? [
           {
             key: 'reviewer' as SectionKey,
-            label: reviewerKind === 'reviewed-by' ? 'Reviewed by' : 'Review from',
+            label:
+              reviewerKind === 'reviewed-by'
+                ? translate('auto.components.github.PRFilterDropdowns.7f1ba66c3e', 'Reviewed by')
+                : translate('auto.components.github.PRFilterDropdowns.b27b7e526c', 'Review from'),
             value: reviewerActive
           }
         ]
@@ -291,7 +295,10 @@ export function SectionDetail({
           activeValue={parsed.author}
           loading={false}
           error={null}
-          searchPlaceholder="Filter or type a login..."
+          searchPlaceholder={translate(
+            'auto.components.github.PRFilterSections.89eb415545',
+            'Filter or type a login...'
+          )}
           emptyText={translate('auto.components.github.PRFilterSections.458ea3602b', 'No authors')}
           allowCustomValue
           renderOption={(opt) => <UserOptionRow option={opt} />}
@@ -304,7 +311,10 @@ export function SectionDetail({
           activeValue={parsed.assignee}
           loading={usersLoading}
           error={usersError}
-          searchPlaceholder="Filter or type a login..."
+          searchPlaceholder={translate(
+            'auto.components.github.PRFilterSections.89eb415545',
+            'Filter or type a login...'
+          )}
           emptyText={translate('auto.components.github.PRFilterSections.a00830d3f7', 'No users')}
           allowCustomValue
           renderOption={(opt) => <UserOptionRow option={opt} />}
@@ -316,8 +326,11 @@ export function SectionDetail({
           options={labelOpts}
           selected={parsed.labels}
           loading={labelsLoading}
-          error={labelsError}
-          searchPlaceholder="Filter labels..."
+          error={labelsError ? formatGitHubProjectErrorMessage(labelsError) : null}
+          searchPlaceholder={translate(
+            'auto.components.github.PRFilterSections.a6912d12b1',
+            'Filter labels...'
+          )}
           emptyText={translate('auto.components.github.PRFilterSections.de26e2eb06', 'No labels')}
           onChange={(next) => onSelect({ labels: next })}
         />
@@ -355,7 +368,10 @@ export function SectionDetail({
             activeValue={reviewerMode === 'requested' ? parsed.reviewRequested : parsed.reviewedBy}
             loading={usersLoading}
             error={usersError}
-            searchPlaceholder="Filter or type a login..."
+            searchPlaceholder={translate(
+              'auto.components.github.PRFilterSections.89eb415545',
+              'Filter or type a login...'
+            )}
             emptyText={translate('auto.components.github.PRFilterSections.a00830d3f7', 'No users')}
             allowCustomValue
             renderOption={(opt) => <UserOptionRow option={opt} />}

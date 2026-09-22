@@ -3,7 +3,7 @@ import { ArrowRightLeft, GitBranch, ListChecks, Workflow, type LucideIcon } from
 import { ORCHESTRATION_SKILL_NAME } from '@/lib/agent-feature-install-commands'
 import type { SkillUsageExample } from '@/lib/skill-usage-example'
 import {
-  AGENT_SKILL_CLI_PREREQUISITE_NOTICE,
+  getAgentSkillCliPrerequisiteNotice,
   ensureOrcaCliAvailableForAgentSkillTerminal
 } from '@/lib/agent-skill-cli-prerequisite'
 import {
@@ -122,8 +122,14 @@ export function OrchestrationPane({
         )}
         command={orchestrationInstallCommand}
         installedCommand={orchestrationUpdateCommand}
-        terminalTitle="Orchestration setup"
-        terminalAriaLabel="Orchestration skill install terminal"
+        terminalTitle={translate(
+          'auto.components.settings.AgentSkillSetupPanel.orchestrationTerminalTitle',
+          'Orchestration setup'
+        )}
+        terminalAriaLabel={translate(
+          'auto.components.settings.AgentSkillSetupPanel.orchestrationTerminalAria',
+          'Orchestration skill install terminal'
+        )}
         terminalWorktreeId="settings-orchestration-skill-terminal"
         terminalShellOverride={activeSkillRuntime.terminalShellOverride}
         terminalRuntime={activeSkillRuntime.agentRuntime}
@@ -132,7 +138,7 @@ export function OrchestrationPane({
         error={activeSkillRuntime.installDisabledReason ?? orchestrationSkillError}
         installDisabled={Boolean(activeSkillRuntime.installDisabledReason)}
         icon={<Workflow className="size-5" />}
-        preInstallNotice={AGENT_SKILL_CLI_PREREQUISITE_NOTICE}
+        preInstallNotice={getAgentSkillCliPrerequisiteNotice()}
         getPrerequisiteStatus={() =>
           activeSkillRuntime.agentRuntime?.runtime === 'wsl'
             ? window.api.cli.getWslInstallStatus(

@@ -27,6 +27,7 @@ import type {
   WorktreeGroupBy
 } from './row-types'
 import { getManualOrderAnchorRepo, sortProjectEntries } from './section-order'
+import { translateWorkspaceBoardStatusLabel } from '../../workspace-board-status-label'
 
 /** Lane label for a lane a folder workspace opened before any worktree did. */
 function getLaneLabelForKey(
@@ -36,7 +37,8 @@ function getLaneLabelForKey(
 ): string {
   if (groupBy === 'workspace-status') {
     const status = getWorkspaceStatusFromGroupKey(key, workspaceStatuses)
-    return workspaceStatuses.find((entry) => entry.id === status)?.label ?? status ?? key
+    const definition = workspaceStatuses.find((entry) => entry.id === status)
+    return definition ? translateWorkspaceBoardStatusLabel(definition) : (status ?? key)
   }
   if (groupBy === 'pr-status') {
     return PR_GROUP_META[key.replace(/^pr:/, '') as PRGroupKey].label
@@ -91,8 +93,8 @@ export function buildOrderedGroups(args: {
     } else if (groupBy === 'workspace-status') {
       const workspaceStatus = getWorkspaceStatus(w, workspaceStatuses)
       key = getWorkspaceStatusGroupKey(workspaceStatus)
-      label =
-        workspaceStatuses.find((status) => status.id === workspaceStatus)?.label ?? workspaceStatus
+      const statusDef = workspaceStatuses.find((status) => status.id === workspaceStatus)
+      label = statusDef ? translateWorkspaceBoardStatusLabel(statusDef) : workspaceStatus
     } else {
       const prGroup = getPRGroupKey(w, repoMap, prCache, settings)
       key = getPRLaneKey(prGroup)

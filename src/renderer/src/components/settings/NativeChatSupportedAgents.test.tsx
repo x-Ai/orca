@@ -82,6 +82,12 @@ describe('NativeChatSupportedAgents', () => {
     expect(value).toBe('Supported agents:')
   })
 
+  it('renders the localized Chinese label', async () => {
+    await i18n.changeLanguage('zh')
+
+    expect(renderToStaticMarkup(<NativeChatSupportedAgents />)).toContain('支持的代理：')
+  })
+
   it('renders the English fallback when the active locale lacks the label key', async () => {
     await i18n.changeLanguage('es')
     expect(i18n.getResource('es', 'translation', SUPPORTED_AGENTS_LABEL_KEY)).toBeUndefined()

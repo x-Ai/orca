@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import { getUpdateCheckClickOptions, getUpdateCheckHint } from './update-check-click-options'
 
 function clickEvent(
@@ -10,8 +11,12 @@ function clickEvent(
     metaKey: false,
     shiftKey: false,
     ...overrides
-  } as Pick<MouseEvent, 'altKey' | 'ctrlKey' | 'metaKey' | 'shiftKey'>
+  }
 }
+
+afterEach(async () => {
+  await setRendererUiLanguage('en')
+})
 
 describe('getUpdateCheckClickOptions', () => {
   it('uses Cmd on macOS for perf prerelease checks', () => {
@@ -59,6 +64,20 @@ describe('getUpdateCheckClickOptions', () => {
     expect(getUpdateCheckHint(true)).toBe(
       '⇧+click checks the latest RC; ⌘+click checks the latest perf build. ⌥+click chooses a local macOS build.'
     )
+    expect(getUpdateCheckHint(false)).toBe(
+      'Shift+click checks the latest RC; Ctrl+click checks the latest perf build.'
+    )
+  })
+
+  it('localizes the hint while preserving each platform modifier', async () => {
+    await setRendererUiLanguage('zh')
+    expect(getUpdateCheckHint(false)).toBe(
+      'Shift+ 点击检查最新候选发布版(RC)，Ctrl+ 点击检查最新性能测试构建'
+    )
+    expect(getUpdateCheckHint(true)).toBe(
+      '⇧+ 点击检查最新候选发布版(RC)，⌘+ 点击检查最新性能测试构建 ⌥+点击选择本地 macOS 构建'
+    )
+    await setRendererUiLanguage('en')
     expect(getUpdateCheckHint(false)).toBe(
       'Shift+click checks the latest RC; Ctrl+click checks the latest perf build.'
     )

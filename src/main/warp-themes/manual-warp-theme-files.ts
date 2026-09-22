@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { BrowserWindow, dialog, type OpenDialogOptions, type WebContents } from 'electron'
 import type { WarpThemeImportSkippedFile } from '../../shared/terminal-custom-themes'
+import { translateMain } from '../i18n/main-i18n'
 import { isYamlFile, MAX_THEME_FILES, type ThemeFileCandidate } from './theme-file-scanner'
 
 export function createManualWarpThemeFileCandidates(filePaths: string[]): ThemeFileCandidate[] {
@@ -41,9 +42,14 @@ export async function chooseManualWarpThemeFiles(webContents?: WebContents): Pro
 > {
   const ownerWindow = webContents ? BrowserWindow.fromWebContents(webContents) : null
   const options: OpenDialogOptions = {
-    title: 'Import Warp Theme',
+    title: translateMain('auto.main.warpThemes.importFileTitle', 'Import Warp Theme'),
     properties: ['openFile', 'multiSelections'],
-    filters: [{ name: 'Warp theme YAML', extensions: ['yaml', 'yml'] }]
+    filters: [
+      {
+        name: translateMain('auto.main.warpThemes.yamlFileFilter', 'Warp theme YAML'),
+        extensions: ['yaml', 'yml']
+      }
+    ]
   }
   const result = ownerWindow
     ? await dialog.showOpenDialog(ownerWindow, options)
@@ -75,7 +81,7 @@ export async function chooseManualWarpThemeFolderPath(
 ): Promise<string | null> {
   const ownerWindow = webContents ? BrowserWindow.fromWebContents(webContents) : null
   const options: OpenDialogOptions = {
-    title: 'Import Warp Theme Folder',
+    title: translateMain('auto.main.warpThemes.importFolderTitle', 'Import Warp Theme Folder'),
     properties: ['openDirectory']
   }
   const result = ownerWindow

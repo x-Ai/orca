@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { normalize, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
@@ -23,6 +23,7 @@ const {
 }))
 
 vi.mock('electron', () => ({
+  app: { getLocale: () => 'en-US' },
   ipcMain: {
     handle: handleMock
   },
@@ -58,6 +59,7 @@ vi.mock('../win32-utils', () => ({
 import { EXTERNAL_EDITOR_CLI_COMMAND, registerShellHandlers } from './shell'
 import { resolveExternalEditorLaunchSpec } from '../external-editor-launch'
 import type { SshTarget } from '../../shared/ssh-types'
+import { setMainUiLanguage } from '../i18n/main-i18n'
 
 function createSpawnedProcess(result: 'spawn' | 'error' = 'spawn'): {
   once: ReturnType<typeof vi.fn>
@@ -100,6 +102,10 @@ describe('registerShellHandlers', () => {
     getSshTarget: (id: string) => sshTargets.get(id)
   }
 
+  afterEach(async () => {
+    await setMainUiLanguage('en')
+  })
+
   beforeEach(() => {
     handleMock.mockReset()
     getSpawnArgsForWindowsMock.mockReset()
@@ -130,19 +136,26 @@ describe('registerShellHandlers', () => {
     return call[1] as (event: unknown, ...args: unknown[]) => Promise<unknown>
   }
 
-  it('picks audio files with a constrained native dialog filter', async () => {
-    showOpenDialogMock.mockResolvedValue({
-      canceled: false,
-      filePaths: ['/Users/kaylee/Downloads/Note_block_pling.ogg']
-    })
+  it.each([
+    ['en', 'Audio'],
+    ['zh', '音频']
+  ] as const)(
+    'picks audio files with a constrained %s native dialog filter',
+    async (language, filterName) => {
+      showOpenDialogMock.mockResolvedValue({
+        canceled: false,
+        filePaths: ['/Users/kaylee/Downloads/Note_block_pling.ogg']
+      })
 
-    const handler = getHandler('shell:pickAudio')
-    await expect(handler({})).resolves.toBe('/Users/kaylee/Downloads/Note_block_pling.ogg')
-    expect(showOpenDialogMock).toHaveBeenCalledWith({
-      properties: ['openFile'],
-      filters: [{ name: 'Audio', extensions: ['ogg', 'mp3', 'wav', 'm4a', 'aac', 'flac'] }]
-    })
-  })
+      const handler = getHandler('shell:pickAudio')
+      await setMainUiLanguage(language)
+      await expect(handler({})).resolves.toBe('/Users/kaylee/Downloads/Note_block_pling.ogg')
+      expect(showOpenDialogMock).toHaveBeenCalledWith({
+        properties: ['openFile'],
+        filters: [{ name: filterName, extensions: ['ogg', 'mp3', 'wav', 'm4a', 'aac', 'flac'] }]
+      })
+    }
+  )
 
   it('returns null when audio picking is canceled', async () => {
     showOpenDialogMock.mockResolvedValue({

@@ -4,6 +4,7 @@ import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Repo } from '../../../../shared/repo-types'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import { RepositoryIconPicker } from './RepositoryIconPicker'
 
 vi.mock('@/runtime/runtime-rpc-client', () => ({
@@ -58,11 +59,45 @@ describe('RepositoryIconPicker GitHub avatar refresh', () => {
     root = createRoot(container)
   })
 
-  afterEach(() => {
+  afterEach(async () => {
     act(() => root.unmount())
     container.remove()
     document.body.replaceChildren()
+    await setRendererUiLanguage('en')
   })
+
+  it.each<{
+    repoIcon: Repo['repoIcon']
+    english: string
+    chinese: string
+  }>([
+    { repoIcon: null, english: 'Default', chinese: '默认' },
+    { repoIcon: { type: 'emoji', emoji: '🐋' }, english: '🐋 emoji', chinese: '🐋 表情符号' },
+    {
+      repoIcon: { type: 'lucide', name: 'Folder' },
+      english: 'Folder icon with repo color',
+      chinese: '使用仓库颜色的文件夹图标'
+    },
+    {
+      repoIcon: { type: 'image', src: 'data:image/png;base64,AA==', source: 'upload' },
+      english: 'Custom image',
+      chinese: '自定义图片'
+    }
+  ])(
+    'updates $english on language changes without changing the icon',
+    async ({ repoIcon, english, chinese }) => {
+      const repo = makeRepo({ upstream: null, repoIcon })
+      act(() => root.render(<RepositoryIconPicker repo={repo} updateRepo={vi.fn()} />))
+      expect(container.textContent).toContain(english)
+
+      await act(async () => setRendererUiLanguage('zh'))
+      expect(container.textContent).toContain(chinese)
+      expect(container.textContent).not.toContain(english)
+
+      await act(async () => setRendererUiLanguage('en'))
+      expect(container.textContent).toContain(english)
+    }
+  )
 
   it('refreshes stale GitHub avatar metadata lazily when repo settings opens', async () => {
     const updateRepo = vi.fn()

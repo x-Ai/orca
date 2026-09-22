@@ -17,6 +17,7 @@ import {
   resolveVsCodeRemoteSshLaunchSpec
 } from '../external-editor-launch'
 import { resolveVsCodeSshAuthority } from '../ssh/vscode-ssh-authority'
+import { translateMain } from '../i18n/main-i18n'
 
 export { EXTERNAL_EDITOR_CLI_COMMAND }
 
@@ -291,7 +292,12 @@ export function registerShellHandlers(store: Store): void {
   ipcMain.handle('shell:pickAudio', async (): Promise<string | null> => {
     const result = await dialog.showOpenDialog({
       properties: ['openFile'],
-      filters: [{ name: 'Audio', extensions: ['ogg', 'mp3', 'wav', 'm4a', 'aac', 'flac'] }]
+      filters: [
+        {
+          name: translateMain('auto.main.ipc.shell.audioFileFilter', 'Audio'),
+          extensions: ['ogg', 'mp3', 'wav', 'm4a', 'aac', 'flac']
+        }
+      ]
     })
     if (result.canceled || result.filePaths.length === 0) {
       return null

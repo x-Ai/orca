@@ -5,7 +5,7 @@ import {
   ORCA_CLI_SKILL_UPDATE_COMMAND
 } from '@/lib/agent-feature-install-commands'
 import {
-  AGENT_SKILL_CLI_PREREQUISITE_NOTICE,
+  getAgentSkillCliPrerequisiteNotice,
   ensureOrcaCliAvailableForAgentSkillTerminal
 } from '@/lib/agent-skill-cli-prerequisite'
 import { BROWSER_USE_ENABLED_STORAGE_KEY } from '@/lib/browser-use-setup-state'
@@ -55,8 +55,14 @@ export function BrowserUseSkillSetupCard(props: {
       )}
       command={installCommand}
       installedCommand={updateCommand}
-      terminalTitle="Browser Use setup"
-      terminalAriaLabel="Browser Use skill install terminal"
+      terminalTitle={translate(
+        'auto.components.settings.AgentSkillSetupPanel.browserUseTerminalTitle',
+        'Browser Use setup'
+      )}
+      terminalAriaLabel={translate(
+        'auto.components.settings.AgentSkillSetupPanel.browserUseTerminalAria',
+        'Browser Use skill install terminal'
+      )}
       terminalWorktreeId="feature-wall-browser-use-skill-terminal"
       terminalShellOverride={activeSkillRuntime.terminalShellOverride}
       terminalRuntime={activeSkillRuntime.agentRuntime}
@@ -65,7 +71,7 @@ export function BrowserUseSkillSetupCard(props: {
       error={activeSkillRuntime.installDisabledReason ?? skill.error}
       installDisabled={Boolean(activeSkillRuntime.installDisabledReason)}
       terminalHeightPx={terminalHeightPx}
-      preInstallNotice={AGENT_SKILL_CLI_PREREQUISITE_NOTICE}
+      preInstallNotice={getAgentSkillCliPrerequisiteNotice()}
       getPrerequisiteStatus={() =>
         activeSkillRuntime.agentRuntime?.runtime === 'wsl'
           ? window.api.cli.getWslInstallStatus(

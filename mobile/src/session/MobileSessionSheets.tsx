@@ -16,6 +16,7 @@ import {
   isTerminalPhoneDisplayMode
 } from './mobile-session-route-helpers'
 import type { MobileSessionController } from './use-mobile-session-controller'
+import { translate } from '../../../src/renderer/src/i18n/i18n'
 
 export function MobileSessionSheets({ controller }: { controller: MobileSessionController }) {
   const {
@@ -157,8 +158,14 @@ export function MobileSessionSheets({ controller }: { controller: MobileSessionC
       />
       <ActionSheetModal
         visible={pendingDiffNotesDelivery !== null}
-        title="Send Review Notes"
-        message="Choose an agent session for the current notes."
+        title={translate(
+          'mobile.app.h.hostId.session.worktreeId.sendReviewNotes',
+          'Send Review Notes'
+        )}
+        message={translate(
+          'mobile.app.h.hostId.session.worktreeId.chooseAgentSession',
+          'Choose an agent session for the current notes.'
+        )}
         actions={[
           ...sendDiffNotesAgentActions,
           {

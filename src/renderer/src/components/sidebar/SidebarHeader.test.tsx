@@ -4,6 +4,7 @@ import React, { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import SidebarHeader from './SidebarHeader'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true })
 
@@ -125,9 +126,10 @@ beforeEach(() => {
   root = createRoot(container)
 })
 
-afterEach(() => {
+afterEach(async () => {
   act(() => root.unmount())
   container.remove()
+  await setRendererUiLanguage('en')
 })
 
 describe('SidebarHeader', () => {
@@ -268,6 +270,20 @@ describe('SidebarHeader', () => {
     expect(container.querySelector('[data-sidebar-section-title="workspaces"]')?.textContent).toBe(
       'Workspaces'
     )
+  })
+
+  it('renders localized sidebar labels and workspace actions', async () => {
+    await setRendererUiLanguage('zh')
+    act(() => {
+      root.render(<SidebarHeader onWorkspaceBoardMenuOpenChange={vi.fn()} />)
+    })
+
+    expect(container.querySelector('[data-sidebar-section-title="projects"]')?.textContent).toBe(
+      '项目'
+    )
+    expect(container.querySelector('[aria-label="新工作区"]')).toBeTruthy()
+    expect(container.querySelector('[aria-label="添加项目"]')).toBeTruthy()
+    expect(container.textContent).toContain('新工作区⌘N')
   })
 
   it('drops both project actions in the agents view, which lists activity, not projects', () => {

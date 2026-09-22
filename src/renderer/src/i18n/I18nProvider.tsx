@@ -36,6 +36,8 @@ export function I18nProvider({ children }: { children: ReactNode }): React.JSX.E
     }
     requestedLocale.current = locale
     void i18n.changeLanguage(locale)
+    // Monaco NLS is handled by monacoNlsBootstrap() (see monaco-nls.ts), which
+    // gates the first runtime `monaco-editor` import on the persisted locale.
   }, [locale, pluginLanguagePacks])
 
   return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>

@@ -24,8 +24,8 @@ const catalogs = { es, ja, ko, zh }
 
 const WORKSPACE_CLEANUP_BROWSE_TRANSLATIONS = {
   zh: {
-    selectionWithheldOne: '当前筛选条件隐藏了 1 个已选工作区，已取消选择。',
-    selectionWithheld: '当前筛选条件隐藏了 {{value0}} 个已选工作区，已取消选择。',
+    selectionWithheldOne: '当前筛选条件隐藏了 1 个已选工作区，已取消选择',
+    selectionWithheld: '当前筛选条件隐藏了 {{value0}} 个已选工作区，已取消选择',
     selectAllCountOne: '选择 1 个通过安全检查的工作区',
     selectAllCount: '选择全部 {{value0}} 个通过安全检查的工作区'
   },

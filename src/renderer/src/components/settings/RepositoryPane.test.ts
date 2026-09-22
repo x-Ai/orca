@@ -17,6 +17,7 @@ import {
 } from './RepositoryPane'
 import { matchesSettingsSearch } from './settings-search'
 import { TooltipProvider } from '../ui/tooltip'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 
 let container: HTMLDivElement
 let root: Root
@@ -79,16 +80,45 @@ beforeEach(() => {
   }
 })
 
-afterEach(() => {
+afterEach(async () => {
   act(() => {
     root.unmount()
   })
   container.remove()
   delete (window as unknown as { api?: unknown }).api
   useAppStore.setState(useAppStore.getInitialState(), true)
+  await setRendererUiLanguage('en')
 })
 
 describe('RepositoryPane search entries', () => {
+  it('updates the folder type when the mounted pane changes language', async () => {
+    await act(async () => {
+      root.render(
+        React.createElement(
+          TooltipProvider,
+          null,
+          React.createElement(RepositoryPane, {
+            repo: { ...repo, kind: 'folder', upstream: null },
+            yamlHooks: null,
+            hasHooksFile: false,
+            hooksInspectionReady: true,
+            mayNeedUpdate: false,
+            updateRepo: vi.fn(),
+            removeProject: vi.fn()
+          })
+        )
+      )
+    })
+    expect(container.textContent).toContain('Type: Folder')
+
+    await act(async () => setRendererUiLanguage('zh'))
+    expect(container.textContent).toContain('类型： 文件夹')
+    expect(container.textContent).not.toContain('Type: Folder')
+
+    await act(async () => setRendererUiLanguage('en'))
+    expect(container.textContent).toContain('Type: Folder')
+  })
+
   it('keeps renamed hook sections reachable through settings search', () => {
     const entries = getRepositoryPaneSearchEntries(repo, { isLocalWindowsProject: true })
 

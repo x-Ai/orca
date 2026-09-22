@@ -5,6 +5,7 @@ import {
   validateNativeFileDropPaths
 } from '../../../shared/native-file-drop'
 import { measureClipboardTextByteLength } from '../../../shared/clipboard-text'
+import { translate } from '@/i18n/i18n'
 import { normalizeExecutionHostId, type ExecutionHostId } from '../../../shared/execution-host'
 
 export const WORKSPACE_FILE_PATH_MIME = 'text/x-orca-file-path'
@@ -271,7 +272,7 @@ export function getWorkspaceFileDragRejectionMessage(
   reason: WorkspaceFileDragRejectionReason
 ): string {
   if (reason === 'too-many-paths') {
-    return 'Drop contains too many paths.'
+    return translate('components.toastFallbacks.dropTooManyPaths', 'Drop contains too many paths.')
   }
-  return 'Drop path list is too large.'
+  return translate('components.toastFallbacks.dropPathsTooLarge', 'Drop path list is too large.')
 }

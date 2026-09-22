@@ -62,11 +62,21 @@ export default function SparseCheckoutPresetSelect({
       : null
   const nameError =
     draft && trimmedName.length === 0
-      ? 'Name is required.'
+      ? translate(
+          'auto.components.sparse.SparseCheckoutPresetSelect.e28dd2f0e9',
+          'Name is required.'
+        )
       : trimmedName.length > 80
-        ? 'Name must be 80 characters or fewer.'
+        ? translate(
+            'auto.components.sparse.SparseCheckoutPresetSelect.42742b6c47',
+            'Name must be 80 characters or fewer.'
+          )
         : nameCollision
-          ? `"${nameCollision.name}" already exists.`
+          ? translate(
+              'auto.components.sparse.SparseCheckoutPresetSelect.2106b565ae',
+              '"{{name}}" already exists.',
+              { name: nameCollision.name }
+            )
           : null
   const canSave =
     draft !== null &&
@@ -194,14 +204,20 @@ export default function SparseCheckoutPresetSelect({
   )
 
   const triggerLabel = isLoadingPresets
-    ? 'Loading presets...'
+    ? translate(
+        'auto.components.sparse.SparseCheckoutPresetSelect.loadingPresets',
+        'Loading presets...'
+      )
     : hasPresetLoadError
-      ? 'Retry loading presets'
+      ? translate(
+          'auto.components.sparse.SparseCheckoutPresetSelect.a683a4bc8e',
+          'Retry loading presets'
+        )
       : !presetsLoaded
-        ? 'Load presets'
+        ? translate('auto.components.sparse.SparseCheckoutPresetSelect.16223dde6a', 'Load presets')
         : selectedPreset
           ? selectedPreset.name
-          : 'Off'
+          : translate('auto.components.sparse.SparseCheckoutPresetSelect.c7f9b3f0c1', 'Off')
 
   return (
     <Popover

@@ -6,6 +6,10 @@ import { deriveDropdownActionContext } from './source-control-dropdown-action-co
 import { buildCommitDropdownItems } from './source-control-dropdown-commit-items'
 import { buildRemoteDropdownItems } from './source-control-dropdown-remote-items'
 import { buildHostedReviewDropdownItems } from './source-control-dropdown-review-items'
+import {
+  abortConflictInProgressTitle,
+  operationInProgressTitle
+} from './source-control-dropdown-review-status-titles'
 
 /**
  * Resolve the chevron dropdown items. Every row is always rendered — disabled with a
@@ -37,13 +41,18 @@ export function resolveDropdownItems(inputs: DropdownActionInputs): DropdownEntr
   ]
   if (conflictOperation === 'merge' || conflictOperation === 'rebase') {
     const isRebase = conflictOperation === 'rebase'
-    const label = isRebase ? 'Abort rebase' : 'Abort merge'
+    const label = isRebase
+      ? translate('auto.components.right.sidebar.SourceControl.425f138269', 'Abort rebase')
+      : translate('auto.components.right.sidebar.SourceControl.540ca8f78c', 'Abort merge')
+    const operation = isRebase
+      ? translate('auto.components.right.sidebar.SourceControl.04832d8047', 'rebase')
+      : translate('auto.components.right.sidebar.SourceControl.c105a61960', 'merge')
     entries.push(
       { kind: 'separator', id: 'before-abort' },
       {
         kind: isRebase ? 'abort_rebase' : 'abort_merge',
         label,
-        title: globalBusy ? 'Operation in progress…' : `Abort the ${conflictOperation} in progress`,
+        title: globalBusy ? operationInProgressTitle() : abortConflictInProgressTitle(operation),
         disabled: globalBusy,
         variant: 'destructive'
       }

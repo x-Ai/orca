@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import type { ReactNode } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 import type { WorkspacePort } from '../../../../shared/workspace-ports'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 
 vi.mock('@/store', () => ({
   useAppStore: (selector: (state: unknown) => unknown) =>
@@ -41,6 +42,7 @@ const port: WorkspacePort = {
 
 describe('WorktreeCardPortsDetails', () => {
   it('shows advertised port addresses in workspace hover details', async () => {
+    await setRendererUiLanguage('en')
     const { WorktreeCardPortsDetails } = await import('./WorktreeCardPorts')
 
     const markup = renderToStaticMarkup(<WorktreeCardPortsDetails ports={[port]} />)

@@ -2,9 +2,24 @@ import { readdirSync, readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
+import en from '@/i18n/locales/en.json'
+import zh from '@/i18n/locales/zh.json'
 
 const repoRoot = path.resolve(fileURLToPath(new URL('../../../../../', import.meta.url)))
 const componentsRoot = path.join(repoRoot, 'src/renderer/src/components')
+
+const setupTerminalKeys = [
+  'auto.components.settings.AgentSkillSetupPanel.browserUseTerminalTitle',
+  'auto.components.settings.AgentSkillSetupPanel.browserUseTerminalAria',
+  'auto.components.settings.AgentSkillSetupPanel.computerUseTerminalTitle',
+  'auto.components.settings.AgentSkillSetupPanel.computerUseTerminalAria',
+  'auto.components.settings.AgentSkillSetupPanel.orchestrationTerminalTitle',
+  'auto.components.settings.AgentSkillSetupPanel.orchestrationTerminalAria',
+  'auto.components.settings.CliSection.cliSkillTerminalTitle',
+  'auto.components.settings.CliSection.cliSkillTerminalAria',
+  'auto.components.emulator.pane.MobileEmulatorAgentSetupGuideSteps.5c59ea96ca',
+  'auto.components.emulator.pane.MobileEmulatorAgentSetupGuideSteps.bff5341ac3'
+] as const
 
 const updateCapableCallers = new Map<string, readonly string[]>([
   [
@@ -126,6 +141,20 @@ function readRepoFile(relativePath: string): string {
   return readFileSync(path.join(repoRoot, relativePath), 'utf8')
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object'
+}
+
+function localeValue(locale: unknown, key: string): string | undefined {
+  const value = key.split('.').reduce<unknown>((node, part) => {
+    if (!isRecord(node)) {
+      return undefined
+    }
+    return node[part]
+  }, locale)
+  return typeof value === 'string' ? value : undefined
+}
+
 function findProductionPanelCallers(dir: string): string[] {
   const found: string[] = []
   for (const entry of readdirSync(dir)) {
@@ -226,6 +255,29 @@ describe('AgentSkillSetupPanel installed-command call sites', () => {
       for (const snippet of expectedSnippets) {
         expect(source, `${relativePath} should include ${snippet}`).toContain(snippet)
       }
+    }
+  })
+
+  it('localizes setup-terminal titles and accessible labels at every production caller', () => {
+    for (const relativePath of findProductionPanelCallers(componentsRoot)) {
+      const source = readRepoFile(relativePath)
+      expect(source, `${relativePath} should localize terminalTitle`).toMatch(
+        /terminalTitle=\{translate\(/
+      )
+      expect(source, `${relativePath} should localize terminalAriaLabel`).toMatch(
+        /terminalAriaLabel=\{translate\(/
+      )
+      expect(source, `${relativePath} should not hardcode setup terminal chrome`).not.toMatch(
+        /terminal(?:Title|AriaLabel)="[^"]+"/
+      )
+    }
+
+    for (const key of setupTerminalKeys) {
+      const english = localeValue(en, key)
+      const chinese = localeValue(zh, key)
+      expect(english, `${key} should exist in en.json`).toBeTruthy()
+      expect(chinese, `${key} should exist in zh.json`).toBeTruthy()
+      expect(chinese, `${key} should not fall back to English`).not.toBe(english)
     }
   })
 })

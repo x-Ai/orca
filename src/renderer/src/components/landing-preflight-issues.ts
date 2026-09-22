@@ -41,7 +41,7 @@ export function getLandingPreflightIssues(
         'auto.components.Landing.b673e7cf1b',
         'Git is required for Git projects, source control, and workspace management.'
       ),
-      fixLabel: 'Install Git',
+      fixLabel: translate('auto.components.landing.preflight.issues.100fa23656', 'Install Git'),
       fixUrl: 'https://git-scm.com/downloads'
     })
   }
@@ -60,7 +60,7 @@ export function getLandingPreflightIssues(
         'auto.components.Landing.73e1ad4282',
         'Orca uses the GitHub CLI (gh) to show pull requests, issues, and checks.'
       ),
-      fixLabel: 'Install GitHub CLI',
+      fixLabel: translate('auto.components.landing.preflight.issues.903015746b', 'Install GitHub CLI'),
       fixUrl: 'https://cli.github.com',
       dismissible: true
     })
@@ -72,7 +72,7 @@ export function getLandingPreflightIssues(
         'auto.components.Landing.00cee697c1',
         'Run "gh auth login" in a terminal to connect your GitHub account.'
       ),
-      fixLabel: 'Learn more',
+      fixLabel: translate('auto.components.landing.preflight.issues.806efa166b', 'Learn more'),
       fixUrl: 'https://cli.github.com/manual/gh_auth_login',
       dismissible: true
     })

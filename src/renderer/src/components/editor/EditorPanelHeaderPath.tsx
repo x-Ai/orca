@@ -11,28 +11,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { useShortcutLabel } from '@/hooks/useShortcutLabel'
 import { translate } from '@/i18n/i18n'
+import { getOsRevealLabel } from '@/lib/os-reveal-label'
 import type { OpenFile } from '@/store/slices/editor'
 import { CLOSE_ALL_CONTEXT_MENUS_EVENT } from '../tab-bar/SortableTab'
 import { useEditorHeaderFileRename } from './editor-header-file-rename'
 import { getEditorHeaderCopyState } from './editor-header'
-
-const isMac = navigator.userAgent.includes('Mac')
-const isLinux = navigator.userAgent.includes('Linux')
-
-/** Platform-appropriate label: macOS -> Finder, Windows -> File Explorer, Linux -> Files */
-function getRevealLabel(): string {
-  return isMac
-    ? translate('auto.components.editor.EditorPanelHeader.revealInFinder', 'Reveal in Finder')
-    : isLinux
-      ? translate(
-          'auto.components.editor.EditorPanelHeader.openContainingFolder',
-          'Open Containing Folder'
-        )
-      : translate(
-          'auto.components.editor.EditorPanelHeader.revealInFileExplorer',
-          'Reveal in File Explorer'
-        )
-}
 
 type EditorPanelHeaderPathProps = {
   activeFile: OpenFile
@@ -204,7 +187,7 @@ export function EditorPanelHeaderPath({
           {!isVirtualEditorTab && (
             <DropdownMenuItem onSelect={onOpenContainingFolder}>
               <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-              {getRevealLabel()}
+              {getOsRevealLabel()}
             </DropdownMenuItem>
           )}
         </DropdownMenuContent>

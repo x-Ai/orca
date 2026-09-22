@@ -1,3 +1,5 @@
+import { getIntlLocale, translate } from '@/i18n/i18n'
+
 export function formatTokens(value: number): string {
   if (value >= 1_000_000) {
     return `${(value / 1_000_000).toFixed(1)}M`
@@ -5,7 +7,7 @@ export function formatTokens(value: number): string {
   if (value >= 1_000) {
     return `${(value / 1_000).toFixed(1)}k`
   }
-  return value.toLocaleString()
+  return value.toLocaleString(getIntlLocale())
 }
 
 export function formatCost(value: number | null): string {
@@ -17,9 +19,22 @@ export function formatCost(value: number | null): string {
 
 export function formatUpdatedAt(timestamp: number | null): string {
   if (!timestamp) {
-    return 'Not scanned yet'
+    return translate('auto.components.stats.usage.notScannedYet', 'Not scanned yet')
   }
-  return `Updated ${new Date(timestamp).toLocaleString()}`
+  return translate('auto.components.stats.usage.updatedAt', 'Updated {{when}}', {
+    when: new Date(timestamp).toLocaleString(getIntlLocale())
+  })
+}
+
+export function formatUnknownLocationLabel(label: string): string {
+  if (label === 'Unknown location') {
+    return translate('auto.components.stats.usage.unknownLocation', 'Unknown location')
+  }
+  return label
+}
+
+export function formatUsageProjectLabel(label: string): string {
+  return formatUnknownLocationLabel(label)
 }
 
 export function formatSessionTime(timestamp: string): string {
@@ -27,7 +42,7 @@ export function formatSessionTime(timestamp: string): string {
   if (Number.isNaN(parsed.getTime())) {
     return timestamp
   }
-  return parsed.toLocaleString(undefined, {
+  return parsed.toLocaleString(getIntlLocale(), {
     month: 'short',
     day: 'numeric',
     hour: 'numeric',

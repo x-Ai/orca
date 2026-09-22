@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import {
-  AGENT_SKILL_CLI_PREREQUISITE_NOTICE,
+  getAgentSkillCliPrerequisiteNotice,
   ensureOrcaCliAvailableForAgentSkillTerminal
 } from '@/lib/agent-skill-cli-prerequisite'
 import {
@@ -106,7 +106,7 @@ export function useLinearAgentSkillSetup(): {
     error: activeSkillRuntime.installDisabledReason ?? skillError,
     terminalShellOverride: activeSkillRuntime.terminalShellOverride,
     terminalRuntime: activeSkillRuntime.agentRuntime,
-    preInstallNotice: AGENT_SKILL_CLI_PREREQUISITE_NOTICE,
+    preInstallNotice: getAgentSkillCliPrerequisiteNotice(),
     refreshSkill,
     getPrerequisiteStatus,
     onBeforeOpenTerminal

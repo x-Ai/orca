@@ -28,6 +28,7 @@ import { detectLanguage } from '@/lib/language-detect'
 import { openFileInBrowserTab } from '@/lib/file-preview'
 import { isLocalPathOpenBlocked, showLocalPathOpenBlockedToast } from '@/lib/local-path-open-guard'
 import { translate } from '@/i18n/i18n'
+import { getOsRevealLabel } from '@/lib/os-reveal-label'
 import type { FileExplorerRowProps } from './FileExplorerRow'
 import {
   shouldShowCollapseFolderAction,
@@ -40,22 +41,6 @@ import {
 import { copyFileToOsClipboard, downloadRemoteFile } from './file-explorer-row-file-transfer'
 
 const isMac = navigator.userAgent.includes('Mac')
-const isLinux = navigator.userAgent.includes('Linux')
-
-/** Platform-appropriate label: macOS → Finder, Windows → File Explorer, Linux → Files */
-function getRevealLabel(): string {
-  return isMac
-    ? translate('auto.components.right.sidebar.FileExplorerRow.revealInFinder', 'Reveal in Finder')
-    : isLinux
-      ? translate(
-          'auto.components.right.sidebar.FileExplorerRow.openContainingFolder',
-          'Open Containing Folder'
-        )
-      : translate(
-          'auto.components.right.sidebar.FileExplorerRow.revealInFileExplorer',
-          'Reveal in File Explorer'
-        )
-}
 
 function stopRightButtonMenuSelection(event: React.PointerEvent): void {
   if (event.button !== 2) {
@@ -298,7 +283,7 @@ export function FileExplorerRowContextMenu({
         }}
       >
         <ExternalLink />
-        {getRevealLabel()}
+        {getOsRevealLabel()}
       </ContextMenuItem>
       <ContextMenuSeparator />
       <ContextMenuItem onSelect={() => onStartRename(node)}>

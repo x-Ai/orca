@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState } from 'react'
 import { toast } from 'sonner'
+import { formatBrowserCookieImportFailure } from '@/lib/browser-cookie-import-failure'
 import { emitBrowserCookieImportToast } from '@/lib/browser-cookie-import-toast'
 import { useAppStore } from '@/store'
 import { useMountedRef } from '@/hooks/useMountedRef'
@@ -12,6 +13,7 @@ import {
 import { BrowserToolbarMenuDropdown } from './browser-toolbar-menu-dropdown'
 import { BrowserToolbarProfileDialogs } from './browser-toolbar-profile-dialogs'
 import { translate } from '@/i18n/i18n'
+import { translateBrowserSessionProfileLabel } from '@/lib/browser-session-profile-label'
 
 type BrowserToolbarMenuProps = {
   currentProfileId: string | null
@@ -122,7 +124,7 @@ export function BrowserToolbarMenu({
       translate(
         'auto.components.browser.pane.BrowserToolbarMenu.3ccd29d771',
         'Switched to {{value0}} profile',
-        { value0: profile?.label ?? 'Default' }
+        { value0: translateBrowserSessionProfileLabel(profile?.label, profile?.id) }
       )
     )
     setPendingSwitchProfileId(undefined)
@@ -162,7 +164,7 @@ export function BrowserToolbarMenu({
         translate(
           'auto.components.browser.pane.BrowserToolbarMenu.a7a86702b3',
           'Created and switched to {{value0}} profile',
-          { value0: profile.label }
+          { value0: translateBrowserSessionProfileLabel(profile.label, profile.id) }
         )
       )
     } finally {
@@ -202,7 +204,7 @@ export function BrowserToolbarMenu({
         result
       )
     } else {
-      toast.error(result.reason)
+      toast.error(formatBrowserCookieImportFailure(result.reason))
     }
   }
 
@@ -219,7 +221,7 @@ export function BrowserToolbarMenu({
         result
       )
     } else if (result.reason !== 'canceled') {
-      toast.error(result.reason)
+      toast.error(formatBrowserCookieImportFailure(result.reason))
     }
   }
 

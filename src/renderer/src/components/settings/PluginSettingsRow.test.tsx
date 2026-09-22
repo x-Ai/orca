@@ -4,6 +4,7 @@ import { act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { PluginHostListEntry } from '../../../../preload/api-types'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import { PluginSettingsRow } from './PluginSettingsRow'
 
 vi.mock('../ui/dropdown-menu', () => ({
@@ -47,8 +48,9 @@ const plugin: PluginHostListEntry = {
   }
 }
 
-afterEach(() => {
+afterEach(async () => {
   document.body.innerHTML = ''
+  await setRendererUiLanguage('en')
 })
 
 describe('PluginSettingsRow', () => {
@@ -80,6 +82,37 @@ describe('PluginSettingsRow', () => {
     expect(
       container.querySelector<HTMLButtonElement>('[aria-label="Enable Orca Skills"]')?.disabled
     ).toBe(true)
+    act(() => root.unmount())
+  })
+
+  it('renders localized metadata for a known official plugin', async () => {
+    await setRendererUiLanguage('zh')
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    const root = createRoot(container)
+    await act(async () => {
+      root.render(
+        <PluginSettingsRow
+          plugin={{
+            ...plugin,
+            pluginKey: 'stablyai.orca-navigation-shortcuts',
+            name: 'Orca Navigation Shortcuts',
+            description: 'Command aliases and optional shortcuts for frequent Orca views.',
+            blockedByKillList: undefined
+          }}
+          busy={false}
+          logsOpen={false}
+          onReview={vi.fn()}
+          onToggleEnabled={vi.fn()}
+          onToggleLogs={vi.fn()}
+          onRollbackRequest={vi.fn()}
+          onRemoveRequest={vi.fn()}
+        />
+      )
+    })
+
+    expect(container.textContent).toContain('Orca 导航快捷键')
+    expect(container.textContent).toContain('为常用 Orca 视图提供命令别名和可选快捷键。')
     act(() => root.unmount())
   })
 })

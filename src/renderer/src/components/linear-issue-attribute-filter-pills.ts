@@ -1,6 +1,7 @@
 // Why: the pills are the only place an applied Linear facet filter is visible once the
 // popover closes, so they carry the same coverage truth the picker shows inline.
 import { translate } from '@/i18n/i18n'
+import { translateUnassignedLabel } from '@/i18n/unassigned-label'
 import {
   canonicalizeLinearIssueAttributeFilter,
   type LinearIssueAttributeFilter
@@ -94,10 +95,7 @@ export function linearIssueAttributeFilterPillLabels(options: {
         'auto.components.linear-issue-attribute-filter-sections.assignee',
         'Assignee'
       ),
-      value: translate(
-        'auto.components.linear-issue-attribute-filter-sections.unassigned',
-        'Unassigned'
-      ),
+      value: translateUnassignedLabel(),
       partial: false
     })
   } else if (canonical.assignee?.kind === 'user') {

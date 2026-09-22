@@ -102,10 +102,16 @@ test.describe('terminal link click ownership', () => {
     orcaPage
   }, testInfo) => {
     const { mouseLogPath, ptyId, target } = await startMouseAwareLinkFixture(orcaPage, testInfo)
+    await orcaPage.evaluate(async () => {
+      await window.__store?.getState().updateSettings({ uiLanguage: 'zh' })
+    })
     await orcaPage.mouse.click(target.x, target.y)
 
-    await expect(orcaPage.locator('[data-terminal-link-action-popover]')).toBeVisible()
+    const actionPopover = orcaPage.locator('[data-terminal-link-action-popover]')
+    await expect(actionPopover).toBeVisible()
     await expect(orcaPage.locator('[data-terminal-link-destination]')).toHaveText(LINK)
+    await expect(actionPopover.getByRole('button').filter({ hasText: '系统浏览器' })).toBeVisible()
+    await expect(actionPopover.getByRole('button').filter({ hasText: 'Orca 浏览器' })).toBeVisible()
 
     await expectOrcaOwnedMouseOutcome(mouseLogPath)
 

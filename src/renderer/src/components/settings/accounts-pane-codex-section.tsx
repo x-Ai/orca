@@ -42,7 +42,7 @@ export function renderCodexAccountsSection(model: AccountsPaneSectionModel): Rea
         <p className="text-xs text-muted-foreground">
           {translate(
             'auto.components.settings.AccountsPane.cedfab35ab',
-            'Optional. Orca can use your normal Codex login; add accounts only if you want quick switching in Orca.'
+            'Orca can use your normal Codex login; add accounts only if you want quick switching in Orca'
           )}
         </p>
         <p className="text-xs text-muted-foreground">

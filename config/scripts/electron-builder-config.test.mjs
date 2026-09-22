@@ -466,20 +466,28 @@ describe('arch-aware packaging guard', () => {
   })
 
   it('requires the other architecture natives to be installed', () => {
-    const otherSherpaInstalled = existsSync(
-      join(REPO_ROOT, 'node_modules', otherSherpa, 'package.json')
-    )
+    const isInstalled = (name) => existsSync(join(REPO_ROOT, 'node_modules', name, 'package.json'))
     const otherSherpaExpected = Object.hasOwn(
       require('../../package.json').optionalDependencies,
       otherSherpa
     )
-    if (otherSherpaExpected && !otherSherpaInstalled) {
-      expect(() => packHost(OTHER_ARCH)).toThrow(otherSherpa)
+    const missing = otherSherpaExpected && !isInstalled(otherSherpa) ? [otherSherpa] : []
+    const otherWatchers = Object.keys(
+      require('@parcel/watcher/package.json').optionalDependencies ?? {}
+    ).filter((name) => name.startsWith(`@parcel/watcher-${process.platform}-${OTHER_ARCH_NAME}`))
+    // Linux accepts either libc variant; Windows still needs its target watcher with x64 speech.
+    if (!otherWatchers.some(isInstalled)) {
+      missing.push(...otherWatchers)
+    }
+    if (missing.length > 0) {
+      for (const name of missing) {
+        expect(() => packHost(OTHER_ARCH)).toThrow(name)
+      }
       expect(() => packHost(OTHER_ARCH)).toThrow('pnpm install:release')
-      expect(() => packHost(HOST_ARCH)).not.toThrow()
     } else {
       expect(() => packHost(OTHER_ARCH)).not.toThrow()
     }
+    expect(() => packHost(HOST_ARCH)).not.toThrow()
   })
 
   it('requires installed Windows addons for Windows packaging', () => {

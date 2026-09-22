@@ -11,7 +11,7 @@ import {
   getVisibleContextualTourStepIndexes
 } from './contextual-tour-gate'
 import type { ActiveTourRenderState } from './ContextualTourOverlaySurface'
-import { translate } from '@/i18n/i18n'
+import { LOCALIZED_STEP_COPY, localizeTourActionLabel } from './contextual-tour-step-localized-copy'
 
 export type ContextualTourMeasurementAction =
   | { kind: 'wait' }
@@ -27,48 +27,6 @@ export type ContextualTourOverlayMeasurementResult =
       renderState: ActiveTourRenderState
       telemetryTotalSteps: number
     }
-
-// Why: keyed by the step's stable id, not its position — inserting a step must
-// not shift localized copy onto a neighbour. Thunks keep translate() out of
-// module scope so the lookup resolves in the language active at render time.
-const LOCALIZED_STEP_COPY: Record<string, { title: () => string; body: () => string }> = {
-  'automations-intro': {
-    title: () =>
-      translate(
-        'auto.components.contextual.tours.contextual.tour.overlay.measurement.automations.intro.title',
-        'What is an automation?'
-      ),
-    body: () =>
-      translate(
-        'auto.components.contextual.tours.contextual.tour.overlay.measurement.automations.intro.body',
-        'Automations run agent work on a schedule. Add an automation by clicking this button.'
-      )
-  },
-  'client-hosted-browser-intro': {
-    title: () =>
-      translate(
-        'auto.components.contextual.tours.contextual.tour.overlay.measurement.client.hosted.browser.intro.title',
-        'This page renders on your desktop'
-      ),
-    body: () =>
-      translate(
-        'auto.components.contextual.tours.contextual.tour.overlay.measurement.client.hosted.browser.intro.body',
-        'Remote browser tabs now render on this device. Network traffic still goes through the remote host.'
-      )
-  },
-  'automations-results': {
-    title: () =>
-      translate(
-        'auto.components.contextual.tours.contextual.tour.overlay.measurement.automations.results.title',
-        'Find the results'
-      ),
-    body: () =>
-      translate(
-        'auto.components.contextual.tours.contextual.tour.overlay.measurement.automations.results.body',
-        'Runs show when automations ran, what happened, and where to inspect their output.'
-      )
-  }
-}
 
 export function getContextualTourDisplayProgress(args: {
   tour: ContextualTour
@@ -169,13 +127,22 @@ export function measureContextualTourOverlayRenderState(args: {
   const primaryAction = sidebarAlreadyVisible
     ? ({
         kind: 'next',
-        label: translate(
-          'auto.components.contextual.tours.contextual.tour.overlay.measurement.38b3155418',
-          'Next'
-        )
+        label: localizeTourActionLabel('Next')
       } as const)
     : activeStep.primaryAction
-  const secondaryAction = sidebarAlreadyVisible ? undefined : activeStep.secondaryAction
+      ? {
+          ...activeStep.primaryAction,
+          label: localizeTourActionLabel(activeStep.primaryAction.label)
+        }
+      : undefined
+  const secondaryAction = sidebarAlreadyVisible
+    ? undefined
+    : activeStep.secondaryAction
+      ? {
+          ...activeStep.secondaryAction,
+          label: localizeTourActionLabel(activeStep.secondaryAction.label)
+        }
+      : undefined
 
   return {
     kind: 'render',

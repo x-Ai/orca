@@ -20,6 +20,7 @@ import {
   showOrcaCliRegistrationPromptToast
 } from '@/lib/agent-skill-cli-prerequisite'
 import { translate } from '@/i18n/i18n'
+import { formatCliUserFacingDetail } from '@/lib/cli-emulator-user-facing-copy'
 
 export type LocalAgentRuntime = {
   runtime: 'host' | 'wsl'
@@ -55,7 +56,7 @@ export function getSelectedAgentRuntime(
       wslDistro: selectedDistro,
       label: selectedDistro
         ? `WSL ${selectedDistro}`
-        : translate('auto.components.settings.CliSkillRuntimeSetup.c47127f222', 'WSL default')
+        : translate('auto.components.settings.CliSkillRuntimeSetup.c47127f222', 'WSL')
     }
   }
   return { runtime: 'host', label: getHostRuntimeLabel() }
@@ -312,7 +313,7 @@ export async function ensureWslCliAvailableForAgentSkillTerminal(
         ),
         {
           description:
-            status.detail ??
+            formatCliUserFacingDetail(status.detail) ||
             translate(
               'auto.components.settings.CliSkillRuntimeSetup.fc0fcf72fd',
               'Register the WSL shell command before skill setup.'
@@ -329,7 +330,7 @@ export async function ensureWslCliAvailableForAgentSkillTerminal(
         ),
         {
           description:
-            status.detail ??
+            formatCliUserFacingDetail(status.detail) ||
             translate(
               'auto.components.settings.CliSkillRuntimeSetup.refreshCliRegistration',
               'Refresh CLI registration status and try again.'
@@ -349,7 +350,7 @@ export async function ensureWslCliAvailableForAgentSkillTerminal(
           ),
           {
             description:
-              next.detail ??
+              formatCliUserFacingDetail(next.detail) ||
               translate(
                 'auto.components.settings.CliSkillRuntimeSetup.fc0fcf72fd',
                 'Register the WSL shell command before skill setup.'
@@ -363,7 +364,7 @@ export async function ensureWslCliAvailableForAgentSkillTerminal(
   } catch (error) {
     toast.error(
       error instanceof Error
-        ? error.message
+        ? formatCliUserFacingDetail(error.message) || error.message
         : translate(
             'auto.components.settings.CliSkillRuntimeSetup.0ed08febc5',
             'Failed to register the WSL shell command.'

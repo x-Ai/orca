@@ -1,4 +1,5 @@
 import React, { useMemo, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Plus } from 'lucide-react'
 import type { Repo } from '../../../../shared/repo-types'
 import type {
@@ -16,6 +17,10 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import WorkspaceKanbanLaneCardList from './WorkspaceKanbanLaneCardList'
 import { serializeWorkspaceLaneFullIds } from './workspace-kanban-filtered-drop-index'
 import { getWorkspaceStatusVisualMeta } from './workspace-status'
+import {
+  newWorkspaceInStatusTooltip,
+  translateWorkspaceBoardStatusLabel
+} from './workspace-board-status-label'
 import { translate } from '@/i18n/i18n'
 
 type WorkspaceKanbanStatusLaneProps = {
@@ -75,6 +80,7 @@ function WorkspaceKanbanStatusLane({
   onColumnResizeStart,
   onColumnResizeKeyDown
 }: WorkspaceKanbanStatusLaneProps): React.JSX.Element {
+  useTranslation()
   const laneScrollRef = useRef<HTMLDivElement | null>(null)
   const meta = getWorkspaceStatusVisualMeta(status)
   // Why: a lane that is empty on its own merits is still "Empty" under a query —
@@ -92,7 +98,7 @@ function WorkspaceKanbanStatusLane({
       undefined
     )
   }, [fullWorktreeIds, hasQuery, items])
-  const createTooltip = `New workspace in ${status.label}`
+  const createTooltip = newWorkspaceInStatusTooltip(translateWorkspaceBoardStatusLabel(status))
   const createButton = (
     <Button
       type="button"
@@ -163,7 +169,7 @@ function WorkspaceKanbanStatusLane({
         <div className="flex min-w-0 flex-1 items-center gap-1.5">
           <meta.icon className={cn('size-3.5 shrink-0', meta.tone)} />
           <div className="min-w-0 truncate text-[12px] font-semibold text-foreground">
-            {status.label}
+            {translateWorkspaceBoardStatusLabel(status)}
           </div>
           <div className="shrink-0 rounded-full bg-muted px-1.5 py-0.5 text-[9px] font-medium leading-none text-muted-foreground">
             {isFiltered ? `${items.length} / ${laneTotalCount}` : items.length}

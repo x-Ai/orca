@@ -101,14 +101,14 @@ describe('zh provider usage wording (#12881)', () => {
 
   it('keeps the status bar toggle descriptions on 使用情况', () => {
     expect(findByKey(zh, 'antigravityUsageDescription')).toBe(
-      '在状态栏中显示 Antigravity 订阅使用情况。'
+      '在状态栏中显示 Antigravity 订阅使用情况'
     )
-    expect(findByKey(zh, 'e7d1b0f3a5')).toBe('显示来自 Grok CLI OAuth 的 Grok 每周额度使用情况。')
+    expect(findByKey(zh, 'e7d1b0f3a5')).toBe('显示来自 Grok CLI OAuth 的 Grok 每周额度使用情况')
     expect(findByKey(zh, 'grokToggleDescription')).toBe(
-      '通过 Grok CLI 登录后显示 Grok 订阅额度使用情况。'
+      '通过 Grok CLI 登录后显示 Grok 订阅额度使用情况'
     )
     expect(findByKey(zh, 'antigravityToggleDescription')).toBe(
-      '显示当前工作区的 Antigravity 订阅使用情况。'
+      '显示当前工作区的 Antigravity 订阅使用情况'
     )
   })
 

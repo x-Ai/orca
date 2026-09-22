@@ -188,6 +188,16 @@
         }
       }
     },
+    "relay": {
+      "fsHandler": {
+        "fileTooLarge": "Archivo demasiado grande: {{actualSize}}MB excede el límite de {{maxSize}}MB"
+      }
+    },
+    "shared": {
+      "nodeBoundedFileReader": {
+        "fileTooLarge": "Archivo demasiado grande: {{actualSize}}MB excede el límite de {{maxSize}}MB"
+      }
+    },
     "store": {
       "slices": {
         "browser": {
@@ -1348,6 +1358,19 @@
         "createMultiple": "Crear más",
         "waitForSetupBeforeAgent": "Esperar a que termine el setup antes de iniciar el agente",
         "waitForSetupBeforeAgentHelp": "Activa esto cuando el setup instale dependencias, servidores MCP o archivos de configuración que el agente necesita al iniciar.",
+        "setupScript": "Setup script",
+        "runSetupCommand": "Run setup command",
+        "defaultTabCommands": "Default tab commands",
+        "setupAndDefaultTabCommands": "Setup and default tab commands",
+        "runDefaultTabCommands": "Run default tab commands",
+        "runSetupAndDefaultTabCommands": "Run setup and default tab commands",
+        "runDefaultTabCommandsNow": "Run default tab commands now?",
+        "runSetupAndDefaultTabCommandsNow": "Run setup and default tab commands now?",
+        "runSetupNowQuestion": "Run setup now?",
+        "runCommandsNow": "Run commands now",
+        "runSetupNow": "Run setup now",
+        "skipForNow": "Skip for now",
+        "skipCommands": "Skip commands",
         "destroyDisabled": "destroy deshabilitado",
         "destroyConfigured": "destroy configurado",
         "noDestroyConfigured": "sin destroy",
@@ -2958,7 +2981,8 @@
             "ec2adf093e": "Iniciar {{value0}} en un nuevo terminal",
             "465e432ef1": "No se pudo generar el comando de inicio para {{value0}}.",
             "e518f544b1": "No se detectaron agentes",
-            "8dea9b5cdf": "No hay agentes habilitados"
+            "8dea9b5cdf": "No hay agentes habilitados",
+            "launchTerminalDidNotStart": "Couldn't launch {{value0}} — the terminal did not start."
           },
           "RecentTabSwitcher": {
             "329638ff6f": "Cambiar pestaña",
@@ -3865,6 +3889,7 @@
           "b3a500c623": "Nombre",
           "16223dde6a": "Cargar presets",
           "a683a4bc8e": "Reintentar cargar presets",
+          "loadingPresets": "Loading presets...",
           "14952d451e": "{{value0}} directorios",
           "e9283eb171": "1 directorio",
           "69c020eddc": "Editar preset",
@@ -13486,7 +13511,8 @@
             "4a9568f773": "Atrás",
             "4f86e2a10b": "Saltar recorrido",
             "d974f32a83": "Descartar recorrido",
-            "ffa4412b66": "próximo"
+            "ffa4412b66": "próximo",
+            "d74ca948aa": "Próximo"
           },
           "ContextualTourProgressDots": {
             "7734cb8ad3": "de",
@@ -13494,9 +13520,19 @@
           },
           "contextual": {
             "tour": {
-              "overlay": {
-                "measurement": {
-                  "38b3155418": "Próximo"
+              "step": {
+                "localized": {
+                  "copy": {
+                    "dc2d7ebbfa": "¿Qué es una automatización?",
+                    "1a9ac96bc5": "Las automatizaciones ejecutan trabajo de agentes según un cronograma. Agrega una automatización haciendo clic en este botón.",
+                    "e69e126045": "Encuentra los resultados",
+                    "65a7cf9b63": "Las ejecuciones muestran cuándo se ejecutaron las automatizaciones, qué sucedió y dónde inspeccionar su salida.",
+                    "a1b2c3d4e5": "Planifica el trabajo en el tablero",
+                    "f6g7h8i9j0": "Usa el tablero cuando quieras ver espacios de trabajo por estado en lugar de por proyecto.",
+                    "k1l2m3n4o5": "Mueve el trabajo entre carriles",
+                    "p6q7r8s9t0": "Arrastra espacios de trabajo entre carriles a medida que cambie su estado.",
+                    "012036e8ca": "Próximo"
+                  }
                 }
               }
             }
@@ -14582,6 +14618,11 @@
       }
     },
     "main": {
+      "ipc": {
+        "filesystem": {
+          "fileTooLarge": "Archivo demasiado grande: {{actualSize}}MB excede el límite de {{maxSize}}MB"
+        }
+      },
       "window": {
         "editableContextMenu": {
           "table": "Tabla",
