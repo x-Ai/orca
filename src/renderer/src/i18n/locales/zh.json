@@ -372,7 +372,8 @@
       "clearHosts": "清除主机",
       "clearProjects": "清除项目",
       "back": "返回",
-      "ariaActive": "筛选：{{value0}} 项已启用，"
+      "ariaActive": "筛选：{{value0}} 项已启用，",
+      "scopedTo": "范围："
     },
     "taskUrl": {
       "loadingHint": "正在加载 {{value0}}...",
@@ -666,6 +667,7 @@
           "9e2a9bb87b": "Continue",
           "6f8056a565": "Command Code",
           "4238b771b5": "Codebuff",
+          "b0b350de65": "Freebuff",
           "cbaf0c2e0b": "Cline",
           "1f8a19e9ad": "Autohand Code",
           "5e8eff11b3": "Auggie",
@@ -680,6 +682,7 @@
           "09973b4d84": "OMP",
           "302934c5d9": "Pi",
           "e7a4ca5103": "OpenCode",
+          "opencode2_label": "OpenCode 2",
           "706b0fe68b": "GitHub Copilot",
           "0baad2d5d2": "Grok",
           "760bc6883d": "Codex",
@@ -1438,7 +1441,10 @@
         "title": "macOS 权限可能无法传递到 Orca 终端",
         "description": "正在运行的 Orca 终端由先前安装的 Orca 启动的守护进程托管，macOS 可能不会将 Orca 的辅助功能、自动化或受保护文件权限应用到它们，从管理会话重启守护进程以恢复访问权限，这将关闭所有正在运行的 Orca 终端",
         "openManageSessions": "打开管理会话",
-        "dismiss": "关闭"
+        "dismiss": "关闭",
+        "folderAccessTitle": "终端无法读取你的{{folder}}",
+        "folderAccessDescription": "macOS 正在阻止 Orca 的终端服务访问此文件夹；修复前，在这里运行的命令可能会失败。",
+        "folderAccessFix": "修复"
       },
       "ipc": {
         "events": {
@@ -1930,6 +1936,7 @@
         "startNewWorkspace": "启动新工作区"
       },
       "NewWorkspaceComposerCard": {
+        "defaultBranchUpdateFailed": "无法更新项目的默认分支，请重试。",
         "cbb47ee0dc": "仅适用于本地 Git 项目",
         "d861de981b": "部分检出",
         "090cfedeb4": "写备注",
@@ -1953,7 +1960,7 @@
         "326a578923": "orca.yaml + 本地",
         "2132b670da": "两者",
         "0e587e31fb": "yaml",
-        "ac3748dcda": "名称或创建来源",
+        "ac3748dcda": "创建来源",
         "f660aa1454": "连接中",
         "7711ad5122": "本地设置命令",
         "e5db1b0419": "组合设置命令",
@@ -3447,7 +3454,8 @@
             "stop_command_description": "关闭此终端将停止其中正在运行的命令",
             "dont_ask_again": "对有运行中进程的终端不再询问",
             "stop_agent_confirm": "停止代理",
-            "stop_command_confirm": "停止并关闭"
+            "stop_command_confirm": "停止并关闭",
+            "automatic_resume_warning": "此终端不会自动恢复。若要稍后恢复，请取消并让工作区进入休眠。"
           },
           "MobileDriverOverlay": {
             "c6460cf584": "收回",
@@ -4001,6 +4009,13 @@
       },
       "status": {
         "bar": {
+          "NativeChatResumeStatusSegment": {
+            "labelOne": "1 个待恢复对话",
+            "label": "{{value0}} 个待恢复对话",
+            "ariaLabelOne": "有 1 个对话可恢复",
+            "ariaLabel": "有 {{value0}} 个对话可恢复",
+            "tooltip": "打开可恢复的中断对话"
+          },
           "PetStatusSegment": {
             "3668339495": "删除 {{value0}}",
             "cd8c6c654c": "宠物设置...",
@@ -4535,6 +4550,7 @@
           "609aa96e8b": "每日使用量"
         },
         "CodexUsagePane": {
+          "costExcludesUnpricedModels": "• 不含未定价模型",
           "e0b988599d": "总计",
           "bbd20344b8": "输出",
           "3acc582214": "输入",
@@ -6595,7 +6611,8 @@
           "branchIdentity": "分支",
           "statusUnread": "{{status}} · 未读",
           "markAsRead": "标为已读",
-          "markAsUnread": "标为未读"
+          "markAsUnread": "标为未读",
+          "sleeping": "休眠中"
         },
         "NewExternalWorktreesInboxLine": {
           "9f2d4c8b17": "永久隐藏 {{value0}} 的外部工作树",
@@ -6876,10 +6893,36 @@
           "d9657ac204": "终端会话关闭请求已发送",
           "e8f25bd903": "无法完成终端清理",
           "a702d4196e": "这将关闭所有工作区中的每个终端标签页，并请求关闭其当前终端会话，任何未保存的终端工作将丢失，守护进程本身将继续运行，可以立即打开新终端，此操作不可撤销",
-          "f659dcf9fd": "重启守护进程",
+          "f659dcf9fd": "重启",
           "14078af032": "正在重启…",
           "e81a7a23bc": "终止所有会话",
           "ee6f8918b4": "正在结束…"
+        },
+        "MacFolderAccessFixDialog": {
+          "stepAllow": "在“文件与文件夹”中允许 Orca",
+          "openSystemSettings": "打开系统设置",
+          "stepRestart": "重启 Orca 终端服务",
+          "restartConsequence": "已打开的终端和代理将重新启动。",
+          "restarting": "正在重启…",
+          "restart": "重启",
+          "restartFailed": "重启失败。请前往“设置 → 终端 → 管理会话”重试。",
+          "title": "修复对{{folder}}的访问权限",
+          "lead": "macOS 正在阻止 Orca 的终端服务访问此文件夹。",
+          "done": "完成",
+          "cancel": "取消",
+          "stepAllowUnknown": "无法验证。如果已经允许，可跳过此步骤。",
+          "stepAllowDenied": "Orca 已获授权，但 macOS 未将权限应用到终端服务。重置后 macOS 会再次请求权限，请在提示中点击“允许”。",
+          "stepReallow": "重新允许 Orca 访问{{folder}}",
+          "reset": "重置权限",
+          "resetting": "正在重置…",
+          "resetFailed": "无法重置权限，请改用系统设置。",
+          "resetStillBlocked": "重置后仍被阻止。"
+        },
+        "macFolderAccessFolderName": {
+          "documents": "文稿文件夹",
+          "desktop": "桌面文件夹",
+          "downloads": "下载文件夹",
+          "workspace": "工作区文件夹"
         }
       },
       "setup": {
@@ -6897,6 +6940,15 @@
       },
       "settings": {
         "AccountsPane": {
+          "d5267cce63": "）。身份验证 Cookie 仍可用于发现工作区；仅有 auth 不足以查询用量。OpenCode Go 的身份验证基于网页，并由 Windows 与 WSL 终端共享。",
+          "62ab430f94": "请从浏览器开发者工具 → 网络 → 任意 opencode.ai 请求中粘贴完整的 Cookie 请求头，其中应包含 __Host-console_session（例如",
+          "37b4b4a3f7": "auth=…; __Host-console_session=…",
+          "0335bd31d5": "请粘贴完整的 opencode.ai Cookie 请求头（包括 __Host-console_session），以获取速率限制信息。",
+          "codexLoginLinkPending": "Codex 已在浏览器中打开此登录链接。复制链接即可在其他位置（无痕窗口或其他浏览器配置文件）完成登录。",
+          "codexLoginLinkCopied": "已复制",
+          "codexLoginLinkCopy": "复制链接",
+          "codexLoginLinkOpen": "打开",
+          "codexLoginLinkCopyFailed": "无法复制链接。",
           "c2d2751587": "删除账户",
           "dbb9626ed1": "取消",
           "854ebbcc45": "Orca 将删除此已保存账户的托管 Claude 身份验证，如果当前处于活动状态，Orca 将回退到系统默认的 Claude 登录名",
@@ -7647,6 +7699,8 @@
           "80c454e8a6": "将此与您的提供商的缓存 TTL 相匹配"
         },
         "GeneralEditorSettingsSection": {
+          "collapseUnchangedTitle": "折叠未更改区域",
+          "collapseUnchangedDescription": "在文件差异中仅显示更改行和少量上下文，其余内容隐藏在可展开区域中。“查看所有更改”差异始终采用此方式折叠。",
           "f80603d293": "在丰富的编辑器模式和代理切换操作中显示本地 Markdown 注释控件",
           "4edc104f0f": "Markdown 评审笔记",
           "5f02e6fb21": "在富文本编辑器模式下显示本地 Markdown 评审笔记控件",
@@ -7695,6 +7749,8 @@
           "configureProxy": "配置代理"
         },
         "GeneralPane": {
+          "confirm_running_terminal_close": "关闭运行中的终端前确认",
+          "confirm_running_terminal_close_description": "关闭终端时，在停止运行中的代理或命令前询问确认。",
           "d58fccfd84": "导航",
           "5cb5475664": "关闭固定标签页前确认",
           "36b2a5dc6d": "关闭固定标签页前显示确认对话框",
@@ -9212,7 +9268,15 @@
             "customOption": "自定义 Shell",
             "customExecutableAria": "自定义 Shell 可执行文件",
             "help": "输入 PATH 中的 Shell 名称或可执行文件路径。Orca 会将其作为登录 Shell 启动",
-            "notFound": "未找到 Shell：{{shell}}。请切换到“系统 Shell”，或选择此主机上的可执行文件"
+            "notFound": "未找到 Shell：{{shell}}。请切换到“系统 Shell”，或选择此主机上的可执行文件",
+            "advanced": "高级",
+            "argumentsLabel": "Shell 参数",
+            "defaultArgumentsHelp": "使用 -l 以登录 Shell 方式启动。",
+            "customArgumentsHelp": "每行输入一个参数。留空表示不传递参数。",
+            "argumentModeAria": "Shell 参数模式",
+            "defaultArgumentsOption": "-l（默认）",
+            "customArgumentsOption": "自定义参数",
+            "argumentsAria": "Shell 参数，每行一个"
           }
         },
         "TerminalSettingsPreview": {
@@ -9396,6 +9460,8 @@
         },
         "accounts": {
           "search": {
+            "37020a02c2": "控制台",
+            "25591bf95b": "请粘贴完整的 opencode.ai Cookie 请求头（包括 __Host-console_session），以获取速率限制信息。",
             "86edc96bc9": "状态栏",
             "e949b08ffb": "速率限制",
             "7e67d7d1b6": "沃克",
@@ -10082,6 +10148,18 @@
         },
         "general": {
           "search": {
+            "collapseUnchanged": "折叠未更改区域",
+            "collapseUnchangedDesc": "在文件差异中仅显示更改行和少量上下文，其余内容隐藏在可展开区域中。“查看所有更改”差异始终采用此方式折叠。",
+            "collapseUnchangedKw": "折叠",
+            "hideUnchangedKw": "隐藏未更改内容",
+            "foldKw": "收起",
+            "running_terminal": "运行中",
+            "terminal": "终端",
+            "agent": "代理",
+            "command": "命令",
+            "confirm": "确认",
+            "close": "关闭",
+            "omp": "OMP",
             "bdfb6dc21b": "喜欢",
             "e6b01c8e30": "反馈",
             "b65665703a": "支持",
@@ -10739,6 +10817,12 @@
             "keepForkUpToDateDescription": "从 upstream 安全地快进此 Fork",
             "projectRuntime": "项目运行时",
             "projectRuntimeDescription": "选择此项目运行在 Windows 还是 WSL",
+            "githubAccount": "GitHub 账户",
+            "githubAccountDescription": "为该项目的 GitHub API 调用绑定密钥环中的 gh 登录。",
+            "githubAccountKeyword": "GitHub 账户",
+            "ghAccount": "gh 账户",
+            "login": "登录",
+            "token": "token",
             "externalWorktrees": "外部工作树",
             "externalWorktreesDescription": "覆盖此项目是否显示在 Orca 外部创建的工作树",
             "copy": "复制",
@@ -11211,6 +11295,25 @@
           "on": "开",
           "auto": "自动",
           "off": "关"
+        },
+        "RepositoryGitHubAccountSection": {
+          "refreshAccounts": "刷新 GitHub 账户",
+          "unsupported": "此运行时的 GitHub CLI 版本过旧，不支持账户绑定（需要 gh ≥ 2.40）。",
+          "capabilityUnknown": "无法确定此运行时的 GitHub CLI 是否支持账户绑定。请重试。",
+          "envToken": "环境令牌账户无法绑定。请使用密钥环登录。",
+          "invalidBinding": "该 GitHub 账户绑定无效。",
+          "unavailable": "该 GitHub 账户在此运行时不可用。",
+          "saveFailed": "无法保存 GitHub 账户绑定。",
+          "title": "GitHub 账户",
+          "description": "为此项目的 GitHub 议题和拉取请求调用使用特定的 gh 登录。",
+          "longDescription": "Orca 会将所选密钥环登录的短期令牌注入此项目的每次 gh 调用。项目视图继续使用当前活动的 gh 登录。",
+          "retry": "重试",
+          "selectLabel": "账户",
+          "ambient": "默认（当前活动的 gh 登录）",
+          "unavailableOption": "{{user}} @ {{host}}（不可用）",
+          "capabilityBlocked": "在此运行时的 GitHub CLI 支持 `gh auth token --user`（gh ≥ 2.40）之前，无法使用账户绑定。",
+          "capabilityUnknownHint": "无法确定此运行时的 GitHub CLI 是否支持账户绑定。请清除绑定或重试。",
+          "notEnforced": "已保存，但此运行时（混合版本主机）不会强制执行。"
         },
         "agent-status-hooks-copy": {
           "7707c15abb": "代理状态钩子",
@@ -12281,9 +12384,20 @@
         },
         "BrowserTerminalLinkActionsSetting": {
           "title": "显示链接操作",
-          "description": "点击终端或聊天记录中的链接时显示可用操作。关闭后，需在终端中使用 {{modifier}}+点击"
+          "description": "点击终端或聊天记录中的链接时显示可用操作。关闭后，需在终端中使用 {{modifier}}+点击",
+          "descriptionV2": "控制如何点击终端窗格和聊天记录中检测到的网址。",
+          "plainClickLabel": "单击",
+          "plainClickDescription": "选择左键单击时显示操作、打开网址，还是交由终端处理。Cmd/Ctrl+单击始终会直接打开。",
+          "plainClickAriaLabel": "单击网址时的行为",
+          "middleClickLabel": "中键单击",
+          "middleClickDescription": "选择鼠标滚轮单击检测到的终端网址时执行的操作。",
+          "middleClickAriaLabel": "中键单击",
+          "actionsLabel": "操作",
+          "openUrlLabel": "打开网址",
+          "leaveToTerminalLabel": "交由终端处理"
         },
         "ReleaseChannelSection": {
+          "cacheHint": "构建列表会缓存 5 分钟。刷新以检查新构建。",
           "switchFailed": "无法切换到该构建",
           "title": "发布通道",
           "description": "切换更新通道，或跳到任意已发布构建(包括旧版)，允许降级，未经审查的构建可能损坏",
@@ -12303,6 +12417,10 @@
           "devChannelUnsupported": "{{value0}} 构建仅针对 {{value1}} 产出。Linux 仍使用 Stable 或 RC",
           "downloadInstaller": "下载安装程序",
           "manualInstallHint": "{{value0}} 版本在 Windows 上未签名，因此应用内更新程序无法用它覆盖已签名版本。请手动运行一次下载的安装程序——Windows 会显示未知发布者警告——之后的每次切换（包括切回稳定版）都可以在此完成。"
+        },
+        "TerminalRenderingSection": {
+          "6d4c55bacc": "内联图片",
+          "fffab5890b": "使用 SIXEL、iTerm2（IIP）和 Kitty 图形协议直接在终端中显示图片。"
         },
         "TerminalTccAttributionNotice": {
           "body": "终端守护进程由已卸载的 Orca 启动，macOS 无法正确归因权限，重启守护进程可修复(运行中会话会关闭)",
@@ -13798,7 +13916,6 @@
             "localWorkspacesOnly": "从历史记录恢复仅适用于本地工作区",
             "agentSessionQueued": "{{value0}} 会话已排队",
             "sessionHistory": "代理会话历史",
-            "shownRecent": "已显示 {{value0}} 项 · 最近 {{value1}} 项",
             "resumePastSessions": "恢复过往会话",
             "refreshSessionHistory": "刷新会话历史",
             "searchSessions": "搜索会话",
@@ -13811,7 +13928,6 @@
             "sessionId": "会话 ID",
             "logPath": "日志路径",
             "agents": "代理",
-            "sessionsShownCompact": "已显示 {{value0}} 个",
             "originalPaneUnavailable": "原始面板不再可用",
             "worktreeUnavailable": "工作树不再可用",
             "openSupportedWorkspace": "在恢复会话之前，请先打开一个工作区",
@@ -13840,7 +13956,6 @@
             "agents": "代理",
             "selectAllAgents": "选择全部",
             "clearAgents": "清除",
-            "sort": "排序",
             "lastUpdated": "最后更新",
             "created": "创建时间",
             "group": "分组",
@@ -18020,33 +18135,16 @@
         "continuedOne": "已重新连接 1 个对话，并要求它继续",
         "dontAskAgain": "不再询问——下次自动重新连接",
         "dontAskAgainHint": "重启后，符合条件的对话将自动重新连接，Orca 会在发生时通知你。你可以在“设置 → 实验性功能 → 对话界面”中关闭此功能。",
+        "dismissAll": "全部忽略",
+        "dismissUnconfirmed": "无法确认是否已忽略恢复提示——它可能仍显示在状态栏中。",
         "listLabel": "将重新连接的对话",
-        "manyAgents": "{{value0}} 个代理",
-        "notNow": "暂不",
-        "notNowHint": "暂不处理不会丢失任何内容——稍后可重新打开任意对话，从同一位置继续。",
-        "oneAgent": "1 个代理",
-        "projects": "文件夹工作区",
-        "reconnectAgent": "重新连接 {{value0}} 个对话",
-        "reconnectAndContinue": "重新连接并继续",
-        "reconnectRefused": "{{value0}} 个对话无法重新连接。你仍可正常打开它们。",
-        "reconnectRefused_one": "{{value0}} 个对话无法重新连接。你仍可正常打开它。",
-        "reconnectRefused_other": "{{value0}} 个对话无法重新连接。你仍可正常打开它们。",
-        "reconnectUnconfirmed": "无法确认 {{value0}} 个对话是否已重新连接。你仍可正常打开它们。",
-        "reconnectUnconfirmed_one": "无法确认 {{value0}} 个对话是否已重新连接。你仍可正常打开它。",
-        "reconnectUnconfirmed_other": "无法确认 {{value0}} 个对话是否已重新连接。你仍可正常打开它们。",
-        "resume": "重新连接",
-        "resumeAll": "全部重新连接",
+        "resumeSelectedOne": "恢复 1 个对话",
         "resumeSelected": "重新连接 {{value0}} 个对话",
-        "resumedMany": "已重新连接 {{value0}} 个对话",
-        "resumedOne": "已重新连接 1 个对话",
         "resuming": "正在重新连接…",
         "selectAgent": "重新连接 {{value2}} 中的 {{value0}} 对话“{{value1}}”",
-        "terminalSessionsUnaffected": "仅对话会受影响——终端会话一直在运行，无需你进行任何操作。",
         "title": "重新连接被中断的对话？",
         "untitled": "未命名对话",
-        "updateBody": "Orca 安装更新时，这些对话仍在回复中。重新连接会从中断处恢复每个对话，保留完整上下文且不会重新发送你的提示词——被中断的回复不会自行继续。",
-        "whatIsSentBody": "继续操作会向每个代理发送一条简短消息，告知 Orca 已重启，并要求它先检查上一步操作再继续。你的提示词绝不会被重新发送。",
-        "whatIsSentTitle": "Orca 会发送什么"
+        "updateBody": "Orca 安装更新时，这些对话仍在回复中。重新连接会从中断处恢复每个对话，保留完整上下文且不会重新发送你的提示词——被中断的回复不会自行继续。"
       },
       "HostedReviewUnlinkMenuItem": {
         "description": "Orca 将在此工作区隐藏 {{value0}} {{value1}} 的详情。{{value2}} 上的 {{value0}} 和分支不会更改。",
@@ -18269,6 +18367,28 @@
         "viewAttachment": "查看图片"
       },
       "tool": {
+        "runReadOne": "读取了 1 个文件",
+        "runReadMany": "读取了 {{value0}} 个文件",
+        "runSearchOne": "搜索了 1 次",
+        "runSearchMany": "搜索了 {{value0}} 次",
+        "runListFilesOne": "列出了 1 个目录",
+        "runListFilesMany": "列出了 {{value0}} 个目录",
+        "runCommandOne": "运行了 1 条命令",
+        "runCommandMany": "运行了 {{value0}} 条命令",
+        "runFileChangeOne": "编辑了 1 个文件",
+        "runFileChangeMany": "编辑了 {{value0}} 个文件",
+        "runWebSearchOne": "搜索了 1 次网页",
+        "runWebSearchMany": "搜索了 {{value0}} 次网页",
+        "runIntegrationOne": "使用了 1 个集成",
+        "runIntegrationMany": "使用了 {{value0}} 个集成",
+        "runAgentOne": "运行了 1 个代理",
+        "runAgentMany": "运行了 {{value0}} 个代理",
+        "runPlanOne": "更新了计划",
+        "runPlanMany": "更新了 {{value0}} 次计划",
+        "runToolOne": "使用了 1 个工具",
+        "runToolMany": "使用了 {{value0}} 个工具",
+        "runPair": "{{value0}} 和 {{value1}}",
+        "runList": "{{value0}}、{{value1}}",
         "running": "正在运行…",
         "result": "结果",
         "countOne": "1 次工具调用",
@@ -19431,6 +19551,18 @@
   },
   "sessionSearch": {
     "panel": {
+      "resultsOne": "{{count}} 个结果",
+      "resultsOther": "{{count}} 个结果",
+      "sortRelevance": "最相关",
+      "sortNewest": "最新",
+      "sortResultsAriaLabel": "结果排序：{{value0}}",
+      "scopeUnknown": "这台计算机上没有此工作区或项目。请将范围切换为“全部”，以搜索此计算机上的所有内容。",
+      "sortSessionsAriaLabel": "会话排序：{{value0}}",
+      "sessionsOne": "{{count}} 个会话",
+      "sessionsOther": "{{count}} 个会话",
+      "sessionsOfLoaded": "{{value0}} / {{value1}} 个会话",
+      "showMoreSessions": "显示更多会话",
+      "loadingMoreSessions": "正在加载更多会话…",
       "changed": "搜索期间索引发生了变化。请重新搜索以获取最新结果。",
       "consent": "启用全文搜索？Orca 会根据此计算机上的本地代理记录创建索引，其中包括完整对话以及每条工具输出最多 3,072 个字符。内容不会被脱敏。已通过身份验证的配对客户端可以搜索这些内容。",
       "enable": "启用",
@@ -19441,9 +19573,7 @@
       "loadMore": "加载更多匹配项",
       "noMatches": "已索引的历史记录中没有匹配的会话。请尝试其他查询或范围。",
       "noService": "此计算机无法使用搜索。可能需要更新 Orca，或使用支持搜索的运行时。",
-      "notNow": "暂不",
       "notReady": "搜索索引尚未就绪，请稍后重试。",
-      "rankedResults": "最佳匹配",
       "remoteDisabled": "此计算机上的搜索已关闭。请在该计算机上启用会话记录索引，才能搜索其会话。",
       "retry": "重试",
       "truncated": "部分结果或匹配文本受到限制。请缩小搜索范围以获得更精确的结果。"
@@ -19464,6 +19594,9 @@
     }
   },
   "editor": {
+    "fileLoad": {
+      "hostUnresolved": "主机找不到此文件所属的工作区。该工作区可能已被移除，或者主机尚未识别它。请重试，或从标签栏关闭此标签页。"
+    },
     "richMarkdown": {
       "openAnyway": "仍然打开",
       "tooLarge": "文件大小超过富文本编辑的 {{limit}} 上限，已改用源码模式显示。"

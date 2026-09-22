@@ -78,19 +78,10 @@
         "866316f22c": "Unassigned"
       },
       "NativeChatResumeOnRestartModal": {
-        "manyAgents": "{{value0}} agents",
-        "oneAgent": "1 agent",
-        "projects": "Folder workspaces",
-        "reconnectAgent": "Reconnect {{value0}} chat",
-        "resume": "Reconnect",
-        "continueUnconfirmed_one": "Continuation delivery is unconfirmed for {{value0}} chat. Open it to check before sending another message.",
-        "continueUnconfirmed_other": "Continuation delivery is unconfirmed for {{value0}} chats. Open them to check before sending another message.",
-        "reconnectUnconfirmed_one": "Reconnection is unconfirmed for {{value0}} chat. You can still open it normally.",
-        "reconnectUnconfirmed_other": "Reconnection is unconfirmed for {{value0}} chats. You can still open them normally.",
         "continueRefused_one": "{{value0}} chat could not be continued. Open it to continue manually.",
         "continueRefused_other": "{{value0}} chats could not be continued. Open them to continue manually.",
-        "reconnectRefused_one": "{{value0}} chat could not be reconnected. You can still open it normally.",
-        "reconnectRefused_other": "{{value0}} chats could not be reconnected. You can still open them normally."
+        "continueUnconfirmed_one": "Continuation delivery is unconfirmed for {{value0}} chat. Open it to check before sending another message.",
+        "continueUnconfirmed_other": "Continuation delivery is unconfirmed for {{value0}} chats. Open them to check before sending another message."
       },
       "NewWorkspaceComposerCard": {
         "0e587e31fb": "yaml",
@@ -227,13 +218,13 @@
         }
       },
       "artifacts": {
+        "ArtifactPublishButton": {
+          "signingIn": "Signing in…"
+        },
         "ArtifactsPage": {
           "openArtifact": "Open artifact",
           "signInCopy": "Sign in to view and manage artifacts shared through your account.",
           "signInHeading": "Sign in to Orca",
-          "signingIn": "Signing in…"
-        },
-        "ArtifactPublishButton": {
           "signingIn": "Signing in…"
         },
         "artifact-publish-flow": {
@@ -930,6 +921,7 @@
             "424ee0e5bf": "error",
             "48a003c1b1": "Staged Changes",
             "522f44dce5": "Untracked Files",
+            "527e130b6f": "Stop generating",
             "72e0c73b4e": "This workspace is clean and this branch has no changes ahead of {{value0}}",
             "77afaa8152": "All",
             "783a808870": "Close",
@@ -1193,9 +1185,11 @@
       },
       "settings": {
         "AccountsPane": {
+          "0023cc336e": "Paste either the raw token value (e.g.",
           "15e831350e": "Configure MiniMax usage tracking from platform.minimax.io.",
           "1fd1b1b6b4": "Cookie not set",
           "2358ac71d2": "WSL default",
+          "338820326a": ") or the full cookie header (e.g.",
           "3455cf43fa": "Claude login.",
           "350b2a1aa7": "Use your current",
           "4e32e030b2": "Stored locally. Orca sends it only to platform.minimax.io for usage refreshes.",
@@ -1203,10 +1197,15 @@
           "5e08b0fe57": "Stored locally and sent only to platform.minimax.io for usage refreshes.",
           "72b36ea174": "Optional. Orca can use your normal Claude login; add accounts only if you want quick switching without moving chat sessions.",
           "79418c782a": "Open platform.minimax.io/console/usage in your browser, sign in, then copy the Cookie request header from DevTools (Network → any remains request → Cookie).",
+          "7ce0e1907c": "). Find it in your browser's DevTools → Network → any opencode.ai request → Cookie header. OpenCode Go auth is web-based and shared across Windows and WSL terminals.",
+          "8951c5309f": "auth=Fe26.2**…",
           "9107406589": "Could not load Claude accounts.",
+          "922b51e02d": "Fe26.2**…",
           "92f4238f1a": "WSL",
+          "a7e38affcd": "Fe26.2**… token or auth=Fe26.2**… header",
           "b10cb4f696": "adding",
           "b11078a9c2": "wsl",
+          "b2b1aa936d": "Paste your opencode.ai session cookie for rate limit fetching.",
           "b43e761fe5": "MiniMax cookie update failed.",
           "b8c2905c2b": "Could not load Codex accounts.",
           "cedfab35ab": "Optional. Orca can use your normal Codex login; add accounts only if you want quick switching in Orca.",
@@ -1289,11 +1288,9 @@
           "5d432fe44d": "installed",
           "6f894ef9c2": "Show in Finder",
           "8a9b784c60": "stale",
-          "9fd4023db0": "Show in File Manager",
           "8d96213669": "remove",
-          "cbe55e4d48": "Show in Explorer",
-          "cliSkillTerminalAria": "CLI skill install terminal",
-          "cliSkillTerminalTitle": "CLI skill setup"
+          "9fd4023db0": "Show in File Manager",
+          "cbe55e4d48": "Show in Explorer"
         },
         "CliSkillRuntimeSetup": {
           "04325573f8": "WSL",
@@ -1553,6 +1550,9 @@
           "updateOne": "Update server",
           "updating": "Updating servers…"
         },
+        "RepositoryGitHubAccountSection": {
+          "retry": "Retry"
+        },
         "RepositoryHooksSection": {
           "0e0dd5b9a5": "loaded",
           "32f417fe17": "text-emerald-700 dark:text-emerald-300",
@@ -1706,6 +1706,11 @@
           "7c3bb36706": "remove",
           "e2b0ee267f": "stale"
         },
+        "accounts": {
+          "search": {
+            "d1d2ae383c": "Paste your opencode.ai session cookie for rate limit fetching."
+          }
+        },
         "agent-awake-copy": {
           "95d3031db2": "Keeps this computer and display awake while agents are working. Lid-close behavior follows this device's power settings.",
           "a42f6fbdd8": "Keeps this computer and display awake while agents are working. Orca also asks this device to stay awake when the lid is closed, subject to its power policy.",
@@ -1773,9 +1778,6 @@
           "enableDescription": "Add Artifacts to the sidebar so you can open and delete shared files.",
           "openArtifactsDescription": "View and delete links shared through your account.",
           "signInRequired": "Sign in is required to upload and manage artifacts.",
-          "signingIn": "Signing in…"
-        },
-        "orcaAccount": {
           "signingIn": "Signing in…"
         },
         "auto": {
@@ -1889,6 +1891,9 @@
               "b730ff7049": "experimental"
             }
           }
+        },
+        "orcaAccount": {
+          "signingIn": "Signing in…"
         },
         "providerAccountScope": {
           "localMac": "Local Mac"
@@ -2783,11 +2788,11 @@
     },
     "hooks": {
       "useComposerState": {
+        "a9ff236145": "Some attachments could not be uploaded.",
         "attachSkipMissing": "No longer at its original path.",
         "attachSkipPermissionDenied": "Permission denied.",
         "attachSkipSymlink": "Symbolic links cannot be attached.",
         "attachSkipUnsupported": "Unsupported file type.",
-        "a9ff236145": "Some attachments could not be uploaded.",
         "dropPartiallyAttached_one": "{{failureCount}} of {{count}} item could not be attached.",
         "dropPartiallyAttached_other": "{{failureCount}} of {{count}} items could not be attached."
       },
@@ -3027,6 +3032,7 @@
       },
       "composer": {
         "effort": "Effort",
+        "imageUnsupported": "Image paste is not supported for this agent.",
         "optionValue": {
           "off": "Off",
           "on": "On"
