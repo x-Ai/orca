@@ -128,13 +128,13 @@ export function CliSection({
       handleStatusChange(await window.api.cli.getInstallStatus())
     } catch (error) {
       if (mountedRef.current) {
+        const reason = error instanceof Error ? formatCliUserFacingDetail(error.message) : ''
         toast.error(
-          error instanceof Error
-            ? error.message
-            : translate(
-                'auto.components.settings.CliSection.7baec27029',
-                'Failed to load CLI status.'
-              )
+          reason ||
+            translate(
+              'auto.components.settings.CliSection.7baec27029',
+              'Failed to load CLI status.'
+            )
         )
       }
     } finally {

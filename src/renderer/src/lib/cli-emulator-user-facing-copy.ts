@@ -79,6 +79,13 @@ const KNOWN_CLI_DETAILS: {
     vars: (match) => ({ ms: match?.[1] ?? '10000' })
   },
   {
+    test: /^EACCES:\s*permission denied,\s*readlink\s+['"](.+)['"]$/i,
+    key: 'auto.lib.cli.detail.readlinkPermissionDenied',
+    fallback:
+      'Orca does not have permission to inspect {{path}}. Check the path and its parent directory permissions, then try again.',
+    vars: (match) => ({ path: match?.[1] ?? 'orca' })
+  },
+  {
     test: /Registered at (.+)\.?$/,
     key: 'auto.lib.cli.detail.registeredAt',
     fallback: 'Registered at {{path}}.',

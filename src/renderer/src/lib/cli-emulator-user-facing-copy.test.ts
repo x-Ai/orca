@@ -29,6 +29,17 @@ describe('formatCliUserFacingDetail', () => {
   })
 
   it.each([
+    "EACCES: permission denied, readlink '/usr/local/bin/orca'",
+    "Error invoking remote method 'cli:getInstallStatus': Error: EACCES: permission denied, readlink '/usr/local/bin/orca'"
+  ])('localizes an unreadable CLI symlink in Chinese: %s', async (raw) => {
+    await setRendererUiLanguage('zh')
+
+    expect(formatCliUserFacingDetail(raw)).toBe(
+      'Orca 没有权限检查 /usr/local/bin/orca。请检查该路径及其父目录的权限，然后重试。'
+    )
+  })
+
+  it.each([
     ['CLI registration is unavailable on this build.', '此构建版本不支持 CLI 注册'],
     ['WSL CLI registration is unavailable.', 'WSL CLI 注册不可用'],
     ['WSL CLI registration is only available on Windows.', 'WSL CLI 注册仅适用于 Windows'],

@@ -2824,6 +2824,7 @@
           "notOrcaSymlink": "{{path}} exists but is not an Orca symlink.",
           "olderLauncher": "{{path}} contains an older Orca launcher.",
           "platformUnsupported": "CLI registration is not implemented on this platform.",
+          "readlinkPermissionDenied": "Orca does not have permission to inspect {{path}}. Check the path and its parent directory permissions, then try again.",
           "registeredAt": "Registered at {{path}}.",
           "registeredInDistroAt": "Registered in {{distro}} at {{path}}.",
           "registrationUnavailable": "CLI registration is unavailable on this build.",

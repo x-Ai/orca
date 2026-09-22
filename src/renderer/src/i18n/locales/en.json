@@ -1308,6 +1308,7 @@
           "windowsPathCheckFailed": "The Orca launcher exists, but Orca could not check your Windows user PATH.",
           "wslCommandTimedOut": "WSL command timed out after {{ms}}ms.",
           "windowsPathTimedOut": "Windows PATH command timed out after {{ms}}ms.",
+          "readlinkPermissionDenied": "Orca does not have permission to inspect {{path}}. Check the path and its parent directory permissions, then try again.",
           "registeredAt": "Registered at {{path}}.",
           "registeredInDistroAt": "Registered in {{distro}} at {{path}}.",
           "notOrcaLauncherScript": "{{path}} exists but is not an Orca launcher script.",
