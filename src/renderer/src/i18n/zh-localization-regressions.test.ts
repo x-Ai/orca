@@ -122,6 +122,23 @@ describe('Chinese localization regressions', () => {
     ).toBe('在差异中显示空白字符')
   })
 
+  it('localizes preview tab settings', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      translate(
+        'auto.components.settings.GeneralPane.editor_preview_tabs',
+        'Reuse a preview tab when browsing files'
+      )
+    ).toBe('浏览文件时复用预览标签页')
+    expect(
+      translate(
+        'auto.components.settings.GeneralPane.editor_preview_tabs_description',
+        'Single-clicking a file in the Explorer reuses a preview tab.'
+      )
+    ).toContain('每个标签页组会复用一个斜体预览标签页')
+  })
+
   it('keeps notification sound names in English', async () => {
     await setRendererUiLanguage('zh')
 

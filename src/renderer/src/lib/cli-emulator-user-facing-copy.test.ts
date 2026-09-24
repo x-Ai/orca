@@ -39,7 +39,7 @@ describe('formatCliUserFacingDetail', () => {
         'Xcode Simulator tools are unavailable. Install full Xcode, open it once, then select it with `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`.'
       )
     ).toBe(
-      'Xcode 模拟器工具不可用。请安装完整的 Xcode，打开一次，然后运行 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 选择它。'
+      'Xcode 模拟器工具不可用，请安装完整的 Xcode，打开一次，然后运行 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 选择它'
     )
   })
 
@@ -50,7 +50,7 @@ describe('formatCliUserFacingDetail', () => {
     await setRendererUiLanguage('zh')
 
     expect(formatCliUserFacingDetail(raw)).toBe(
-      'Orca 没有权限检查 /usr/local/bin/orca，请检查该路径及其父目录的权限，然后重试。'
+      'Orca 没有权限检查 /usr/local/bin/orca，请检查该路径及其父目录的权限，然后重试'
     )
   })
 
@@ -100,7 +100,7 @@ describe('formatCliUserFacingDetail', () => {
       formatCliUserFacingDetail(
         "Error invoking remote method 'cli:getWslInstallStatus': Error: Could not reach the WSL distro. Try again."
       )
-    ).toBe('无法连接到 WSL 发行版，请重试。')
+    ).toBe('无法连接到 WSL 发行版，请重试')
   })
 
   it('localizes Windows shell registration details including a blank path', () => {

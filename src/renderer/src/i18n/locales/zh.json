@@ -1139,12 +1139,12 @@
           "noWslDistro": "没有可用的 WSL 发行版",
           "windowsLauncherMissing": "缺少 Windows 版 Orca CLI 启动器",
           "wslHomeUnresolved": "无法解析 WSL 主目录",
-          "wslDistroUnreachable": "无法连接到 WSL 发行版，请重试。",
+          "wslDistroUnreachable": "无法连接到 WSL 发行版，请重试",
           "wslInteropUnavailable": "WSL 的 Windows 互操作功能不可用，Orca 无法从 WSL 启动 Windows CLI",
           "windowsPathCheckFailed": "Orca 启动器已存在，但 Orca 无法检查你的 Windows 用户 PATH",
           "wslCommandTimedOut": "WSL 命令在 {{ms}} 毫秒后超时",
           "windowsPathTimedOut": "Windows PATH 命令在 {{ms}} 毫秒后超时",
-          "readlinkPermissionDenied": "Orca 没有权限检查 {{path}}，请检查该路径及其父目录的权限，然后重试。",
+          "readlinkPermissionDenied": "Orca 没有权限检查 {{path}}，请检查该路径及其父目录的权限，然后重试",
           "registeredAt": "已注册到 {{path}}",
           "registeredInDistroAt": "已在 {{distro}} 中注册到 {{path}}",
           "notOrcaLauncherScript": "{{path}} 已存在，但不是 Orca 启动器脚本",
@@ -1157,7 +1157,7 @@
         }
       },
       "emulator": {
-        "xcodeSimulatorToolsUnavailable": "Xcode 模拟器工具不可用。请安装完整的 Xcode，打开一次，然后运行 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 选择它。",
+        "xcodeSimulatorToolsUnavailable": "Xcode 模拟器工具不可用，请安装完整的 Xcode，打开一次，然后运行 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 选择它",
         "androidSdkNotFound": "未找到 Android SDK，请安装 Android Studio 并设置 ANDROID_HOME"
       },
       "rateLimits": {
@@ -1816,7 +1816,7 @@
         "9c00bd4adf": "从侧边栏中选择一个工作区开始",
         "16e9e3df89": "已Star",
         "0d0ace8861": "在 GitHub 上 Star",
-        "ec43b38ba7": "已Star，感谢支持",
+        "ec43b38ba7": "感谢您的 Star",
         "157bb5ecbb": "打开 GitHub",
         "preflightDismiss": "关闭",
         "createWorkspaceAction": "创建工作区",
@@ -7774,6 +7774,8 @@
           "configureProxy": "配置代理"
         },
         "GeneralPane": {
+          "editor_preview_tabs": "浏览文件时复用预览标签页",
+          "editor_preview_tabs_description": "在文件资源管理器中单击文件，或点击 Markdown 源代码中的链接时，每个标签页组会复用一个斜体预览标签页，而不是打开新标签页。编辑、双击或固定文件会保留该标签页。关闭此选项后，每个文件都会使用单独的标签页。",
           "confirm_running_terminal_close": "关闭运行中的终端前确认",
           "confirm_running_terminal_close_description": "关闭终端时，在停止运行中的代理或命令前询问确认。",
           "d58fccfd84": "导航",
@@ -10242,6 +10244,13 @@
             "2a254b725e": "标签页",
             "ca812803ea": "最近的 Tab 键顺序",
             "e53d585ed6": "最近或标签栏",
+            "editor_preview_tabs_short": "浏览文件时复用一个预览标签页，而不是打开新标签页。",
+            "preview": "预览",
+            "reuse": "复用",
+            "replace": "替换",
+            "explorer": "文件资源管理器",
+            "italic": "斜体",
+            "browsing": "浏览",
             "256d92554d": "制表符顺序",
             "22572e99c1": "注释",
             "1ff67ba40c": "笔记",
@@ -19282,6 +19291,7 @@
       "connectionNotSecure": "连接不安全",
       "cantReachHost": "无法访问 {{value0}}",
       "cantLoadPage": "无法加载此页面",
+      "pageConnectionFailed": "无法连接到此页面",
       "certificateNameMismatch": "证书与 {{value0}} 不匹配",
       "certificateDateInvalid": "{{value0}} 的证书在当前日期和时间无效",
       "certificateAuthorityInvalid": "Orca 不信任签发 {{value0}} 证书的机构",
@@ -19299,7 +19309,7 @@
       "certificateChallengeUnavailable": "此证书请求已不可用，请重试该页面以重新请求",
       "certificateProceedFailed": "Orca 无法批准此证书请求，请重试该页面后再试，",
       "recheckSshRoute": "运行连接检查",
-      "sshRoutedHint": "此页面通过工作区的 SSH 主机浏览——该主机可能已断开连接或无法访问此网站。"
+      "sshRoutedHint": "此页面通过工作区的 SSH 主机浏览——该主机可能已断开连接或无法访问此网站"
     },
     "guestRecovery": {
       "title": "浏览器页面已停止",

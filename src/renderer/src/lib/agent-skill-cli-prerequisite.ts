@@ -73,7 +73,7 @@ export async function ensureOrcaCliAvailableForAgentSkillTerminal({
   } catch (error) {
     toast.error(
       error instanceof Error
-        ? error.message
+        ? formatCliUserFacingDetail(error.message) || error.message
         : translate(
             'auto.lib.agent.skill.cli.prerequisite.8d6eedf97e',
             'Failed to register the Orca CLI in PATH.'

@@ -198,7 +198,7 @@ export function formatLoadFailureDescription(
   if (loadError.code === 0) {
     return loadError.description
   }
-  return "We couldn't connect to this page."
+  return translate('browser.loadFailure.pageConnectionFailed', "We couldn't connect to this page.")
 }
 
 export function formatLoadFailureRecoveryHint(

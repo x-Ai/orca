@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import {
   formatByteCount,
   formatDownloadFinishedNotice,
@@ -9,6 +10,10 @@ import {
   isCertificateLoadError
 } from './browser-notices'
 import { BROWSER_GUEST_RECOVERY_ERROR_CODE } from '../host-guest/browser-page-guest-recovery'
+
+afterEach(async () => {
+  await setRendererUiLanguage('en')
+})
 
 describe('browser notice formatting', () => {
   it('formats denied permissions with safe copy', () => {
@@ -170,6 +175,24 @@ describe('browser notice formatting', () => {
         isLocalhostLike: false
       })
     ).toBeNull()
+  })
+
+  it('localizes remote page connection failures', async () => {
+    await setRendererUiLanguage('zh')
+
+    expect(
+      formatLoadFailureDescription(
+        {
+          code: -105,
+          description: 'ERR_NAME_NOT_RESOLVED',
+          validatedUrl: 'https://example.com'
+        },
+        {
+          host: 'example.com',
+          isLocalhostLike: false
+        }
+      )
+    ).toBe('无法连接到此页面')
   })
 
   it('preserves the explicit guest recovery failure copy', () => {

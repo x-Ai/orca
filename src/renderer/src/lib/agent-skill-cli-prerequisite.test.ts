@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { toast } from 'sonner'
 import type { CliInstallStatus } from '../../../shared/cli-install-types'
+import { setRendererUiLanguage } from '@/i18n/i18n'
 import {
   CLI_PREREQUISITE_REGISTRATION_TOAST,
   CLI_PREREQUISITE_REGISTRATION_TOAST_DESCRIPTION,
@@ -43,10 +44,11 @@ describe('isOrcaCliAvailableOnPath', () => {
 })
 
 describe('ensureOrcaCliAvailableForAgentSkillTerminal', () => {
-  afterEach(() => {
+  afterEach(async () => {
     vi.useRealTimers()
     vi.unstubAllGlobals()
     vi.clearAllMocks()
+    await setRendererUiLanguage('en')
   })
 
   it('runs the CLI installer when the command exists but is not visible on PATH', async () => {
@@ -102,6 +104,32 @@ describe('ensureOrcaCliAvailableForAgentSkillTerminal', () => {
     expect(toast.warning).toHaveBeenCalledWith(
       expect.stringMatching(/could not check/i),
       expect.objectContaining({ description: initial.detail })
+    )
+  })
+
+  it('localizes an Electron-wrapped CLI status failure', async () => {
+    await setRendererUiLanguage('zh')
+    vi.stubGlobal('window', {
+      api: {
+        cli: {
+          getInstallStatus: vi
+            .fn()
+            .mockRejectedValue(
+              new Error(
+                "Error invoking remote method 'cli:getInstallStatus': Error: EACCES: permission denied, readlink '/usr/local/bin/orca'"
+              )
+            ),
+          install: vi.fn()
+        }
+      }
+    })
+
+    await expect(
+      ensureOrcaCliAvailableForAgentSkillTerminal({ registrationPromptDelayMs: 0 })
+    ).resolves.toBeNull()
+
+    expect(toast.error).toHaveBeenCalledWith(
+      'Orca 没有权限检查 /usr/local/bin/orca，请检查该路径及其父目录的权限，然后重试'
     )
   })
 
