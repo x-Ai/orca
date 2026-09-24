@@ -280,22 +280,7 @@ export function useWorktreeContextMenuModel({
     []
   )
 
-  const {
-    handleAssignWorkspaceStatus,
-    handleCloseTerminals,
-    handleCopyPath,
-    handleCreateGroupDialogOpenChange,
-    handleCreateGroupFromRepo,
-    handleDelete,
-    handleMoveProjectToGroup,
-    handleOpenParent,
-    handleRemoveProjectFromGroup,
-    handleRename,
-    handleSleepSubtree,
-    handleSubmitNewProjectGroup,
-    handleTogglePin,
-    handleToggleRead
-  } = useWorktreeContextMenuCommands({
+  const commands = useWorktreeContextMenuCommands({
     activeContextWorktrees,
     batchDeleteWorktrees,
     createGroupDialogActiveRef,
@@ -355,6 +340,7 @@ export function useWorktreeContextMenuModel({
   )
 
   return {
+    ...commands,
     activeContextWorktrees,
     allWorktrees,
     batchDeleteWorktrees,
@@ -373,24 +359,10 @@ export function useWorktreeContextMenuModel({
     eligibleParentCount,
     effectiveSelectedWorktrees,
     folderWorkspaceId,
-    handleAssignWorkspaceStatus,
     handleCloseAutoFocus,
-    handleCloseTerminals,
-    handleCopyPath,
-    handleCreateGroupDialogOpenChange,
-    handleCreateGroupFromRepo,
-    handleDelete,
-    handleMoveProjectToGroup,
-    handleOpenParent,
     handleOpenParentPicker,
     handleParentPickerOpenChange,
     handleRemoveParentLink,
-    handleRemoveProjectFromGroup,
-    handleRename,
-    handleSleepSubtree,
-    handleSubmitNewProjectGroup,
-    handleTogglePin,
-    handleToggleRead,
     hasAnyContextLineage,
     hasParentLink,
     isDeleting,
