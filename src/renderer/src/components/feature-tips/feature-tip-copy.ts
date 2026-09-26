@@ -10,6 +10,24 @@ const FEATURE_TIP_COPY: Record<
     ctaLabel: () => string
   }
 > = {
+  'agent-session-search': {
+    eyebrow: () => translate('auto.components.feature.tips.feature.tip.copy.1fcdfc5fe8', 'New'),
+    title: () =>
+      translate(
+        'auto.components.feature.tips.feature.tip.copy.f98e9d1bad',
+        'Search every agent session'
+      ),
+    description: () =>
+      translate(
+        'auto.components.feature.tips.feature.tip.copy.990cc29865',
+        'Find any past conversation by what was said in it, then pick up where the agent left off.'
+      ),
+    ctaLabel: () =>
+      translate(
+        'auto.components.feature.tips.feature.tip.copy.91e2719807',
+        'Turn on session search'
+      )
+  },
   'orca-cli': {
     eyebrow: () => translate('auto.components.feature.tips.feature.tip.copy.52e9e84809', 'Tip'),
     title: () =>
@@ -43,14 +61,20 @@ const FEATURE_TIP_COPY: Record<
   'voice-dictation': {
     eyebrow: () => translate('auto.components.feature.tips.feature.tip.copy.52e9e84809', 'Tip'),
     title: () =>
-      translate('auto.components.feature.tips.feature.tip.copy.5221facada', 'Dictate into any pane'),
+      translate(
+        'auto.components.feature.tips.feature.tip.copy.5221facada',
+        'Dictate into any pane'
+      ),
     description: () =>
       translate(
         'auto.components.feature.tips.feature.tip.copy.5d69275490',
         'Start voice dictation in any focused pane, then use the shortcut again to stop.'
       ),
     ctaLabel: () =>
-      translate('auto.components.feature.tips.feature.tip.copy.24aaad376f', 'Set up voice dictation')
+      translate(
+        'auto.components.feature.tips.feature.tip.copy.24aaad376f',
+        'Set up voice dictation'
+      )
   }
 }
 

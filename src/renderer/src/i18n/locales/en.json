@@ -183,7 +183,8 @@
         "resourceUsageToggleDescription": "Show the Resource Manager. Click it for CPU, memory, sessions, daemon controls, and workspace disk scans.",
         "portsToggleDescription": "Show live workspace ports. Click it for workspace-scoped ports and external listeners.",
         "antigravityToggleDescription": "Show Antigravity subscription usage for the active workspace.",
-        "grokToggleDescription": "Show Grok subscription credit usage when signed in via Grok CLI."
+        "grokToggleDescription": "Show Grok subscription credit usage when signed in via Grok CLI.",
+        "cursorToggleDescription": "Show Cursor plan usage when signed in through cursor-agent or Cursor IDE."
       },
       "menuBarIcon": {
         "title": "Show Menu Bar Icon",
@@ -3756,7 +3757,7 @@
             "missing": {
               "tui": {
                 "title": "This ZCode build has no terminal UI",
-                "description": "Orca's hooks installed correctly \u2014 the zcode on your PATH just cannot open a session. The ZCode desktop app bundles the agent runtime without its terminal UI. Install a zcode that ships the TUI, then run zcode outside Orca to confirm."
+                "description": "Orca's hooks installed correctly — the zcode on your PATH just cannot open a session. The ZCode desktop app bundles the agent runtime without its terminal UI. Install a zcode that ships the TUI, then run zcode outside Orca to confirm."
               }
             }
           },
@@ -4387,6 +4388,7 @@
             "floatingTerminalNewActivity": "{{label}}, new activity",
             "codexSignInSuccess": "Signed in to Codex",
             "codexSignInError": "Codex sign-in failed. Please try again.",
+            "cursorUsageMenu": "Cursor Usage",
             "windowWeeks": "{{value0}}wk",
             "wslRuntime": "WSL"
           },
@@ -4579,6 +4581,13 @@
               "noSubscription": {
                 "label": "No subscription"
               }
+            },
+            "cursor": {
+              "expired": {
+                "label": "Sign-in expired",
+                "message": "Run cursor-agent login in a terminal on the computer running Orca, then retry usage."
+              },
+              "plan": "Plan"
             }
           },
           "SshTargetStatusRow": {
@@ -4672,15 +4681,6 @@
             "last_connected": "Last connected {{value0}}",
             "reconnect_attempt": "Attempt {{value0}}"
           },
-          "usage": {
-            "justNow": "just now",
-            "minutesAgo": "{{value0}}m ago",
-            "hoursAgo": "{{value0}}h ago",
-            "resetsNow": "Resets now",
-            "resetsIn": "Resets in {{duration}}",
-            "updatedAgo": "Updated {{ago}}",
-            "notYetUpdated": "Not yet updated"
-          },
           "NativeChatResumeStatusSegment": {
             "labelOne": "1 chat to resume",
             "label": "{{value0}} chats to resume",
@@ -4697,6 +4697,15 @@
             "checkAriaOne": "1 chat to check after resuming. Click for details.",
             "checkAria": "{{value0}} chats to check after resuming. Click for details.",
             "checkTooltip": "Chats Orca couldn’t resume, or couldn’t confirm it resumed, after the restart. Click for details."
+          },
+          "usage": {
+            "justNow": "just now",
+            "minutesAgo": "{{value0}}m ago",
+            "hoursAgo": "{{value0}}h ago",
+            "resetsNow": "Resets now",
+            "resetsIn": "Resets in {{duration}}",
+            "updatedAgo": "Updated {{ago}}",
+            "notYetUpdated": "Not yet updated"
           }
         }
       },
@@ -9842,7 +9851,18 @@
             "b2c4e7f1a8": "endpoint",
             "3a9b6d2c4e": "api key",
             "5d8f1a3b7c": "china",
-            "7e2a4b8c1d": "overseas"
+            "7e2a4b8c1d": "overseas",
+            "cursor": {
+              "title": "Cursor Usage",
+              "description": "Monthly plan usage read from the Cursor sign-in already on this computer (cursor-agent login).",
+              "kw": {
+                "cursor": "cursor",
+                "usage": "usage",
+                "spend": "spend",
+                "rateLimit": "rate limit",
+                "statusBar": "status bar"
+              }
+            }
           }
         },
         "advanced": {
@@ -10098,6 +10118,13 @@
               "close": "close",
               "notification": "notification area",
               "background": "background"
+            },
+            "cursor": {
+              "title": "Cursor Usage",
+              "description": "Show monthly Cursor plan usage from the Cursor sign-in on this computer.",
+              "kw": {
+                "cursor": "cursor"
+              }
             }
           }
         },
@@ -12916,6 +12943,35 @@
           "subtle": "Subtle",
           "strong": "Strong"
         },
+        "TerminalRenderingSection": {
+          "6d4c55bacc": "Inline Images",
+          "fffab5890b": "Display images directly in the terminal using SIXEL, iTerm2 (IIP), and Kitty graphics protocols."
+        },
+        "CursorAccountsSection": {
+          "source": {
+            "keychain": "macOS Keychain (cursor-agent)",
+            "cli": "Cursor CLI auth file",
+            "desktop": "Cursor IDE"
+          },
+          "title": "Cursor",
+          "subtitle": "Shows your monthly Cursor plan usage from the sign-in already on this computer. Orca only reads it — it never changes your Cursor login.",
+          "dashboardLink": "Cursor dashboard",
+          "loading": "Loading…",
+          "signedIn": "Signed in",
+          "signedInFrom": "Signed in. Orca reads the session stored in {{source}}.",
+          "signedInGeneric": "Signed in. Orca reads the Cursor session stored on this computer.",
+          "expired": "Sign-in expired — run cursor-agent login on the computer running Orca, then click Refresh usage.",
+          "signedOut": "No Cursor sign-in found on this computer",
+          "signedOutHelp": "Sign in with Cursor IDE, or run cursor-agent login in a terminal, then click Refresh usage here.",
+          "refreshUsage": "Refresh usage",
+          "usageTitle": "Monthly plan usage",
+          "usageDescription": "Cursor bills two pools that reset with your billing cycle, plus on-demand spend once they run out.",
+          "planTotal": "Plan",
+          "resets": "Resets {{when}}",
+          "usageLabel": "Usage",
+          "noAllowance": "Cursor reported no usage allowance for this account.",
+          "staleUsage": "Last known usage — the latest refresh failed: {{reason}}"
+        },
         "PluginCatalogMetadata": {
           "multipassRecipesName": "Orca Multipass Recipes",
           "multipassRecipesDescription": "A reviewed starter lifecycle for disposable Multipass workspaces.",
@@ -12942,10 +12998,6 @@
           "title": "New terminals aren’t being saved",
           "body": "The terminal host stopped responding. Orca kept it rather than ending anything it might still be hosting, but it can’t reach those terminals until the host responds again — reopening a pane retries, and works once it does. New terminals open outside the host and close when you quit Orca. Restarting the host usually clears this, and ends every terminal — both the ones it is still holding and the ones running outside it.",
           "action": "Restart host"
-        },
-        "TerminalRenderingSection": {
-          "6d4c55bacc": "Inline Images",
-          "fffab5890b": "Display images directly in the terminal using SIXEL, iTerm2 (IIP), and Kitty graphics protocols."
         }
       },
       "right": {
@@ -15633,6 +15685,7 @@
           "FeatureTipActions": {
             "eb04abece8": "Maybe Later",
             "21edf9eddf": "Installing...",
+            "ba32d5ce6f": "Turning on...",
             "57068c83ef": "Working..."
           },
           "FeatureTipsModal": {
@@ -15658,6 +15711,10 @@
           "feature": {
             "tip": {
               "copy": {
+                "1fcdfc5fe8": "New",
+                "f98e9d1bad": "Search every agent session",
+                "990cc29865": "Find any past conversation by what was said in it, then pick up where the agent left off.",
+                "91e2719807": "Turn on session search",
                 "52e9e84809": "Tip",
                 "3eacedec93": "Let agents drive Orca with the Orca CLI",
                 "8d54d0ff53": "Enable agents to coordinate child worktrees and communicate between worktrees.",
@@ -16047,6 +16104,7 @@
           "tryAgain": "Try again",
           "kernelCreatingVenv": "Creating .venv…",
           "createVenvItem": "Create virtual environment…",
+          "trustFirst": "Run a cell to trust this notebook first",
           "kernelStartFailed": "The kernel failed to start.",
           "noPython": "Python was not found on this computer. Install it from [python.org](https://www.python.org/downloads/), then run the cell again.",
           "kernelDied": "The kernel died.",
@@ -18425,6 +18483,47 @@
         "label": "Unlink {{value0}} from workspace",
         "description": "Orca will hide {{value0}} {{value1}} details for this workspace. The {{value0}} and branch on {{value2}} won’t be changed."
       },
+      "UnexpectedSignoutCard": {
+        "9f2c1a4b7d": "You've been signed out",
+        "3e8f5c2a91": "Dismiss",
+        "7b4d9e1f2a": "Sign in again as {{value0}} to restore Artifact sharing, Orca Relay, and skill sharing.",
+        "5a1c8d3e6f": "Sign in again to restore Artifact sharing, Orca Relay, and skill sharing.",
+        "1f6b2c9d4e": "What you get back",
+        "8d2e4f7a1b": "Artifact sharing",
+        "2c9a5b6e8d": "Publish HTML and Markdown files and manage every shared link from Orca.",
+        "6e3f1a9c5b": "Orca Relay",
+        "4b7d2e8f1a": "Connect Orca Mobile to this desktop across cellular or any Wi-Fi.",
+        "9a4c6b2d7e": "Skill sharing",
+        "3d8e5f1b9c": "Share skills behind an unlisted link and install them on any machine you use.",
+        "c5b3e8a17d": "Sign in to Orca"
+      },
+      "NativeChatResumeOutcomeRow": {
+        "openChat": "Open chat",
+        "retry": "Retry",
+        "dismiss": "Dismiss",
+        "unconfirmed": "Couldn’t confirm the chat was resumed",
+        "failed": "Couldn’t resume",
+        "statusFor": "{{value0}}: {{value1}}",
+        "dismissChat": "Dismiss \"{{value0}}\" in {{value1}}",
+        "toResume": "To resume:"
+      },
+      "NativeChatResumeFailureGuidance": {
+        "unconfirmed": "Orca couldn’t confirm the “continue” message was delivered. Open the chat and check before sending another.",
+        "superseded": "Open the chat and reply. New work arrived in it right after the restart, so Orca didn’t send its “continue” message.",
+        "conflict": "Another Orca window or terminal still owns this session. Close it, then retry.",
+        "ownershipUnknown": "Orca is still working out which process owns this session. Wait a moment, then retry.",
+        "notAttached": "The chat didn’t reconnect. Retry, or open it to start a fresh turn.",
+        "dispatchRejected": "The agent refused the “continue” message. Open the chat and send one yourself.",
+        "unsupported": "This chat can’t be resumed by Orca. Open it to see where it stopped.",
+        "fallback": "Orca couldn’t resume this chat. Open it to continue manually."
+      },
+      "web": {
+        "preloadApi": {
+          "cursorAccounts": {
+            "hostOnly": "Cursor sign-in details are only readable on the computer running Orca."
+          }
+        }
+      },
       "osReveal": {
         "revealInFinder": "Reveal in Finder",
         "openContainingFolder": "Open Containing Folder",
@@ -18463,40 +18562,6 @@
             "806efa166b": "Learn more"
           }
         }
-      },
-      "UnexpectedSignoutCard": {
-        "9f2c1a4b7d": "You've been signed out",
-        "3e8f5c2a91": "Dismiss",
-        "7b4d9e1f2a": "Sign in again as {{value0}} to restore Artifact sharing, Orca Relay, and skill sharing.",
-        "5a1c8d3e6f": "Sign in again to restore Artifact sharing, Orca Relay, and skill sharing.",
-        "1f6b2c9d4e": "What you get back",
-        "8d2e4f7a1b": "Artifact sharing",
-        "2c9a5b6e8d": "Publish HTML and Markdown files and manage every shared link from Orca.",
-        "6e3f1a9c5b": "Orca Relay",
-        "4b7d2e8f1a": "Connect Orca Mobile to this desktop across cellular or any Wi-Fi.",
-        "9a4c6b2d7e": "Skill sharing",
-        "3d8e5f1b9c": "Share skills behind an unlisted link and install them on any machine you use.",
-        "c5b3e8a17d": "Sign in to Orca"
-      },
-      "NativeChatResumeOutcomeRow": {
-        "openChat": "Open chat",
-        "retry": "Retry",
-        "dismiss": "Dismiss",
-        "unconfirmed": "Couldn’t confirm the chat was resumed",
-        "failed": "Couldn’t resume",
-        "statusFor": "{{value0}}: {{value1}}",
-        "dismissChat": "Dismiss \"{{value0}}\" in {{value1}}",
-        "toResume": "To resume:"
-      },
-      "NativeChatResumeFailureGuidance": {
-        "unconfirmed": "Orca couldn’t confirm the “continue” message was delivered. Open the chat and check before sending another.",
-        "superseded": "Open the chat and reply. New work arrived in it right after the restart, so Orca didn’t send its “continue” message.",
-        "conflict": "Another Orca window or terminal still owns this session. Close it, then retry.",
-        "ownershipUnknown": "Orca is still working out which process owns this session. Wait a moment, then retry.",
-        "notAttached": "The chat didn’t reconnect. Retry, or open it to start a fresh turn.",
-        "dispatchRejected": "The agent refused the “continue” message. Open the chat and send one yourself.",
-        "unsupported": "This chat can’t be resumed by Orca. Open it to see where it stopped.",
-        "fallback": "Orca couldn’t resume this chat. Open it to continue manually."
       }
     },
     "i18n": {
@@ -18947,38 +19012,6 @@
       },
       "launchPromptNotDelivered": "Not delivered — check the terminal",
       "structuredSessionLaunchFailed": "Could not open {{value0}} chat",
-      "handoff": {
-        "stage": {
-          "finishingChat": "Finishing chat session…",
-          "finishingTerminal": "Finishing agent terminal…",
-          "openingTerminal": "Opening agent terminal…",
-          "resumingChat": "Resuming chat session…",
-          "verifyingTerminal": "Verifying agent terminal…",
-          "verifyingChat": "Verifying chat session…",
-          "recovering": "Recovering agent session…",
-          "manualRecovery": "Agent session needs recovery"
-        },
-        "switchingOwner": "Switching session owner…",
-        "mode": {
-          "switching": "Switching",
-          "terminal": "Terminal",
-          "chat": "Chat"
-        },
-        "switchingAfterTurn": "Switching after this turn",
-        "returningAfterTurn": "Returning after this turn",
-        "cancel": "Cancel",
-        "switchAfterTurn": "Switch after this turn",
-        "stopTurnAndSwitch": "Stop turn and switch",
-        "openAgentTui": "Open agent TUI",
-        "returnAfterTurn": "Return after this turn",
-        "returnToChat": "Return to chat",
-        "agentOpenOnHost": "Agent is open in terminal on {{value0}}.",
-        "agentOpen": "Agent is open in terminal.",
-        "exitTerminal": "Exit the agent terminal to continue in chat.",
-        "retryProof": "Retry proof",
-        "retry": "Retry",
-        "details": "Details"
-      },
       "structuredSessionLaunchFailedDescription": "Orca could not open a structured {{value0}} chat. See the logs for details.",
       "subagents": {
         "state": {
@@ -19003,11 +19036,6 @@
       "conversationCommand": {
         "pendingWork": "Wait for pending work and messages to finish before using this command.",
         "unconfirmed": "Conversation operation was not confirmed."
-      },
-      "orchestrationPaused": {
-        "label": "Orchestration paused",
-        "message": "Structured Chat blocks terminal prompts and sends. Orchestration messages remain queued; switch to Terminal, then check the Orca inbox with",
-        "command": "orca orchestration check"
       },
       "drop": {
         "title": "Drop to attach to this chat",
@@ -19039,6 +19067,11 @@
         "label": "Context {{used}} of {{window}} tokens, {{percent}}% used",
         "title": "Context",
         "estimated": "Estimated from the last response."
+      },
+      "orchestrationPaused": {
+        "label": "Orchestration paused",
+        "message": "Structured Chat blocks terminal prompts and sends. Orchestration messages remain queued; switch to Terminal, then check the Orca inbox with",
+        "command": "orca orchestration check"
       }
     },
     "tab": {
@@ -19345,6 +19378,24 @@
         "copySessionIdError": "Unable to copy session ID"
       }
     },
+    "settings": {
+      "TerminalInteraction": {
+        "copyTrimsGutter": "Trim Gutter on Copy",
+        "copyTrimsGutterDescription": "Drop the left gutter agent output is painted behind, so copied text is not indented. Only the indent every selected line shares is removed."
+      },
+      "terminal": {
+        "clipboard": {
+          "search": {
+            "gutter": "gutter",
+            "indent": "indent",
+            "margin": "margin",
+            "leading": "leading",
+            "whitespace": "whitespace",
+            "spaces": "spaces"
+          }
+        }
+      }
+    },
     "github": {
       "prCheckPresentation": {
         "successful": "Successful",
@@ -19419,24 +19470,6 @@
       "notWritable": "The {{target}} terminal did not accept the notes.",
       "selectedSubmitFailed": "The notes may already be pasted in the selected terminal, but Orca could not submit them.",
       "activeSubmitFailed": "The notes may already be pasted in the active terminal, but Orca could not submit them."
-    },
-    "settings": {
-      "TerminalInteraction": {
-        "copyTrimsGutter": "Trim Gutter on Copy",
-        "copyTrimsGutterDescription": "Drop the left gutter agent output is painted behind, so copied text is not indented. Only the indent every selected line shares is removed."
-      },
-      "terminal": {
-        "clipboard": {
-          "search": {
-            "gutter": "gutter",
-            "indent": "indent",
-            "margin": "margin",
-            "leading": "leading",
-            "whitespace": "whitespace",
-            "spaces": "spaces"
-          }
-        }
-      }
     }
   },
   "dashboardPopout": {
@@ -19632,6 +19665,52 @@
       "unassignedInstruction": "Assign a dictation shortcut before starting voice dictation in a focused pane.",
       "settingsInstruction": "Change the model, dictation mode, or shortcut anytime in",
       "settingsLink": "Settings → Voice"
+    },
+    "sessionSearch": {
+      "enableFailed": "Could not turn on session search. Try again.",
+      "progressStarting": "Finding your sessions…",
+      "settingsLink": "Settings → Agent Session Search",
+      "agentsInstruction": "Your agents can search it too. Ask one to “find the session where we fixed the login timeout.”",
+      "consentInstruction": "Change or turn it off anytime in",
+      "readyDescription": "Every agent session on this computer can now be found by what was said in it.",
+      "indexingDescription": "Orca is reading your past agent transcripts so you can search them. This can take a few minutes.",
+      "indexingTitle": "Indexing your agent sessions",
+      "readyTitle": "Session search is ready",
+      "continueInBackground": "Continue in background",
+      "startSearching": "Start searching",
+      "demoRoleAssistant": "Assistant",
+      "demoRoleUser": "User",
+      "recent1Title": "Tidy the settings sidebar",
+      "recent1Text": "Moved the search entries under Workflows and updated the tests.",
+      "ageMinutes": "12m",
+      "recent2Title": "Bump the lockfile",
+      "recent2Text": "Update the dependencies and make sure the build still passes.",
+      "ageHours": "2h",
+      "recent3Title": "Release notes draft",
+      "recent3Text": "Here is a first pass at the notes, grouped by area.",
+      "ageYesterday": "1d",
+      "demoQuery": "login timeout",
+      "demoHit1Title": "Fix flaky auth redirect",
+      "demoHit1Snippet": "Raised the [[login timeout]] to 30s and added a retry on the token refresh.",
+      "demoHit1Age": "3d",
+      "demoHit2Title": "Session refresh after sleep",
+      "demoHit2Snippet": "Why does the [[login]] page hang after a [[timeout]] on wake?",
+      "demoHit2Age": "1w",
+      "demoHit3Title": "Auth e2e hardening",
+      "demoHit3Snippet": "Added a test that covers the [[login timeout]] path end to end.",
+      "demoHit3Age": "2w",
+      "demoQuery2": "migration rollback",
+      "demoHit4Title": "Orders table migration",
+      "demoHit4Snippet": "The [[rollback]] drops the new index first, then restores the old column.",
+      "demoHit4Age": "5d",
+      "demoHit5Title": "Staging deploy failed",
+      "demoHit5Snippet": "Can you write a [[migration]] [[rollback]] plan before we retry?",
+      "demoHit5Age": "3w",
+      "demoHit6Title": "Schema review notes",
+      "demoHit6Snippet": "Every [[migration]] here is reversible except the enum rename.",
+      "demoHit6Age": "1mo",
+      "readyToast": "Session search is ready",
+      "readyToastOpen": "Open"
     }
   },
   "quickOpen": {
@@ -19715,48 +19794,6 @@
       "working": "working",
       "stopped": "stopped",
       "finished": "finished"
-    }
-  },
-  "renderer": {
-    "components": {
-      "sidebar": {
-        "WorktreeCardHelpers": {
-          "merging": "Merging",
-          "rebasing": "Rebasing",
-          "cherryPicking": "Cherry-picking"
-        }
-      },
-      "editor": {
-        "CombinedDiffViewer": {
-          "openDiff": "Open diff",
-          "openInEditor": "Open in editor"
-        },
-        "editorLabels": {
-          "conflictReview": "Conflict Review",
-          "allChanges": "All Changes",
-          "uncommittedChanges": "Uncommitted Changes",
-          "branchChanges": "Branch Changes ({{baseRef}})",
-          "stagedDiff": "staged diff",
-          "diff": "diff",
-          "branchDiff": "branch diff",
-          "commitDiff": "commit diff"
-        }
-      }
-    },
-    "lib": {
-      "filePreview": {
-        "remoteFileUnsupported": "Open in Orca Browser is only available for local files.",
-        "openFailed": "Unable to open this file in Orca Browser."
-      }
-    }
-  },
-  "shared": {
-    "github": {
-      "pullRequestMergeMethods": {
-        "squashAndMerge": "Squash and merge",
-        "createMergeCommit": "Create merge commit",
-        "rebaseAndMerge": "Rebase and merge"
-      }
     }
   },
   "sessionSearch": {
@@ -19844,5 +19881,47 @@
   "common": {
     "unassigned": "Unassigned",
     "retry": "Retry"
+  },
+  "renderer": {
+    "components": {
+      "sidebar": {
+        "WorktreeCardHelpers": {
+          "merging": "Merging",
+          "rebasing": "Rebasing",
+          "cherryPicking": "Cherry-picking"
+        }
+      },
+      "editor": {
+        "CombinedDiffViewer": {
+          "openDiff": "Open diff",
+          "openInEditor": "Open in editor"
+        },
+        "editorLabels": {
+          "conflictReview": "Conflict Review",
+          "allChanges": "All Changes",
+          "uncommittedChanges": "Uncommitted Changes",
+          "branchChanges": "Branch Changes ({{baseRef}})",
+          "stagedDiff": "staged diff",
+          "diff": "diff",
+          "branchDiff": "branch diff",
+          "commitDiff": "commit diff"
+        }
+      }
+    },
+    "lib": {
+      "filePreview": {
+        "remoteFileUnsupported": "Open in Orca Browser is only available for local files.",
+        "openFailed": "Unable to open this file in Orca Browser."
+      }
+    }
+  },
+  "shared": {
+    "github": {
+      "pullRequestMergeMethods": {
+        "squashAndMerge": "Squash and merge",
+        "createMergeCommit": "Create merge commit",
+        "rebaseAndMerge": "Rebase and merge"
+      }
+    }
   }
 }
