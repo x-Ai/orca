@@ -45,6 +45,7 @@ const { registerNimLanguage } = await import('./monaco-languages/register-nim')
 const { registerShellMarkdownAliases } =
   await import('./monaco-languages/register-shell-markdown-aliases')
 const { registerSvelteLanguage } = await import('./monaco-languages/register-svelte')
+const { registerTypstLanguage } = await import('./monaco-languages/register-typst')
 const { registerVueLanguage } = await import('./monaco-languages/register-vue')
 const { installMonacoDelayerCancellationGuard } =
   await import('./monaco-delayer-cancellation-guard')
@@ -94,6 +95,7 @@ runMonacoSetupSteps([
   ['Svelte language registration', () => registerSvelteLanguage(monaco)],
   ['Astro language registration', () => registerAstroLanguage(monaco)],
   ['Nim language registration', () => registerNimLanguage(monaco)],
+  ['Typst language registration', () => registerTypstLanguage(monaco)],
   ['JSONL language registration', () => registerJsonlLanguage(monaco)],
   ['shell Markdown alias registration', () => registerShellMarkdownAliases(monaco)],
   ['delayer cancellation guard', installMonacoDelayerCancellationGuard],
