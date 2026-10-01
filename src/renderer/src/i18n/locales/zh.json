@@ -18349,10 +18349,10 @@
     },
     "cmd-j": {
       "paletteSessionAge": {
-        "days": "{{value0}} 天",
-        "hours": "{{value0}} 小时",
-        "minutes": "{{value0}} 分钟",
-        "underOneMinute": "不到 1 分钟"
+        "days": "{{value0}}天",
+        "hours": "{{value0}}小时",
+        "minutes": "{{value0}}分",
+        "underOneMinute": "<1分钟"
       }
     },
     "github": {
@@ -18691,7 +18691,7 @@
         "interruptedAfter": "{{value0}} 后中断",
         "responding": "代理正在回复",
         "thinking": "思考中",
-        "toggleDetails": "切换本轮详情",
+        "toggleDetails": "切换回合详情",
         "workedFor": "工作了 {{value0}}",
         "working": "处理中…",
         "workingFor": "已工作 {{value0}}"
