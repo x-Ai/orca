@@ -41,8 +41,11 @@ export function mobileWebAppBundleMaxAssets(routeCount, imageCount) {
  * This head reads 7,686,714 bytes of the 9,437,184 here, 81.5%, leaving 1,750,470. A reading and
  * not a pin: nothing asserts it, because the number moves with every build. It is here so the
  * generation that spends the rest can see it was already this close.
+ *
+ * local-i18n: raised from upstream's 9 MiB because this fork's mobile sources call translate(),
+ * which ships the full locale catalogs (~4.3 MiB of lazy chunks) inside this bundle.
  */
-export const MOBILE_WEB_APP_BUNDLE_MAX_TOTAL_BYTES = 9 * 1024 * 1024
+export const MOBILE_WEB_APP_BUNDLE_MAX_TOTAL_BYTES = 13 * 1024 * 1024
 
 /**
  * Scripts emitted at every prefix of the sorted route key list, and the route each prefix added.
@@ -98,6 +101,13 @@ export const MOBILE_WEB_APP_BUNDLE_ROUTE_SCRIPT_SPREAD = sweptScripts
 export const MOBILE_WEB_APP_BUNDLE_SCRIPT_MARGIN = 4
 
 /**
+ * local-i18n: lazy locale catalogs this fork ships inside the bundle (zh/ja/ko/es/fr), one chunk
+ * per catalog. Upstream's sweep cannot see them because they enter through translate() calls the
+ * fork adds, so they are accounted for here instead of inflating the margin.
+ */
+export const LOCAL_I18N_LOCALE_CHUNKS = 5
+
+/**
  * How many scripts the page may be cut into, for a given number of routes.
  *
  * Anchored on the sweep above rather than fitted to the route count, because the count is not a
@@ -127,6 +137,7 @@ export function mobileWebAppBundleMaxChunks(routeCount) {
   return (
     sweptScripts.at(-1) +
     MOBILE_WEB_APP_BUNDLE_SCRIPT_MARGIN +
+    LOCAL_I18N_LOCALE_CHUNKS +
     Math.max(...MOBILE_WEB_APP_BUNDLE_ROUTE_SCRIPT_SPREAD) * beyondTheSweep
   )
 }
