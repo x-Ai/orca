@@ -33,6 +33,7 @@ export type ActiveAgentNotesSendFailureCode =
   | 'submit-send-error'
   | 'runtime-unverifiable'
   | 'runtime-timeout'
+  | 'session-outbox-unsaved'
 
 export type ActiveAgentNotesSendResult = {
   status: ActiveAgentNotesSendStatus
@@ -97,7 +98,7 @@ export function activeAgentNotesSendFailureMessage(
     case 'not-writable':
       message = translate(
         'components.agentNotes.notWritable',
-        'The {{target}} terminal did not accept the notes.',
+        'The {{target}} agent did not accept the notes.',
         { target }
       )
       break

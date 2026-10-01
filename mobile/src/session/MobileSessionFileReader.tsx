@@ -31,6 +31,7 @@ import type {
 } from './mobile-session-route-types'
 import { DiffLineRow } from './MobileSessionDiffLineRow'
 import { translate } from '../../../src/renderer/src/i18n/i18n'
+import { sendableMobileDiffComments } from './mobile-diff-comments'
 
 export function FileReader({
   doc,
@@ -188,8 +189,12 @@ export function FileReader({
     const activeDiffSyntax =
       diffSyntax?.doc === doc && diffSyntax.language === syntaxLanguage ? diffSyntax.lines : null
     const commentCount = diffCommentActions?.comments.length ?? 0
-    const unsentCommentCount =
-      diffCommentActions?.comments.filter((comment) => !comment.sentAt).length ?? 0
+    const unsentCommentCount = diffCommentActions
+      ? sendableMobileDiffComments(
+          diffCommentActions.comments,
+          diffCommentActions.sendingCommentIds
+        ).length
+      : 0
     const commentsBusy = diffCommentActions?.busy === true
     const canCopyNotes = commentCount > 0 && !commentsBusy
     const canSendNotes = unsentCommentCount > 0 && !commentsBusy
