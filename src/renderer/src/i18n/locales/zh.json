@@ -1,4 +1,20 @@
 {
+  "accounts": {
+    "managedData": {
+      "active": "当前使用",
+      "add": "复制添加账户命令",
+      "cancel": "取消",
+      "copied": "已复制",
+      "description": "在 Orca 主机的终端中运行此命令以添加账户。选择适用于该主机上新启动的代理；直接 SSH 连接和 Windows 托管的 WSL 使用各自的凭据。",
+      "refresh": "刷新账户",
+      "remove": "移除",
+      "removeDescription": "请先停止使用此配置的代理。移除将删除其保存的凭据和对话数据。系统登录不受影响。",
+      "removeTitle": "移除托管账户？",
+      "select": "选择",
+      "system": "系统默认",
+      "upgrade": "如果账户未显示，请更新或重启 Orca 主机。"
+    }
+  },
   "agentsSidebarIntro": {
     "migrated": {
       "action": "打开智能体",
@@ -2341,6 +2357,7 @@
             "c2ef0359b9": "复制内容",
             "c6be71329e": "刷新",
             "c8bc7f1f9e": "要求的",
+            "cc4a071d3a": "注释页面元素 ({{value0}})",
             "d2a7092e6e": "注释评论",
             "d51ef37351": "复制",
             "da68d35f7b": "在默认浏览器中打开失败页面",
@@ -5028,9 +5045,6 @@
             "1f772bb5d0": "消息是否送达尚未确认",
             "93ef441197": "消息未发送",
             "a5e7f14068": "重试"
-          },
-          "NativeChatStructuredSessionStatus": {
-            "starting": "{{value0}} 仍在启动中。消息会等它就绪后再发送；关闭此聊天即可放弃。"
           }
         }
       },
@@ -8134,8 +8148,8 @@
             "shellEnvNamesLabel": "从 shell 传递的变量",
             "shellEnvTitle": "使用 shell 环境",
             "shellEnvToggleLabel": "切换使用 shell 环境",
-            "structuredCopy": "选择为 Codex 和 Claude 使用由主机管理的结构化聊天运行时。关闭后沿用现有的终端聊天方式",
-            "structuredScope": "目前仅支持本地会话。WSL 和远程执行主机（包括 SSH）仍使用终端聊天；在 Windows 上，如果 Orca 无法读取进程启动时间，也会回退到终端聊天",
+            "structuredCopy": "将新的 Codex 和 Claude 代理作为结构化聊天打开。关闭时会在终端支持的聊天中打开。已有的聊天保持不变。",
+            "structuredScope": "在本机和运行支持该功能版本的已配对 Orca 服务器上运行；较旧的服务器保留终端聊天。WSL 和 SSH 主机继续使用终端聊天，Windows 会回退到它，除非 Orca 可以读取进程启动时间。",
             "structuredTitle": "使用新版结构化原生聊天",
             "structuredToggleLabel": "切换新版结构化原生聊天",
             "title": "聊天界面",
@@ -8175,7 +8189,7 @@
           "51161d1647": "编辑文件时显示小地图概述",
           "5195f0b9ef": "在编辑富 Markdown 时显示浏览器拼写下划线和建议",
           "5a1ea6eaa2": "隐藏",
-          "5f02e6fb21": "在富文本编辑器模式下显示本地 Markdown 评审笔记控件",
+          "5f02e6fb21": "在 Markdown 文件中显示本地 Markdown 评审笔记控件。",
           "6690b1ffb9": "小地图",
           "70bb30feb1": "短暂暂停后自动保存编辑器和可编辑差异更改",
           "7311f67ee7": "默认差异视图",
@@ -8194,7 +8208,7 @@
           "d21136d9ef": "配置 Orca 如何保留文件编辑",
           "d6cf227ca0": "自动保存延迟",
           "f1b3ceeb98": "在差异中显示空白字符",
-          "f80603d293": "在丰富的编辑器模式和代理切换操作中显示本地 Markdown 注释控件",
+          "f80603d293": "在所有 Markdown 视图中显示 Markdown 注释控件，并在智能体切换操作中包含这些注释。",
           "fc5c5306ff": "ms"
         },
         "GeneralPane": {
@@ -9500,6 +9514,8 @@
           "projectRuntime": "项目运行时",
           "projectRuntimeDescription": "选择此项目运行在 Windows 还是 WSL",
           "removeProjectAllHosts": "从所有已配置主机的 Orca 中删除该项目",
+          "removeProjectCheckout": "从 Orca 中删除此检出。此项目的其他检出将保留。",
+          "removeProjectKeepCheckouts": "从 Orca 中删除该项目。拥有独立设置的检出将保留。",
           "removeSetup": "移除",
           "settingUpHost": "导入中...",
           "setupExistingFolder": "导入现有文件夹",
@@ -10346,7 +10362,7 @@
           "bd68f3170d": "为 Windows 上的新终端窗口选择默认 Shell",
           "c1fc9e9444": "GPU加速",
           "c3810b2b42": "保留的桌面终端行数",
-          "c73d510938": "正确的",
+          "c73d510938": "右边",
           "cc8c5ca224": "Windows 默认值",
           "ce3aadf0b2": "{{value0}} Option键发送Alt/Esc；另一个组成特殊字符",
           "d21c493808": "自动 — 已检测：{{value0}}",
@@ -10632,6 +10648,46 @@
         "YamlThemeImportButton": {
           "label": "从 YAML 导入"
         },
+        "ZcodePlanAccountsSection": {
+          "consoleLink": "获取 API key",
+          "forgetKey": "清除 key",
+          "hostOnly": "请在运行 Orca 的电脑上的桌面应用中更改套餐站点和 API 密钥。",
+          "keyDescription": "粘贴所选控制台 API Keys 页面中的 API key。保存在本地，系统支持时加密存储，并只发送到该站点用于用量刷新。",
+          "keyHelp": "与编码工具使用同一把套餐 key（例如 Claude Code 将 ANTHROPIC_BASE_URL 指向对应站点）。切换上方站点会变更接收该 key 的主机。",
+          "keyPlaceholder": "粘贴你的 GLM Coding Plan API key",
+          "keyRequired": "请填写 GLM Coding Plan API key。",
+          "keySaveFailed": "GLM Coding Plan 凭据更新失败。",
+          "keySaved": "GLM Coding Plan API key 已保存。",
+          "keyStored": "API key 已保存 · {{value0}}",
+          "keyStoredHelp": "仅保存在本地，并只发送到所选站点用于用量刷新。优先级高于 ZCode CLI 登录。",
+          "keyTitle": "API key",
+          "notConfigured": "尚未关联 GLM Coding Plan",
+          "notConfiguredHelp": "在下方保存套餐 API key，或在这台电脑上通过 ZCode CLI 登录。",
+          "notSaved": "未保存",
+          "planLevel": "套餐：{{value0}}",
+          "refreshUsage": "刷新用量",
+          "replace": "替换",
+          "resetIn": " — {{value0}}后重置",
+          "save": "保存",
+          "saved": "已保存",
+          "site": {
+            "bigmodel": "智谱 · BigModel（open.bigmodel.cn）",
+            "zai": "Z.AI（z.ai）"
+          },
+          "siteDescription": "选择你的 Coding Plan 所属控制台：国际站选 Z.AI，国内站选智谱 BigModel。",
+          "siteTitle": "套餐站点",
+          "subtitle": "在状态栏追踪 Z.AI 或智谱（BigModel）GLM Coding Plan 用量。在此保存套餐 API key，无需安装 ZCode CLI。",
+          "title": "GLM Coding Plan",
+          "usageDescription": "已关联 Coding Plan 的实时配额窗口，随状态栏用量周期刷新。",
+          "usageTitle": "套餐用量",
+          "usingCli": "正在使用 ZCode CLI 登录",
+          "usingCliHelp": "Orca 从 ~/.zcode/cli/config.json 读取 Coding Plan key。在下方保存 API key 即可改为在此关联套餐。",
+          "window": {
+            "mcp": "MCP 月度",
+            "session": "5 小时",
+            "weekly": "每周"
+          }
+        },
         "accounts": {
           "search": {
             "02c438bc7b": "已到期",
@@ -10703,7 +10759,19 @@
             "e949b08ffb": "速率限制",
             "f2d666a886": "可选",
             "f4a8c2e1b7": "Grok (xAI) 使用情况",
-            "f8374c3151": "配置 MiniMax 用量跟踪。选择海外或中国端点，然后粘贴会话 Cookie 或保存适用于该端点的 API 密钥"
+            "f8374c3151": "配置 MiniMax 用量跟踪。选择海外或中国端点，然后粘贴会话 Cookie 或保存适用于该端点的 API 密钥",
+            "zcodePlan": {
+              "description": "追踪 Z.AI 或智谱（BigModel）GLM Coding Plan 的用量。选择站点并保存套餐 API key。",
+              "kw": {
+                "bigmodel": "bigmodel",
+                "codingPlan": "coding plan",
+                "glm": "glm",
+                "rateLimit": "rate limit",
+                "zai": "zai",
+                "zhipu": "zhipu"
+              },
+              "title": "GLM Coding Plan 用量"
+            }
           }
         },
         "advanced": {
@@ -13278,7 +13346,12 @@
           "cf95e3b5bb": "关闭"
         },
         "DeleteWorktreeDirtyChangeHint": {
-          "8e2994ce28": "删除此工作区将从磁盘中永久删除这些更改"
+          "8e2994ce28": "删除此工作区将从磁盘中永久删除这些更改",
+          "loadedChangedPaths": "已加载的更改路径",
+          "loadedPathsNotice": "已加载的路径可能不完整或已过时。",
+          "moreLoadedPaths": "以及另外 {{value0}} 个已加载的路径",
+          "showLoadedPaths": "显示已加载的路径",
+          "unresolvedConflict": "未解决的冲突"
         },
         "DeleteWorktreeLineageNotice": {
           "29b98bf9cd": "删除此工作区也会删除 {{value0}} 子工作区",
@@ -13764,6 +13837,7 @@
           "dc0bb670bc": "分组依据",
           "e029a2d775": "状态",
           "folderPathIdentity": "分支 / 文件夹路径",
+          "host": "主机",
           "hosts": "主机",
           "jiraIssue": "Jira 议题",
           "jiraIssues": "Jira 议题",
@@ -13867,6 +13941,7 @@
           "branchFolderPathIdentity": "分支或文件夹路径",
           "branchIdentity": "分支",
           "ca74db7550": "SSH 主机上的项目",
+          "deleteFailed": "删除失败",
           "ef18787206": "已排队删除",
           "markRead": "标为已读",
           "markUnread": "标为未读",
@@ -15743,7 +15818,7 @@
           "UsageRosterPanel": {
             "allAgents": "所有代理",
             "compact": "精简",
-            "compactTooltip": "精简使用情况：仅显示最吃紧的窗口",
+            "compactTooltip": "精简使用情况：每个提供方显示一项汇总",
             "detailed": "详细",
             "detailedTooltip": "完整使用情况，包含条形图、标签和百分比",
             "footerDetailAria": "使用情况页脚详情",
@@ -17046,6 +17121,9 @@
         "d720e2f855": "部分已删除的文件无法上传",
         "nativeDropPathsTooLarge": "拖放的路径列表过大",
         "nativeDropPathsTooLargeDescription": "请减少文件数量或使用更短的路径列表",
+        "nativeDropTempCopyFailed": "Orca 无法复制 {{count}} 个拖放的文件。",
+        "nativeDropTempCopyFailed_one": "Orca 无法复制 {{count}} 个拖放的文件。",
+        "nativeDropTempCopyFailed_other": "Orca 无法复制 {{count}} 个拖放的文件。",
         "nativeDropTooManyPaths": "拖放包含过多文件",
         "nativeDropTooManyPathsDescription": "每次最多拖放 {{value0}} 个文件",
         "nativeDropUnresolvedPaths": "Orca 无法读取所拖放文件的路径",
@@ -17238,6 +17316,7 @@
           "e0247254f2": "Kiro",
           "e7a4ca5103": "OpenCode",
           "fc80296033": "Devin",
+          "jcode_label": "Jcode",
           "mimo_code_label": "MiMo Code",
           "muse_label": "Muse",
           "opencode2_label": "OpenCode 2",
@@ -17368,6 +17447,17 @@
         "permissionDenied": "没有访问权限。",
         "symlink": "无法附加符号链接。",
         "unsupported": "不支持的文件类型。"
+      },
+      "dropTempCopyFailure": {
+        "busy": "仍有太多拖放正在复制。请稍候再试。",
+        "changed": "Orca 复制时文件发生了变化。请重新拖放。",
+        "generic": "请重新拖放。",
+        "outOfSpace": "磁盘空间不足，无法复制拖放的文件。",
+        "storageFull": "Orca 用于拖放文件的存储空间已满，因此 Orca 无法将其交给代理。",
+        "storageNotPrivate": "Orca 用于拖放文件的存储位置可被其他用户读取，因此未复制任何内容。",
+        "storageUnavailable": "Orca 无法为拖放的文件创建存储位置。",
+        "timedOut": "复制耗时过长。请重新拖放。",
+        "tooLarge": "文件太大，无法复制，因此 Orca 无法将其交给代理。"
       },
       "emulator": {
         "androidSdkNotFound": "未找到 Android SDK，请安装 Android Studio 并设置 ANDROID_HOME",
@@ -18418,13 +18508,13 @@
         "monitoring": "正在监控后台任务",
         "outputFile": "输出：{{value0}}",
         "reasonBlocked": "失败",
-        "reasonUnverifiable": "无法联系",
         "reasonWaiting": "需要批准",
         "stateBlocked": "受阻",
         "stateDone": "完成",
         "stateIdle": "已停止",
         "stateMonitoring": "监控中",
-        "stateUnverifiable": "无法验证",
+        "stateUnverifiable": "暂无近期更新",
+        "stateUnverifiableCount": "{{value0}} 暂无近期更新",
         "stateWaiting": "等待中",
         "stateWorking": "工作中",
         "stop": "停止",
@@ -18488,19 +18578,23 @@
         "skillScopePlugin": "插件",
         "skillScopeProject": "项目",
         "skills": "技能",
-        "skillsLoadFailed": "无法从此主机加载技能",
+        "skillsLoadFailed": "无法加载技能",
         "skillsLoaded": "技能已加载",
-        "skillsUnavailableHost": "此主机不可用技能",
+        "skillsUnavailableHost": "SSH 聊天中无法使用技能",
         "startDictation": "开始听写",
         "stopDictation": "停止听写",
         "thinking": "思考",
         "toggleOption": "切换{{value0}}",
         "uploadingAttachments": "正在上传 {{value0}} 个文件到远程…",
-        "valueIsDefault": "默认",
-        "valueNotReported": "未报告",
         "viewAttachment": "查看图片",
         "workspaceAttachmentMismatch": "文件只能附加到其来源工作区",
         "worktreeNotReady": "工作树未就绪 — 请稍后重试"
+      },
+      "contextMenu": {
+        "copyOrcaSessionId": "复制 Orca 会话 ID",
+        "orcaSessionIdCopied": "已复制 Orca 会话 ID",
+        "orcaSessionIdCopyFailed": "无法复制 Orca 会话 ID",
+        "orcaSessionIdTooltip": "Orca 为此聊天分配的 ID，独立于智能体 CLI 自身的会话 ID。智能体通过 Orca 用它来相互指代。"
       },
       "contextUsage": {
         "estimated": "根据上一次响应的估算值。",
@@ -18561,6 +18655,7 @@
         "notDelivered": "此消息未送达。",
         "notDeliveredSendAgain": "此消息未送达。请重新发送以继续。",
         "notSignedIn": "{{agent}} 未使用所选账户登录。",
+        "previousExitUnverifiable": "之前的 {{agent}} 可能仍在运行。它停止后，您的消息就会发送。",
         "providerExitedRejection": "{{agent}} 在发送此消息前已停止。",
         "providerExitedRow": "{{agent}} 在生成此回复时停止了。您可以在此对话中继续。",
         "providerRateLimited": "{{agent}} 已被限流，正在重试。",
@@ -18610,6 +18705,8 @@
       "notices": {
         "compaction": "上下文已压缩",
         "details": "详情",
+        "historyItemTooLarge": "聊天的这一部分过大，无法显示。",
+        "historyRepaired": "此聊天的部分历史记录无法加载。",
         "plan": "计划"
       },
       "orchestrationPaused": {
@@ -18670,12 +18767,11 @@
           "title": "开始与 {{value0}} 聊天"
         },
         "error": {
-          "keepsTrying": "Orca 会继续尝试加载。",
-          "retryingSubtitle": "无法读取记录。Orca 会继续尝试加载。",
           "subtitle": "无法读取记录，请切回终端继续工作",
           "title": "无法加载对话"
         },
         "loading": {
+          "label": "正在加载聊天",
           "subtitle": "正在读取代理记录",
           "title": "正在加载对话…"
         },
@@ -18697,8 +18793,10 @@
         "workingFor": "已工作 {{value0}}"
       },
       "stop": "停止代理",
-      "structuredSessionLaunchFailed": "无法打开 {{value0}} 聊天",
-      "structuredSessionLaunchFailedDescription": "Orca 无法打开结构化 {{value0}} 聊天。详情请参阅日志",
+      "structuredSessionHostDeclined": "已在终端中打开 {{value0}}",
+      "structuredSessionHostDeclinedDescription": "此服务器无法在此工作区中运行 {{value0}} 聊天。",
+      "structuredSessionHostUnreachable": "无法连接到 {{value0}}",
+      "structuredSessionHostUnreachableDescription": "Orca 未打开 {{value0}} 聊天。请检查与服务器的连接，然后重试。",
       "subagents": {
         "ranN": "已运行 {{value0}} 个子代理",
         "ranOne": "已运行 1 个子代理",
@@ -18712,8 +18810,8 @@
           "idleCount": "{{value0}} 个空闲",
           "stopped": "已停止",
           "stoppedCount": "{{value0}} 个已停止",
-          "unverifiable": "无法验证",
-          "unverifiableCount": "{{value0}} 个无法验证",
+          "unverifiable": "暂无近期更新",
+          "unverifiableCount": "{{value0}} 暂无近期更新",
           "working": "工作中",
           "workingCount": "{{value0}} 个工作中"
         },
@@ -18822,7 +18920,7 @@
         "answerFirst": "请先回答问题或审批。",
         "backgroundTasksRunning": "后台任务仍在运行。",
         "capacity": "Orca 在过去一天内收到的请求过多。",
-        "chatNotFound": "运行此聊天的 Orca 没有此聊天的记录。",
+        "chatNotFound": "Orca 找不到此聊天。",
         "clearUnfinished": "上一次 /clear 未完成。",
         "commandRunning": "/compact 或 /clear 仍在运行。",
         "conversationCleared": "此对话已被清除。",
@@ -18831,7 +18929,9 @@
         "historyUnreadable": "Orca 无法读取此聊天的已保存历史记录。",
         "historyUnusable": "无法加载此聊天。",
         "hostReconciling": "Orca 重启后仍在检查此聊天。",
+        "messageNotSaved": "无法保存您的消息。",
         "messagesUnsettled": "您之前发送的一条消息尚未确认。",
+        "notAvailable": "此聊天中无法使用此功能。",
         "notDoneAnswer": "您的回答未发送。",
         "notDoneCommand": "命令未运行。",
         "notDoneGoal": "目标未更改。",
@@ -18844,15 +18944,16 @@
         "openCurrentConversation": "请打开当前对话以继续。",
         "optionRejected": "智能体未接受此设置。",
         "outcomeUnknown": "Orca 无法确认发生了什么。请查看聊天。",
-        "ownerUnproven": "Orca 尚未确认此聊天之前的智能体已停止。",
+        "ownerUnproven": "此聊天之前的智能体可能仍在运行。",
         "promptPending": "智能体正在等待您回答问题或审批。",
         "questionChanged": "此问题已被回答或已更改。",
         "quitTerminalAgent": "请退出该智能体，以便在此处继续聊天。",
-        "recordFailed": "Orca 无法将其记录到此聊天的历史记录中。",
+        "recordFailed": "Orca 无法将此内容保存到聊天历史记录中。",
         "recordUnreadable": "Orca 无法读取此聊天的已保存状态。",
         "reopenChat": "请重新打开聊天以再次检查。",
         "restartFailed": "智能体无法重新启动。",
         "savedByNewerOrca": "这些聊天由更新版本的 Orca 保存。",
+        "sendOutcomeLost": "Orca 无法确认你的消息已送达代理。请查看聊天，如有需要请重新发送。",
         "settleEarlierMessage": "请等待之前的消息送达，或重试该消息。",
         "startNewChat": "请开始新的聊天以继续。",
         "terminalAgentHoldsChat": "此聊天仍在终端智能体中打开。",
@@ -18860,7 +18961,7 @@
         "tryAgainComposerSend": "请重新发送。",
         "turnActive": "智能体仍在回复。",
         "unreachable": "Orca 无法连接到智能体。",
-        "unsupported": "运行此聊天的 Orca 不支持此操作。请更新 Orca 后重试。",
+        "unsupported": "运行此聊天的计算机需要更新版本的 Orca。请在该计算机上更新 Orca 后重试。",
         "updateOrcaToKeepUsing": "请更新 Orca 以继续使用这些聊天。",
         "waitForBackgroundTasks": "请等待后台任务完成。",
         "waitForCommand": "请等待 /compact 或 /clear 完成。",
@@ -19417,6 +19518,17 @@
     "fileLoad": {
       "hostUnresolved": "主机找不到此文件所属的工作区。该工作区可能已被移除，或者主机尚未识别它。请重试，或从标签栏关闭此标签页。"
     },
+    "markdownPreview": {
+      "blockTooLarge": "此区块过大，无法渲染。请打开源代码视图阅读。",
+      "largeNotice": "大型预览。请使用源代码视图复制完整文档。PDF 导出不可用。",
+      "preparing": "正在准备预览…",
+      "processingFailed": "此文档超出了预览限制。请打开源代码视图阅读完整文件。",
+      "refreshFailed": "预览更新失败，正在显示上一版本。请打开源码视图查看当前内容。",
+      "searchFailed": "搜索未能完成，请重试。",
+      "searching": "正在搜索…",
+      "tooLarge": "文件超过 {{limit}} 预览限制。请打开文件查看源代码。",
+      "tooLargeInDiff": "文件超过 {{limit}} 预览限制。请切换到源代码模式查看差异。"
+    },
     "richMarkdown": {
       "openAnyway": "仍然打开",
       "tooLarge": "文件大小超过富文本编辑的 {{limit}} 上限，已改用源码模式显示"
@@ -19601,11 +19713,16 @@
     "crashLoopMessage": "应用窗口反复崩溃，已停止自动重新加载。",
     "driverFallback": "如果仍无效，通常是显卡驱动导致的",
     "genericDetail": "这通常是显卡驱动或安装问题。请重新加载再试，或退出并重新启动 Orca",
+    "launchFailedDetail": "Orca 重试了 {{recoveryCount}} 次，但未成功。",
+    "launchFailedGenericDetail": "系统拒绝启动它。请释放内存或关闭其他应用，然后点击“重试”。如果问题持续出现，请重新安装 Orca。",
+    "launchFailedMessage": "Orca 无法启动绘制其窗口的进程。",
+    "processLimitDetail": "由于你的用户帐户已达到进程数上限，系统拒绝创建新进程。这通常由失控的终端、开发服务器或代理导致。请关闭其中一些，然后点击“重试”。",
     "quit": "退出",
     "reload": "重新加载",
     "stalledDetail": "Orca 在崩溃后重新加载了窗口，但始终未能完成加载",
     "stalledMessage": "应用窗口在崩溃后的重新加载过程中停止响应",
-    "title": "Orca 持续加载失败"
+    "title": "Orca 持续加载失败",
+    "tryAgain": "重试"
   },
   "runtimeRpc": {
     "startupFailure": {
@@ -19965,6 +20082,12 @@
         "permissionDenied": "权限被拒绝",
         "permissionDeniedPublickey": "权限被拒绝 (publickey)"
       }
+    },
+    "terminal": {
+      "optionLayoutAlt": "ABC 或 U.S. — Option 键发送 Alt/Esc 序列",
+      "optionLayoutCompose": "此布局使用 Option 键输入 @、€、[、] 等字符",
+      "optionLayoutUnknown": "未知布局 — Option 键输入字符（安全的默认设置）",
+      "optionShortcutHint": "选择“两个都”使用 Option 快捷键，选择“关”输入重音字符和符号，或选择“左边”/“右边”让两个 Option 键各司其职。"
     }
   },
   "shared": {

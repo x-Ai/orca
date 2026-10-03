@@ -72,6 +72,27 @@ function getSubmenu(
 }
 
 describe('registerAppMenu', () => {
+  it.each(['linux', 'win32', 'darwin'] as const)(
+    'leaves Ctrl+M to the terminal while preserving macOS minimize on %s',
+    (platform) => {
+      vi.spyOn(process, 'platform', 'get').mockReturnValue(platform)
+      registerAppMenu(buildMenuOptions())
+
+      const windowSubmenu = getSubmenu(getTemplate(), 'Window')
+      const minimize = windowSubmenu.find((item) => item.role === 'minimize')
+      // Roles carry a translated label in this fork (labeledAppMenuRole); English here.
+      expect(minimize).toEqual(
+        platform === 'darwin'
+          ? { role: 'minimize', label: 'Minimize' }
+          : { role: 'minimize', label: 'Minimize', accelerator: '', registerAccelerator: false }
+      )
+      expect(windowSubmenu.find((item) => item.role === 'zoom')).toEqual({
+        role: 'zoom',
+        label: 'Zoom'
+      })
+    }
+  )
+
   it('shows the Settings hint when the user assigns a shortcut', () => {
     registerAppMenu({
       ...buildMenuOptions(),
