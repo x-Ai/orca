@@ -112,7 +112,7 @@ describe('PluginSettingsRow', () => {
     })
 
     expect(container.textContent).toContain('Orca 导航快捷键')
-    expect(container.textContent).toContain('为常用 Orca 视图提供命令别名和可选快捷键。')
+    expect(container.textContent).toContain('为常用 Orca 视图提供命令别名和可选快捷键')
     act(() => root.unmount())
   })
 })

@@ -54,7 +54,8 @@ describe('desktop words for a write that did not happen', () => {
     ]
     for (const [language, catalog, gap] of [
       ['ja', ja, ''],
-      ['zh', zh, ''],
+      // local-i18n: zh sentences end without 。 and run on with a comma instead.
+      ['zh', zh, '，'],
       ['en', en, ' '],
       ['fr', fr, ' '],
       ['ko', ko, ' ']

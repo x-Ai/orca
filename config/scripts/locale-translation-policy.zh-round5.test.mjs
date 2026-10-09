@@ -202,7 +202,7 @@ describe('locale-translation-policy zh round 5', () => {
         localeValue: '留空以使用系统Agent设置和继承的Agent环境变量。',
         locale: 'zh'
       })
-    ).toBe('留空以使用系统代理设置和继承的代理环境变量。')
+    ).toBe('留空以使用系统代理设置和继承的代理环境变量')
     expect(
       repairTranslatedValue({
         key: 'auto.components.settings.general.search.91a46caafc',

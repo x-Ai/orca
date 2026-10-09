@@ -52,7 +52,7 @@ describe('integration card status labels', () => {
     ['b8a10b07c1', ''],
     ['7bd345e3f6', '仅在 Orca 无法从 Git 远程地址推导出 API 基础 URL 时才需要设置'],
     ['05863d2599', '通过 Gitea REST API 获取拉取请求和提交状态'],
-    ['fcbe0469fd', '公开仓库会根据 Git 远程地址自动检测。请设置'],
+    ['fcbe0469fd', '公开仓库会根据 Git 远程地址自动检测，请设置'],
     ['6da9dfa5de', '用于私有仓库'],
     ['60708f23da', '仅在 Orca 无法从 Git 远程地址推导出 API URL 时才需要设置'],
     ['statusNotConfigured', '未配置'],
