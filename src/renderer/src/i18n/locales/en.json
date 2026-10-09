@@ -1,4 +1,37 @@
 {
+  "csv": {
+    "detectingDelimiter": "Detecting delimiter…",
+    "indexProgress": "Indexing CSV… {{percent}}%",
+    "loadingCell": "Loading…",
+    "nextRows": "Next rows",
+    "previousRows": "Previous rows",
+    "readOnlyPreview": "Large file preview · Read-only",
+    "resizeColumn": "Resize column {{column}}",
+    "rowWindow": "Rows {{first}}–{{last}}",
+    "editor": "CSV editor",
+    "editCell": "Edit row {{row}}, column {{column}}",
+    "filterRows": "Filter rows",
+    "edit": "Edit cell",
+    "copy": "Copy",
+    "paste": "Paste",
+    "rows": "Rows",
+    "insertRowAbove": "Insert row above",
+    "insertRowBelow": "Insert row below",
+    "deleteRows": "Delete selected rows",
+    "columns": "Columns",
+    "newColumn": "Column {{column}}",
+    "insertColumnBefore": "Insert column before",
+    "insertColumnAfter": "Insert column after",
+    "moveColumnLeft": "Move column left",
+    "moveColumnRight": "Move column right",
+    "deleteColumns": "Delete selected columns",
+    "sort": "Sort",
+    "sortAscending": "Sort selected column ascending",
+    "sortDescending": "Sort selected column descending",
+    "originalOrder": "Original row order",
+    "save": "Save",
+    "inspectionOnly": "Inspection only · File row order unchanged"
+  },
   "accounts": {
     "antigravity": {
       "changed": "The native account changed. Select a saved account again before launching agy.",
@@ -44,6 +77,137 @@
       "upgrade": "If accounts do not appear, update or restart the Orca host."
     }
   },
+  "fileSearch": {
+    "failed": "Search failed. Try again."
+  },
+  "workspaceDeletion": {
+    "preferenceSaveFailed": "Could not save deletion preference",
+    "alwaysForceDelete": "Always force delete",
+    "moreActions": "More force delete options",
+    "alwaysForceDeleteTooltip": "Applies to all future workspace deletions."
+  },
+  "worktree": {
+    "nestedRemoval": {
+      "refreshFailed": "Could not refresh the workspace list",
+      "review": "Delete with nested worktrees…",
+      "title": "Delete workspace and nested worktrees?",
+      "description": "This permanently deletes \"{{name}}\", every nested worktree listed below, and all files inside them, including uncommitted changes. Their terminals and agents will be stopped.",
+      "detached": "Detached HEAD",
+      "loading": "Checking nested worktrees…",
+      "order": "Nested worktrees are deleted first. If one fails, deletion stops and the parent is kept. Branches follow your existing deletion settings.",
+      "cancel": "Cancel",
+      "retry": "Review again",
+      "deleting": "Deleting…",
+      "confirm": "Delete all listed worktrees",
+      "preservedBranches": "Some nested worktree branches were kept"
+    }
+  },
+  "projectBoard": {
+    "noColumnField": "This board view has no single-select or iteration field to group by, so Orca is listing items instead.",
+    "noField": "No {{field}}"
+  },
+  "projectBoardCard": {
+    "restrictedItem": "Restricted item",
+    "itemLabel": "{{number}} — {{title}}"
+  },
+  "projectViews": {
+    "layout": {
+      "board": "Board"
+    },
+    "unsupported": {
+      "switchLayout": "Switch to a Table, Board, or Roadmap view to work with this project in Orca.",
+      "description": "Orca renders table, board, and roadmap project views. This view uses a layout it cannot render yet."
+    }
+  },
+  "projectField": {
+    "updateFailed": "Failed to update project field"
+  },
+  "settings.appearance.chat.title": "Chat",
+  "mediaPreview": {
+    "unavailable": "Unable to play this media file. The file may be unavailable or use an unsupported codec.",
+    "openFailed": "Could not open this file in the default app.",
+    "openDefault": "Open in Default App"
+  },
+  "workspace": {
+    "links": {
+      "foreignReview": "This review belongs to another repository. Add reviews from this workspace’s repository.",
+      "repositoryLoading": "Repository identity is still loading. Try again once it is available.",
+      "duplicate": "This link is already attached.",
+      "title": "Linked work",
+      "count": "{{count}} linked",
+      "empty": "Keep every review and task for this workspace together.",
+      "reviews": "Reviews",
+      "tasks": "Issues & tasks",
+      "openItem": "Open {{label}}",
+      "open": "Open link",
+      "unlinkItem": "Unlink {{label}}",
+      "unlink": "Unlink from workspace",
+      "show": "Show {{count}} linked reviews and tasks",
+      "manage": "Manage links…",
+      "details": "Workspace details",
+      "description": "Attach reviews and tasks, and keep notes for this workspace.",
+      "commentHelp": "Markdown supported. Enter or {{shortcut}} to save · Shift+Enter for a new line.",
+      "kind": {
+        "github_pr": "GitHub PR",
+        "github_issue": "GitHub issue",
+        "linear_task": "Linear task",
+        "gitlab_mr": "GitLab MR",
+        "gitlab_issue": "GitLab issue",
+        "jira_task_url": "Jira task (URL)",
+        "bitbucket_pr": "Bitbucket PR",
+        "azure_devops_pr": "Azure DevOps PR",
+        "gitea_pr": "Gitea PR"
+      },
+      "mrReference": "MR !{{number}}",
+      "prReference": "PR #{{number}}",
+      "issueReference": "Issue #{{number}}",
+      "foreignIssue": "This issue belongs to another repository. Add issues from this workspace’s repository.",
+      "linkedResult": "Linked",
+      "addReference": "Add reference",
+      "searchLabel": "Search references",
+      "searchReferences": "Search reviews and tasks, or paste a link",
+      "noReferences": "No matching references. Try a title, number, or URL.",
+      "addItem": "Add {{label}}",
+      "referenceType": "Reference type",
+      "clearSearch": "Clear search",
+      "inlineSearchHint": "Select a result to attach it.",
+      "nameHelp": "Shown in the sidebar. The folder name stays the same.",
+      "notes": "Notes",
+      "addNotes": "Add notes",
+      "notesOptional": "Optional · Markdown",
+      "saveHint": "Changes apply when you save",
+      "terminal": "Terminal",
+      "seenIn": "Seen in {{label}}",
+      "unavailableTab": "Tab unavailable",
+      "sessions": "Sessions & terminals",
+      "jiraModeRequired": "Select Smart or Jira to load this issue.",
+      "linearModeRequired": "Select Smart or Linear to load this issue.",
+      "loadingLinear": "Loading Linear issue…",
+      "linearConnectRequired": "Connect Linear in Settings to link this issue.",
+      "linearReadFailed": "Couldn’t load this Linear issue. Check the URL and connected workspace.",
+      "retrySource": "Retry",
+      "lastKnownStatus": "Last known status",
+      "reviewTarget": "Target: {{branch}}",
+      "reviewUrlRequired": "Paste the review URL to verify its repository and provider.",
+      "stackSummary": "{{count}} linked: {{references}}",
+      "sessionsForItem": "Sessions & terminals for {{label}} · {{count}}",
+      "checksFailed": "Failed",
+      "checksPending": "Pending",
+      "checksPassing": "Passing",
+      "checksUnknown": "Unknown",
+      "checksNeutral": "Neutral",
+      "allReviewChecks": "Reviews: {{count}} · Checks: {{status}}"
+    },
+    "attachments": {
+      "updateRuntime": "Update the remote runtime to change workspace links",
+      "updateRuntimeSafely": "Update the remote runtime to safely change workspace links"
+    }
+  },
+  "tabHoverCard": {
+    "browser": "Browser",
+    "editor": "Editor",
+    "terminal": "Terminal"
+  },
   "agentsSidebarIntro": {
     "migrated": {
       "action": "Open Agents",
@@ -77,6 +241,10 @@
       "rootTitle": "Orca hit a renderer error.",
       "webDescription": "Retry the web client or reconnect to the paired runtime.",
       "webTitle": "Orca web hit a renderer error."
+    },
+    "saving": {
+      "delayedTitle": "Profile storage is taking longer than usual",
+      "delayedDescription": "Further saves may be delayed while this operation finishes."
     }
   },
   "auto": {
@@ -145,19 +313,16 @@
         "streamCapabilityUnsupported": "The selected runtime does not support remote browser streaming.",
         "streamConnectionLost": "Lost connection to the remote server.",
         "streamConnectionUnreachable": "Cannot reach the remote server.",
+        "streamBrowserUnavailable": "The remote browser is unavailable. Check its setup on the server.",
         "streamRestartFailed": "Failed to restart remote browser stream."
       },
       "CodexRestartChip": {
-        "3ea91b5c07": "This Codex session is using an outdated configuration",
         "6133594b12": "Keep old account",
-        "7b1d20f4c8": "Keep current session",
-        "8f0d5c92a1": "Codex setup changed",
         "9263e75f49": "Codex is using the previous account",
         "9375620cc3": "Restart this session to use {{value0}}. It stays on the previous account until you do.",
         "a4c8e1b2f7": "Codex is still signed in as {{value0}}",
         "c72a5fb234": "Restart",
-        "d3e8a1f4b2": "Account switched",
-        "e6b7139d2a": "Restart this session to load your current Codex configuration."
+        "d3e8a1f4b2": "Account switched"
       },
       "ComposerParentWorktreePicker": {
         "description": "Nests this workspace under another in the sidebar. Does not change the base branch.",
@@ -247,7 +412,6 @@
         "5932578f51": "Merge requires a registered local repo",
         "5a94f3d0e9": "No comments yet.",
         "5c1c973855": "Remove reviewer",
-        "5dddefdf58": "Open in GitHub",
         "5fea151559": "Failed to copy GitHub link",
         "675bc0d638": "Cancel",
         "68796dafa0": "pr",
@@ -636,11 +800,11 @@
         "e3de29c86a": "Show Package"
       },
       "NativeChatResumeFailureGuidance": {
-        "conflict": "Another Orca window or terminal still owns this session. Close it, then retry.",
+        "conflict": "This chat is open in another Orca window or terminal. Close it there, then retry.",
         "dispatchRejected": "The agent refused the “continue” message. Open the chat and send one yourself.",
         "fallback": "Orca couldn’t resume this chat. Open it to continue manually.",
         "notAttached": "The chat didn’t reconnect. Retry, or open it to start a fresh turn.",
-        "ownershipUnknown": "Orca is still working out which process owns this session. Wait a moment, then retry.",
+        "ownershipUnknown": "This chat isn’t ready to resume yet. Wait a moment, then retry.",
         "superseded": "Open the chat and reply. New work arrived in it right after the restart, so Orca didn’t send its “continue” message.",
         "unconfirmed": "Orca couldn’t confirm the “continue” message was delivered. Open the chat and check before sending another.",
         "unsupported": "This chat can’t be resumed by Orca. Open it to see where it stopped."
@@ -649,20 +813,27 @@
         "activityApproval": "Waiting for your approval: {{value0}}",
         "activityMidReply": "Was mid-reply",
         "activityMonitorMany": "Monitoring {{value0}} background tasks",
+        "selectWorkspace": "Select all chats in {{value0}}",
+        "workspaceSelectedCount": "{{value0}} of {{value1}}",
+        "selectAll": "Select all chats",
+        "selectAllLabel": "Select all",
+        "selectedCount": "{{value0}} of {{value1}} selected",
+        "selectProject": "Select all chats in {{value0}}",
+        "collapseNode": "Collapse {{value0}}",
+        "expandNode": "Expand {{value0}}",
+        "selectMachine": "Select all chats on {{value0}}",
+        "sshHost": "SSH",
+        "done": "Done",
         "activityMonitorOne": "Monitoring: {{value0}}",
         "activityQuestion": "Waiting for your answer: {{value0}}",
         "activitySubagentMany": "{{value0}} subagents running",
         "activitySubagentOne": "Subagent running: {{value0}}",
         "activityUnnamed": "unnamed",
         "body": "These chats were working when Orca closed. Resuming restores each one where it stopped, with its full context, and asks the agent to check what it was doing before carrying on. Your own prompt is not re-sent.",
-        "continueUnconfirmed": "Continuation delivery is unconfirmed for {{value0}} chats. Open them to check before sending another message.",
-        "continueUnconfirmed_one": "Continuation delivery is unconfirmed for {{value0}} chat. Open it to check before sending another message.",
-        "continueUnconfirmed_other": "Continuation delivery is unconfirmed for {{value0}} chats. Open them to check before sending another message.",
-        "continuedMany": "Resumed {{value0}} chats and asked them to continue",
-        "continuedOne": "Resumed 1 chat and asked it to continue",
+        "continuedMany": "Resumed {{value0}} chats",
+        "continuedOne": "Resumed 1 chat",
         "dismiss": "Dismiss",
         "dismissAll": "Dismiss all",
-        "dismissUnconfirmed": "Dismissing the resume offer was not confirmed — it may still be in the status bar.",
         "dontAskAgain": "Don't ask again (resume automatically)",
         "dontAskAgainHint": "You can turn this off in Settings → Experimental → Chat UI.",
         "listLabel": "Chats that would be resumed",
@@ -922,7 +1093,6 @@
         "ae9a38fd4a": "Remove reviewer {{value0}}",
         "b0e80f083d": "wants to merge into",
         "b6bda618cf": "compact",
-        "b8c6cbb8c4": "Failed to {{value0}} PR",
         "b936cc51a4": "Closed",
         "bc215fea4d": "+ Label",
         "c057f2fcb0": "Unable to refresh checks without a repository path.",
@@ -1178,7 +1348,7 @@
         "94f0339621": "Assigned to me",
         "969e26577c": "You can request up to 15 reviewers",
         "995dd6af9b": "Open PR checks",
-        "99c2755218": "Jira JQL, e.g. project = ABC AND statusCategory != Done",
+        "99c2755218": "Search issues or enter JQL, e.g. project = ABC",
         "9ae151b26b": "linear",
         "9bc8aea407": "Add description...",
         "9c57663908": "View",
@@ -1216,6 +1386,7 @@
         "b6795e65fd": "Close",
         "b73717af92": "Next",
         "b797bdd7c3": "Clear search",
+        "jiraTextMatchesNotice": "Showing text matches. Jira couldn't run this search as JQL.",
         "b7bae28b6a": "shown",
         "b95623e93f": "Atlassian API token",
         "backToCloseReasons": "Back",
@@ -1309,7 +1480,7 @@
         "f373ab1a4f": "Urgent",
         "f397d513e3": "Back",
         "f4374519ae": "Your preferred issue source (upstream) is no longer configured for {{value0}}. Using origin.",
-        "f51e254d35": "Try a different JQL query.",
+        "f51e254d35": "Try different search terms or JQL.",
         "f6fa3c97d0": "Reviewers",
         "f9191d1714": "Reviewer removed",
         "fc0d8a1fa4": "to submit.",
@@ -1511,7 +1682,6 @@
           "beb2c19173": "Unread",
           "cf780197a1": "Select an agent to view its activity",
           "clearCompleted": "Clear completed",
-          "compactModeDescription": "Shows shorter thread rows with one-line titles and two-line status messages.",
           "d1a88df9a8": "Show unread threads only",
           "db8a1878b5": "Thread list options",
           "e3db9892f6": "No activity yet.",
@@ -1537,15 +1707,17 @@
             "waiting": "Waiting for input",
             "working": "Working"
           },
-          "threadListOptionsFiltered": "Thread list options, filters active",
-          "unreadOnlyDescription": "Filters the activity list to show only threads with unread updates.",
-          "viewSection": "View"
+          "viewSection": "View",
+          "threadListOptionsActive": "Thread list options ({{value0}} active)",
+          "activityOptionsActive": "Activity options ({{value0}})"
         },
         "ActivityScopeFilterControls": {
-          "clearHostFilter": "Show all hosts",
-          "clearProjectFilter": "Show all projects",
           "hiddenCount": "{{value0}} hidden",
-          "resetScope": "Show all hosts and projects"
+          "resetScope": "Show all hosts and projects",
+          "hideAutomationCreated": "Hide automation-created",
+          "hideCliCreated": "Hide CLI-created",
+          "hideOtherClientsAria": "Hide agents in workspaces created from other Orca clients on shared remote servers",
+          "hideOtherClients": "Hide other-client agents"
         },
         "ActivityThreadHoverCard": {
           "copyPath": "Copy path",
@@ -1556,6 +1728,25 @@
         },
         "ActivityThreadRow": {
           "clearNotification": "Clear notification"
+        },
+        "ActivityThreadContextMenu": {
+          "copyTitle": "Copy Title",
+          "copyPath": "Copy Path",
+          "open": "Open",
+          "markRead": "Mark Read",
+          "markUnread": "Mark Unread",
+          "goToWorkspace": "Go to Workspace",
+          "clear": "Clear from List",
+          "agentSection": "Agent",
+          "markManyRead_one": "Mark {{count}} Agent Read",
+          "markManyRead_other": "Mark {{count}} Agents Read",
+          "markManyUnread_one": "Mark {{count}} Agent Unread",
+          "markManyUnread_other": "Mark {{count}} Agents Unread",
+          "clearMany_one": "Clear {{count}} Agent from List",
+          "clearMany_other": "Clear {{count}} Agents from List",
+          "markManyRead": "Mark {{count}} Agents Read",
+          "markManyUnread": "Mark {{count}} Agents Unread",
+          "clearMany": "Clear {{count}} Agents from List"
         },
         "ActivityTitlebarControls": {
           "d6a8de3934": "agents",
@@ -1630,7 +1821,6 @@
           "sharing": "Sharing…",
           "signIn": "Sign in",
           "signInAgain": "Sign in again",
-          "signingIn": "Signing in…",
           "tryAgain": "Try again"
         },
         "ArtifactPublishedLinkPanel": {
@@ -1665,7 +1855,6 @@
           "signInAgainAction": "Sign in again",
           "signInCopy": "Sign in to view and manage artifacts shared through your account.",
           "signInHeading": "Sign in to Orca",
-          "signingIn": "Signing in…",
           "title": "Artifacts",
           "unconfiguredCopy": "Orca account sign-in is not configured on this machine yet."
         },
@@ -2013,6 +2202,16 @@
           "ariaLabel": "Automations breadcrumb",
           "runDetails": "Run details"
         },
+        "extraAgentArgs": {
+          "advanced": "Advanced",
+          "clear": "Clear arguments",
+          "unsupported": "Extra arguments aren't supported for this agent yet.",
+          "label": "Extra agent arguments",
+          "needsFreshSession": "Extra arguments require a fresh session for every run.",
+          "useFreshSessions": "Use fresh sessions",
+          "helper": "Added to this host's default arguments for each fresh session.",
+          "detailLabel": "Extra arguments"
+        },
         "AutomationsPageSkeleton": {
           "55527b7bcf": "Loading automations"
         },
@@ -2284,6 +2483,7 @@
           "tool": {
             "arrow": "Arrow",
             "ellipse": "Ellipse",
+            "eraser": "Eraser",
             "highlight": "Highlighter",
             "pen": "Pen",
             "rect": "Rectangle",
@@ -2366,7 +2566,6 @@
             "8b6fab9ffa": "Save",
             "8b7e6d1f5a": "Browser annotations are only available in local browser tabs.",
             "8ce4f6b12e": "Open Link In Default Browser",
-            "8f87e6c2e5": "Intent",
             "90d021f2ad": "Add",
             "93be92f8d1": "Copy Address",
             "95af781091": "Send feedback to an agent",
@@ -2447,6 +2646,7 @@
             "7d1480fbf1": "HTML",
             "87d97bdd6d": "Cancel",
             "9098b118ab": "Page",
+            "accessibleNameOpenQuote": "\"",
             "9c6ce0632a": "Selected element screenshot",
             "a759d8f866": "Selected Element",
             "d053db279d": "role=",
@@ -2948,6 +3148,11 @@
         },
         "CsvViewer": {
           "a233d55b77": "Empty file",
+          "delimiterComma": "Comma",
+          "delimiterSemicolon": "Semicolon",
+          "delimiterTab": "Tab",
+          "delimiterAuto": "Auto ({{delimiter}})",
+          "delimiter": "Delimiter",
           "ac31d2cd60": "rows",
           "eedd0d37a7": "columns"
         },
@@ -3007,10 +3212,7 @@
           "c98ce191da": "This diff has no modified-side file to open",
           "e836faacfa": "Switch to side-by-side diff",
           "f0fd4174b5": "Open file tab to use rich markdown editing",
-          "fb8331694e": "Open Preview to the Side",
-          "openContainingFolder": "Open Containing Folder",
-          "revealInFileExplorer": "Reveal in File Explorer",
-          "revealInFinder": "Reveal in Finder"
+          "fb8331694e": "Open Preview to the Side"
         },
         "EditorPanelMarkdownActionsMenu": {
           "10c39d58c1": "Hide front matter",
@@ -3176,6 +3378,13 @@
           "a0af0198aa": "Large diffs are not rendered by default.",
           "c3d9f4a712": "This diff's size isn't known yet, so it loads on request.",
           "f7fa7a40d0": "Load diff"
+        },
+        "richMarkdownImageInsertionFeedback": {
+          "importedFileKept": "Image insertion canceled because the destination changed. The imported file was kept.",
+          "destinationChanged": "Image insertion canceled because the destination changed. Try again."
+        },
+        "useMarkdownDocuments": {
+          "listFailed": "Failed to list Markdown documents."
         },
         "MarkdownPreview": {
           "0f9969a159": "Jump to first review note",
@@ -3430,13 +3639,6 @@
             }
           }
         },
-        "editorHeader": {
-          "checkDetails": "Check details",
-          "checkDetailsCopied": "Check details copied",
-          "conflictReview": "Conflict Review",
-          "filePathCopied": "File path copied",
-          "worktreePathCopied": "Worktree path copied"
-        },
         "export": {
           "active": {
             "markdown": {
@@ -3532,7 +3734,9 @@
           "unavailableAriaLabel": "{{value0}}, citation link unavailable"
         },
         "richMarkdownLargeTextPaste": {
-          "tooLarge": "Paste is too large."
+          "tooLarge": "Paste is too large.",
+          "stopped": "Large paste stopped before it finished.",
+          "cancelled": "Large paste cancelled because its original target changed."
         },
         "richMarkdownLinkClipboard": {
           "copiedLink": "Copied link",
@@ -4202,20 +4406,13 @@
             "25d7817f79": "terminal",
             "2a3c5ddf5e": "Enable orchestration",
             "3215fc73e9": "New Terminal",
-            "5ddc688c52": "\"{{value0}}\" has unsaved changes. Do you want to save before closing?",
             "629528690b": "New Markdown Note",
-            "690b6fb98a": "Unsaved Changes",
             "88ffb502e5": "Open Markdown Note",
             "8b07759314": "New Browser",
             "8b14ba6c17": "New Browser Tab",
             "8cf80db43b": "Set up the Orca CLI and agent skill so agents can coordinate through Orca.",
-            "918c2139f3": "Don't Save",
             "adc281394d": "Dismiss",
-            "b085fb58b5": "This file has unsaved changes.",
             "bbc177f98f": "Enable",
-            "d6b563ae24": "Loading editor...",
-            "da508bd7f5": "Save",
-            "e7bf09d4d4": "Cancel",
             "fc1042e92b": "Minimize"
           },
           "FloatingTerminalToggleButton": {
@@ -4541,7 +4738,6 @@
             "1aa7c952b9": "Project view",
             "1bf8c01c8b": "Switch to a Table view to work with this project in Orca.",
             "1ce21b8cff": "This item is outside the selected repositories.",
-            "228ec54838": "Orca only renders table views yet. This is a Board or Roadmap view.",
             "22df63c393": "Sub-issue data is unavailable for your token.",
             "23b87ba9f7": "Open in GitHub",
             "2edf5e7e77": "{{value0}} — Orca doesn't support {{value1}} project views yet. File a feature request at {{value2}}.",
@@ -4627,14 +4823,6 @@
       },
       "jira": {
         "connect": {
-          "credential": {
-            "storage": {
-              "copy": {
-                "32a65d29fa": "Your token is stored locally and encrypted when local runtime storage supports it.",
-                "f92c2e5edc": "Your token is sent to the selected remote runtime and stored there with runtime-supported encryption."
-              }
-            }
-          },
           "dialog": {
             "17787d6e4b": "Atlassian Cloud",
             "1d947a07ab": "Use a self-hosted Jira base URL, username, and password to browse issues.",
@@ -4676,15 +4864,6 @@
             "806efa166b": "Learn more",
             "903015746b": "Install GitHub CLI"
           }
-        }
-      },
-      "lib": {
-        "worktreeStatus": {
-          "active": "Active",
-          "done": "Done",
-          "inactive": "Inactive",
-          "needsPermission": "Needs permission",
-          "working": "Working"
         }
       },
       "linear-issue-attribute-filter-coverage-notice": {
@@ -5075,11 +5254,6 @@
             "failed": "Chat could not be started.",
             "retry": "Retry",
             "unknown": "Chat connection could not be confirmed."
-          },
-          "NativeChatStructuredSession": {
-            "1f772bb5d0": "Message delivery is unconfirmed.",
-            "93ef441197": "Message was not sent.",
-            "a5e7f14068": "Retry"
           }
         }
       },
@@ -5391,11 +5565,6 @@
           }
         }
       },
-      "osReveal": {
-        "openContainingFolder": "Open Containing Folder",
-        "revealInFileExplorer": "Reveal in File Explorer",
-        "revealInFinder": "Reveal in Finder"
-      },
       "pet": {
         "pet": {
           "models": {
@@ -5497,6 +5666,8 @@
             "resumeCommandCopied": "Resume command copied",
             "resumeInChatConflict": "Another chat is already holding this conversation.",
             "resumeInChatFailed": "Could not resume this session in a new chat.",
+            "resumeInNewCliUnavailable": "This session cannot be opened in the CLI.",
+            "resumeInNewCliHostTooOld": "Update Orca on the host that runs this chat to resume it in a new CLI.",
             "resumeInChatTranscriptMissing": "This conversation's history could not be loaded, so it cannot be resumed in chat.",
             "resumePastSessions": "Resume past sessions",
             "searchSessions": "Search sessions",
@@ -5640,6 +5811,10 @@
             "deleteReasonNonLocalHost": "Only sessions on this device can be deleted.",
             "deleteReasonSyntheticPath": "This session can't be deleted from Orca.",
             "deleteReasonUnsupportedAgent": "{{value0}} sessions can't be deleted from Orca.",
+            "resumeInNewNativeChat": "Resume in New Native Chat",
+            "resumeInNewCli": "Resume in New CLI",
+            "resumeInNewCliTooltipFork": "Forks this conversation into a new CLI session.",
+            "resumeInNewCliTooltipChat": "The native chat stays as it is.",
             "dragToResume": "Drag to resume in a new tab",
             "hideDetails": "Hide Details",
             "jumpToOriginalPane": "Jump to Original Pane",
@@ -5652,7 +5827,6 @@
             "openWorkingDirectory": "Open Working Directory",
             "recoverableBadge": "Not saved",
             "resumeAgentSession": "Resume {{value0}} session",
-            "resumeInNewChat": "Resume in New Chat",
             "resumeInNewTab": "Resume in New Tab",
             "revealLog": "Reveal Log",
             "sessionRole": "Session",
@@ -6005,8 +6179,7 @@
             "e740075063": "Remove",
             "f59c783b7a": "Port scan unavailable on {{value0}}: {{value1}}",
             "f9528da632": "Stop Process",
-            "fe2730d050": "Copy {{value0}}",
-            "unassigned": "Unassigned"
+            "fe2730d050": "Copy {{value0}}"
           },
           "Search": {
             "0b8104eaf2": "file",
@@ -6075,7 +6248,6 @@
             "318e2a7f88": "Wait for AI generation to finish.",
             "31f6d46278": "Unresolved",
             "3278b2767b": "ahead",
-            "362b97ec5c": "No matching files",
             "3636d0f686": "ready",
             "37a81f29ad": "Generating commit message. Click to stop.",
             "383cf92c73": "tree",
@@ -6112,7 +6284,6 @@
             "6d7f2a47e5": "Discard folder",
             "6f8bfa0eb9": "line {{value0}}",
             "715d229c86": "Branch compare unavailable",
-            "72e0c73b4e": "This workspace is clean and this branch has no changes ahead of {{value0}}",
             "72f2bea3f4": "Expand notes",
             "77afaa8152": "All",
             "783a808870": "Close",
@@ -6122,7 +6293,6 @@
             "7d6a8f0082": "Title",
             "812cb992ee": "Open on {{value0}}",
             "834cb3f23d": "Fix with AI",
-            "86794572dc": "Search text is too large",
             "8a5ba6a988": "Failed to load commit diff",
             "8cde1a2fb0": "Stage",
             "8d8f5c6c94": "Generating commit message…",
@@ -6150,7 +6320,6 @@
             "aaf1451654": "Create draft {{value0}}",
             "ab31221779": "Unstage folder",
             "ac8cbe3bf5": "Hover over a line in the diff view and click the + to add a note.",
-            "ad0504a58a": "Use a shorter file filter.",
             "ae743199cd": "Choose a different base branch before creating a {{value0}}.",
             "aee92f8684": "Generate",
             "b16b8f0e4b": "ai commit msg",
@@ -6158,7 +6327,6 @@
             "b3c8f1a902": "Filter files by name",
             "b656381c18": "Delete note",
             "b6922abb13": "Unable to load branch compare.",
-            "b715ef615b": "{{value0}} commits ahead of {{value1}}",
             "b75cb1fd0c": "Committing changes…",
             "b82e9f3c12": "View as tree",
             "b8c2e1a904": "{{value0}} → {{value1}}",
@@ -6174,7 +6342,6 @@
             "c07b236287": "Select a workspace to view changes",
             "c085946bda": "Copy note on line {{value0}}",
             "c105a61960": "merge",
-            "c1a8f3e204": "1 commit behind {{value0}}",
             "c321542ee2": "Delete note on line {{value0}}",
             "c35baf2f1e": "Filter files…",
             "c569d29a02": "both modified",
@@ -6198,7 +6365,6 @@
             "createPrIntentCommitFailed": "Could not commit changes. Fix the issue, then retry Create PR.",
             "createPrIntentConfigureAi": "Add a commit message or configure Source Control AI settings.",
             "createPrIntentCreatingReview": "Creating review…",
-            "createPrIntentEmptyGeneratedBody": "Generated review details did not include a description. Retry Create PR.",
             "createPrIntentFastForwarding": "Updating branch…",
             "createPrIntentForcePushing": "Force pushing with lease…",
             "createPrIntentGenerateDetailsFailed": "Could not generate review details. Retry Create PR.",
@@ -6211,12 +6377,10 @@
             "d13edef890": "Collapse notes",
             "d172a4f068": "Commit hash",
             "d206117f90": "{{value0}} conflict ({{value1}})",
-            "d2b9g4f315": "{{value0}} commits behind {{value1}}",
             "d2e9189866": "all",
             "d37e68f61d": "Preparing branch for review…",
             "d4ef4bafc5": "Changes",
             "d4f8c2a901": "Clear and close filter",
-            "d5103e47c1": "No changed files match \"{{value0}}\"",
             "d54dd48b0b": "Discard changes",
             "d62bc0c7d8": "untracked",
             "d6fb1df5fe": "{{value0}} is already open",
@@ -6250,7 +6414,6 @@
             "entryStageFailed": "Failed to stage “{{value0}}”",
             "entryUnstageFailed": "Failed to unstage “{{value0}}”",
             "f0a2dc9e46": "Customize launch...",
-            "f2fd70c988": "No changes on this branch",
             "f394c6128a": "No agent available to explain this commit",
             "f3a1b8c204": "upstream",
             "f3a8b2c1d0e5": "Enter a {{value0}} title.",
@@ -6260,7 +6423,6 @@
             "f71c4a8d90": "More source control actions",
             "f76307c1f7": "Choose a base branch.",
             "f99560ab29": "Abort {{value0}} failed",
-            "f9b2441bb6": "1 commit ahead of {{value0}}",
             "fda060d6ce": "Review the commit message, then retry Create PR.",
             "fe5bd1a610": "Creating {{value0}}...",
             "hugeRepoIgnoreAction": "Add to .gitignore",
@@ -6280,7 +6442,6 @@
               "dd43c47089": "Choose an agent for this push failure",
               "ec7bfced55": "Choose agent to fix push failure"
             },
-            "stageAtLeastOneFileToGenerate": "Stage at least one file to generate a message.",
             "submoduleTruncated": "More submodule changes were omitted",
             "tooManyChanges": "Too many changes detected. Only the first {{value0}} changes are shown."
           },
@@ -6295,7 +6456,6 @@
             "013c9ac04a": "Save for",
             "15c5d85706": "Agent",
             "1bb611240f": "Use {basePrompt} for Orca's default prompt.",
-            "1bc0bdbb5e": "Launch:",
             "1d47db9bf0": "No enabled agents",
             "23280cbab1": "This template does not include {basePrompt}, so the agent will not receive Orca's default prompt.",
             "3e8f21954f": "error",
@@ -6353,7 +6513,6 @@
           },
           "aiVaultSessionLogOpen": {
             "alreadyEditable": "Log is already open for editing.",
-            "notAuthorized": "Couldn't open log — path not authorized.",
             "workspaceGone": "Couldn't open log — workspace is no longer available."
           },
           "checks": {
@@ -6453,9 +6612,7 @@
                 "f5cf324efa": "Comment display options",
                 "f6a40263ff": "Save",
                 "f8a2c91d04": "Queue for agent",
-                "fd46a70f1a": "Started",
-                "manyBehind": "{{count}} commits behind (base commit: {{baseCommit}})",
-                "oneBehind": "1 commit behind (base commit: {{baseCommit}})"
+                "fd46a70f1a": "Started"
               },
               "empty": {
                 "state": {
@@ -6929,27 +7086,12 @@
                   }
                 },
                 "items": {
-                  "03b0948e17": "Publish Branch",
                   "04d709801d": "Fetch from remote without merging",
                   "226b85a3a7": "Fetch",
                   "2b8e6595fd": "Commit",
                   "323bb614aa": "Commit & Sync",
                   "7aad2c0240": "Hosted review operation in progress…",
                   "9e779995dd": "Create {{value0}}"
-                },
-                "labels": {
-                  "fastforward": {
-                    "count": "Fast-forward {{count}} commit{{plural}}"
-                  },
-                  "pull": {
-                    "count": "Pull {{count}} commit{{plural}}"
-                  },
-                  "push": {
-                    "count": "Push {{count}} commit{{plural}}"
-                  },
-                  "sync": {
-                    "counts": "Pull {{behind}}, push {{ahead}}"
-                  }
                 },
                 "remote": {
                   "items": {
@@ -7050,7 +7192,8 @@
             "fca915a67a": "Remote items are permanently deleted and cannot be undone. Local items move to the {{value0}}."
           },
           "useFileExplorerHandlers": {
-            "32cd9fd991": "Cannot open symlink target"
+            "32cd9fd991": "Cannot open symlink target",
+            "folderLinksOutsideProject": "This folder links outside the project, so it can't be opened here."
           },
           "useFileExplorerImport": {
             "132fd0e1e9": "Failed to import {{value0}} {{value1}}.",
@@ -7298,7 +7441,6 @@
           "8e6f0cb1d8": "MiniMax cookie was not saved.",
           "9107406589": "Could not load Claude accounts.",
           "922b51e02d": "Fe26.2**…",
-          "92f4238f1a": "WSL",
           "93c47b333a": "Needs sign-in",
           "94d351af4a": "Accounts",
           "96f3649526": "Use Gemini CLI credentials (experimental)",
@@ -7947,11 +8089,6 @@
           "usageLabel": "Usage",
           "usageTitle": "Monthly plan usage"
         },
-        "DaemonDegradedNotice": {
-          "action": "Restart host",
-          "body": "The terminal host stopped responding. Orca kept it rather than ending anything it might still be hosting, but it can’t reach those terminals until the host responds again — reopening a pane retries, and works once it does. New terminals open outside the host and close when you quit Orca. Restarting the host usually clears this, and ends every terminal — both the ones it is still holding and the ones running outside it.",
-          "title": "New terminals aren’t being saved"
-        },
         "DefaultWindowsProjectRuntimeSetting": {
           "defaultRuntime": "Default project runtime",
           "distroRequired": "Choose a WSL distro before projects can inherit WSL.",
@@ -8164,13 +8301,8 @@
           "f63ea281e3": "Threaded left-sidebar feed for agent completions and blocking states.",
           "fb82ea1d7a": "Automatically materialize configured files or folders into newly created worktrees.",
           "nativeChat": {
-            "copy": "Enables the experimental Chat UI for newly created supported local sessions. Existing terminal sessions keep the terminal chat path while we tune transcript fidelity, streaming, and parity.",
-            "defaultCopy": "Choose how new supported agent terminal tabs open.",
-            "defaultTitle": "Default view",
-            "defaultViewLabel": "Default Chat UI view",
-            "defaultViewNative": "Chat UI",
-            "defaultViewTerminal": "Terminal chat",
-            "description": "Preview the desktop chat surface for supported agent terminal sessions.",
+            "copy": "Supported new agents open in structured chat. Other agents open in the terminal; existing chats stay available.",
+            "description": "Open supported new agents in Chat UI.",
             "resumeCopy": "When Orca quits or installs an update, chats that were working are automatically resumed when Orca is reopened.",
             "resumeTitle": "Resume working chats automatically after a restart",
             "resumeToggleLabel": "Toggle automatic resume after a restart",
@@ -8183,10 +8315,6 @@
             "shellEnvNamesLabel": "Variables to pass from your shell",
             "shellEnvTitle": "Use your shell environment",
             "shellEnvToggleLabel": "Toggle using your shell environment",
-            "structuredCopy": "Open new Codex and Claude agents as structured chats. Off opens them in the terminal-backed chat. Chats that already exist stay as they are.",
-            "structuredScope": "Runs on this machine and on paired Orca servers running a version that supports it; older servers keep terminal chat. WSL and SSH hosts continue to use terminal chat, and Windows falls back to it unless Orca can read process start times.",
-            "structuredTitle": "Use updated structured native chat",
-            "structuredToggleLabel": "Toggle updated structured native chat",
             "title": "Chat UI",
             "toggleLabel": "Toggle Chat UI"
           },
@@ -8421,12 +8549,8 @@
           "f6e5d4c3b2": "Shows weekly credit usage from your Grok CLI sign-in (session file ~/.grok/auth.json)."
         },
         "HiddenExperimentalGroup": {
-          "1014ddbfaf": "Does nothing today. Reserved as the first slot for hidden experimental options.",
-          "232cf83de8": "Unlisted toggles for internal testing. Nothing here is supported.",
-          "3e9e827ca5": "Hidden experimental",
           "7c4e18d2f6": "Arms the bold-glitch capture gestures on this machine: {{samplingShortcut}} starts a sampling burst; {{captureShortcut}} captures pane evidence to disk.",
           "b09f24a51d": "Terminal render diagnostics",
-          "d0f914a528": "Placeholder toggle",
           "f2c81d904a": "Hidden experimental settings"
         },
         "InputPane": {
@@ -8742,7 +8866,6 @@
           "254a6d09e4": "Paired",
           "2e3dd0bc29": "Device revoked",
           "310924ad2c": "Scan this code with the Orca mobile app. Each code creates a unique device token.",
-          "35100bca5d": "While you're using a terminal on your phone, Orca shrinks it to fit your phone screen. When you close the app or switch away, this controls whether it stays at phone size (so interactive CLI tools don't reflow) or resizes back to your desktop. You can always use Restore this terminal or Restore all terminals on the banner to resize manually.",
           "3939fd062c": "Revoking a device disconnects it immediately.",
           "6436e56546": "QR Code for mobile pairing",
           "711231348f": "Failed to copy pairing code",
@@ -8757,6 +8880,7 @@
           "dd3cd78d04": "Scan with Orca Mobile",
           "diagnosticsCopied": "Diagnostics copied",
           "diagnosticsCopyFailed": "Failed to copy diagnostics",
+          "5e2c7a1f84": "While you're using a terminal on your phone, Orca shrinks it to fit your phone screen. When you close the app or switch away, this controls whether it stays at phone size (so interactive CLI tools don't reflow) or resizes back to your desktop. You can always use Restore or Restore all on the banner to resize manually.",
           "e3c427e020": "Failed to generate QR code",
           "e778ecb209": "Or paste this code in the mobile app:",
           "ee56f1c7e4": "When you leave the mobile app",
@@ -9824,7 +9948,7 @@
           "084d8fac5b": "Privacy & Security",
           "11faa2f7dd": "Task Sources",
           "13d4fe30ad": "Quick Commands",
-          "17bdee4ff1": "Discard unsaved Git AI Author changes?",
+          "17bdee4ff1": "Discard unsaved AI settings?",
           "1c87f8d024": "Advanced",
           "21f09426ea": "Optional. Orca works with your existing provider logins; add accounts only if you want Orca to help switch between them.",
           "2309068a6f": "destructive",
@@ -9837,7 +9961,7 @@
           "3d9adfe6a5": "Global terminal, browser, and markdown tabs.",
           "3de4bbb841": "Terminal",
           "3eb22a3ada": "Floating Workspace",
-          "43b68e10f0": "You have unsaved Git AI Author changes. Leaving will discard them.",
+          "43b68e10f0": "You have unsaved AI settings. Leaving will discard them.",
           "475980f53d": "Coordinate multiple coding agents through Orca.",
           "499c1cd7f9": "Low-level compatibility settings for troubleshooting.",
           "5063bb47a5": "Voice",
@@ -9986,11 +10110,8 @@
           "cb02e00202": "Terminal",
           "d8c988dab4": "~/.orca/keybindings.json",
           "dfa8ff612f": "Also runs while a terminal or TUI has keyboard focus.",
-          "disableFailed": "Failed to disable shortcut",
           "f0b35b0b2e": "Disabled while a terminal or TUI has keyboard focus.",
           "parseFailed": "Unable to parse shortcut",
-          "resetFailed": "Failed to reset shortcut",
-          "saveFailed": "Failed to save shortcut.",
           "shortcutUnavailable": "Shortcut is no longer available."
         },
         "SkillUsageExampleDialog": {
@@ -10068,10 +10189,7 @@
           "d7565029a9": "New Preset",
           "d7b3f0bdc3": "{{value0}} directories",
           "fde7ff2cc3": "packages/web shared/ui",
-          "fe1f2c6572": "Edit {{value0}}",
-          "nameExists": "\"{{name}}\" already exists.",
-          "nameRequired": "Name is required.",
-          "nameTooLong": "Name must be 80 characters or fewer."
+          "fe1f2c6572": "Edit {{value0}}"
         },
         "SshDestructiveActionDialog": {
           "895b216267": "Cancel"
@@ -10131,6 +10249,8 @@
           "3d21a22d0e": "Removing target",
           "3d8af2949f": "Edit target",
           "47e94bd6ba": "connected",
+          "hostNodeFallback": "Unsupported configuration: Orca-managed Node isn’t available for this connection, so Orca runs on this host’s Node.js with terminal support installed by npm on the host.",
+          "hostNodeUnsupported": "Unsupported configuration: Orca runs on this host’s Node.js with terminal support installed by npm on the host. Set Runtime to Auto in this host’s SSH settings to use Orca-managed Node.",
           "4c86f30877": "Disconnect",
           "762a48c662": "Reset remote relay",
           "7f7b3d7ab4": "Remove target",
@@ -10205,6 +10325,8 @@
           "remoteRuntimeAuto": "Auto",
           "remoteRuntimeHelp": "Which Node.js runs Orca on this host. Orca-managed Node uploads its own and needs no npm; Host Node uses the Node.js already installed there.",
           "remoteRuntimeHostNode": "Host Node",
+          "allowRemoteCliControl": "Allow this host's orca CLI to control Orca",
+          "allowRemoteCliControlHelp": "When off, orca commands run on this host reach only its own terminals. Turn on to let them reach other hosts, orchestration, files, and integrations on this computer.",
           "remoteRuntimePinnedNode": "Orca-managed Node"
         },
         "TaskSourceLinearSetup": {
@@ -10410,26 +10532,6 @@
           "d26174e1dd": "Windows PowerShell",
           "d78fc4fdef": "Loading distributions",
           "d8998bb328": "Option composes special characters for your keyboard layout.",
-          "defaultShell": {
-            "advanced": "Advanced",
-            "argumentModeAria": "Shell argument mode",
-            "argumentsAria": "Shell arguments, one per line",
-            "argumentsLabel": "Shell arguments",
-            "ariaLabel": "Terminal shell",
-            "customArgumentsHelp": "Enter one argument per line. Leave it empty to pass no arguments.",
-            "customArgumentsOption": "Custom args",
-            "customExecutableAria": "Custom shell executable",
-            "customOption": "Custom shell",
-            "defaultArgumentsHelp": "Starts the shell as a login shell with -l.",
-            "defaultArgumentsOption": "-l (default)",
-            "description": "Choose what Orca opens for new local terminal panes.",
-            "help": "Enter a shell name on PATH or an executable path. Orca starts it as a login shell.",
-            "notFound": "Shell not found: {{shell}}. Switch to System shell or choose an executable on this host.",
-            "searchDescription": "Shell used for new terminal panes",
-            "searchTitle": "Default shell",
-            "systemOption": "System shell ({{shell}})",
-            "title": "Terminal shell"
-          },
           "e0996d141a": "Auto tries WebGL, with DOM fallback for unsupported or risky renderers.",
           "e7aec1fd60": "Left",
           "eb7fc4d98a": "PowerShell",
@@ -10448,7 +10550,38 @@
             "title": "Scroll Speed",
             "tui": "TUI",
             "tuiDescription": "Discrete wheel reports for full-screen terminal apps."
-          }
+          },
+          "8dbe0bc942": "Shell arguments, one per line",
+          "f58cb71f53": "--rcfile\n/path/to/rcfile",
+          "48b91a3ed2": "Custom args",
+          "7bd83fc1d0": "-l (default)",
+          "5ffc4777b6": "Shell argument mode",
+          "578ec79449": "Enter one argument per line. Leave it empty to pass no arguments.",
+          "884a006065": "Starts the shell as a login shell with -l.",
+          "01c600daff": "Shell arguments",
+          "e3ae5aed18": ". Switch to System shell or choose an executable on this host.",
+          "59573d0b33": "Enter a shell name on PATH or an executable path. Orca starts it as a login shell.",
+          "5e06e87730": "Custom shell executable",
+          "c2bf02ce2f": "fish, nu, or /bin/zsh",
+          "f51cc79784": "Custom shell",
+          "dd3f4c35da": "System shell ({{value0}})",
+          "fd05fb109c": "Terminal shell",
+          "69724e8f0c": "Choose what Orca opens for new local terminal panes.",
+          "c2ddb189e7": "rcfile",
+          "73c211e979": "wrapper",
+          "4faf688f78": "login",
+          "44f8a56f66": "args",
+          "af893aa433": "arguments",
+          "ddc72a4860": "default",
+          "d469840b75": "nushell",
+          "17ad899ba4": "bash",
+          "c9bc93d343": "zsh",
+          "0cbe5ad727": "fish",
+          "81694f1584": "terminal",
+          "a909136b3f": "shell",
+          "1c29734248": "Shell used for new terminal panes",
+          "9589abc009": "Default shell",
+          "5a5eac2f44": "Shell not found: {{value0}}"
         },
         "TerminalRenderingSection": {
           "6d4c55bacc": "Inline Images",
@@ -10566,6 +10699,137 @@
         },
         "UnsealedCredentialNotice": {
           "body": "{{credential}} is stored unencrypted — this system has no OS keyring Orca can use. Anyone who can read your disk or a backup of it can read the credential. Install and unlock gnome-keyring or kwallet, then save it again to seal it."
+        },
+        "managedServers": {
+          "row": {
+            "notRunning": "Not running",
+            "refresh": "Refresh status",
+            "migration": "Migration: {{phase}}",
+            "update": "Update",
+            "rollback": "Roll back",
+            "recover": "Recover",
+            "cancelStop": "Cancel stop",
+            "confirmStop": "Stop and remove server",
+            "keep": "Keep running",
+            "stop": "Stop…",
+            "deferredVersion": "Update to {{version}} deferred.",
+            "confirmRestore": "Restore snapshot and restart",
+            "keepState": "Keep state",
+            "statusUnknown": "Status unknown",
+            "checking": "Checking…",
+            "forget": "Forget…",
+            "confirmForget": "Forget on this desktop",
+            "keepLinked": "Keep linked",
+            "forgetDescription": "Unlinks this server here without contacting its host. If the host comes back, the server may still be running there."
+          },
+          "title": "Managed servers",
+          "description": "Orca installs and runs a server on an empty SSH host and keeps it up to date.",
+          "deploy": {
+            "host": "SSH host",
+            "hostPlaceholder": "Choose an empty SSH host",
+            "name": "Server name",
+            "submit": "Deploy server",
+            "running": "Deploying…"
+          },
+          "pending": {
+            "resume": "Resume"
+          },
+          "access": {
+            "title": "SSH access for paired servers",
+            "linked": "{{name}} via SSH",
+            "unlink": "Stop using SSH",
+            "target": "Reach through SSH host",
+            "port": "Server port",
+            "link": "Use SSH",
+            "linking": "Connecting…"
+          },
+          "search": {
+            "title": "Managed servers",
+            "keywordSsh": "ssh"
+          },
+          "phase": {
+            "fenced": "Host locked",
+            "staged": "Copy staged",
+            "committed": "Copy committed",
+            "retired": "Finished"
+          },
+          "recovery": {
+            "activate": "An update was interrupted",
+            "rollback": "A rollback was interrupted",
+            "decommission": "A stop was interrupted"
+          },
+          "terminals": {
+            "unknown": "Running terminals: unknown",
+            "count": "Running terminals: {{count}}"
+          },
+          "blocker": {
+            "notFound": "The SSH host is gone.",
+            "owned": "This SSH host already belongs to a managed server.",
+            "catalog": "Projects on this host cannot move yet.",
+            "terminals": "Terminals on this host are still running ({{count}}). Close them first.",
+            "portForwards": "Saved port forwards stay with the SSH host.",
+            "dependents": "State that cannot move yet: {{kinds}}.",
+            "unverifiable": "Orca could not read its saved {{sources}}, so it cannot tell what would move."
+          },
+          "kind": {
+            "portForward": "port forwards",
+            "terminalLease": "terminals",
+            "terminalRecovery": "terminal recovery records",
+            "workspaceSession": "open tabs and layout",
+            "worktreeMetadata": "worktree details",
+            "worktreeLineage": "worktree history",
+            "workspaceLineage": "workspace history",
+            "sparsePreset": "sparse checkout presets",
+            "retiredWorktreeName": "retired worktree names",
+            "automation": "automations",
+            "automationRun": "automation runs",
+            "mobileTabSelection": "mobile tab selections",
+            "uiRouting": "sidebar and filter settings"
+          },
+          "loadFailed": "Orca couldn’t load SSH hosts and unfinished moves. Reopen Settings to try again.",
+          "outcome": {
+            "activeServer": "Not done: choose another Active Server in Advanced before stopping this server.",
+            "live": "Not done: terminals on this server are still running. Close them and try again.",
+            "unverifiable": "Not done: Orca couldn’t confirm what is running on this server. Try again when the host is reachable.",
+            "migration": "Not done: a move onto this server is unfinished. Resume it first.",
+            "deferred": "Not done yet: the server isn’t ready for this. Try again later.",
+            "failed": "Orca couldn’t finish this on the server. Try again."
+          }
+        },
+        "sshHostServer": {
+          "sourceChanged": "Changed on an older Orca: runs the relay until it is moved to its managed server again.",
+          "unavailable": "Runs the relay: a managed Orca server can’t run on this host ({{reason}}).",
+          "tunnelUnavailable": "Runs the relay: this host’s SSH server doesn’t allow port forwarding, and Orca couldn’t reach a managed server through the SSH session either.",
+          "deploying": "Setting up a managed Orca server…",
+          "converting": "Moving this host’s projects to its managed Orca server…",
+          "connecting": "Connecting to the managed Orca server…",
+          "updating": "Updating managed server…",
+          "starting": "Starting managed server…",
+          "notServing": "Orca couldn’t confirm that the managed server is answering.",
+          "hostNewer": "Runs a managed Orca server from a newer Orca; it keeps that version.",
+          "terminalsLive": "Runs the relay until its {{count}} open terminals are closed, then moves to a managed server.",
+          "terminalsLive_one": "Runs the relay until its {{count}} open terminal is closed, then moves to a managed server.",
+          "terminalsLive_other": "Runs the relay until its {{count}} open terminals are closed, then moves to a managed server.",
+          "terminalsUnverifiable": "Runs the relay: Orca couldn’t confirm its terminals are closed. It moves on a later connect.",
+          "retry": "Runs the relay this session; it moves to a managed server on a later connect.",
+          "failureDetails": "Details",
+          "unavailableUnknown": "Runs the relay: a managed Orca server can’t run on this host.",
+          "cause": {
+            "unsupportedHost": "Orca has no server build for this system",
+            "artifactsUnavailable": "this Orca build doesn’t include the server",
+            "libcUnidentified": "Orca couldn’t identify the host’s system libraries",
+            "runtimeSelfTest": "the server’s runtime failed its self-test",
+            "securitySoftware": "security software changed the server’s runtime",
+            "nativePreflight": "the host is missing system libraries the server needs"
+          },
+          "updateDeferredLater": "Runs a managed Orca server; it updates on a later connect.",
+          "updateFailedPrevious": "Runs a managed Orca server on its previous version; updating it failed.",
+          "terminalsLiveUncounted": "Runs the relay until its open terminals are closed, then moves to a managed server.",
+          "refusedBlocked": "Not moved to a managed server: something on this host stops the move.",
+          "terminalsElsewhere": "Runs the relay while {{count}} terminals another Orca desktop or session opened on this host are running.",
+          "terminalsElsewhere_one": "Runs the relay while {{count}} terminal another Orca desktop or session opened on this host is running.",
+          "terminalsElsewhere_other": "Runs the relay while {{count}} terminals another Orca desktop or session opened on this host are running.",
+          "terminalsElsewhereUncounted": "Runs the relay while terminals another Orca desktop or session opened on this host are running."
         },
         "VoiceMicrophoneSetting": {
           "accessHint": "Allow microphone access to list input devices.",
@@ -10734,6 +10998,33 @@
             "weekly": "Weekly"
           }
         },
+        "deltaMove": {
+          "action": "Move the new projects…",
+          "title": "Move the new projects",
+          "description": "An older version of Orca changed this host after it moved to its managed server. This adds what it created to the server; it never merges over what the server already has.",
+          "added": "Added to the server",
+          "nothingNew": "Nothing new to add.",
+          "notReflected": "Changed or removed on the older version; the server keeps its own copy",
+          "cancel": "Cancel",
+          "confirm": "Move the new projects",
+          "kind": {
+            "repository": "Repository {{name}}",
+            "folder": "Folder {{name}}",
+            "group": "Project group {{name}}"
+          }
+        },
+        "keepServer": {
+          "action": "Keep the server’s version…",
+          "title": "Keep the server’s version",
+          "description": "This host goes back to its managed server as it is. What the older version of Orca added or changed here is not moved; it stays only in this computer’s saved settings until they are cleaned up.",
+          "cancel": "Cancel",
+          "confirm": "Keep the server’s version"
+        },
+        "NotificationHostToggles": {
+          "offCount": "{{count}} off",
+          "machines": "Machines",
+          "machinesDescription": "Choose which machines can show notifications on this computer. A paired server’s switch also covers work reached through it."
+        },
         "accounts": {
           "search": {
             "02c438bc7b": "expired",
@@ -10846,7 +11137,11 @@
           "a42f6fbdd8": "Keeps this computer and display awake while agents are working. Orca also asks this device to stay awake when the lid is closed, subject to its power policy.",
           "e5995ce268": "Keep computer awake while agents are working",
           "modeDescriptionDefault": "Choose On, Agent, or Off. Agent mode stays awake while agents are working. Orca also asks this device to stay awake when the lid is closed, subject to its power policy.",
+          "lidNoteWindows": "Lid-close behavior follows this device's power settings.",
+          "lidNoteMac": "Prevents idle sleep with the lid open; closing the lid still puts this Mac to sleep.",
+          "lidNoteDefault": "Orca also asks this device to stay awake when the lid is closed, subject to its power policy.",
           "modeDescriptionWindows": "Choose On, Agent, or Off. Agent mode stays awake while agents are working; lid-close behavior follows this device's power settings.",
+          "modeDescriptionMac": "Choose On, Agent, or Off. Agent mode prevents idle sleep while agents work, so long runs finish with the lid open. Closing the lid still puts this Mac to sleep.",
           "modeTitle": "Keep computer awake"
         },
         "agent-generated-tab-title-copy": {
@@ -11156,7 +11451,6 @@
           "signInDescription": "Use your Orca account to upload artifacts and manage their public links.",
           "signInRequired": "Sign in is required to upload and manage artifacts.",
           "signInTitle": "Sign in to share artifacts",
-          "signingIn": "Signing in…",
           "title": "Artifacts"
         },
         "auto": {
@@ -11620,7 +11914,7 @@
               "chat": "chat",
               "claude": "claude",
               "codex": "codex",
-              "description": "Preview the desktop chat surface for supported agent terminal sessions.",
+              "description": "Open supported new agents in Chat UI.",
               "grok": "grok",
               "native": "native",
               "omp": "omp",
@@ -12173,6 +12467,12 @@
             "193e1f107c": "task",
             "3014ad1b8f": "ding",
             "4a210b2f72": "Enable Notifications",
+            "machines": "Machines",
+            "machinesDescription": "Choose which machines can show notifications on this computer, such as SSH machines or paired servers.",
+            "host": "host",
+            "remote": "remote",
+            "ssh": "ssh",
+            "mute": "mute",
             "4ada6bfde9": "filtering",
             "4e30b1925e": "Trigger a sample desktop notification using the native delivery path.",
             "51ae2183e1": "desktop",
@@ -12233,7 +12533,6 @@
           "signInAgain": "Sign in again",
           "signOut": "Sign out",
           "signedOut": "Sign in to extend Orca with cloud features, including Artifacts and Orca Relay.",
-          "signingIn": "Signing in…",
           "skillsDescription": "Share one skill or a whole set behind an unlisted link, and install them on any machine you use.",
           "skillsTitle": "Skill sharing",
           "title": "Orca Account",
@@ -12581,7 +12880,6 @@
           "signInDescription": "Use your Orca account to publish bundles and manage their links. Recipients do not need an account.",
           "signInTitle": "Sign in to share skills",
           "signInWebDescription": "Publishing and link management are available in the Orca desktop app.",
-          "signingIn": "Signing in…",
           "title": "Share Skills",
           "unshare": "Unshare"
         },
@@ -12926,6 +13224,18 @@
               "title": "Color Contrast",
               "wcag": "wcag"
             },
+            "d31ed1ac1c": "rcfile",
+            "d9e29543a1": "wrapper",
+            "50ba80b6dd": "login",
+            "36ba1a1357": "args",
+            "5304b12d5c": "arguments",
+            "7c3ede6f12": "nushell",
+            "bf09070e31": "bash",
+            "d26257a80d": "zsh",
+            "454df22a5e": "fish",
+            "ddd5efe113": "shell",
+            "3de504994c": "Shell and arguments used for new local interactive terminal panes",
+            "1733ccd3e9": "Terminal shell",
             "process": "process",
             "prompt": "prompt",
             "rows": "rows",
@@ -13509,9 +13819,7 @@
           "hidingOther": "Hiding {{count}} discovered worktrees",
           "keepHidden": "Keep hidden - recover from the project menu",
           "keepHiddenAriaOne": "Keep 1 discovered worktree hidden for {{name}}; recover from the project menu",
-          "keepHiddenAriaOther": "Keep {{count}} discovered worktrees hidden for {{name}}; recover from the project menu",
-          "keepHiddenError": "Could not keep discovered worktrees hidden. Try again.",
-          "showError": "Could not show discovered worktrees. Try again."
+          "keepHiddenAriaOther": "Keep {{count}} discovered worktrees hidden for {{name}}; recover from the project menu"
         },
         "LinearAgentSkillSetupPrompt": {
           "dismiss": "Dismiss Linear agent skill setup",
@@ -13555,27 +13863,25 @@
           "xcodeLicenseBody": "macOS blocks Git until you accept it. Run this in Terminal, then switch back to Orca. It will check again automatically.",
           "xcodeLicenseTitle": "Accept the Xcode license to use Git"
         },
+        "manualSortSwitch": {
+          "title": "Sort changed to Manual",
+          "description": "Manual keeps workspaces where you drop them.",
+          "restore": "Back to {{label}}"
+        },
         "MarkdownImageLightbox": {
           "close": "Close",
           "expand": "Expand image",
           "image": "Image"
         },
         "NewExternalWorktreesInboxLine": {
-          "1c9e7a4b28": "Keep hidden",
           "2a6f31d8c7": "hidden worktree",
-          "4d7a1c9e53": "These worktrees were created outside of Orca.",
           "4e2b7a9c05": "Review {{value0}} hidden worktrees in {{value1}}",
           "5b90e4a2f6": "hidden worktrees",
           "5e1b8d3f62": "Hide external worktrees permanently",
           "6c07f3a91e": "{{value0}} on {{value1}}",
-          "6f2d8c1e95": "Import all",
-          "7c4e9b2a81": "New externally-created worktrees",
           "7f18c5b0d3": "Review {{value0}} hidden worktree in {{value1}}",
-          "8b3f2e1d74": "Import",
           "9f2d4c8b17": "Hide external worktrees permanently for {{value0}}",
-          "c3e8a1f4b2": "Don't show again",
-          "d9f7b2a14c": "Collapse new externally-created worktrees for {{value0}}",
-          "e2c4a8d91f": "Expand new externally-created worktrees for {{value0}}"
+          "c3e8a1f4b2": "Don't show again"
         },
         "NonGitFolderDialog": {
           "05b33a17a9": "Cancel",
@@ -13741,6 +14047,7 @@
         },
         "SidebarFeedbackImageAttachments": {
           "attachImages": "Attach",
+          "preparing": "Preparing attachments…",
           "removeImage": "Remove {{fileName}}",
           "screenshotsHint": "Attach up to {{count}} screenshots, {{maxSize}} total"
         },
@@ -13765,18 +14072,14 @@
           "keepDefaultBranchAria": "Keep the default branch visible while hiding sleeping workspaces"
         },
         "SidebarHeader": {
-          "25a95899c9": "Add Project",
           "49f62c5665": "Workspace board",
           "5c9c7c16aa": "Add a project to create workspaces",
           "92154beb7e": "New workspace",
           "a30e34eb5c": "Close workspace board",
           "addProject": "Add project",
-          "ca6f729da2": "New workspace ({{value0}})",
-          "moreActions": "More workspace actions",
           "projects": "Projects",
           "spaces": "Spaces",
-          "views": "Sidebar view",
-          "workspaces": "Workspaces"
+          "views": "Sidebar view"
         },
         "SidebarHostScopeStrip": {
           "backToAll": "All hosts",
@@ -14328,7 +14631,6 @@
           "show": "Show",
           "sources": "Sources",
           "sourcesDescription": "Shown sources include current and future worktrees in the sidebar.",
-          "toggle": "Show current and future worktrees from {{value0}}",
           "useGlobal": "Use global",
           "useGlobalFor": "Use global for {{value0}}",
           "visibility": "Visibility for {{value0}}",
@@ -14490,7 +14792,6 @@
           "healthMixed": "Mixed",
           "healthNeedsAttention": "Needs attention",
           "healthUpdateNeeded": "Update needed",
-          "hosts": "Hosts",
           "visibleHostsCount": "{{value0}} hosts"
         },
         "sleep": {
@@ -14570,7 +14871,6 @@
           "todo": "Todo"
         },
         "workspaceKanbanStatusLane": {
-          "addProjectToCreate": "Add a project to create workspaces",
           "newWorkspaceInStatus": "New workspace in {{status}}"
         },
         "worktree": {
@@ -15225,8 +15525,6 @@
           "0e9ad9c798": "Directories",
           "14952d451e": "{{value0}} directories",
           "16223dde6a": "Load presets",
-          "2106b565ae": "\"{{name}}\" already exists.",
-          "42742b6c47": "Name must be 80 characters or fewer.",
           "69c020eddc": "Edit preset",
           "7c3275d307": "Edit {{value0}}",
           "8b12c0850a": "Save",
@@ -15237,9 +15535,7 @@
           "c7f9b3f0c1": "Off",
           "ddbcaef7be": "src/renderer packages/ui",
           "de8fce5854": "Cancel",
-          "e28dd2f0e9": "Name is required.",
-          "e9283eb171": "1 directory",
-          "loadingPresets": "Loading presets..."
+          "e9283eb171": "1 directory"
         }
       },
       "star": {
@@ -15596,8 +15892,7 @@
             "off": "Off",
             "offDescription": "Allow normal system sleep behavior",
             "on": "On",
-            "onDescription": "Keep this computer awake continuously",
-            "title": "Caffeinate"
+            "onDescription": "Keep this computer awake continuously"
           },
           "NativeChatResumeStatusSegment": {
             "ariaLabel": "{{value0}} chats available to resume",
@@ -15614,12 +15909,14 @@
             "failedTooltip": "Chats Orca could not resume after the restart. Click for details.",
             "label": "{{value0}} chats to resume",
             "labelOne": "1 chat to resume",
-            "resumingAria": "Resuming {{value0}} chats. Click to open details.",
-            "resumingAriaOne": "Resuming 1 chat. Click to open details.",
-            "resumingLabel": "Resuming {{value0}} chats",
-            "resumingLabelOne": "Resuming 1 chat",
             "resumingTooltip": "Restoring interrupted chats and asking them to carry on…",
+            "resumingProgressLabel": "Resuming chats {{value0}}/{{value1}}",
+            "resumingProgressAria": "Resuming chats, {{value0}} of {{value1}} done. Click to open details.",
             "tooltip": "Open interrupted chats available to resume"
+          },
+          "StatusBarUsageChangeNotices": {
+            "compactTitle": "Usage display is now compact",
+            "compactBody": "One headline metric per provider. Choose <detailed>Detailed</detailed> in the Usage menu to show more limits."
           },
           "PetStatusSegment": {
             "0608ad02a2": "Choose pet",
@@ -15842,6 +16139,9 @@
             "fda8146810": "Open Kimi usage details",
             "ff0fbe9311": "Active",
             "floatingTerminalNewActivity": "{{label}}, new activity",
+            "4fba7dc1e7": "{{value0}} bal",
+            "4025a6f62f": "Unlimited",
+            "a95969101f": "{{value0}} credits",
             "grokUsageAria": "Open Grok usage details",
             "grokUsageMenu": "Grok Usage",
             "hiddenUsageProviders": "Also: {{value0}}",
@@ -16000,6 +16300,16 @@
               }
             }
           },
+          "provider": {
+            "extra": {
+              "usage": {
+                "section": {
+                  "135d51c19f": "Limit {{value0}}",
+                  "apiKeyBalanceUnavailable": "Balance is not included in this usage response."
+                }
+              }
+            }
+          },
           "resource": {
             "manager": {
               "terminal": {
@@ -16043,6 +16353,14 @@
             "8418ec448d": "{{value0}} usage could not be refreshed. Agent sessions may still be signed in.",
             "94038ad2fa": "Session",
             "a37e8c15d4": "Run kimi in a terminal on the computer running Orca and wait for it to start, then retry usage.",
+            "fbc80d8be2": "Zen balance",
+            "c03c61f53f": "Balance",
+            "f6a27a3c0a": "{{value0}} available",
+            "7404abbece": "Usage credits",
+            "473d45cd0f": "Balance {{value0}}",
+            "f21b2ba897": "Credits",
+            "56c0d70577": "Unlimited",
+            "87b5bda4d3": "{{value0}} credits available",
             "a7517cccb6": "Claude usage is unavailable right now.",
             "a79c64f87e": "Fable",
             "a9a318b7a3": "Refresh failed — showing cached data",
@@ -16146,10 +16464,7 @@
             "e3ff145b98": "Split Left",
             "e5ff31ccaf": "Close Tabs To The Right",
             "f7c3d7d5af": "Split Right",
-            "fdd29eb669": "Pin Tab",
-            "openContainingFolder": "Open Containing Folder",
-            "revealInFileExplorer": "Reveal in File Explorer",
-            "revealInFinder": "Reveal in Finder"
+            "fdd29eb669": "Pin Tab"
           },
           "QuickLaunchButton": {
             "348a04c1ad": "Agent settings…",
@@ -16486,10 +16801,8 @@
       },
       "taskSourceContextSummary": {
         "account": "Account: {{value0}}",
-        "accountPrefix": "Account: {{value0}}",
         "authNeeded": "auth needed",
         "availability": "Availability: {{value0}}",
-        "availabilityPrefix": "Availability: {{value0}}",
         "checkingServerCapabilities": "checking server capabilities",
         "connected": "connected",
         "connecting": "connecting",
@@ -16497,22 +16810,18 @@
         "currentAccount": "Current account",
         "disconnected": "disconnected",
         "host": "Host: {{value0}}",
-        "hostPrefix": "Host: {{value0}}",
         "noHost": "No host",
         "projectsCount": "{{value0}} projects",
         "providerAuthNeeded": "provider auth needed",
         "providerSource": "{{value0}} source",
         "providerUnsupported": "provider unsupported on this host",
-        "providerUnsupportedOnHost": "provider unsupported on this host",
         "reconnectOrUpdateTitle": "Reconnect or update {{value0}} to load this source.",
         "selectedProject": "Selected project",
         "selectedProjectsCount": "{{value0}} selected projects",
         "serverUpdateNeeded": "server update needed",
-        "serverUpdateNeededForTaskSources": "server update needed for task sources",
         "someSourceHostsUnavailable": "Some {{value0}} source hosts unavailable: {{value1}}",
         "source": "Source: {{value0}}",
         "sourceHostsCount": "{{value0}} source hosts",
-        "sourcePrefix": "Source: {{value0}}",
         "sourceToolUnavailable": "source tool unavailable",
         "sourceUnavailable": "{{value0}} source unavailable: {{value1}}",
         "taskSourceServerUpdateNeeded": "server update needed for task sources",
@@ -16536,18 +16845,16 @@
           },
           "MobileDriverOverlay": {
             "3eed73394f": "Your keyboard is paused",
-            "54f7d6f69d": "Take back all terminals",
-            "7cffad954c": "Collapse",
-            "a6b1d8f3e2": "Your phone session ended. Restore to desktop size for this terminal, or for all terminals your phone left at phone size.",
-            "b3d8e1f42a": "Restore this terminal",
             "c44659e09f": "Phone driving",
             "c6460cf584": "Take back",
             "c7e4a2b8f1": "Your phone is in control",
-            "c8f2e1a4b9": "Take back this terminal",
-            "d9f3c6e2a4": "Desktop keyboard is paused. Take back this terminal to type here, take back all terminals your phone controls, or collapse to keep watching.",
-            "e8c4f2a91b": "Restore all terminals",
-            "f2a8b9c1d3": "From your phone",
-            "faa367dc74": "Your phone left this at phone size"
+            "4b7e1c9a20": "Still sized for your phone",
+            "9d2f6a3e58": "Your phone session ended. Restore to fit this window.",
+            "1e5c8b7d43": "Restore",
+            "6a3d9f2c71": "Restore all",
+            "8c1a5e9f36": "Desktop typing is paused. Output keeps streaming.",
+            "2f7b4d1e95": "Take back all",
+            "3a9c5f7e12": "Minimize"
           },
           "PinnedTabCloseDialog": {
             "0b38ee2f86": "Cancel",
@@ -16604,6 +16911,8 @@
             "retryUnavailable": "Retry could not reconnect yet. Try again shortly.",
             "retrying": "Retrying…",
             "sessionUnavailable": "Orca couldn't reattach to this pane's terminal session on the host. Open a new terminal to continue.",
+            "heldByPreviousRelay": "This terminal is still running on the host under the previous Orca version, which this version cannot connect to. It keeps running until it exits. Open a new terminal to keep working here.",
+            "ownerHostMismatch": "This terminal's saved session belongs to another host connection, so Orca can't reattach it here. Open a new terminal to continue.",
             "sourceRestoring": "Reconnecting this terminal — its output is being re-established. The session is still running.",
             "terminalProcessLimit": "Your system cannot start another terminal process. Close unused terminals or quit unused processes, then try again."
           },
@@ -16632,17 +16941,6 @@
             "cc5a2dc706": "Edit pane title: {{value0}}",
             "f984ab2a30": "Remove pane title: {{value0}}"
           },
-          "TerminalPaneDisconnectedBanner": {
-            "disconnectedBody": "Automatic retries stopped. Reconnect to resume this terminal session.",
-            "disconnectedTitle": "Remote runtime disconnected",
-            "reconnectButton": "Reconnect",
-            "retryingBody": "Orca will retry for up to one minute. This terminal will resume if the connection returns.",
-            "retryingTitle": "Reconnecting to remote runtime",
-            "sshPaneBody": "Orca cannot reach this terminal right now. The shell may still be running on the host, so starting a new one leaves it alone.",
-            "sshPaneTitle": "Terminal disconnected",
-            "startNewTerminalButton": "Start a new terminal",
-            "tryAgainButton": "Try again"
-          },
           "TerminalProcessExitOverlay": {
             "capacityDetail": "Git Bash reached its 128-console limit. Close unused Git Bash terminals, then restart this terminal.",
             "capacityTitle": "Git Bash console limit reached",
@@ -16659,11 +16957,19 @@
             "disconnectedBody": "Automatic retries stopped. Reconnect to resume this terminal session.",
             "disconnectedTitle": "Remote runtime disconnected",
             "reconnectButton": "Reconnect",
-            "retryingBody": "Orca will retry for up to one minute. This terminal will resume if the connection returns.",
+            "retryingBody": "Orca is retrying automatically. This terminal will resume if the connection returns.",
             "retryingTitle": "Reconnecting to remote runtime"
           },
           "TerminalRestoringPlaceholder": {
             "restoring": "Restoring terminal…"
+          },
+          "AgentLaunchPaneNotice": {
+            "commandNotFound": "Its command wasn't found on this machine.",
+            "copyPrompt": "Copy prompt",
+            "exitedDuringStart": "It exited while starting.",
+            "notStarted": "The agent couldn't start.",
+            "unconfirmed": "Couldn't confirm the agent started.",
+            "workspaceGone": "Its workspace is no longer available."
           },
           "TerminalSessionStateSaveFailureDialog": {
             "38c282a2c4": "The analyzer opens directly from here. You can also open it later from the lower-left toolbox menu by choosing Space Analyzer.",
@@ -16948,15 +17254,6 @@
         },
         "sheet": {
           "1189e9fe0a": "Close"
-        },
-        "team": {
-          "multi": {
-            "combobox": {
-              "18ec58881e": "Search teams...",
-              "301f2a796e": "All teams",
-              "de83523bf9": "No teams match your search."
-            }
-          }
         }
       },
       "web": {
@@ -16965,6 +17262,32 @@
             "hostOnly": "Cursor sign-in details are only readable on the computer running Orca."
           }
         }
+      },
+      "NativeChatResumeRunPanel": {
+        "resumedTitle": "Resumed {{value0}} of {{value1}} chats",
+        "resumingTitleOne": "Resuming 1 chat",
+        "resumingTitle": "Resuming {{value0}} chats",
+        "description": "Each chat is restored with its full context and asked to check where it stopped. You can close this; the status bar keeps track.",
+        "resumedTitleOne": "Resumed {{value0}} of 1 chat"
+      },
+      "NativeChatResumeRunStatusIcon": {
+        "waitingForReply": "Waiting for a reply",
+        "starting": "Starting",
+        "waitingToStart": "Waiting to start",
+        "inFlight": "{{value0}} · {{value1}}",
+        "resumed": "Resumed"
+      },
+      "NativeChatResumeRunSummary": {
+        "done": "{{value0}} of {{value1}} done",
+        "starting": "{{value0}} starting",
+        "waitingForReply": "{{value0}} waiting for a reply",
+        "waitingToStart": "{{value0}} waiting to start",
+        "all": "All",
+        "inProgress": "In progress",
+        "resumed": "Resumed",
+        "attention": "Need you",
+        "running": "Running {{value0}}",
+        "filter": "Show chats"
       },
       "workspace": {
         "cleanup": {
@@ -16999,14 +17322,12 @@
             "662b8ec3f8": "Workspace cleanup scan failed",
             "73690b0031": "Unselect all in {{value0}}",
             "74f6c16279": "Back",
-            "7869281a04": "Show all repos",
             "7ae2ad30f4": "Refresh",
             "7b7bde5181": "Checked workspaces so far: {{value0}}",
             "7eee951968": "Scanning workspaces",
             "7f451a3e2c": "Could not ignore cleanup suggestion",
             "86ba852118": "{{value0}}, {{value1}} failed",
             "8b74d4ea6e": "Scanning worktrees and git state, then combining open tab, terminal, live agent, and remote availability signals before suggesting deletions.",
-            "8c9ea6e305": "Review ignored workspaces",
             "93b7381d50": "Filters",
             "9623a5107d": "Unpushed commits",
             "97c772c4fe": "No inactive workspaces found in checked repositories.",
@@ -17153,6 +17474,11 @@
           }
         }
       },
+      "ipcEvents": {
+        "sshManagedServer": {
+          "refusedBlocked": "This SSH host could not move to a managed Orca server. SSH Hosts in Settings shows why."
+        }
+      },
       "useAppMenuPaste": {
         "pasteTooLarge": "Paste is too large."
       },
@@ -17166,8 +17492,6 @@
       "useComposerState": {
         "3db83fc58a": "No project path is available on this host for attachments.",
         "5f3d2c8a1b": "Failed to resolve MR base.",
-        "7eb3f44ff7": "Selected agent is disabled. Choose an enabled agent before creating.",
-        "a9ff236145": "Some attachments could not be uploaded.",
         "b2ead86962": "Failed to resolve PR base.",
         "ba6cb77082": "Failed to connect to project.",
         "chooseOrAddProjectBeforeWorkspace": "Choose or add a project before creating a workspace.",
@@ -17526,6 +17850,16 @@
         "timedOut": "Copying took too long. Try the drop again.",
         "tooLarge": "Too large to copy, so Orca couldn't hand it to the agent."
       },
+      "reveal": {
+        "in": {
+          "file": {
+            "manager": {
+              "notFound": "File not found. It may have been moved or deleted.",
+              "launchFailed": "Could not reveal the file."
+            }
+          }
+        }
+      },
       "emulator": {
         "androidSdkNotFound": "Android SDK not found. Install Android Studio and set ANDROID_HOME.",
         "xcodeSimulatorToolsUnavailable": "Xcode Simulator tools are unavailable. Install full Xcode, open it once, then select it with `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`."
@@ -17548,6 +17882,7 @@
         "image": {
           "attachments": {
             "additionalErrors": "{{count}} additional images could not be attached.",
+            "compressed": "{{fileName}} was compressed from {{originalSize}} to {{size}} to fit the attachment limit.",
             "dimensionsTooLarge": "{{fileName}} has dimensions that are too large to preview safely.",
             "empty": "{{fileName}} is empty.",
             "fallbackName": "Image attachment",
@@ -17772,17 +18107,6 @@
           }
         }
       },
-      "project": {
-        "host": {
-          "setup": {
-            "options": {
-              "dab97ff977": "Update Orca on this host to set up projects",
-              "deb150c3a7": "Orca server version is incompatible",
-              "e084b8f916": "Checking host capabilities"
-            }
-          }
-        }
-      },
       "projectSkillRuntime": {
         "distroMissing": "The selected WSL distro is unavailable. Choose an available distro or switch this project to Windows.",
         "distroRequired": "Select a WSL distro for this project before installing this skill.",
@@ -17828,7 +18152,6 @@
           "grokSignInExpired": "Grok sign-in expired — run grok on the computer running Orca; sign in if prompted. No chat message is needed.",
           "grokUsageFailedHttp": "Grok usage request failed (HTTP {{status}})",
           "grokUsageRequestFailed": "Grok usage request failed",
-          "grokUsageRequestHttp": "Grok usage request {{kind}} (HTTP {{status}})",
           "grokUsageUnauthorizedHttp": "Grok usage request unauthorized (HTTP {{status}})",
           "kimiCredentialsInvalid": "Kimi credentials file is invalid",
           "kimiCredentialsMissingToken": "Kimi credentials file is missing an access token",
@@ -17838,7 +18161,6 @@
           "kimiSessionExpired": "Kimi session expired — run kimi {{where}}, then retry usage.",
           "kimiUsageFailedHttp": "Kimi usage request failed (HTTP {{status}})",
           "kimiUsageRequestFailed": "Kimi usage request failed",
-          "kimiUsageRequestHttp": "Kimi usage request {{kind}} (HTTP {{status}})",
           "kimiUsageUnauthorizedHttp": "Kimi usage request unauthorized (HTTP {{status}})",
           "minimaxAuthCookieMissing": "MiniMax auth cookie not found — paste a Cookie header with _token",
           "minimaxCookieDecryptFailed": "MiniMax session cookie could not be decrypted",
@@ -17991,9 +18313,6 @@
     },
     "main": {
       "ipc": {
-        "filesystem": {
-          "fileTooLarge": "File too large: {{actualSize}}MB exceeds {{maxSize}}MB limit"
-        },
         "shell": {
           "audioFileFilter": "Audio"
         }
@@ -18079,17 +18398,34 @@
         "remoteHostDisconnected": "The workspace is not connected to a remote Orca host."
       }
     },
-    "shared": {
-      "nodeBoundedFileReader": {
-        "fileTooLarge": "File too large: {{actualSize}}MB exceeds {{maxSize}}MB limit"
-      }
-    },
     "ssh": {
       "sshConnectVerb": {
         "connect": "Connect",
         "connecting": "Connecting…",
         "reconnect": "Reconnect",
         "retry": "Retry"
+      },
+      "managedServerMove": {
+        "offer": "Move {{host}} to a managed Orca server for more reliable connections. Its {{count}} open terminals will restart.",
+        "offer_one": "Move {{host}} to a managed Orca server for more reliable connections. Its {{count}} open terminal will restart.",
+        "offer_other": "Move {{host}} to a managed Orca server for more reliable connections. Its {{count}} open terminals will restart.",
+        "moved": "{{host}} now runs a managed Orca server.",
+        "refusedLive": "Not moved: {{count}} terminals on {{host}} are still running.",
+        "refusedLive_one": "Not moved: {{count}} terminal on {{host}} is still running.",
+        "refusedLive_other": "Not moved: {{count}} terminals on {{host}} are still running.",
+        "refusedUnverifiable": "Not moved: Orca couldn’t confirm that {{count}} terminals on {{host}} stopped.",
+        "refusedUnverifiable_one": "Not moved: Orca couldn’t confirm that {{count}} terminal on {{host}} stopped.",
+        "refusedUnverifiable_other": "Not moved: Orca couldn’t confirm that {{count}} terminals on {{host}} stopped.",
+        "stayed": "{{host}} still runs the relay. SSH Hosts in Settings shows why.",
+        "failed": "Could not move {{host}}: {{reason}}",
+        "running": "Moving {{host}} to a managed Orca server…",
+        "title": "Move to managed server",
+        "confirm": "Move",
+        "notNow": "Not now",
+        "close": "Close",
+        "offerUncounted": "Move {{host}} to a managed Orca server for more reliable connections. Its open terminals will restart.",
+        "refusedUnverifiableUncounted": "Not moved: Orca couldn’t confirm that the terminals on {{host}} stopped.",
+        "retry": "Try again"
       }
     },
     "store": {
@@ -18335,7 +18671,9 @@
       "hostRowOfflineNamed": "Offline — was hosted on {{device}}",
       "popupBlocked": "Popup blocked: {{origin}}",
       "preparationFailed": "Couldn't start the remote browser on this desktop. Check the paired connection and try again.",
-      "unavailableDescription": "This page is attached to a different desktop or is no longer available.",
+      "unavailableDescription": "This page isn't available on this desktop right now.",
+      "unavailableOtherDesktopDescription": "This page is open on another desktop.",
+      "unavailableHostOfflineDescription": "{{host}} is offline. This page will reload here once it reconnects.",
       "unavailableTitle": "Client-hosted browser unavailable"
     },
     "guestRecovery": {
@@ -18399,7 +18737,6 @@
         "windowManagement": "screen information and multi-screen window placement"
       },
       "popupOpenedExternal": "{{target}} opened a new window in your default browser.",
-      "popupOpenedInOrca": "{{target}} opened a new page in Orca.",
       "popupUnsupported": "{{target}} tried to open a popup Orca does not support here.",
       "thisPage": "this page"
     },
@@ -18461,6 +18798,13 @@
     "agentChildRow": {
       "ended": "Ended"
     },
+    "markdown-callout": {
+      "note": "Note",
+      "tip": "Tip",
+      "important": "Important",
+      "warning": "Warning",
+      "caution": "Caution"
+    },
     "agentNotes": {
       "activeAgentNeedsPermission": "The active agent needs permission.",
       "activeSubmitFailed": "The notes may already be pasted in the active terminal, but Orca could not submit them.",
@@ -18481,14 +18825,13 @@
       "agentDisabled": "{{agent}} is disabled in Agent settings.",
       "agentUnavailable": "{{agent}} was not detected on this workspace host.",
       "context": "Context",
-      "continueInNewSession": "Continue in New Session…",
       "copyPrompt": "Copy prompt",
       "deliveryFailed": "The new {{agent}} session started, but its context could not be sent.",
       "deliveryUnconfirmed": "Orca could not confirm {{agent}} received the session context. Check the new session, and paste it yourself if its input is empty.",
       "detectingAgents": "Detecting Agents on this workspace host…",
       "detectionFailed": "Could not detect Agents on this workspace host.",
       "dialogDescription": "Start a fresh Agent session from this stopping point. The original session stays unchanged.",
-      "dialogTitle": "Continue in New Session",
+      "dialogTitle": "Hand Off to Another Agent",
       "launchFailed": "Could not start a new {{agent}} session.",
       "modeFocused": "Focused handoff (Recommended)",
       "modeFocusedDescription": "Uses the latest status and current workspace, reading older transcript details only when needed.",
@@ -18502,7 +18845,8 @@
       "startSession": "Start New Session",
       "starting": "Starting…",
       "startsIn": "Starts in:",
-      "untitledSession": "Current session"
+      "untitledSession": "Current session",
+      "handOffToAnotherAgent": "Hand Off to Another Agent"
     },
     "cmd-j": {
       "paletteSessionAge": {
@@ -18532,16 +18876,17 @@
       "select": "Select {{value0}}"
     },
     "native-chat": {
+      "reasoning": "Reasoning",
       "approval": {
         "allow": "Allow",
-        "askRule": "Ask rule",
-        "blockedPath": "Blocked path",
         "cancel": "Cancel",
         "deny": "Deny",
         "plan": {
           "file": "Plan file"
         },
         "reason": "Reason",
+        "needsAccess": "Needs access to",
+        "needsNewerOrca": "This request needs a newer version of Orca.",
         "title": "Allow {{value0}}?"
       },
       "ask": {
@@ -18577,13 +18922,19 @@
         "reasonBlocked": "failed",
         "reasonWaiting": "needs approval",
         "stateBlocked": "blocked",
+        "stateBlockedCount": "{{value0}} blocked",
         "stateDone": "done",
+        "stateDoneCount": "{{value0}} done",
         "stateIdle": "stopped",
+        "stateIdleCount": "{{value0}} stopped",
         "stateMonitoring": "monitoring",
-        "stateUnverifiable": "no recent update",
-        "stateUnverifiableCount": "{{value0}} with no recent update",
+        "stateMonitoringCount": "{{value0}} monitoring",
+        "stateUnverifiable": "status unavailable",
+        "stateUnverifiableCount": "{{value0}} with status unavailable",
         "stateWaiting": "waiting",
+        "stateWaitingCount": "{{value0}} waiting",
         "stateWorking": "working",
+        "stateWorkingCount": "{{value0}} working",
         "stop": "Stop",
         "stopAll": "Stop background tasks",
         "stopTask": "Stop {{value0}}",
@@ -18594,20 +18945,31 @@
         "attach": "Attach file",
         "attachmentOwnerChanged": "This workspace changed hosts while attaching — drop the files again.",
         "attachmentUnreadable": "Couldn't read the dropped files.",
+        "tooManyAttachments": "Attach {{value0}} or fewer files at a time.",
+        "pasteFailed": "Paste failed.",
+        "commandAttachmentsUnsupported": "Remove attachments before using a chat-session command.",
         "availableAfterSessionStarts": "Available after the session starts.",
         "chooseInAgentPicker": "Choose in agent picker…",
+        "searchModels": "Search models…",
+        "noModelsMatch": "No models match your search.",
         "commands": "Commands",
         "effort": "Effort",
         "fastMode": "Fast mode",
         "imagePasteFailed": "Image paste failed.",
         "imagePreview": "Full-size image preview",
         "imagePreviewUnavailable": "Preview unavailable",
+        "copyImage": "Copy image",
+        "copyImageFailed": "Couldn't copy image",
+        "copyImageTooLarge": "The image is too large to copy.",
+        "imageCopied": "Image copied",
         "imageSaving": "Saving pasted image…",
         "imageUnsupported": "Image paste is not supported for this agent.",
         "loadingSkills": "Loading skills...",
         "localAttachmentUnsupported": "Local attachments are not available for remote sessions.",
+        "attachFailed": "Couldn't attach {{files}}.",
+        "attachFailedBecause": "Couldn't attach {{files}}. {{reason}}",
+        "uploadingFile": "Uploading {{name}}…",
         "locked": "Input is held by another device.",
-        "mentionHint": "Referencing file:",
         "model": "Model",
         "noCommands": "No matching commands",
         "noCommandsOrSkills": "No matching commands or skills",
@@ -18621,17 +18983,25 @@
           "max": "Max",
           "medium": "Medium",
           "minimal": "Minimal",
-          "off": "Off",
-          "on": "On",
           "ultra": "Ultra",
           "xhigh": "Extra high"
         },
         "options": "Options",
         "pasteUnavailable": "Can't paste — this chat isn't accepting input right now.",
         "pastedImageLabel": "Pasted image",
+        "draftNotSaved": "This draft couldn't be saved yet. Orca keeps trying.",
+        "imageNotBroughtBack": "{{name}} couldn't be brought back with this draft. Attach it again or remove it.",
+        "pastedImageNotBroughtBack": "This pasted image couldn't be brought back with this draft. Remove it, and paste it again if you still need it.",
+        "removeImageToSend": "An image couldn't be brought back. Remove it to send.",
+        "removeImagesToSend": "Some images couldn't be brought back. Remove them to send.",
+        "imageAttachAgainLabel": "Attach again",
+        "pastedImageNotKeptLabel": "Not kept",
         "pendingAttachmentLimit": "Too many attachments are waiting. Finish composing before attaching more.",
         "pillAccessibleName": "{{value0}} {{value1}}",
-        "placeholder": "Send a message…",
+        "placeholder": "Ask anything, @ to mention files, / for commands",
+        "loadingFiles": "Loading files...",
+        "noFiles": "No matching files",
+        "filesLoadFailed": "Couldn't load files",
         "removeAttachment": "Remove attachment",
         "retrySkills": "Retry",
         "send": "Send",
@@ -18647,7 +19017,8 @@
         "skills": "Skills",
         "skillsLoadFailed": "Couldn't load skills",
         "skillsLoaded": "Skills loaded",
-        "skillsUnavailableHost": "Skills aren't available in SSH chats",
+        "clearDescription": "Clear conversation context",
+        "skillsUnavailableHost": "Skills can't be listed in SSH chats",
         "startDictation": "Start dictation",
         "stopDictation": "Stop dictation",
         "thinking": "Thinking",
@@ -18671,13 +19042,54 @@
       "conversationCommand": {
         "pendingWork": "Wait for pending work and messages to finish before using this command."
       },
+      "rewind": {
+        "unsupported": "This chat can't go back to an earlier message.",
+        "historyNotPaginated": "This older Codex chat can't go back to an earlier message. Start a new chat to use Rewind to here.",
+        "busy": "Available once the agent is idle and nothing in this chat is waiting on you.",
+        "staleEpoch": "The conversation changed. Review the latest messages and try again.",
+        "invalidTarget": "The conversation can't go back to this message. Nothing was changed.",
+        "historyLimit": "This conversation is too long to go back in. Nothing was changed.",
+        "providerRefused": "The agent couldn't go back to this message.",
+        "proofMismatch": "The agent's history didn't match this chat. Check the conversation before continuing.",
+        "outcomeUnknown": "Orca couldn't confirm whether the conversation went back to an earlier message. It checks before your next message is sent.",
+        "outcomeUnknownReturned": "Orca couldn't confirm whether the conversation went back to this message. Your message is back in the composer, and Orca checks the conversation before your next message is sent.",
+        "timeout": "The chat didn't update after going back to this message. Reopen it to see the latest.",
+        "refused": "Orca couldn't go back to this message. Check the conversation before continuing.",
+        "unavailable": "Wait for the chat to finish connecting.",
+        "pending": "Wait for the conversation to go back to the earlier message.",
+        "title": "Rewind to here?",
+        "confirmation": "Discard this message and everything after it? The message returns to the composer so you can edit and resend it. File changes on disk are kept.",
+        "confirm": "Rewind",
+        "cancel": "Cancel",
+        "action": "Rewind to here"
+      },
       "copyCode": "Copy code",
+      "context": {
+        "unavailable": "Context usage is not known yet. It becomes available after the agent next responds.",
+        "summary": "Context: {{used}} / {{window}} tokens ({{percent}}%), estimated from the last response.",
+        "used": "Context: {{used}} tokens used, estimated from the last response.",
+        "unreported": "Context usage is not available for this session."
+      },
+      "agentMessage": {
+        "messageFrom": "Message from",
+        "unnamedSender": "an agent"
+      },
       "copyMessage": {
         "copied": "Copied",
         "copy": "Copy message"
       },
       "deliveryUnconfirmed": "Delivery unconfirmed — check chat before retrying",
+      "messageSending": "Sending…",
+      "userMessage": {
+        "showFull": "Show full message",
+        "showLess": "Show less"
+      },
+      "visualUnavailable": "Visualization unavailable",
+      "visualLoading": "Loading visualization",
+      "visualOpenInSidebar": "Open in sidebar",
+      "visualClose": "Close visualization",
       "dismissDeliveryNotice": "Dismiss",
+      "addSelectionToChat": "Add to chat",
       "drop": {
         "subtitle": "Files are added to your message as paths the agent can read.",
         "title": "Drop to attach to this chat"
@@ -18718,11 +19130,31 @@
         "hostStopped": "{{agent}} never finished starting, so Orca stopped it.",
         "managedAccountEnvOverride": "This Claude launch sets its own Anthropic sign-in variables. Remove them to use a managed Claude account.",
         "managedAccountUnsupported": "While a Claude account is added in WSL, Claude chats need a Windows Claude account.",
+        "launchFolderMissing": "The folder this chat ran in no longer exists. Restore it to continue this chat.",
+        "historyInOtherAccount": "This chat's history is in another Claude account. Switch back to that account to continue it.",
+        "agentCommandNotRunnable": "{{agent}}'s Command in Settings → Agents must be a program path or name Orca can find, with no arguments or variables. Change it or reset it.",
         "noTurnToStop": "{{agent}} had no turn running to stop.",
         "notDelivered": "This message was not delivered.",
         "notDeliveredSendAgain": "This message was not delivered. Send it again to continue.",
-        "notSignedIn": "{{agent}} is not signed in for the selected account.",
-        "previousExitUnverifiable": "{{agent}} from before may still be running. Your messages will send once it stops.",
+        "notSignedIn": "{{agent}} is not signed in.",
+        "claudeSystemNotSignedIn": "Claude isn't signed in. Run `{{loginCommand}}`, or choose an account in Claude Accounts settings.",
+        "claudeManagedNotSignedIn": "This Claude account isn't signed in. Sign in again in Claude Accounts settings.",
+        "codexSystemNotSignedIn": "Codex isn't signed in. Run `{{loginCommand}}`.",
+        "codexManagedNotSignedIn": "This Codex account isn't signed in. Sign in again in Codex Accounts settings.",
+        "cliMissing": "{{agent}} wasn't found on the computer running this chat. Install it, or check its Command in Settings → Agents.",
+        "previousExitUnverifiable": "Couldn't stop {{agent}} from before.",
+        "sessionNotRestored": "{{agent}} couldn't reopen its earlier session, so this chat continues in a new one. {{agent}} doesn't remember the earlier messages.",
+        "argumentsUnsupportedOption": "Saved Arguments contain an unsupported option ({{option}}).",
+        "argumentsMissingValue": "Saved Arguments need a value for {{option}}.",
+        "argumentsMultipleValues": "Saved Arguments give {{option}} more than one value.",
+        "argumentsPositionalPrompt": "Saved Arguments include a prompt.",
+        "editSavedArguments": "Edit them in Settings > Agents > Arguments.",
+        "agentCommandNotSignedIn": "Sign in to {{agent}} with `{{loginCommand}}` on the computer running this chat.",
+        "interactiveAgentNotSignedIn": "Sign in to {{agent}} by running `{{loginCommand}}` and using `{{slashCommand}}` on the computer running this chat.",
+        "agentNotSignedIn": "Sign in to {{agent}}.",
+        "thenSendAgain": "Then send your message again.",
+        "runCommandWhenDone": "Run /{{command}} when it's done.",
+        "commandAfterAnswer": "Answer the agent's question or approval, then run /{{command}}.",
         "providerExitedRejection": "{{agent}} stopped before this message was sent.",
         "providerExitedRow": "{{agent}} stopped while this response was in progress. You can continue in this conversation.",
         "providerRateLimited": "{{agent}} is rate-limited and retrying.",
@@ -18730,10 +19162,14 @@
         "providerRejectedQuoted": "The provider did not accept this message: {{detail}}.",
         "providerRetrying": "{{agent}} hit a temporary problem and is retrying.",
         "providerRetryingQuoted": "{{agent}} is retrying: {{detail}}.",
+        "providerRetryNumber": "Retry {{attempt}}.",
+        "providerRetryNumberOf": "Retry {{attempt}} of {{maxRetries}}.",
+        "providerRetryLastError": "Last error: {{detail}}.",
         "providerStartFailed": "{{agent}} stopped before it finished starting.",
         "queueFull": "Too many messages were waiting for the agent, so this one was not sent.",
         "runCommandAgain": "Run /{{command}} again.",
         "sendToTryAgain": "Send your message to try again.",
+        "sendAgainToTryOnceMore": "Send your message again to try once more.",
         "signInFirst": "Sign in first.",
         "signInThenRunCommand": "Sign in, then run /{{command}} again.",
         "signInThenSend": "Sign in, then send your message again.",
@@ -18764,6 +19200,14 @@
         "sentAsGoal": "Sent as goal"
       },
       "jumpToLatest": "Jump to latest",
+      "find": {
+        "label": "Find in chat",
+        "noResults": "No results",
+        "previousMatch": "Previous match",
+        "nextMatch": "Next match",
+        "close": "Close"
+      },
+      "transcriptLabel": "Conversation",
       "launchPromptNotDelivered": "Not delivered — check the terminal",
       "loadEarlier": "Load earlier messages",
       "loadingEarlier": "Loading…",
@@ -18773,13 +19217,16 @@
         "compaction": "Context compacted",
         "details": "Details",
         "historyItemTooLarge": "This part of the chat was too large to show.",
+        "stoppedBeforeStart": "Stopped manually",
+        "dismiss": "Dismiss",
+        "copyError": "Copy error",
+        "orcaStopUpdate": "Orca on {{machine}} restarted for an update while this response was in progress.",
+        "orcaStopQuit": "Orca on {{machine}} was closed while this response was in progress.",
+        "orcaStopCrash": "Orca on {{machine}} stopped unexpectedly while this response was in progress.",
+        "orcaStopCanContinue": "You can continue in this conversation.",
         "historyRepaired": "Part of this chat's history couldn't be loaded.",
-        "plan": "Plan"
-      },
-      "orchestrationPaused": {
-        "command": "orca orchestration check",
-        "label": "Orchestration paused",
-        "message": "Structured Chat blocks terminal prompts and sends. Orchestration messages remain queued; switch to Terminal, then check the Orca inbox with"
+        "plan": "Plan",
+        "contextCleared": "Context cleared"
       },
       "providerFrame": {
         "byteLength": "{{value0}} bytes"
@@ -18801,15 +19248,23 @@
         "delete": "Delete",
         "editAlreadySent": "Already sent — your text is still in the composer.",
         "editMessage": "Edit message",
+        "showFullMessage": "Show full message",
+        "showLess": "Show less",
         "listLabel": "Queued messages",
         "moreActions": "More actions",
         "paused": "Paused",
         "pausedSendFailed": "Couldn't send — press Send to retry.",
         "queuePaused": "Queue paused",
-        "queuePausedCleared": "Queue paused after you cleared the conversation",
-        "queuePausedRestarted": "Queue paused because Orca restarted",
         "queuePausedStopped": "Queue paused because you interrupted",
         "resume": "Resume",
+        "sendConfirmTitle": "Send message?",
+        "sendConfirmBody": "You are about to send a message. Do you want to clear the {{count}} messages previously queued?",
+        "sendConfirmBody_one": "You are about to send a message. Do you want to clear the {{count}} message previously queued?",
+        "sendConfirmBody_other": "You are about to send a message. Do you want to clear the {{count}} messages previously queued?",
+        "sendConfirmClear": "Clear queue",
+        "sendConfirmSend": "Send message",
+        "fromSender": "From",
+        "pausedSendFailedWaiting": "Couldn't send — press Send to retry once the agent finishes.",
         "send": "Send",
         "sendHint": "Send this message now",
         "steer": "Steer",
@@ -18817,7 +19272,13 @@
         "turnOffQueueing": "Turn off queueing",
         "withdrawnHold": "Stopped before it was sent"
       },
+      "thought": "Thought",
+      "thoughtForDuration": "Thought for {{duration}}",
       "railEmptyMessage": "Message",
+      "prompt": {
+        "collapse": "Collapse",
+        "expand": "Expand"
+      },
       "railImageMessage": "Image attachment",
       "railLabel": "Your messages",
       "receipt": {
@@ -18825,7 +19286,8 @@
         "cancelledBy": "Cancelled on {{device}}",
         "resolved": "Resolved",
         "resolver": "Answered on {{device}}",
-        "unavailable": "Selected answer unavailable"
+        "unavailable": "Selected answer unavailable",
+        "emptyAnswer": "Empty answer"
       },
       "scrollMessageToTop": "Scroll this message to top",
       "state": {
@@ -18846,8 +19308,7 @@
           "subtitle": "This terminal is not running a recognized coding agent.",
           "title": "No conversation here"
         },
-        "pairHost": "Pair a host to view agent chat history.",
-        "reconnecting": "Reconnecting to this chat…"
+        "pairHost": "Pair a host to view agent chat history."
       },
       "status": {
         "failedAfter": "Failed after {{value0}}",
@@ -18857,6 +19318,9 @@
         "toggleDetails": "Toggle turn details",
         "workedFor": "Worked for {{value0}}",
         "working": "Working…",
+        "stopping": "Stopping…",
+        "queueAfterStop": "Queue a message to run after the stop",
+        "sendAfterStop": "Send a message to run after the stop",
         "workingFor": "Working for {{value0}}"
       },
       "stop": "Stop the agent",
@@ -18864,6 +19328,16 @@
       "structuredSessionHostDeclinedDescription": "This server can't run a {{value0}} chat in this workspace.",
       "structuredSessionHostUnreachable": "Could not reach {{value0}}",
       "structuredSessionHostUnreachableDescription": "Orca did not open a {{value0}} chat. Check the connection to the server and try again.",
+      "hostOutage": {
+        "offline": "{{hostName}} is offline",
+        "reconnecting": "{{hostName}} is reconnecting…",
+        "reconnect": "Reconnect"
+      },
+      "interruptedContinue": {
+        "continue": "Continue",
+        "failed": "Couldn't continue this chat. Try again, or send a message.",
+        "explanation": "Continue, and the agent first checks whether its last step finished."
+      },
       "subagents": {
         "ranN": "Ran {{value0}} subagents",
         "ranOne": "Ran 1 subagent",
@@ -18877,8 +19351,8 @@
           "idleCount": "{{value0}} idle",
           "stopped": "stopped",
           "stoppedCount": "{{value0}} stopped",
-          "unverifiable": "no recent update",
-          "unverifiableCount": "{{value0}} with no recent update",
+          "unverifiable": "status unavailable",
+          "unverifiableCount": "{{value0}} with status unavailable",
           "working": "working",
           "workingCount": "{{value0}} working"
         },
@@ -18906,16 +19380,41 @@
         "showTerminal": "Show terminal"
       },
       "tool": {
-        "addedFile": "Added file",
         "copyDiff": "Copy diff",
         "countN": "{{value0}} tool calls",
         "countOne": "1 tool call",
-        "deletedFile": "Deleted file",
         "diffGap": "Lines not shown",
         "diffTruncated": "Diff truncated",
-        "editedFile": "Edited file",
+        "row": {
+          "running": "Running",
+          "reading": "Reading",
+          "editing": "Editing",
+          "searching": "Searching",
+          "searchingWeb": "Searching the web",
+          "fetching": "Fetching",
+          "listed": "Listed",
+          "listing": "Listing",
+          "ran": "Ran",
+          "read": "Read",
+          "edited": "Edited",
+          "searched": "Searched",
+          "searchedWeb": "Searched the web",
+          "fetched": "Fetched",
+          "added": "Added",
+          "deleted": "Deleted",
+          "renamed": "Renamed",
+          "subagent": "Subagent",
+          "triedRead": "Tried to read",
+          "triedEdit": "Tried to edit",
+          "triedSearch": "Tried to search",
+          "triedList": "Tried to list",
+          "triedFetch": "Tried to fetch",
+          "triedSearchWeb": "Tried to search the web"
+        },
         "exitCode": "exit {{value0}}",
         "failedCallsLabel": "Failed tool calls: {{value0}}",
+        "interruptedCount": "{{value0}} interrupted",
+        "interruptedCallsLabel": "Interrupted tool calls: {{value0}}",
         "failedCount": "{{value0}} failed",
         "milliseconds": "{{value0}}ms",
         "moreCalls": "+{{value0}} more",
@@ -18923,7 +19422,6 @@
         "ranCommandOneToolSummary": "Ran {{commandCount}} command and used {{toolCount}} tool",
         "ranCommandsManyToolsSummary": "Ran {{commandCount}} commands and used {{toolCount}} tools",
         "ranCommandsOneToolSummary": "Ran {{commandCount}} commands and used {{toolCount}} tool",
-        "renamedFile": "Renamed file",
         "result": "Result",
         "runAgentMany": "Ran {{value0}} agents",
         "runAgentOne": "Ran 1 agent",
@@ -18986,7 +19484,7 @@
         "agentStarting": "The agent is still starting.",
         "answerFirst": "Answer the question or approval first.",
         "backgroundTasksRunning": "Background tasks are still running.",
-        "capacity": "Orca has received too many requests in the last day.",
+        "capacity": "Orca on the computer running this chat has hit a request limit. Update Orca there, then try again.",
         "chatNotFound": "Orca can't find this chat.",
         "clearUnfinished": "The last /clear didn't finish.",
         "commandRunning": "A /compact or /clear is still running.",
@@ -18999,6 +19497,7 @@
         "messageNotSaved": "Couldn't save your message.",
         "messagesUnsettled": "A message you sent earlier isn't confirmed yet.",
         "notAvailable": "This isn't available in this chat.",
+        "cannotRunHere": "Orca can't run this agent in a chat here.",
         "notDoneAnswer": "Your answer was not sent.",
         "notDoneCommand": "The command didn't run.",
         "notDoneGoal": "The goal wasn't changed.",
@@ -19016,20 +19515,35 @@
         "questionChanged": "This question was already answered or has changed.",
         "quitTerminalAgent": "Quit that agent to continue the chat here.",
         "recordFailed": "Orca couldn't save this to the chat's history.",
+        "attachmentExpired": "This attachment expired.",
+        "reattachFile": "Remove it and attach it again.",
         "recordUnreadable": "Orca couldn't read this chat's saved state.",
         "reopenChat": "Reopen the chat to check again.",
         "restartFailed": "The agent couldn't restart.",
         "savedByNewerOrca": "Chats were saved by a newer Orca.",
         "sendOutcomeLost": "Orca couldn't confirm your message reached the agent. Check the chat, then send it again if needed.",
         "settleEarlierMessage": "Wait for your earlier message to go through, or retry it.",
+        "queueTooLarge": "Too much text is waiting in the queue.",
+        "shrinkQueue": "Delete a queued message, or wait for one to go through, then try again.",
         "startNewChat": "Start a new chat to continue.",
         "terminalAgentHoldsChat": "This chat is still open in a terminal agent.",
         "tryAgain": "Try again.",
+        "agentStillWorking": "The agent is still working.",
+        "runClearWhenDone": "Run /clear when it's done.",
+        "clearAfterAnswer": "Answer the agent's question or approval, then run /clear.",
+        "runCompactWhenDone": "Run /compact when it's done.",
+        "compactAfterAnswer": "Answer the agent's question or approval, then run /compact.",
+        "clearAfterRetry": "Retry your earlier message, then run /clear.",
+        "compactAfterRetry": "Retry your earlier message, then run /compact.",
+        "clearAfterSending": "Your earlier message is still being sent. Run /clear once it has gone.",
+        "compactAfterSending": "Your earlier message is still being sent. Run /compact once it has gone.",
         "tryAgainComposerSend": "Send it again.",
         "turnActive": "The agent is still responding.",
         "unreachable": "Orca couldn't reach the agent.",
         "unsupported": "This needs a newer Orca on the computer running this chat. Update Orca there, then try again.",
         "updateOrcaToKeepUsing": "Update Orca to keep using them.",
+        "chatSavedByNewerOrca": "This chat was saved by a newer Orca.",
+        "updateOrcaToOpenChat": "Update Orca to open it.",
         "waitForBackgroundTasks": "Wait for the background tasks to finish.",
         "waitForCommand": "Wait for the /compact or /clear to finish.",
         "waitForStart": "Wait for the agent to finish starting.",
@@ -19072,6 +19586,11 @@
         }
       }
     },
+    "jiraIssueAssigneeField": {
+      "label": "Assignee",
+      "automatic": "Automatic",
+      "assignToMe": "Assign to me ({{name}})"
+    },
     "quickActions": {
       "noActiveChat": "Can't {{action}} — no movable chat is active.",
       "noActiveWorkspace": "Can't {{action}} — no workspace is active.",
@@ -19079,20 +19598,6 @@
       "unsupported": "Can't {{action}} — this client and runtime do not support it.",
       "workspaceDisconnected": "Can't {{action}} — workspace is disconnected.",
       "workspaceLoading": "Can't {{action}} — workspace is still loading."
-    },
-    "rightSidebar": {
-      "checksPanelContent": {
-        "actionRequired": "Action required",
-        "cancelled": "Cancelled",
-        "failed": "Failed",
-        "inProgress": "In progress",
-        "neutral": "Neutral",
-        "pending": "Pending",
-        "queued": "Queued",
-        "skipped": "Skipped",
-        "successful": "Successful",
-        "timedOut": "Timed out"
-      }
     },
     "settings": {
       "TerminalInteraction": {
@@ -19102,6 +19607,9 @@
       "nativeChat": {
         "queueFollowUpsCopy": "Messages you send while the agent is working wait as cards you can steer, edit, or delete. Messages with images send right away.",
         "queueFollowUpsTitle": "Queue follow-ups",
+        "inlineVisualsTitle": "Inline visuals",
+        "inlineVisualsCopy": "Let the agent show charts, diagrams and mockups inside its replies. Applies to newly started chats.",
+        "inlineVisualsToggleLabel": "Toggle inline visuals",
         "queueFollowUpsToggleLabel": "Toggle queue follow-ups"
       },
       "terminal": {
@@ -19413,6 +19921,16 @@
         "goToWorktree": "Go to worktree",
         "workspaceReadyToast": "Workspace {{name}} is ready",
         "worktreeReadyToast": "Worktree {{name}} is ready"
+      },
+      "delete": {
+        "changes": {
+          "permanentLoss": "Any uncommitted or untracked changes in Git workspaces will be permanently deleted.",
+          "clean": "No uncommitted or untracked changes",
+          "unavailable": "Changes could not be checked",
+          "checking": "Checking for changes…",
+          "checkingDetails": "Checking…",
+          "unavailableDetails": "Details unavailable"
+        }
       }
     }
   },
@@ -19459,7 +19977,6 @@
       "label": "Filter",
       "project": "Project",
       "remove": "Remove {{label}} filter",
-      "removeChip": "Remove {{filter}}",
       "review": {
         "closed": "Closed",
         "draft": "Draft",
@@ -19476,76 +19993,6 @@
       "remoteNamed": "Remote Orca host · {{host}}",
       "ssh": "SSH host",
       "sshNamed": "SSH host · {{host}}"
-    },
-    "map": {
-      "agentCount": "{{count}} agents",
-      "agentCount_one": "{{count}} agent",
-      "agentCount_other": "{{count}} agents",
-      "canvasLabel": "Nested project, workspace, and agent map",
-      "empty": "No agents match the current filters.",
-      "filters": {
-        "agentlessWorkspaces": "Workspaces without agents",
-        "agents": "Agents",
-        "canvasSummary": "{{shown}} of {{total}} agents shown",
-        "lifespan": "Session lifespan",
-        "ofTotalAgents": "of {{total}} agents shown",
-        "orchestrationLinks": "Orchestration links",
-        "orchestrationLinksHidden": "Orchestration links hidden",
-        "quickViews": "Quick views",
-        "reset": "Reset",
-        "resetRanges": "Reset ranges",
-        "showStates": "Agent states",
-        "sinceMessage": "Since last message",
-        "stateChip": "State: {{states}}",
-        "summaryAll": "All",
-        "summaryCount": "{{shown}} of {{total}}",
-        "summarySelected": "{{count}} selected",
-        "time": "Time",
-        "timeAny": "any",
-        "timeInState": "Time in current state",
-        "timeMaximum": "{{label}} maximum",
-        "timeMinimum": "{{label}} minimum",
-        "timeRangeCount": "{{count}} ranges",
-        "title": "Map controls",
-        "workspace": "Workspace",
-        "workspaceVisibility": "Map content"
-      },
-      "fit": "Fit",
-      "host": {
-        "all": "All hosts",
-        "local": "Local",
-        "remote": "Remote",
-        "ssh": "SSH",
-        "wsl": "WSL"
-      },
-      "hostFilter": "Host filter",
-      "liveContainmentMap": "Live containment map",
-      "noLaunchableAgents": "No enabled agents detected.",
-      "noWorkspaceAgents": "No agents in this workspace.",
-      "openFolderWorkspace": "Open {{workspace}} folder workspace details",
-      "openWorktree": "Open {{worktree}} worktree details",
-      "projectCount": "{{agents}} agents · {{workspaces}} workspaces",
-      "quickView": {
-        "attention": "Needs me",
-        "everything": "Everything",
-        "longRunning": "Long runners",
-        "orchestration": "Orchestration",
-        "recent": "Last 30 min",
-        "stale": "Stale > 3d",
-        "stuck": "Stuck",
-        "unread": "Unread"
-      },
-      "runningAgents": "Agents",
-      "sleepWorkspace": "Sleep",
-      "spawnAgent": "Start a new agent",
-      "status": {
-        "doneSeen": "Done, seen"
-      },
-      "worktreeSummary": "{{total}} agents · {{active}} active · {{done}} done",
-      "worktreeSummary_one": "{{total}} agent · {{active}} active · {{done}} done",
-      "worktreeSummary_other": "{{total}} agents · {{active}} active · {{done}} done",
-      "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
     },
     "placeholder": {
       "description": "This is where all your agents will show up at a glance. The board is coming soon.",
@@ -19574,12 +20021,7 @@
       "remotePreviewUnavailable": "No preview for this remote session — open the workspace to view the terminal."
     },
     "title": "Agents",
-    "total": "{{count}} total",
-    "view": {
-      "board": "Dashboard",
-      "label": "Dashboard view",
-      "map": "Agent Map"
-    }
+    "total": "{{count}} total"
   },
   "editor": {
     "fileLoad": {
@@ -19659,6 +20101,16 @@
       "startInstruction": "to start voice dictation. Press",
       "stopInstruction": "again to stop.",
       "unassignedInstruction": "Assign a dictation shortcut before starting voice dictation in a focused pane."
+    },
+    "nativeChatUpgrade": {
+      "eyebrow": "New",
+      "title": "Native chat got an upgrade",
+      "intro": "New chats with supported agents now open in the upgraded chat view. To move between chat and CLI, open {{panel}} in the right sidebar:",
+      "resumeInNativeChat": "{{action}} opens a supported CLI conversation in native chat.",
+      "resumeInCli": "{{action}} copies a Claude or Codex chat into a new CLI session. The original chat stays as it is.",
+      "settingsInstruction": "Manage Chat UI in",
+      "settingsLink": "Settings → Experimental",
+      "gotIt": "Got it"
     }
   },
   "fileExplorer": {
@@ -19683,213 +20135,21 @@
   "githubChecks": {
     "retrying": "Retrying…"
   },
-  "menu": {
-    "about": "About Orca",
-    "appearance": "Appearance",
-    "checkForUpdates": "Check for Updates...",
-    "copy": "Copy",
-    "cut": "Cut",
-    "edit": "Edit",
-    "exit": "Exit",
-    "exploreOrca": "Explore Orca",
-    "file": "File",
-    "forceReload": "Force Reload",
-    "gettingStarted": "Getting Started with Orca",
-    "help": "Help",
-    "hide": "Hide Orca",
-    "hideOthers": "Hide Others",
-    "minimize": "Minimize",
-    "openWorktreePalette": "Open Worktree Palette",
-    "paste": "Paste",
-    "quit": "Quit Orca",
-    "redo": "Redo",
-    "reload": "Reload",
-    "reportCrash": "Report Crash...",
-    "resetSize": "Reset Size",
-    "selectAll": "Select All",
-    "services": "Services",
-    "settings": "Settings",
-    "showAutomationsButton": "Show Automations Button",
-    "showMobileButton": "Show Orca Mobile Button",
-    "showStatusBar": "Show Status Bar",
-    "showTasksButton": "Show Tasks Button",
-    "showTitlebarAppName": "Show Titlebar App Name",
-    "toggleDevTools": "Toggle Developer Tools",
-    "toggleFullScreen": "Toggle Full Screen",
-    "toggleLeftSidebar": "Toggle Left Sidebar",
-    "toggleRightSidebar": "Toggle Right Sidebar",
-    "undo": "Undo",
-    "unhide": "Show All",
-    "view": "View",
-    "window": "Window",
-    "zoom": "Zoom",
-    "zoomIn": "Zoom In",
-    "zoomOut": "Zoom Out"
-  },
-  "notifications": {
-    "agentStatus": {
-      "failed": "failed",
-      "finished": "finished",
-      "needsInput": "needs input",
-      "stopped": "stopped",
-      "working": "working"
-    },
-    "permissionProbeBody": "Orca will alert you when agents finish or terminals need attention.",
-    "testBody": "This is a test notification from Orca.",
-    "testTitle": "Orca notifications are on"
-  },
-  "osDocumentOpen": {
-    "failed": "Failed to open the file."
-  },
-  "quickOpen": {
-    "moreMatchesAvailable": "More matches may be available. Refine your search to narrow the results."
-  },
-  "renderer": {
-    "components": {
-      "editor": {
-        "CombinedDiffViewer": {
-          "openDiff": "Open diff",
-          "openInEditor": "Open in editor"
-        },
-        "editorLabels": {
-          "allChanges": "All Changes",
-          "branchChanges": "Branch Changes ({{baseRef}})",
-          "branchDiff": "branch diff",
-          "commitDiff": "commit diff",
-          "conflictReview": "Conflict Review",
-          "diff": "diff",
-          "stagedDiff": "staged diff",
-          "uncommittedChanges": "Uncommitted Changes"
-        }
-      },
-      "sidebar": {
-        "WorktreeCardHelpers": {
-          "cherryPicking": "Cherry-picking",
-          "merging": "Merging",
-          "rebasing": "Rebasing"
-        }
-      }
-    },
-    "lib": {
-      "filePreview": {
-        "openFailed": "Unable to open this file in Orca Browser.",
-        "remoteFileUnsupported": "Open in Orca Browser is only available for local files."
-      }
-    }
-  },
-  "rendererRecovery": {
-    "copyCommands": "Copy Commands",
-    "crashLoopDetail": "Orca tried to recover {{recoveryCount}} times in a row without success.",
-    "crashLoopMessage": "The app window crashed repeatedly and stopped reloading automatically.",
-    "driverFallback": "If that does not help, the cause is usually a graphics driver.",
-    "genericDetail": "This is often a graphics-driver or installation problem. Reload to try again, or quit and relaunch Orca.",
-    "launchFailedDetail": "Orca retried {{recoveryCount}} times without success.",
-    "launchFailedGenericDetail": "The system refused to start it. Free up memory or close other apps, then click Try Again. If this keeps happening, reinstall Orca.",
-    "launchFailedMessage": "Orca couldn't start the process that draws its window.",
-    "lowCommitAdvice": "Free memory by closing unused apps or Orca workspaces, or increase the Windows page file size, then click Reload.",
-    "lowCommitDetail": "Windows has only {{availableMB}} MB of memory left for apps, so the window ran out of memory again after reloading.",
-    "lowCommitMessage": "Windows is out of memory.",
-    "processLimitDetail": "The system refused to create a new process because your user account reached its process limit. This is often caused by runaway terminals, dev servers, or agents. Close some of them, then click Try Again.",
-    "quit": "Quit",
-    "reload": "Reload",
-    "stalledDetail": "Orca reloaded the window after a crash, but it never finished loading.",
-    "stalledMessage": "The app window stopped responding while reloading after a crash.",
-    "title": "Orca keeps failing to load",
-    "tryAgain": "Try Again"
-  },
-  "runtimeRpc": {
-    "startupFailure": {
-      "continueButton": "Continue without CLI",
-      "detail": "Orca will continue to work, but commands such as orca status, orca terminal, and orchestration are unavailable for this session.\n\n{{guidance}}\n\nCause: {{cause}}",
-      "guidance": {
-        "addressInUse": "Another process may be holding the port. Restart Orca to try again.",
-        "invalidPath": "Orca's data folder may be missing, moved, or at a path that is too long. Restore it or use a shorter path, then restart Orca.",
-        "permissionDenied": "Orca couldn't write its runtime file. Check permissions on Orca's data folder, then restart.",
-        "storageUnavailable": "Your disk may be full or read-only. Free up space, then restart Orca.",
-        "unknown": "Restart Orca to try again."
-      },
-      "message": "Orca couldn't start its local command transport.",
-      "title": "Orca CLI unavailable",
-      "unknownCause": "No additional error details were available."
-    }
-  },
-  "sessionHistory": {
-    "settings": {
-      "advanced": "Advanced",
-      "clearError": "Could not clear search data. Try again.",
-      "cleared": "Search data cleared.",
-      "clearedAndTurnedOff": "Search turned off and search data cleared.",
-      "computersConsent": "Each computer keeps a searchable copy of its own agent conversations and tool output. Nothing leaves that computer.",
-      "delete": "Clear",
-      "deleteDisabled": "Removes the searchable copy from this computer. Your agent sessions are not affected.",
-      "deleteEnabled": "Turns off search and removes the searchable copy from this computer. Your agent sessions are not affected.",
-      "deleteIndexCopy": "Clear search data",
-      "deleteTitle": "Clear search data on this computer?",
-      "description": "Search everything your agents have said and done, on this computer and on any paired Orca server.",
-      "enableOnAll": "Enable on all computers",
-      "indexComputers": "Search inside sessions",
-      "open": "Open",
-      "openInSidebar": "Open in the sidebar",
-      "openInSidebarCopy": "Type what you remember, or ask an agent: “find the session where we fixed the login timeout.”",
-      "remoteServers": "Orca remote servers",
-      "rowSwitchLabel": "Search sessions on {{host}}",
-      "saveError": "Could not save. Try again.",
-      "searchDescription": "Turn on session search for this computer and paired servers, or clear search data.",
-      "serverOffline": "Offline",
-      "serverToggleError": "Could not change session search on {{host}}. Try again.",
-      "serverTooOld": "Needs a newer version of Orca.",
-      "serverVersion": "Orca v{{version}}",
-      "showFewer": "Show fewer",
-      "showMore": "Show {{count}} more",
-      "thisComputer": "This computer",
-      "title": "Agent Session Search",
-      "updateServer": "Update server",
-      "webUnsupported": "Turn on session search from the Orca desktop app on that computer."
-    },
-    "status": {
-      "catchingUp": "{{indexed}} of {{total}} sessions · {{messages}} messages searchable",
-      "catchingUpSessions": "{{indexed}} of {{total}} sessions searchable",
-      "checking": "Checking…",
-      "error": "Could not check status. Retrying…",
-      "roots": "{{roots}} session folders could not be checked.",
-      "searchable": "{{sessions}} sessions · {{messages}} messages searchable",
-      "searchableSessions": "{{sessions}} sessions searchable",
-      "unavailable": "Search is not available on this computer right now.",
-      "unreadable": "{{failed}} sessions could not be read and will be retried."
-    }
-  },
-  "sessionSearch": {
-    "panel": {
-      "changed": "The index changed while searching. Search again for current results.",
-      "consent": "Enable full-text search? Orca builds an index on this computer from local agent transcripts, including full conversations and up to 3,072 characters per tool output. Content is not redacted. Authenticated paired clients can search it.",
-      "enable": "Enable",
-      "enableFailed": "Could not enable search. Try again.",
-      "failed": "Could not search this computer. Check its connection and try again.",
-      "hostsSkipped": "Not searched: {{value0}}",
-      "indexedHistory": "Indexed history",
-      "loadMore": "Load more matches",
-      "loadingMoreSessions": "Loading more sessions…",
-      "noMatches": "No matching sessions in the indexed history. Try another query or scope.",
-      "noService": "Search is unavailable on this computer. It may need an Orca update or a runtime with search support.",
-      "notReady": "The search index is not ready yet. Try again shortly.",
-      "remoteDisabled": "Search is disabled on this computer. Enable transcript indexing on that computer to search its sessions.",
-      "resultsOne": "{{count}} result",
-      "resultsOther": "{{count}} results",
-      "retry": "Try again",
-      "scopeUnknown": "This computer does not have this workspace or project. Switch the scope to All to search everything on it.",
-      "sessionsOfLoaded": "{{value0}} of {{value1}} sessions",
-      "sessionsOne": "{{count}} session",
-      "sessionsOther": "{{count}} sessions",
-      "showMoreSessions": "Show more sessions",
-      "sortNewest": "Newest",
-      "sortRelevance": "Most relevant",
-      "sortResultsAriaLabel": "Sort results: {{value0}}",
-      "sortSessionsAriaLabel": "Sort sessions: {{value0}}",
-      "truncated": "Some results or matching text were limited. Narrow your search for more precise results.",
-      "unsupportedAgent": "This computer does not support history search for the selected agent. Update Orca on that computer or select another agent."
-    }
-  },
   "settings": {
+    "chat": {
+      "description": "Choose how chats look and behave.",
+      "names": {
+        "title": "Chat names",
+        "description": "Use an agent to name new chats from their first message. Without a generated name, chats stay Claude Chat or Codex Chat.",
+        "enable": "Name chats automatically",
+        "recipe": "Chat name",
+        "recipeDescription": "Generate a short name from the first message in a new chat.",
+        "customCommandDescription": "Command line shared by recipes that select Custom command. Use {prompt} to pass the input as an argument; otherwise it is piped to stdin.",
+        "saveFailed": "Could not save chat name settings.",
+        "searchAgent": "agent",
+        "searchTemplate": "command template"
+      }
+    },
     "agents": {
       "codexSharedServerWarning": {
         "description": "Shows a notice on a Codex you started yourself when it shares a server with other tabs, because its agent status may be wrong.",
@@ -19900,6 +20160,14 @@
         "title": "Run each Codex terminal on its own server"
       }
     },
+    "followSymlinkedDirectoriesKeywords": {
+      "symlink": "symlink",
+      "linkedFolder": "linked folder",
+      "quickOpen": "quick open",
+      "fileExplorer": "file explorer"
+    },
+    "followSymlinkedDirectories": "Follow symlinked directories",
+    "followSymlinkedDirectoriesDescription": "Search linked folders in Quick Open and expand local linked folders in File Explorer.",
     "appearance": {
       "language": {
         "chinese": "中文（简体）",
@@ -19920,6 +20188,30 @@
           "statusItem": "status item"
         },
         "title": "Show Menu Bar Icon"
+      },
+      "chat": {
+        "title": "Chat",
+        "textSize": "Text size",
+        "textSizeDescription": "Messages, tool activity and the message box. {{increase}} / {{decrease}} in a chat change this too.",
+        "codeTextSize": "Code text size",
+        "codeTextSizeDescription": "Code blocks, inline code, commands and tool output.",
+        "width": "Width",
+        "widthDescription": "How wide messages and the message box can grow in a wide pane.",
+        "resetAppearance": "Reset chat appearance",
+        "resetDescription": "Restore the defaults above.",
+        "comfortable": "Comfortable",
+        "wide": "Wide",
+        "full": "Full",
+        "pixels": "px",
+        "reset": "Reset",
+        "matchTerminalInterface": "Match terminal interface",
+        "matchTerminalInterfaceDescription": "Use your terminal interface's font and colors for the whole chat. Stays in sync if you change your terminal theme later.",
+        "contrast": "Contrast",
+        "contrastDescription": "How bright chat text is against the background. The right end matches the older, brighter look.",
+        "softer": "Softer",
+        "sharper": "Sharper",
+        "terminalControlledHint": "Set by terminal interface.",
+        "terminalControlledTooltip": "Matching your terminal interface. Turn off Match terminal interface to change this."
       },
       "statusBar": {
         "antigravityToggleDescription": "Show Antigravity subscription usage for the active workspace.",
@@ -20130,8 +20422,7 @@
       "filters": {
         "all": "All",
         "conflicts": "Conflicts",
-        "modified": "Modified",
-        "unassigned": "Unassigned"
+        "modified": "Modified"
       },
       "groups": {
         "agents": "Agents",
@@ -20173,6 +20464,213 @@
       "optionLayoutCompose": "layout uses Option to compose characters like @, €, [, ]",
       "optionLayoutUnknown": "unknown layout — Option composes characters (safe default)",
       "optionShortcutHint": "Choose Both for Option shortcuts, Off for accents and symbols, or Left/Right to use one Option key for each."
+    }
+  },
+  "menu": {
+    "about": "About Orca",
+    "appearance": "Appearance",
+    "checkForUpdates": "Check for Updates...",
+    "copy": "Copy",
+    "cut": "Cut",
+    "edit": "Edit",
+    "exit": "Exit",
+    "quitApp": "Quit {{appName}}",
+    "exploreOrca": "Explore Orca",
+    "file": "File",
+    "forceReload": "Force Reload",
+    "gettingStarted": "Getting Started with Orca",
+    "help": "Help",
+    "hide": "Hide Orca",
+    "hideOthers": "Hide Others",
+    "minimize": "Minimize",
+    "openWorktreePalette": "Open Worktree Palette",
+    "paste": "Paste",
+    "quit": "Quit Orca",
+    "redo": "Redo",
+    "reload": "Reload",
+    "reportCrash": "Report Crash...",
+    "resetSize": "Reset Size",
+    "selectAll": "Select All",
+    "services": "Services",
+    "settings": "Settings",
+    "showAutomationsButton": "Show Automations Button",
+    "showMobileButton": "Show Orca Mobile Button",
+    "showStatusBar": "Show Status Bar",
+    "showTasksButton": "Show Tasks Button",
+    "showTitlebarAppName": "Show Titlebar App Name",
+    "toggleDevTools": "Toggle Developer Tools",
+    "toggleFullScreen": "Toggle Full Screen",
+    "toggleLeftSidebar": "Toggle Left Sidebar",
+    "toggleRightSidebar": "Toggle Right Sidebar",
+    "undo": "Undo",
+    "unhide": "Show All",
+    "view": "View",
+    "window": "Window",
+    "zoom": "Zoom",
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out"
+  },
+  "notifications": {
+    "agentStatus": {
+      "failed": "failed",
+      "finished": "finished",
+      "needsInput": "needs input",
+      "stopped": "stopped",
+      "working": "working"
+    },
+    "permissionProbeBody": "Orca will alert you when agents finish or terminals need attention.",
+    "testBody": "This is a test notification from Orca.",
+    "testTitle": "Orca notifications are on"
+  },
+  "osDocumentOpen": {
+    "failed": "Failed to open the file."
+  },
+  "quickOpen": {
+    "moreMatchesAvailable": "More matches may be available. Refine your search to narrow the results.",
+    "recentValidationFailed": "Recent files could not be checked: {{error}}"
+  },
+  "renderer": {
+    "components": {
+      "editor": {
+        "CombinedDiffViewer": {
+          "openDiff": "Open diff",
+          "openInEditor": "Open in editor"
+        },
+        "editorLabels": {
+          "allChanges": "All Changes",
+          "branchChanges": "Branch Changes ({{baseRef}})",
+          "branchDiff": "branch diff",
+          "commitDiff": "commit diff",
+          "conflictReview": "Conflict Review",
+          "diff": "diff",
+          "stagedDiff": "staged diff",
+          "uncommittedChanges": "Uncommitted Changes"
+        }
+      },
+      "sidebar": {
+        "WorktreeCardHelpers": {
+          "cherryPicking": "Cherry-picking",
+          "merging": "Merging",
+          "rebasing": "Rebasing"
+        }
+      }
+    },
+    "lib": {
+      "filePreview": {
+        "remoteFileUnsupported": "Open in Orca Browser is only available for local files."
+      }
+    }
+  },
+  "rendererRecovery": {
+    "copyCommands": "Copy Commands",
+    "crashLoopDetail": "Orca tried to recover {{recoveryCount}} times in a row without success.",
+    "crashLoopMessage": "The app window crashed repeatedly and stopped reloading automatically.",
+    "driverFallback": "If that does not help, the cause is usually a graphics driver.",
+    "genericDetail": "This is often a graphics-driver or installation problem. Reload to try again, or quit and relaunch Orca.",
+    "launchFailedDetail": "Orca retried {{recoveryCount}} times without success.",
+    "launchFailedGenericDetail": "The system refused to start it. Free up memory or close other apps, then click Try Again. If this keeps happening, reinstall Orca.",
+    "launchFailedMessage": "Orca couldn't start the process that draws its window.",
+    "lowCommitAdvice": "Free memory by closing unused apps or Orca workspaces, or increase the Windows page file size, then click Reload.",
+    "lowCommitDetail": "Windows has only {{availableMB}} MB of memory left for apps, so the window ran out of memory again after reloading.",
+    "lowCommitMessage": "Windows is out of memory.",
+    "processLimitDetail": "The system refused to create a new process because your user account reached its process limit. This is often caused by runaway terminals, dev servers, or agents. Close some of them, then click Try Again.",
+    "quit": "Quit",
+    "reload": "Reload",
+    "stalledDetail": "Orca reloaded the window after a crash, but it never finished loading.",
+    "stalledMessage": "The app window stopped responding while reloading after a crash.",
+    "title": "Orca keeps failing to load",
+    "tryAgain": "Try Again"
+  },
+  "runtimeRpc": {
+    "startupFailure": {
+      "continueButton": "Continue without CLI",
+      "detail": "Orca will continue to work, but commands such as orca status, orca terminal, and orchestration are unavailable for this session.\n\n{{guidance}}\n\nCause: {{cause}}",
+      "guidance": {
+        "addressInUse": "Another process may be holding the port. Restart Orca to try again.",
+        "invalidPath": "Orca's data folder may be missing, moved, or at a path that is too long. Restore it or use a shorter path, then restart Orca.",
+        "permissionDenied": "Orca couldn't write its runtime file. Check permissions on Orca's data folder, then restart.",
+        "storageUnavailable": "Your disk may be full or read-only. Free up space, then restart Orca.",
+        "unknown": "Restart Orca to try again."
+      },
+      "message": "Orca couldn't start its local command transport.",
+      "title": "Orca CLI unavailable",
+      "unknownCause": "No additional error details were available."
+    }
+  },
+  "sessionHistory": {
+    "settings": {
+      "advanced": "Advanced",
+      "clearError": "Could not clear search data. Try again.",
+      "cleared": "Search data cleared.",
+      "clearedAndTurnedOff": "Search turned off and search data cleared.",
+      "computersConsent": "Each computer keeps a searchable copy of its own agent conversations and tool output. Nothing leaves that computer.",
+      "delete": "Clear",
+      "deleteDisabled": "Removes the searchable copy from this computer. Your agent sessions are not affected.",
+      "deleteEnabled": "Turns off search and removes the searchable copy from this computer. Your agent sessions are not affected.",
+      "deleteIndexCopy": "Clear search data",
+      "deleteTitle": "Clear search data on this computer?",
+      "description": "Search everything your agents have said and done, on this computer and on any paired Orca server.",
+      "enableOnAll": "Enable on all computers",
+      "indexComputers": "Search inside sessions",
+      "open": "Open",
+      "openInSidebar": "Open in the sidebar",
+      "openInSidebarCopy": "Type what you remember, or ask an agent: “find the session where we fixed the login timeout.”",
+      "remoteServers": "Orca remote servers",
+      "rowSwitchLabel": "Search sessions on {{host}}",
+      "saveError": "Could not save. Try again.",
+      "searchDescription": "Turn on session search for this computer and paired servers, or clear search data.",
+      "serverOffline": "Offline",
+      "serverToggleError": "Could not change session search on {{host}}. Try again.",
+      "serverTooOld": "Needs a newer version of Orca.",
+      "serverVersion": "Orca v{{version}}",
+      "showFewer": "Show fewer",
+      "showMore": "Show {{count}} more",
+      "thisComputer": "This computer",
+      "title": "Agent Session Search",
+      "updateServer": "Update server",
+      "webUnsupported": "Turn on session search from the Orca desktop app on that computer."
+    },
+    "status": {
+      "catchingUp": "{{indexed}} of {{total}} sessions · {{messages}} messages searchable",
+      "catchingUpSessions": "{{indexed}} of {{total}} sessions searchable",
+      "checking": "Checking…",
+      "error": "Could not check status. Retrying…",
+      "roots": "{{roots}} session folders could not be checked.",
+      "searchable": "{{sessions}} sessions · {{messages}} messages searchable",
+      "searchableSessions": "{{sessions}} sessions searchable",
+      "unavailable": "Search is not available on this computer right now.",
+      "unreadable": "{{failed}} sessions could not be read and will be retried."
+    }
+  },
+  "sessionSearch": {
+    "panel": {
+      "changed": "The index changed while searching. Search again for current results.",
+      "consent": "Enable full-text search? Orca builds an index on this computer from local agent transcripts, including full conversations and up to 3,072 characters per tool output. Content is not redacted. Authenticated paired clients can search it.",
+      "enable": "Enable",
+      "enableFailed": "Could not enable search. Try again.",
+      "failed": "Could not search this computer. Check its connection and try again.",
+      "hostsSkipped": "Not searched: {{value0}}",
+      "indexedHistory": "Indexed history",
+      "loadMore": "Load more matches",
+      "loadingMoreSessions": "Loading more sessions…",
+      "noMatches": "No matching sessions in the indexed history. Try another query or scope.",
+      "noService": "Search is unavailable on this computer. It may need an Orca update or a runtime with search support.",
+      "notReady": "The search index is not ready yet. Try again shortly.",
+      "remoteDisabled": "Search is disabled on this computer. Enable transcript indexing on that computer to search its sessions.",
+      "resultsOne": "{{count}} result",
+      "resultsOther": "{{count}} results",
+      "retry": "Try again",
+      "scopeUnknown": "This computer does not have this workspace or project. Switch the scope to All to search everything on it.",
+      "sessionsOfLoaded": "{{value0}} of {{value1}} sessions",
+      "sessionsOne": "{{count}} session",
+      "sessionsOther": "{{count}} sessions",
+      "showMoreSessions": "Show more sessions",
+      "sortNewest": "Newest",
+      "sortRelevance": "Most relevant",
+      "sortResultsAriaLabel": "Sort results: {{value0}}",
+      "sortSessionsAriaLabel": "Sort sessions: {{value0}}",
+      "truncated": "Some results or matching text were limited. Narrow your search for more precise results.",
+      "unsupportedAgent": "This computer does not support history search for the selected agent. Update Orca on that computer or select another agent."
     }
   },
   "shared": {
@@ -20306,10 +20804,17 @@
       "turningOff": "Turning off…",
       "undo": "To undo, run codex features enable daemon_auto_start."
     },
+    "paneMove": {
+      "failed": "Couldn't move the pane to a new tab."
+    },
     "codexTerminalServerIsolationNotice": {
       "description": "This makes agent status more reliable. You can turn it back on in Settings.",
       "openSettings": "Open Settings",
       "title": "Orca now runs Codex without its shared server"
+    },
+    "codexSharedSettingsNotice": {
+      "title": "Codex in Orca now uses ~/.codex",
+      "description": "Codex may ask again to trust folders or approve commands. Re-add any MCP servers you added only in Orca."
     },
     "sessionSaveFailure": {
       "capacity": "The device saving this terminal reported full storage or an exceeded storage quota. Free space on that device, then try again.",

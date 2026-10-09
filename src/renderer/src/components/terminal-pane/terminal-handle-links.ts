@@ -303,7 +303,7 @@ function getTerminalHandleFocusHint(showActions: boolean): string {
     : `${prefix}${translate('auto.components.terminal.pane.terminal.handle.links.windows.switch.terminal', 'Ctrl+点击切换终端')}`
 }
 
-async function focusRuntimeTerminalHandle(
+export async function focusRuntimeTerminalHandle(
   handle: string,
   runtimeEnvironmentId: string | null
 ): Promise<void> {

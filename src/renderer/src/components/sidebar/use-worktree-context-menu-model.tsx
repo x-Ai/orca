@@ -15,7 +15,6 @@ import {
 import { parseWorkspaceKey } from '../../../../shared/workspace-scope'
 import { getDeleteStateForWorktreeHost } from './worktree-delete-state-host-match'
 import {
-  CLOSE_ALL_CONTEXT_MENUS_EVENT,
   EMPTY_BROWSER_TABS_BY_WORKTREE,
   EMPTY_CYCLIC_LINEAGE_IDS,
   EMPTY_DELETE_STATE_BY_WORKTREE_ID,
@@ -32,6 +31,7 @@ import { useWorktreeContextMenuCommands } from './use-worktree-context-menu-comm
 import { useWorktreeParentPickerTransition } from './use-worktree-parent-picker-transition'
 import { useWorktreeContextMenuSecondaryActions } from './use-worktree-context-menu-secondary-actions'
 import { getWorktreeContextMenuCountLabels } from './worktree-context-menu-count-labels'
+import { CLOSE_ALL_CONTEXT_MENUS_EVENT } from '@/lib/close-all-context-menus'
 
 export type WorktreeContextMenuProps = {
   worktree: Worktree

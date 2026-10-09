@@ -2,8 +2,9 @@ import { open, readFile, stat } from 'node:fs/promises'
 import type { FileHandle } from 'node:fs/promises'
 import { extname } from 'node:path'
 import type { RelayDispatcher, RequestContext } from './dispatcher'
-import { MAX_CONCURRENT_STREAMS, STREAM_ACK_WINDOW_CHUNKS, STREAM_CHUNK_SIZE } from './protocol'
-import { TooManyStreamsError, type RelayStreamRegistry } from './fs-stream-registry'
+import { STREAM_ACK_WINDOW_CHUNKS, STREAM_CHUNK_SIZE } from './protocol'
+import type { RelayStreamRegistry } from './fs-stream-registry'
+import { reserveTerminalFrameSlot } from './fs-stream-terminal-frame-slots'
 import {
   BINARY_PROBE_BYTES,
   IMAGE_MIME_TYPES,
@@ -12,7 +13,7 @@ import {
   isBinaryBuffer,
   isBinaryFilePrefix
 } from './fs-handler-utils'
-import { translateMain } from '../main/i18n/main-i18n'
+import { relayFileTooLargeMessage } from './fs-handler-file-too-large-message'
 
 export async function readRelayFileContent(filePath: string) {
   const stats = await stat(filePath)
@@ -79,19 +80,26 @@ export async function readRelayFileStreamMetadata(
   context: RequestContext,
   pumpOptions?: StreamPumpOptions
 ): Promise<StreamMetadata> {
+  const finish = registry.beginOperation()
+  try {
+    return await prepareRelayFileStream(filePath, dispatcher, registry, context, pumpOptions)
+  } finally {
+    finish()
+  }
+}
+
+async function prepareRelayFileStream(
+  filePath: string,
+  dispatcher: RelayDispatcher,
+  registry: RelayStreamRegistry,
+  context: RequestContext,
+  pumpOptions?: StreamPumpOptions
+): Promise<StreamMetadata> {
   const stats = await stat(filePath)
   const mimeType = IMAGE_MIME_TYPES[extname(filePath).toLowerCase()]
   const sizeLimit = mimeType ? MAX_PREVIEWABLE_BINARY_SIZE : MAX_TEXT_FILE_SIZE
   if (stats.size > sizeLimit) {
-    const actualSize = (stats.size / 1024 / 1024).toFixed(1)
-    const maxSize = sizeLimit / 1024 / 1024
-    throw new Error(
-      translateMain(
-        'auto.relay.fsHandler.fileTooLarge',
-        `File too large: ${actualSize}MB exceeds ${maxSize}MB limit`,
-        { actualSize, maxSize }
-      )
-    )
+    throw new Error(relayFileTooLargeMessage(stats.size, sizeLimit))
   }
 
   if (stats.size === 0) {
@@ -106,7 +114,10 @@ export async function readRelayFileStreamMetadata(
   // Why: unlike the legacy single-shot path, streaming does not read the full
   // buffer before classifying content. Probe every unknown file so small binary
   // files do not get decoded as UTF-8 text over SSH.
-  if (!mimeType && (await isBinaryFilePrefix(filePath))) {
+  if (
+    !mimeType &&
+    (await isBinaryFilePrefix(filePath, (handle) => registry.releaseUnregisteredHandle(handle)))
+  ) {
     return { totalSize: 0, isBinary: true, empty: true }
   }
 
@@ -119,8 +130,13 @@ export async function readRelayFileStreamMetadata(
     handle = await open(filePath, 'r')
     streamId = registry.register(handle)
   } catch (err) {
-    await handle?.close()
-    releaseTerminalFrameSlot()
+    try {
+      if (handle) {
+        await registry.releaseUnregisteredHandle(handle)
+      }
+    } finally {
+      releaseTerminalFrameSlot()
+    }
     throw err
   }
 
@@ -130,6 +146,7 @@ export async function readRelayFileStreamMetadata(
   // setImmediate kicks the pump off the metadata-response task so the client
   // sees the response before the first chunk frame.
   const resolvedPumpOptions = pumpOptions ?? { paceWithAcks: false }
+  const finishPump = registry.beginOperation()
   setImmediate(() => {
     void pumpChunks(
       streamId,
@@ -140,6 +157,10 @@ export async function readRelayFileStreamMetadata(
       resolvedPumpOptions,
       releaseTerminalFrameSlot
     )
+      .catch((error: unknown) => {
+        process.stderr.write(`[relay] stream cleanup failed id=${streamId}: ${String(error)}\n`)
+      })
+      .finally(finishPump)
   })
 
   return {
@@ -150,48 +171,6 @@ export async function readRelayFileStreamMetadata(
     mimeType,
     chunkEncoding: 'base64',
     resultEncoding: mimeType ? 'base64' : 'utf-8'
-  }
-}
-
-/**
- * Terminal frames (fs.streamEnd/fs.streamError) ride the control lane, which does not
- * drop on overflow — it destroys the link at 256 queued frames / 1 MB. A stream's
- * registry slot is gone the moment its last chunk is read, so on a socket that is not
- * draining, back-to-back reads could stack one undelivered terminal frame each until
- * that budget blew. Holding the slot until the frame settles keeps the number of queued
- * terminal frames at MAX_CONCURRENT_STREAMS, far below the killing threshold; the
- * overflow now costs one refused read (TooManyStreams, which clients already handle)
- * instead of the whole connection.
- *
- * Counted per client, because the control queue this protects is per client: one peer whose
- * socket stopped draining must not refuse reads for every other peer on the same relay.
- */
-const pendingTerminalFramesByClient = new WeakMap<RelayStreamRegistry, Map<number, number>>()
-
-function reserveTerminalFrameSlot(registry: RelayStreamRegistry, clientId: number): () => void {
-  let byClient = pendingTerminalFramesByClient.get(registry)
-  if (!byClient) {
-    byClient = new Map()
-    pendingTerminalFramesByClient.set(registry, byClient)
-  }
-  const pending = byClient.get(clientId) ?? 0
-  if (pending >= MAX_CONCURRENT_STREAMS) {
-    throw new TooManyStreamsError()
-  }
-  byClient.set(clientId, pending + 1)
-  let released = false
-  return () => {
-    if (released) {
-      return
-    }
-    released = true
-    const remaining = (byClient.get(clientId) ?? 1) - 1
-    // Drop the entry at zero so a long-lived registry cannot accumulate one per detached client.
-    if (remaining <= 0) {
-      byClient.delete(clientId)
-      return
-    }
-    byClient.set(clientId, remaining)
   }
 }
 
@@ -309,6 +288,11 @@ async function pumpChunks(
           releaseTerminalFrameSlot
         )
       }
+      if (registry.isAborted(streamId)) {
+        endReason = 'aborted'
+      } else if (context.isStale()) {
+        endReason = 'stale'
+      }
       if (endReason === 'end') {
         publishTerminal('fs.streamEnd', { streamId })
         process.stderr.write(`[relay] stream end id=${streamId}\n`)
@@ -332,9 +316,12 @@ async function pumpChunks(
   } finally {
     // Why: the fd goes back first — a terminal frame that can never be delivered must not
     // strand it. Cancelled/stale streams publish nothing, so nothing else frees their slot.
-    await registry.release(streamId)
-    if (!slotReleaseDeferred) {
-      releaseTerminalFrameSlot()
+    try {
+      await registry.release(streamId)
+    } finally {
+      if (!slotReleaseDeferred) {
+        releaseTerminalFrameSlot()
+      }
     }
   }
 }

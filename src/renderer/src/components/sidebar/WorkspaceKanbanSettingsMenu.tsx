@@ -1,3 +1,4 @@
+import { ImeInput } from '@/lib/ime-text-field'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ArrowDown, ArrowUp, Plus, Settings, Trash2 } from 'lucide-react'
@@ -125,7 +126,7 @@ export default function WorkspaceKanbanSettingsMenu({
               >
                 <div className="flex items-center gap-1">
                   <meta.icon className={cn('size-3.5 shrink-0', meta.tone)} />
-                  <input
+                  <ImeInput
                     key={`${status.id}:${language}`}
                     defaultValue={displayLabel}
                     onBlur={(event) =>

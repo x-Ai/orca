@@ -10,6 +10,22 @@ const FEATURE_TIP_COPY: Record<
     ctaLabel: () => string
   }
 > = {
+  'native-chat-upgrade': {
+    eyebrow: () => translate('featureTips.nativeChatUpgrade.eyebrow', 'New'),
+    title: () => translate('featureTips.nativeChatUpgrade.title', 'Native chat got an upgrade'),
+    description: () =>
+      translate(
+        'featureTips.nativeChatUpgrade.intro',
+        'New chats with supported agents now open in the upgraded chat view. To move between chat and CLI, open {{panel}} in the right sidebar:',
+        {
+          panel: translate(
+            'auto.components.right.sidebar.AiVaultPanel.sessionHistory',
+            'Agent Session History'
+          )
+        }
+      ),
+    ctaLabel: () => translate('featureTips.nativeChatUpgrade.gotIt', 'Got it')
+  },
   'agent-session-search': {
     eyebrow: () => translate('auto.components.feature.tips.feature.tip.copy.1fcdfc5fe8', 'New'),
     title: () =>

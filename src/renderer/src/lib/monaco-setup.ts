@@ -42,6 +42,7 @@ await import('monaco-editor/min/vs/editor/editor.main.css')
 const { registerAstroLanguage } = await import('./monaco-languages/register-astro')
 const { registerJsonlLanguage } = await import('./monaco-languages/register-jsonl')
 const { registerNimLanguage } = await import('./monaco-languages/register-nim')
+const { registerQuartoLanguage } = await import('./monaco-languages/register-quarto')
 const { registerShellMarkdownAliases } =
   await import('./monaco-languages/register-shell-markdown-aliases')
 const { registerSvelteLanguage } = await import('./monaco-languages/register-svelte')
@@ -97,6 +98,7 @@ runMonacoSetupSteps([
   ['Nim language registration', () => registerNimLanguage(monaco)],
   ['Typst language registration', () => registerTypstLanguage(monaco)],
   ['JSONL language registration', () => registerJsonlLanguage(monaco)],
+  ['Quarto language registration', () => registerQuartoLanguage(monaco)],
   ['shell Markdown alias registration', () => registerShellMarkdownAliases(monaco)],
   ['delayer cancellation guard', installMonacoDelayerCancellationGuard],
   ['diff editor disposal guard', () => installMonacoDiffEditorDisposalGuard(monaco)],

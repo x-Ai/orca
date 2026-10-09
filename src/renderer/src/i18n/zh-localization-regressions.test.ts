@@ -22,7 +22,6 @@ import {
 } from '../components/plugin-catalog/plugin-localized-metadata'
 import { formatGitHubProjectErrorMessage } from '../lib/github-project-error-copy'
 import { formatTaskSourceErrorMessage } from '../lib/task-source-error-copy'
-import { getOsRevealLabel } from '../lib/os-reveal-label'
 import { resolveRemoteOperationErrorMessage } from '../lib/source-control-remote-error'
 import { setRendererUiLanguage, translate } from './i18n'
 
@@ -55,7 +54,12 @@ describe('Chinese localization regressions', () => {
       }).label
     ).toBe('Jira · 本地 Windows · 当前账户')
     expect(STATUS_LABELS.disconnected).toBe('已断开连接')
-    expect(getOsRevealLabel('windows')).toBe('在文件资源管理器中显示')
+    expect(
+      translate(
+        'auto.components.right.sidebar.FileExplorerRow.revealInFileExplorer',
+        'Reveal in File Explorer'
+      )
+    ).toBe('在文件资源管理器中显示')
     expect(
       getCheckCountChips({ passing: 0, failing: 7, needsAction: 0, pending: 0, neutral: 0 })
     ).toEqual([{ tone: 'failure', label: '7 失败' }])

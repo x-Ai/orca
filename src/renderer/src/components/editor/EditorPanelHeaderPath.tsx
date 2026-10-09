@@ -1,3 +1,4 @@
+import { ImeInput } from '@/lib/ime-text-field'
 import { useEffect, useRef, useState } from 'react'
 import { Copy, ExternalLink, Eye, Pencil } from 'lucide-react'
 import {
@@ -11,9 +12,16 @@ import {
 import { useShortcutLabel } from '@/hooks/useShortcutLabel'
 import { isImeCompositionKeyDown } from '@/lib/ime-composition-keyboard-event'
 import { translate } from '@/i18n/i18n'
-import { getOsRevealLabel } from '@/lib/os-reveal-label'
+import { LocalOnlyMenuHint } from '@/components/local-only-menu-hint'
+import { getConnectionIdFromState } from '@/lib/connection-context'
+import {
+  getRevealInFileManagerLabel,
+  isRevealInFileManagerBlocked,
+  revealInFileManager
+} from '@/lib/reveal-in-file-manager'
+import { useAppStore } from '@/store'
 import type { OpenFile } from '@/store/slices/editor'
-import { CLOSE_ALL_CONTEXT_MENUS_EVENT } from '../tab-bar/SortableTab'
+import { CLOSE_ALL_CONTEXT_MENUS_EVENT } from '@/lib/close-all-context-menus'
 import { useEditorHeaderFileRename } from './editor-header-file-rename'
 import { getEditorHeaderCopyState } from './editor-header'
 import { splitPathForDisplay } from './editor-path-display'
@@ -24,7 +32,6 @@ type EditorPanelHeaderPathProps = {
   canShowMarkdownPreview: boolean
   onCopyPath: () => void
   onOpenMarkdownPreview: () => void
-  onOpenContainingFolder: () => void
 }
 
 export function EditorPanelHeaderPath({
@@ -32,8 +39,7 @@ export function EditorPanelHeaderPath({
   copiedPathVisible,
   canShowMarkdownPreview,
   onCopyPath,
-  onOpenMarkdownPreview,
-  onOpenContainingFolder
+  onOpenMarkdownPreview
 }: EditorPanelHeaderPathProps): React.JSX.Element {
   const [pathMenuOpen, setPathMenuOpen] = useState(false)
   const [pathMenuPoint, setPathMenuPoint] = useState({ x: 0, y: 0 })
@@ -41,7 +47,15 @@ export function EditorPanelHeaderPath({
   const headerCopyState = getEditorHeaderCopyState(activeFile)
   const displayPath = splitPathForDisplay(headerCopyState.pathLabel)
   const canCopyHeaderPath = headerCopyState.copyText !== null
+  // Why: virtual editor tabs use synthetic ids instead of on-disk paths.
   const isVirtualEditorTab = activeFile.mode === 'check-details'
+  const revealBlocked = useAppStore((s) =>
+    isRevealInFileManagerBlocked(s.settings, {
+      connectionId:
+        activeFile.externalSshTargetId ?? getConnectionIdFromState(s, activeFile.worktreeId),
+      runtimeEnvironmentId: activeFile.runtimeEnvironmentId
+    })
+  )
   const markdownPreviewShortcutLabel = useShortcutLabel('editor.markdownPreview')
   const {
     canRename,
@@ -71,7 +85,7 @@ export function EditorPanelHeaderPath({
         }}
       >
         {isRenaming ? (
-          <input
+          <ImeInput
             ref={renameInputRef}
             data-editor-header-rename-input="true"
             aria-label={translate(
@@ -198,9 +212,13 @@ export function EditorPanelHeaderPath({
           )}
           {canShowMarkdownPreview && <DropdownMenuSeparator />}
           {!isVirtualEditorTab && (
-            <DropdownMenuItem onSelect={onOpenContainingFolder}>
+            <DropdownMenuItem
+              disabled={revealBlocked}
+              onSelect={() => void revealInFileManager(activeFile.filePath)}
+            >
               <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-              {getOsRevealLabel()}
+              {getRevealInFileManagerLabel()}
+              {revealBlocked ? <LocalOnlyMenuHint /> : null}
             </DropdownMenuItem>
           )}
         </DropdownMenuContent>

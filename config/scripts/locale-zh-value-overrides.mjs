@@ -216,7 +216,7 @@ export const ZH_VALUE_OVERRIDES = {
   'Optional account switching for Claude while preserving shared chat context.':
     'Claude 的可选账户切换，同时保留共享聊天上下文。',
   'Countdown timer showing time until prompt cache expires (Claude agents).':
-    '显示提示词缓存到期倒计时的计时器（Claude 代理）。',
+    '显示提示词缓存到期倒计时的计时器（Claude 智能体）。',
   'Claude caches your conversation to reduce costs. When idle too long the cache expires and the next message resends full context at higher cost. This shows a countdown so you know when to resume.':
     'Claude 会缓存对话以降低成本。空闲过久后缓存会过期，下一条消息将以更高成本重新发送完整上下文。此倒计时可帮助您了解何时继续。',
   'from Orca. It is still on your disk.': '来自 Orca。它仍保留在您的磁盘上。',

@@ -1,15 +1,29 @@
 import { translate } from '@/i18n/i18n'
 
-export function getLocalFileManagerLabel(userAgent?: string): string {
+type LocalFileManager = 'finder' | 'file-explorer' | 'file-manager'
+
+export function getLocalFileManager(userAgent?: string): LocalFileManager {
   const resolvedUserAgent =
     userAgent ?? (typeof navigator === 'undefined' ? '' : navigator.userAgent)
   if (resolvedUserAgent.includes('Mac')) {
-    return translate('auto.lib.local.file.manager.label.eb052ab0f6', 'Finder')
+    return 'finder'
   }
   if (resolvedUserAgent.includes('Windows')) {
-    return translate('auto.lib.local.file.manager.label.f2aa906c95', 'File Explorer')
+    return 'file-explorer'
   }
-  return translate('auto.lib.local.file.manager.label.8247848395', 'File Manager')
+  return 'file-manager'
+}
+
+/** The file manager's name, for lists of apps a path can be opened in. */
+export function getLocalFileManagerLabel(userAgent?: string): string {
+  switch (getLocalFileManager(userAgent)) {
+    case 'finder':
+      return translate('auto.lib.local.file.manager.label.eb052ab0f6', 'Finder')
+    case 'file-explorer':
+      return translate('auto.lib.local.file.manager.label.f2aa906c95', 'File Explorer')
+    case 'file-manager':
+      return translate('auto.lib.local.file.manager.label.8247848395', 'File Manager')
+  }
 }
 
 export function getOpenInLocalFileManagerLabel(userAgent?: string): string {

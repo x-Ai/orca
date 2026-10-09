@@ -6,6 +6,8 @@ import { settingsForRuntimeOwner } from '@/runtime/runtime-rpc-client'
 import { extractIpcErrorMessage } from './rich-markdown-ipc-error-message'
 import { insertRichMarkdownImageFromPath } from './rich-markdown-image-insert'
 import { translate } from '@/i18n/i18n'
+import { captureRichMarkdownImageInsertionTarget } from './rich-markdown-image-insertion-target'
+import { showRichMarkdownImageInsertionCanceled } from './rich-markdown-image-insertion-feedback'
 
 export type RichMarkdownImagePasteArgs = {
   editor: Editor | null
@@ -37,12 +39,18 @@ export function handleRichMarkdownImagePaste({
   }
 
   event.preventDefault()
-  const insertPos = editor.state.selection.from
-  const targetDom = editor.view.dom
+  const target = captureRichMarkdownImageInsertionTarget(editor)
+  if (!target) {
+    return true
+  }
 
   void saveClipboardImageForMarkdownPaste(worktreeId, runtimeEnvironmentId)
     .then((sourcePath) => {
-      if (!sourcePath || !isRichMarkdownImagePasteTargetAvailable(editor, targetDom)) {
+      if (!sourcePath) {
+        return
+      }
+      if (!target.getRange()) {
+        showRichMarkdownImageInsertionCanceled()
         return
       }
       return insertRichMarkdownImageFromPath({
@@ -51,8 +59,7 @@ export function handleRichMarkdownImagePaste({
         sourcePath,
         worktreeId,
         runtimeEnvironmentId,
-        insertPos,
-        canInsert: (candidate) => isRichMarkdownImagePasteTargetAvailable(candidate, targetDom)
+        getInsertionRange: target.getRange
       })
     })
     .catch((err) => {
@@ -63,12 +70,9 @@ export function handleRichMarkdownImagePaste({
         )
       )
     })
+    .finally(target.dispose)
 
   return true
-}
-
-function isRichMarkdownImagePasteTargetAvailable(editor: Editor, targetDom: HTMLElement): boolean {
-  return !editor.isDestroyed && editor.view.dom === targetDom && targetDom.isConnected
 }
 
 async function saveClipboardImageForMarkdownPaste(

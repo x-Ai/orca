@@ -31,6 +31,8 @@ type RenameFileArgs = {
   operationOwner?: FileExplorerOperationOwner
   /** refresh the parent directory in the explorer tree, if caller tracks one */
   refreshDir?: (dirPath: string) => Promise<void>
+  /** The file is an open user-named document, so the rename (and its Undo) may go anywhere. */
+  documentScoped?: boolean
 }
 
 /**
@@ -77,7 +79,8 @@ export async function renameFileOnDisk(args: RenameFileArgs): Promise<void> {
       fromPath: oldPath,
       toPath: newPath,
       worktreeId,
-      worktreePath
+      worktreePath,
+      documentScoped: args.documentScoped
     })
     commitFileExplorerOp({
       undo: async () => {
@@ -87,7 +90,8 @@ export async function renameFileOnDisk(args: RenameFileArgs): Promise<void> {
           fromPath: newPath,
           toPath: oldPath,
           worktreeId,
-          worktreePath
+          worktreePath,
+          documentScoped: args.documentScoped
         })
         if (refreshDir) {
           await refreshDir(parentDir)
@@ -100,7 +104,8 @@ export async function renameFileOnDisk(args: RenameFileArgs): Promise<void> {
           fromPath: oldPath,
           toPath: newPath,
           worktreeId,
-          worktreePath
+          worktreePath,
+          documentScoped: args.documentScoped
         })
         if (refreshDir) {
           await refreshDir(parentDir)
