@@ -20286,6 +20286,7 @@
           "settings": "Open Settings"
         },
         "browser": {
+          "annotateElement": "Annotate Page Element",
           "back": "Go Back in Browser",
           "find": "Find in Browser",
           "focusAddressBar": "Focus Browser Address Bar",
@@ -20350,6 +20351,9 @@
           },
           "sourceControl": {
             "toggle": "Show Source Control"
+          },
+          "childWorkspaces": {
+            "toggle": "Toggle Child Workspaces"
           }
         },
         "sourceControl": {
@@ -20421,6 +20425,9 @@
           "in": "Zoom In",
           "out": "Zoom Out",
           "reset": "Reset Size"
+        },
+        "chat": {
+          "find": "Find in chat"
         }
       },
       "conflict": "{{binding}} conflicts with {{titles}}.",
@@ -20432,6 +20439,7 @@
       "groups": {
         "agents": "Agents",
         "browser": "Browser",
+        "chat": "Chat",
         "editors": "Editors",
         "fileExplorer": "File Explorer",
         "global": "Global",

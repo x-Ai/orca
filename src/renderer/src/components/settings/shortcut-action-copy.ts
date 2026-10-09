@@ -14,7 +14,8 @@ const GROUP_KEYS: Record<string, string> = {
   'File Explorer': 'settings.shortcuts.groups.fileExplorer',
   Settings: 'settings.shortcuts.groups.settings',
   'Terminal Panes': 'settings.shortcuts.groups.terminalPanes',
-  Agents: 'settings.shortcuts.groups.agents'
+  Agents: 'settings.shortcuts.groups.agents',
+  Chat: 'settings.shortcuts.groups.chat'
 }
 
 export function translateShortcutActionTitle(actionId: string, fallback: string): string {

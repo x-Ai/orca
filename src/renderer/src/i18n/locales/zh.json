@@ -20256,6 +20256,7 @@
           "settings": "打开设置"
         },
         "browser": {
+          "annotateElement": "标注页面元素",
           "back": "浏览器后退",
           "find": "在浏览器中查找",
           "focusAddressBar": "聚焦浏览器地址栏",
@@ -20320,6 +20321,9 @@
           },
           "sourceControl": {
             "toggle": "显示源代码管理"
+          },
+          "childWorkspaces": {
+            "toggle": "显示/隐藏子工作区"
           }
         },
         "sourceControl": {
@@ -20391,6 +20395,9 @@
           "in": "放大",
           "out": "缩小",
           "reset": "重置尺寸"
+        },
+        "chat": {
+          "find": "在聊天中查找"
         }
       },
       "conflict": "{{binding}} 与 {{titles}} 冲突",
@@ -20402,6 +20409,7 @@
       "groups": {
         "agents": "代理",
         "browser": "浏览器",
+        "chat": "聊天",
         "editors": "编辑器",
         "fileExplorer": "文件资源管理器",
         "global": "全局",

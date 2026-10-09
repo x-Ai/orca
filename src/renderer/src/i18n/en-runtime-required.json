@@ -3386,6 +3386,7 @@
           "settings": "Open Settings"
         },
         "browser": {
+          "annotateElement": "Annotate Page Element",
           "back": "Go Back in Browser",
           "find": "Find in Browser",
           "focusAddressBar": "Focus Browser Address Bar",
@@ -3393,6 +3394,9 @@
           "grabElement": "Grab Page Element",
           "hardReload": "Hard Reload Browser Page",
           "reload": "Reload Browser Page"
+        },
+        "chat": {
+          "find": "Find in chat"
         },
         "dashboard": {
           "toggle": "Toggle Agent Dashboard"
@@ -3428,6 +3432,9 @@
         "sidebar": {
           "checks": {
             "toggle": "Show Checks"
+          },
+          "childWorkspaces": {
+            "toggle": "Toggle Child Workspaces"
           },
           "explorer": {
             "toggle": "Show Explorer"
@@ -3525,6 +3532,7 @@
       "groups": {
         "agents": "Agents",
         "browser": "Browser",
+        "chat": "Chat",
         "editors": "Editors",
         "fileExplorer": "File Explorer",
         "global": "Global",
