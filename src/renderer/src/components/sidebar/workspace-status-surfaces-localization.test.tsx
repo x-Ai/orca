@@ -18,6 +18,6 @@ describe('workspace status surface localization', () => {
       )
     ).toEqual(['待办', '进行中', '评审中', '完成'])
     expect(translate('dashboardPopout.bucket.working', 'Working')).toBe('工作中')
-    expect(renderToStaticMarkup(<ReviewChecksBadge status="failure" />)).toContain('检查失败')
+    expect(renderToStaticMarkup(<ReviewChecksBadge status="failure" />)).toContain('检查：失败')
   })
 })

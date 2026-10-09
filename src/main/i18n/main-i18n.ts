@@ -1,4 +1,3 @@
-import { app } from 'electron'
 import i18next, {
   type BackendModule,
   type i18n as I18nInstance,
@@ -49,9 +48,16 @@ const lazyLocaleBackend: BackendModule = {
   }
 }
 
+// Why: orcad runs this module on plain Node, so the desktop installs Electron's locale here.
+let systemLocaleProvider: () => string = () => Intl.DateTimeFormat().resolvedOptions().locale
+
+export function setMainSystemLocaleProvider(provider: () => string): void {
+  systemLocaleProvider = provider
+}
+
 export function getMainSystemLocale(): string {
   try {
-    return app.getLocale()
+    return systemLocaleProvider() || DEFAULT_UI_LOCALE
   } catch {
     return DEFAULT_UI_LOCALE
   }

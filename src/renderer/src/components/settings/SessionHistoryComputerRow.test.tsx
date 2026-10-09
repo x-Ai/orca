@@ -23,6 +23,7 @@ vi.mock('@/hooks/use-window-stream-visibility', () => ({
   useWindowStreamVisible: () => mocks.visible
 }))
 vi.mock('@/i18n/i18n', () => ({
+  getIntlLocale: () => 'en-US',
   translate: (_key: string, fallback: string, args?: Record<string, unknown>) =>
     fallback.replace(/{{(\w+)}}/g, (_, key: string) => String(args?.[key]))
 }))

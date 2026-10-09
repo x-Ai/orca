@@ -35,8 +35,8 @@ describe('discard descriptions with real locale catalogs', () => {
     ],
     [
       'zh',
-      '这将恢复对此文件的未暂存更改。此操作无法撤消。',
-      '这将恢复最后一个暂存版本并放弃删除。此操作无法撤消。'
+      '这将恢复对此文件的未暂存更改，此操作无法撤消',
+      '这将恢复最后一个暂存版本并放弃删除，此操作无法撤消'
     ]
   ] as const)(
     'uses current index-preserving descriptions in %s',

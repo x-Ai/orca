@@ -63,11 +63,11 @@ describe('main-i18n lazy locale loading', () => {
       'Orca 通知已开启'
     )
     expect(translateMain('notifications.testBody', 'This is a test notification from Orca.')).toBe(
-      '这是一条来自 Orca 的测试通知。'
+      '这是一条来自 Orca 的测试通知'
     )
     expect(buildNotificationOptions({ source: 'test' })).toEqual({
       title: 'Orca 通知已开启',
-      body: '这是一条来自 Orca 的测试通知。'
+      body: '这是一条来自 Orca 的测试通知'
     })
   })
 

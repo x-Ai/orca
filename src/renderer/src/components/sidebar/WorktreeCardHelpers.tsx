@@ -13,11 +13,11 @@ export function branchDisplayName(branch: string): string {
 export function checksLabel(status: CheckStatus): string {
   switch (status) {
     case 'success':
-      return 'Passing'
+      return translate('auto.components.sidebar.WorktreeCardHelpers.checksPassing', 'Passing')
     case 'failure':
-      return 'Failing'
+      return translate('auto.components.sidebar.WorktreeCardHelpers.checksFailing', 'Failing')
     case 'pending':
-      return 'Pending'
+      return translate('auto.components.sidebar.WorktreeCardHelpers.checksPending', 'Pending')
     case 'neutral':
       return ''
   }

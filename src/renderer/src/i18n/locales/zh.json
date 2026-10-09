@@ -86,7 +86,7 @@
       "dontShowAgain": "不再显示",
       "dismiss": "关闭",
       "dialogTitle": "为每个 Codex 选项卡提供自己的服务器",
-      "dialogDescription": "Codex 会话直接在共享一台后台服务器的终端中启动， Orca 将其启动的 Codex 会话分开保存，当会话共享一台服务器时，关闭一个服务器可能会结束其他服务器，并且代理状态可能会错误",
+      "dialogDescription": "Codex 会话直接在共享一台后台服务器的终端中启动，Orca 将其启动的 Codex 会话分开保存，当会话共享一台服务器时，关闭一个服务器可能会结束其他服务器，并且代理状态可能会错误",
       "copy": "复制",
       "copied": "已复制",
       "done": "完成",
@@ -3098,7 +3098,7 @@
           "4be41eaafc": "未解决的冲突",
           "55d61a0ccd": "冲突 ·",
           "58ad5ad431": "关闭",
-          "6e459867ad": "会话本地连续性状态， Git 不再将此文件报告为未合并",
+          "6e459867ad": "会话本地连续性状态，Git 不再将此文件报告为未合并",
           "90d576adb2": "刷新",
           "992145ff5a": "所有冲突均已解决",
           "9c2901ef8a": "下一次冲突",
@@ -4714,7 +4714,7 @@
             "463f1205c0": "加载项目视图",
             "4d2a77a119": "提交功能请求",
             "512fc171d6": "选择一个项目来开始",
-            "55de4fb57a": "{{value0}}， {{value1}} 在 {{value2}} 提交功能请求",
+            "55de4fb57a": "{{value0}}，{{value1}} 在 {{value2}} 提交功能请求",
             "6f5c52db05": "很多",
             "7037c8f5f1": "存储库不在 Orca 中",
             "71fb69926c": "刷新",
@@ -5016,7 +5016,7 @@
           "3aa7bb2d8b": "配对桌面",
           "3f90dbd274": "完成",
           "4c1df4eba7": "无法扫描？",
-          "5410d55d79": "Orca Mobile",
+          "5410d55d79": "Orca 手机端",
           "65b3f2e8bc": "生成…",
           "711e6f4b47": "iOS",
           "79d2f480da": "用于广告的网络接口",
@@ -7528,9 +7528,9 @@
           "networkDescription": "用于代理和企业环境的应用级网络路由"
         },
         "AgentAwakeSetting": {
-          "auto": "自动",
-          "off": "关",
-          "on": "开"
+          "auto": "代理",
+          "off": "关闭",
+          "on": "开启"
         },
         "AgentCacheTimerSection": {
           "05de84a104": "1小时",
@@ -7724,7 +7724,7 @@
           "40e7be7850": "已保存",
           "56580dcf60": "，您还可以参考",
           "570817d126": "和",
-          "5d569f5199": "， Orca 仅生成最后一段，例如",
+          "5d569f5199": "，Orca 仅生成最后一段，例如",
           "69bf4830c2": "包括 Orca 的",
           "6a051586d2": "代理启动后，根据工作重命名自动生成的分支",
           "7c7e34a66d": "未保存的更改",
@@ -7752,7 +7752,7 @@
           "63121132c0": "放弃",
           "7d6176f506": "提示词",
           "af0831a590": "已保存",
-          "af2d9a2cc6": "， Orca 仅生成最后一段，例如",
+          "af2d9a2cc6": "，Orca 仅生成最后一段，例如",
           "ebb942a2ec": "fix-login-flow"
         },
         "BaseRefPicker": {
@@ -7919,7 +7919,7 @@
           "9a5f8a4568": "移除",
           "9cbcd31338": "在 PATH 中注册了 `{{value0}}`",
           "9fd4023db0": "在文件管理器中显示",
-          "a030816e3e": "这将删除 shell 命令符号链接， Orca 本身仍保持安装状态",
+          "a030816e3e": "这将删除 shell 命令符号链接，Orca 本身仍保持安装状态",
           "a2b13efa94": "无法在 PATH 中注册 `{{value0}}`",
           "a4aafe46e3": "目标路径：",
           "aa6536977e": "Orca 将注册 {{value0}} ，以便该命令在您的终端上运行",
@@ -8116,7 +8116,7 @@
           "4cfaa7e98a": "蓝牙设备工具和本地硬件实验",
           "550cfa3750": "网络摄像头捕获和摄像头驱动的本地测试应用程序",
           "5b2f22ca2d": "无障碍",
-          "6326a4c5cc": "当 CLI、本地应用程序或自动化工具需要 macOS 隐私访问时，请使用这些控件， Orca 在启动时不会询问",
+          "6326a4c5cc": "当 CLI、本地应用程序或自动化工具需要 macOS 隐私访问时，请使用这些控件，Orca 在启动时不会询问",
           "66e94d6cf3": "已发送权限请求",
           "6f011b9bf6": "终端工具继承了 Orca 的 macOS 隐私信封",
           "7ca17b62c8": "当 Orca 运行的代理读取其他应用的数据时，macOS 会显示 Orca，因为 Orca 是执行终端命令的进程，请为 Orca 授予此权限，以减少此类提示，然后退出并重新打开 Orca",
@@ -8400,8 +8400,8 @@
           "90eb7309d7": "无法使用",
           "a0832ccdb1": "下载的",
           "a6b37929dc": "版本",
-          "b9ad70c30d": "更新错误， {{value0}}",
-          "bd79d412f0": "更新检查失败， {{value0}}",
+          "b9ad70c30d": "更新错误，{{value0}}",
+          "bd79d412f0": "更新检查失败，{{value0}}",
           "ceb579abaf": "检查应用程序更新并安装较新的 Orca 版本",
           "d69a09b672": "启动时会自动检查更新",
           "d89806cc89": "已准备好安装",
@@ -9503,11 +9503,11 @@
           "787ca433ef": "仅定义支持的键：`scripts`、`setup`、`archive` 和 `issueCommand`",
           "793dcee97d": "何时执行",
           "7e4427b4a2": "改变",
-          "7f78e5eea6": "保存本地脚本， Orca 仍在检查 orca.yaml，然后才能建议使用哪个脚本源",
+          "7f78e5eea6": "保存本地脚本，Orca 仍在检查 orca.yaml，然后才能建议使用哪个脚本源",
           "81057d5f71": "保存中...",
           "83dc78202a": "仅限本地",
           "8561b0665f": "首先是 orca.yaml，然后是本地命令",
-          "8567127a40": "创建或归档工作树时运行的脚本，本地脚本存储在本机上， `orca.yaml` 脚本与您的团队共享",
+          "8567127a40": "创建或归档工作树时运行的脚本，本地脚本存储在本机上，`orca.yaml` 脚本与您的团队共享",
           "8bfe65fc60": "使用本地命令",
           "8c2893fae0": "作为单个 shell 脚本运行，保存在本机上",
           "8d6c56bff8": "运行两者",
@@ -9614,7 +9614,7 @@
           "e63bb96a9b": "新工作树的项目特定目录",
           "e641c359de": "侧边栏和选项卡中使用的项目图标和颜色",
           "e9bd57a336": "工作树位置",
-          "ee5a290616": "作为文件夹打开， Git 功能对此工作区不可用",
+          "ee5a290616": "作为文件夹打开，Git 功能对此工作区不可用",
           "existingFolder": "已有文件夹",
           "externalWorktrees": "外部工作树",
           "externalWorktreesDescription": "覆盖此项目是否显示在 Orca 外部创建的工作树",
@@ -10293,7 +10293,7 @@
           "feae1d1e69": "可选，相当于 ProxyJump / ssh -J",
           "remoteRuntime": "运行时",
           "remoteRuntimeAuto": "自动",
-          "remoteRuntimeHelp": "哪个 Node.js 在此主机上运行 Orca， Orca 管理的Node自己上传，不需要npm，主机节点使用已安装在那里的 Node.js",
+          "remoteRuntimeHelp": "哪个 Node.js 在此主机上运行 Orca，Orca 管理的Node自己上传，不需要npm，主机节点使用已安装在那里的 Node.js",
           "remoteRuntimeHostNode": "主机节点",
           "allowRemoteCliControl": "允许此主机上的 orca CLI 控制 Orca",
           "allowRemoteCliControlHelp": "关闭时，在此主机上运行的 orca 命令只能访问其自身的终端，开启后可访问本机上的其他主机、编排、文件和集成",
@@ -10508,7 +10508,7 @@
           "f07dfb4466": "控制终端是否使用 xterm.js WebGL，「自动」在支持时启用，否则回退",
           "f61ac77f16": "git bash",
           "fe20f79dd1": "PowerShell 版本",
-          "fe4acf36c6": "WebGL 已禁用， DOM 渲染器可实现最大兼容性",
+          "fe4acf36c6": "WebGL 已禁用，DOM 渲染器可实现最大兼容性",
           "scrollSpeed": {
             "description": "调整普通终端回滚、修饰键快速滚动以及全屏 TUI 滚轮速度",
             "fast": "快速",
@@ -10629,7 +10629,7 @@
           "79f6bfb76e": "前景",
           "7dafd57730": "亮绿色",
           "7f4063076c": "光标下文本的颜色(块光标)",
-          "809f37738d": "控制终端背景的透明度， 1 是完全不透明，0 是完全透明",
+          "809f37738d": "控制终端背景的透明度，1 是完全不透明，0 是完全透明",
           "862e463f7f": "粗体文字",
           "8a673d4206": "ANSI 绿色",
           "8abdab9f7c": "立即重启",
@@ -10783,7 +10783,7 @@
           "9b6627522c": "刷新",
           "ab6b022a5c": "刷新 WSL CLI 状态",
           "c6f6f89d7c": "取消",
-          "d8216eb22e": "这会删除 WSL shell 命令， Orca 本身仍安装在 Windows 上",
+          "d8216eb22e": "这会删除 WSL shell 命令，Orca 本身仍安装在 Windows 上",
           "d9c6880dbd": "WSL shell 命令",
           "e2b0ee267f": "陈旧",
           "e49688f67f": "在 WSL 中注册 `{{value0}}`？",
@@ -11106,13 +11106,13 @@
           "95d3031db2": "在代理工作时保持此电脑和显示器唤醒，合盖行为遵循此设备的电源设置",
           "a42f6fbdd8": "在代理工作时保持此电脑和显示器唤醒，Orca 还会根据电源策略，在合盖时请求此设备保持唤醒",
           "e5995ce268": "代理工作时保持电脑唤醒",
-          "modeDescriptionDefault": "选择开、代理工作时自动，或关，合盖时 Orca 也会请求此设备保持唤醒，仍受其电源策略约束",
+          "modeDescriptionDefault": "选择\"打开\"、\"代理\"或\"关闭\"，当代理工作时，代理模式保持唤醒状态，Orca 还要求该设备在盖子关闭时保持唤醒状态，具体取决于其电源策略",
           "lidNoteMac": "开盖时防止空闲休眠，合上盖子仍会使此 Mac 进入睡眠状态",
           "lidNoteWindows": "合盖行为遵循该设备的电源设置",
           "lidNoteDefault": "Orca 还要求该设备在盖子关闭时保持唤醒状态，具体取决于其电源策略",
-          "modeDescriptionWindows": "选择开、代理工作时自动，或关，合盖行为遵循此设备的电源设置",
-          "modeDescriptionMac": "选择“打开”、“代理”或“关闭”，代理模式会在代理工作时防止空闲休眠，因此开盖即可完成长时间任务，合上盖子仍会使此 Mac 进入睡眠状态",
-          "modeTitle": "保持电脑唤醒"
+          "modeDescriptionWindows": "选择\"打开\"、\"代理\"或\"关闭\"，代理工作时代理模式保持唤醒状态，盖子关闭行为遵循该设备的电源设置",
+          "modeDescriptionMac": "选择\"打开\"、\"代理\"或\"关闭\"，代理模式会在代理工作时防止空闲休眠，因此开盖即可完成长时间任务，合上盖子仍会使此 Mac 进入睡眠状态",
+          "modeTitle": "防止电脑休眠"
         },
         "agent-generated-tab-title-copy": {
           "19ad21615a": "自动生成标签页标题",
@@ -11483,7 +11483,7 @@
               "cancel": "取消",
               "connect": "连接",
               "connectFailed": "连接失败",
-              "description": "使用 Bitbucket Cloud 凭证浏览拉取请求和构建状态， Orca 在保存之前会对其进行验证",
+              "description": "使用 Bitbucket Cloud 凭证浏览拉取请求和构建状态，Orca 在保存之前会对其进行验证",
               "docsLink": "Bitbucket API 令牌文档",
               "email": "Atlassian 帐户电子邮件",
               "emailPlaceholder": "你@example.com",
@@ -11491,7 +11491,7 @@
               "modeBasic": "电子邮件和 API 令牌",
               "modeToken": "访问令牌",
               "remoteRuntime": "此处保存的 Bitbucket 凭据仅存储在此本地计算机上，请改为在远程运行时设置 ORCA_BITBUCKET_* 环境变量",
-              "storageNote": "当操作系统钥匙串可用时，通过加密存储存储在本计算机上， ORCA_BITBUCKET_* 环境变量始终优先于您在此处保存的内容",
+              "storageNote": "当操作系统钥匙串可用时，通过加密存储存储在本计算机上，ORCA_BITBUCKET_* 环境变量始终优先于您在此处保存的内容",
               "title": "连接 Bitbucket",
               "tokenHint": "存储库、项目和工作区访问令牌是从匹配的 Bitbucket 设置页面创建的，并且需要读取访问拉取请求的权限",
               "verifying": "正在验证..."
@@ -11508,12 +11508,12 @@
               "disconnectFailed": "无法删除保存的 Bitbucket 凭据",
               "edit": "编辑凭据",
               "envManaged": "通过环境变量配置，取消设置 ORCA_BITBUCKET_* 变量以在 Orca 中管理此凭证",
-              "notConfigured": "将 Bitbucket Cloud 帐户与 Atlassian API 令牌或访问令牌连接， ORCA_BITBUCKET_* 环境变量也起作用并且优先",
+              "notConfigured": "将 Bitbucket Cloud 帐户与 Atlassian API 令牌或访问令牌连接，ORCA_BITBUCKET_* 环境变量也起作用并且优先",
               "replaceCredentials": "添加或替换凭据",
               "credentialName": "您的 Bitbucket 凭证",
               "statusLoadFailed": "无法检查是否保存了 Bitbucket 凭据",
               "storedAuthFailed": "保存的 Bitbucket 凭据无法进行身份验证，编辑它，或检查令牌是否仍然具有拉取请求访问权限",
-              "storedCredential": "保存在本机上的 Orca 中， ORCA_BITBUCKET_* 环境变量在设置时优先"
+              "storedCredential": "保存在本机上的 Orca 中，ORCA_BITBUCKET_* 环境变量在设置时优先"
             }
           }
         },
@@ -12854,7 +12854,7 @@
           "unshare": "取消分享"
         },
         "shortcutDefinitionCatalog": {
-          "missionControlConflict": "被调度中心阻止，在此处重新映射或在系统设置中更改"
+          "missionControlConflict": "已被调度中心拦截，在此重新映射，或在系统设置中更改"
         },
         "shortcuts": {
           "search": {
@@ -13440,7 +13440,7 @@
           "e8f25bd903": "无法完成终端清理",
           "ee6f8918b4": "正在结束…",
           "f659dcf9fd": "重启",
-          "fe2ab66d45": "终止 {{value1}} 会话中的 {{value0}}， {{value2}} 拒绝退出"
+          "fe2ab66d45": "终止 {{value1}} 会话中的 {{value0}}，{{value2}} 拒绝退出"
         }
       },
       "sidebar": {
@@ -14059,7 +14059,7 @@
           "0c3395fd32": "搜索工作树和浏览器标签页",
           "0ccba862b8": "打开 GitHub 任务",
           "196c1b5362": "打开 GitLab 任务",
-          "1b5c41caee": "Orca Mobile",
+          "1b5c41caee": "Orca 手机端",
           "80611a8b10": "搜索",
           "9c95e1ce91": "代理",
           "artifacts": "产物",
@@ -14705,9 +14705,9 @@
                 "6310412304": "审查 {{count}} 分支",
                 "6310412304_one": "审查 {{count}} 分行",
                 "6310412304_other": "审查 {{count}} 分支",
-                "a3cdd9d9e6": "Git 保留 {{count}} 本地分支，因为它们可能包含未合并的提交，保留的分支不保留工作区文件夹，他们的提交保留在存储库中， Orca 可能会继续在后台释放工作区磁盘空间",
-                "a3cdd9d9e6_one": "Git 保留 {{count}} 本地分支，因为它可能包含未合并的提交，保留的分支不保留工作区文件夹，他们的提交保留在存储库中， Orca 可能会继续在后台释放工作区磁盘空间",
-                "a3cdd9d9e6_other": "Git 保留 {{count}} 本地分支，因为它们可能包含未合并的提交，保留的分支不保留工作区文件夹，他们的提交保留在存储库中， Orca 可能会继续在后台释放工作区磁盘空间",
+                "a3cdd9d9e6": "Git 保留 {{count}} 本地分支，因为它们可能包含未合并的提交，保留的分支不保留工作区文件夹，他们的提交保留在存储库中，Orca 可能会继续在后台释放工作区磁盘空间",
+                "a3cdd9d9e6_one": "Git 保留 {{count}} 本地分支，因为它可能包含未合并的提交，保留的分支不保留工作区文件夹，他们的提交保留在存储库中，Orca 可能会继续在后台释放工作区磁盘空间",
+                "a3cdd9d9e6_other": "Git 保留 {{count}} 本地分支，因为它们可能包含未合并的提交，保留的分支不保留工作区文件夹，他们的提交保留在存储库中，Orca 可能会继续在后台释放工作区磁盘空间",
                 "cea24c2b7d": "{{count}} 工作区已删除",
                 "cea24c2b7d_one": "{{count}} 工作区已删除",
                 "cea24c2b7d_other": "{{count}} 工作区已删除",
@@ -14848,7 +14848,7 @@
             "compact": {
               "agents": {
                 "0c1debfe84": "折叠 {{value0}}",
-                "289a1d2ca7": "展开{{value0}}， {{value1}}",
+                "289a1d2ca7": "展开{{value0}}，{{value1}}",
                 "a128d7006b": "{{value0}} {{value1}} 子 {{value2}}"
               }
             }
@@ -14873,6 +14873,11 @@
         "worktreeIssueDisplacement": {
           "3f61c0a8d2": "Linear {{value}}",
           "9c4b7e1f60": "GitHub #{{value}}"
+        },
+        "WorktreeCardHelpers": {
+          "checksFailing": "失败",
+          "checksPassing": "通过",
+          "checksPending": "等待中"
         }
       },
       "skills": {
@@ -15854,15 +15859,15 @@
       "status": {
         "bar": {
           "CaffeinateStatusSegment": {
-            "active": "当前",
-            "ariaLabel": "{{title}} - {{status}}",
+            "active": "生效中",
+            "ariaLabel": "{{title}}，{{status}}",
             "auto": "自动",
-            "autoDescription": "代理工作时保持唤醒",
-            "inactive": "未活跃",
+            "autoDescription": "代理工作时防止电脑进入睡眠状态",
+            "inactive": "未生效",
             "off": "关",
-            "offDescription": "允许正常的系统睡眠行为",
+            "offDescription": "允许系统正常进入睡眠状态",
             "on": "开",
-            "onDescription": "持续保持此电脑唤醒"
+            "onDescription": "始终防止此电脑进入睡眠状态"
           },
           "NativeChatResumeStatusSegment": {
             "ariaLabel": "有 {{value0}} 个对话可恢复",
@@ -17716,7 +17721,7 @@
               "browserNotFound": "在此系统上找不到该浏览器",
               "connectionEnded": "导入期间与此服务器的连接已中断，请重新连接后重试",
               "copyDatabaseFailed": "无法复制 {{value0}} Cookie 数据库，请先关闭 {{value1}} 后重试",
-              "diagnosticDetails": "{{value0}}详细信息已写入 {{value1}}",
+              "diagnosticDetails": "{{value0}}，详细信息已写入 {{value1}}",
               "emptyFile": "Cookie 文件为空",
               "encryptionKeyDenied": "无法访问 {{value0}} 加密密钥，操作系统可能拒绝了访问",
               "expectedJsonArray": "应为由 Cookie 对象组成的 JSON 数组",

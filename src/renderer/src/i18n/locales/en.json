@@ -14903,6 +14903,11 @@
         "worktreeIssueDisplacement": {
           "3f61c0a8d2": "Linear {{value}}",
           "9c4b7e1f60": "GitHub #{{value}}"
+        },
+        "WorktreeCardHelpers": {
+          "checksFailing": "Failing",
+          "checksPassing": "Passing",
+          "checksPending": "Pending"
         }
       },
       "skills": {
@@ -17061,12 +17066,12 @@
               "links": {
                 "mac": {
                   "switch": {
-                    "terminal": "⌘+点击切换终端"
+                    "terminal": "⌘+click to switch terminal"
                   }
                 },
                 "windows": {
                   "switch": {
-                    "terminal": "Ctrl+点击切换终端"
+                    "terminal": "Ctrl+click to switch terminal"
                   }
                 }
               }
@@ -17074,56 +17079,56 @@
             "link": {
               "open": {
                 "hints": {
-                  "clickForActions": "单击查看操作，",
-                  "clickForActionsOr": "单击查看操作或 ",
+                  "clickForActions": "Click for actions, ",
+                  "clickForActionsOr": "Click for actions or ",
                   "mac": {
                     "open": {
-                      "file": "⌘+点击打开，或 ⇧⌘+点击用默认应用打开",
-                      "html": "⌘+点击打开，或 ⇧⌘+点击用默认浏览器打开",
+                      "file": "⌘+click to open, or ⇧⌘+click for default app",
+                      "html": "⌘+click to open, or ⇧⌘+click for default browser",
                       "in": {
-                        "orca": "⌘+点击在 Orca 中打开"
+                        "orca": "⌘+click to open in Orca"
                       },
                       "url": {
-                        "orca": "⌘+点击打开，或 ⇧⌘+点击在 Orca 中打开",
-                        "system": "⌘+点击打开，或 ⇧⌘+点击用系统浏览器打开"
+                        "orca": "⌘+click to open, or ⇧⌘+click to open in Orca",
+                        "system": "⌘+click to open, or ⇧⌘+click for system browser"
                       }
                     },
                     "orca": {
-                      "browser": "⇧⌘+点击在 Orca 中打开"
+                      "browser": "⇧⌘+click to open in Orca"
                     },
                     "switch": {
-                      "workspace": "⌘+点击切换工作区"
+                      "workspace": "⌘+click to switch workspace"
                     },
                     "system": {
-                      "browser": "⇧⌘+点击用系统浏览器打开"
+                      "browser": "⇧⌘+click for system browser"
                     },
                     "worktree": {
-                      "finder": "⌘+点击切换工作区，或 ⇧⌘+点击在访达中打开"
+                      "finder": "⌘+click to switch workspace, or ⇧⌘+click to open in Finder"
                     }
                   },
                   "windows": {
                     "open": {
-                      "file": "Ctrl+点击打开，或 Shift+Ctrl+点击用默认应用打开",
-                      "html": "Ctrl+点击打开，或 Shift+Ctrl+点击用默认浏览器打开",
+                      "file": "Ctrl+click to open, or Shift+Ctrl+click for default app",
+                      "html": "Ctrl+click to open, or Shift+Ctrl+click for default browser",
                       "in": {
-                        "orca": "Ctrl+点击在 Orca 中打开"
+                        "orca": "Ctrl+click to open in Orca"
                       },
                       "url": {
-                        "orca": "Ctrl+点击打开，或 Shift+Ctrl+点击在 Orca 中打开",
-                        "system": "Ctrl+点击打开，或 Shift+Ctrl+点击用系统浏览器打开"
+                        "orca": "Ctrl+click to open, or Shift+Ctrl+click to open in Orca",
+                        "system": "Ctrl+click to open, or Shift+Ctrl+click for system browser"
                       }
                     },
                     "orca": {
-                      "browser": "Shift+Ctrl+点击在 Orca 中打开"
+                      "browser": "Shift+Ctrl+click to open in Orca"
                     },
                     "switch": {
-                      "workspace": "Ctrl+点击切换工作区"
+                      "workspace": "Ctrl+click to switch workspace"
                     },
                     "system": {
-                      "browser": "Shift+Ctrl+点击用系统浏览器打开"
+                      "browser": "Shift+Ctrl+click for system browser"
                     },
                     "worktree": {
-                      "folder": "Ctrl+点击切换工作区，或 Shift+Ctrl+点击打开文件夹"
+                      "folder": "Ctrl+click to switch workspace, or Shift+Ctrl+click to open folder"
                     }
                   }
                 }

@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from 'electron'
-import { ensureMainI18n, setMainUiLanguage } from '../i18n/main-i18n'
+import { ensureMainI18n, setMainSystemLocaleProvider, setMainUiLanguage } from '../i18n/main-i18n'
 import {
   registerAppMenu,
   rebuildAppMenu,
@@ -24,6 +24,7 @@ export async function initializeMainProcessI18nAndMenu(): Promise<void> {
   if (!store) {
     throw new Error('Store must be initialized before menu')
   }
+  setMainSystemLocaleProvider(() => app.getLocale())
   await ensureMainI18n()
   await setMainUiLanguage(store.getSettings().uiLanguage)
   logStartupMilestone('i18n-ready')

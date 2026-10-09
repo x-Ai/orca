@@ -104,13 +104,13 @@ const localeCopy = [
     {
       title: '防止电脑休眠',
       on: '开启',
-      auto: '智能体',
+      auto: '代理',
       off: '关闭',
       active: '生效中',
       inactive: '未生效',
       ariaLabel: '防止电脑休眠，关闭 · 未生效',
       onDescription: '始终防止此电脑进入睡眠状态',
-      autoDescription: '智能体工作时防止电脑进入睡眠状态',
+      autoDescription: '代理工作时防止电脑进入睡眠状态',
       offDescription: '允许系统正常进入睡眠状态'
     }
   ]
@@ -198,14 +198,14 @@ describe('keep-awake copy under non-English UI languages', () => {
     render(<CaffeinateStatusSegment iconOnly={false} />)
 
     const trigger = await screen.findByRole('button', {
-      name: '防止电脑休眠，智能体 · 生效中'
+      name: '防止电脑休眠，代理 · 生效中'
     })
-    expect(trigger.textContent).toContain('智能体')
+    expect(trigger.textContent).toContain('代理')
     expect(screen.getByRole('tooltip').textContent).toContain(getAgentAwakeLidNote())
 
     const menu = screen.getByRole('menu')
     await waitFor(() => expect(menu.textContent).toContain('防止电脑休眠'))
-    expect(menu.textContent).toContain('智能体 · 生效中')
+    expect(menu.textContent).toContain('代理 · 生效中')
     const [onItem, agentItem, offItem] = screen.getAllByRole('menuitemradio') as [
       HTMLElement,
       HTMLElement,
@@ -213,8 +213,8 @@ describe('keep-awake copy under non-English UI languages', () => {
     ]
     expect(within(onItem).getByText('开启')).toBeTruthy()
     expect(within(onItem).getByText('始终防止此电脑进入睡眠状态')).toBeTruthy()
-    expect(within(agentItem).getByText('智能体')).toBeTruthy()
-    expect(within(agentItem).getByText('智能体工作时防止电脑进入睡眠状态')).toBeTruthy()
+    expect(within(agentItem).getByText('代理')).toBeTruthy()
+    expect(within(agentItem).getByText('代理工作时防止电脑进入睡眠状态')).toBeTruthy()
     expect(within(offItem).getByText('关闭')).toBeTruthy()
     expect(within(offItem).getByText('允许系统正常进入睡眠状态')).toBeTruthy()
   })

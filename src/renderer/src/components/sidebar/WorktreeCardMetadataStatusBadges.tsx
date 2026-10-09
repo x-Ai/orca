@@ -174,23 +174,11 @@ export function ReviewChecksBadge({
     return null
   }
 
-  const checksText = checksLabel(status)
-  const label =
-    status === 'success'
-      ? translate(
-          'auto.components.rightSidebar.parentPrChecks.rowSummary.checksPassing',
-          'Checks passing'
-        )
-      : status === 'failure'
-        ? translate(
-            'auto.components.rightSidebar.parentPrChecks.rowSummary.checksFailing',
-            'Checks failing'
-          )
-        : translate(
-            'auto.components.sidebar.WorktreeCardMetadataStatusBadges.checksPending',
-            'Checks: {{status}}',
-            { status: checksText }
-          )
+  const label = translate(
+    'auto.components.sidebar.WorktreeCardMetadataStatusBadges.checksPending',
+    'Checks: {{status}}',
+    { status: checksLabel(status) }
+  )
 
   if (status === 'success') {
     return (

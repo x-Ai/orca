@@ -43,7 +43,7 @@ describe('WslCliRegistration', () => {
     render(<WslCliRegistration currentPlatform="win32" />)
 
     await waitFor(() => {
-      expect(toastError).toHaveBeenCalledWith('无法连接到 WSL 发行版，请重试。')
+      expect(toastError).toHaveBeenCalledWith('无法连接到 WSL 发行版，请重试')
     })
   })
 })

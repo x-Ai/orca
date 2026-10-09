@@ -2,6 +2,10 @@ import { translate } from '@/i18n/i18n'
 
 /** Map default board status ids / English labels to the active UI locale. */
 export function translateWorkspaceBoardStatusLabel(status: { id: string; label: string }): string {
+  // Why: a renamed built-in status keeps the user's label; only the shipped English defaults translate.
+  if (status.label.trim() !== '') {
+    return translateDefaultWorkflowStateLabel(status.label)
+  }
   switch (status.id) {
     case 'todo':
       return translate('auto.components.sidebar.workspaceBoardStatus.todo', 'Todo')
@@ -12,9 +16,8 @@ export function translateWorkspaceBoardStatusLabel(status: { id: string; label: 
     case 'completed':
       return translate('auto.components.sidebar.workspaceBoardStatus.done', 'Done')
     default:
-      break
+      return status.label
   }
-  return translateDefaultWorkflowStateLabel(status.label)
 }
 
 /** Localize built-in/common workflow names without changing provider-defined custom states. */

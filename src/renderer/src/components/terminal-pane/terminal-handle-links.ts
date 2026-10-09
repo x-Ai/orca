@@ -295,12 +295,12 @@ function getTerminalHandleFocusHint(showActions: boolean): string {
   const prefix = showActions
     ? translate(
         'auto.components.terminal.pane.terminal.link.open.hints.clickForActionsOr',
-        '单击查看操作或 '
+        'Click for actions or '
       )
     : ''
   return navigator.userAgent.includes('Mac')
-    ? `${prefix}${translate('auto.components.terminal.pane.terminal.handle.links.mac.switch.terminal', '⌘+点击切换终端')}`
-    : `${prefix}${translate('auto.components.terminal.pane.terminal.handle.links.windows.switch.terminal', 'Ctrl+点击切换终端')}`
+    ? `${prefix}${translate('auto.components.terminal.pane.terminal.handle.links.mac.switch.terminal', '⌘+click to switch terminal')}`
+    : `${prefix}${translate('auto.components.terminal.pane.terminal.handle.links.windows.switch.terminal', 'Ctrl+click to switch terminal')}`
 }
 
 export async function focusRuntimeTerminalHandle(
