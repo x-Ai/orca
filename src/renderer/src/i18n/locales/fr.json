@@ -11811,7 +11811,8 @@
           "middleClickAriaLabel": "Clic du milieu",
           "actionsLabel": "Actions",
           "openUrlLabel": "Ouvrir l'URL",
-          "leaveToTerminalLabel": "Départ au terminal"
+          "leaveToTerminalLabel": "Départ au terminal",
+          "description": "Affiche les actions disponibles quand vous cliquez sur un lien du terminal. Désactivez pour exiger un {{modifier}}+clic."
         },
         "PluginConsentDialog": {
           "workerTrust": "Worker en arrière-plan — exécute son propre processus",

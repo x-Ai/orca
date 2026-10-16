@@ -1798,7 +1798,20 @@
         "defaultBranchUpdateFailed": "プロジェクトのデフォルトブランチを更新できませんでした。再試行。",
         "setLocation": "プロジェクトの場所を設定する",
         "setLocationOnHost": "プロジェクトの場所を {{host}} に設定します",
-        "setLocationTooltip": "フォルダーを選択するか、このプロジェクトを {{host}} に複製します。"
+        "setLocationTooltip": "フォルダーを選択するか、このプロジェクトを {{host}} に複製します。",
+        "defaultTabCommands": "Default tab commands",
+        "runCommandsNow": "Run commands now",
+        "runDefaultTabCommands": "Run default tab commands",
+        "runDefaultTabCommandsNow": "Run default tab commands now?",
+        "runSetupAndDefaultTabCommands": "Run setup and default tab commands",
+        "runSetupAndDefaultTabCommandsNow": "Run setup and default tab commands now?",
+        "runSetupCommand": "Run setup command",
+        "runSetupNow": "Run setup now",
+        "runSetupNowQuestion": "Run setup now?",
+        "setupAndDefaultTabCommands": "Setup and default tab commands",
+        "setupScript": "Setup script",
+        "skipCommands": "Skip commands",
+        "skipForNow": "Skip for now"
       },
       "NewWorkspaceComposerModal": {
         "createWorktree": "ワークツリーを作成する",
@@ -3523,7 +3536,8 @@
             "e518f544b1": "Agent が検出されませんでした",
             "8dea9b5cdf": "有効な Agent がありません",
             "needsServerUpdate": "このワークスペースの Agent を表示するには、このサーバーの Orca を更新してください",
-            "hostUnreachable": "このワークスペースのホストに接続できないため、Agent を一覧表示できません"
+            "hostUnreachable": "このワークスペースのホストに接続できないため、Agent を一覧表示できません",
+            "launchTerminalDidNotStart": "Couldn't launch {{value0}} — the terminal did not start."
           },
           "RecentTabSwitcher": {
             "329638ff6f": "タブの切り替え",
@@ -12101,7 +12115,8 @@
           "middleClickAriaLabel": "中クリック",
           "actionsLabel": "操作",
           "openUrlLabel": "URLを開く",
-          "leaveToTerminalLabel": "ターミナルへ出発"
+          "leaveToTerminalLabel": "ターミナルへ出発",
+          "description": "ターミナル内のリンクまたはチャット記録をクリックしたときに利用可能な操作を表示します。ターミナルで {{modifier}} クリックを要求するには、これをオフにします。"
         },
         "ReleaseChannelSection": {
           "switchFailed": "そのバージョンに切り替えられませんでした。",
@@ -16203,7 +16218,8 @@
             "4f86e2a10b": "ツアーをスキップ",
             "d974f32a83": "ツアーを閉じる",
             "ffa4412b66": "次",
-            "complete": "完了"
+            "complete": "完了",
+            "d74ca948aa": "次へ"
           },
           "ContextualTourProgressDots": {
             "7734cb8ad3": "の",
@@ -16233,6 +16249,21 @@
                         }
                       }
                     }
+                  }
+                }
+              },
+              "step": {
+                "localized": {
+                  "copy": {
+                    "012036e8ca": "次へ",
+                    "1a9ac96bc5": "自動化はスケジュールに従って Agent の作業を実行します。このボタンをクリックして自動化を追加します。",
+                    "65a7cf9b63": "実行では、自動化がいつ実行されたか、何が起こったか、出力をどこで確認できるかが表示されます。",
+                    "a1b2c3d4e5": "ボードで作業を計画する",
+                    "dc2d7ebbfa": "自動化とは何ですか？",
+                    "e69e126045": "結果を確認する",
+                    "f6g7h8i9j0": "プロジェクト別ではなくステータス別にワークスペースを表示したい場合は、ボードを使用します。",
+                    "k1l2m3n4o5": "レーン間で作業を移動する",
+                    "p6q7r8s9t0": "ステータスが変わったら、レーン間でワークスペースをドラッグします。"
                   }
                 }
               }

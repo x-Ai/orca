@@ -1798,7 +1798,20 @@
         "defaultBranchUpdateFailed": "프로젝트 기본 브랜치를 업데이트할 수 없습니다. 다시 시도해 보세요.",
         "setLocation": "프로젝트 위치 설정",
         "setLocationOnHost": "{{host}}에 프로젝트 위치 설정",
-        "setLocationTooltip": "폴더를 선택하거나 이 프로젝트를 {{host}}에 복제하세요."
+        "setLocationTooltip": "폴더를 선택하거나 이 프로젝트를 {{host}}에 복제하세요.",
+        "defaultTabCommands": "Default tab commands",
+        "runCommandsNow": "Run commands now",
+        "runDefaultTabCommands": "Run default tab commands",
+        "runDefaultTabCommandsNow": "Run default tab commands now?",
+        "runSetupAndDefaultTabCommands": "Run setup and default tab commands",
+        "runSetupAndDefaultTabCommandsNow": "Run setup and default tab commands now?",
+        "runSetupCommand": "Run setup command",
+        "runSetupNow": "Run setup now",
+        "runSetupNowQuestion": "Run setup now?",
+        "setupAndDefaultTabCommands": "Setup and default tab commands",
+        "setupScript": "Setup script",
+        "skipCommands": "Skip commands",
+        "skipForNow": "Skip for now"
       },
       "NewWorkspaceComposerModal": {
         "createWorktree": "작업 트리 만들기",
@@ -3523,7 +3536,8 @@
             "e518f544b1": "감지된 agents가 없습니다.",
             "8dea9b5cdf": "활성화된 agents가 없습니다.",
             "needsServerUpdate": "이 워크스페이스의 에이전트를 보려면 이 서버의 Orca를 업데이트하세요",
-            "hostUnreachable": "이 워크스페이스의 호스트에 연결할 수 없어 에이전트를 나열할 수 없습니다"
+            "hostUnreachable": "이 워크스페이스의 호스트에 연결할 수 없어 에이전트를 나열할 수 없습니다",
+            "launchTerminalDidNotStart": "Couldn't launch {{value0}} — the terminal did not start."
           },
           "RecentTabSwitcher": {
             "329638ff6f": "탭 전환",
@@ -12149,7 +12163,8 @@
           "middleClickAriaLabel": "가운데 클릭",
           "actionsLabel": "동작 메뉴 표시",
           "openUrlLabel": "URL 열기",
-          "leaveToTerminalLabel": "터미널에 맡기기"
+          "leaveToTerminalLabel": "터미널에 맡기기",
+          "description": "터미널의 링크나 채팅 내용을 클릭하면 사용 가능한 작업이 표시됩니다. 터미널에서 {{modifier}}-클릭을 요구하려면 이 기능을 끄십시오."
         },
         "ReleaseChannelSection": {
           "switchFailed": "해당 버전으로 전환할 수 없습니다.",
@@ -16203,7 +16218,8 @@
             "4f86e2a10b": "둘러보기 건너뛰기",
             "d974f32a83": "투어 닫기",
             "ffa4412b66": "다음",
-            "complete": "완료"
+            "complete": "완료",
+            "d74ca948aa": "다음"
           },
           "ContextualTourProgressDots": {
             "7734cb8ad3": "중",
@@ -16233,6 +16249,21 @@
                         }
                       }
                     }
+                  }
+                }
+              },
+              "step": {
+                "localized": {
+                  "copy": {
+                    "012036e8ca": "다음",
+                    "1a9ac96bc5": "자동화는 일정에 따라 agent 작업을 실행합니다. 이 버튼을 눌러 자동화를 추가하세요.",
+                    "65a7cf9b63": "실행 내역에서 자동화가 언제 실행되었는지, 어떤 일이 발생했는지, 출력을 어디서 확인할 수 있는지 볼 수 있습니다.",
+                    "a1b2c3d4e5": "보드에서 작업 계획하기",
+                    "dc2d7ebbfa": "자동화란 무엇인가요?",
+                    "e69e126045": "결과 확인",
+                    "f6g7h8i9j0": "프로젝트별이 아닌 상태별로 워크스페이스를 보고 싶을 때 보드를 사용하세요.",
+                    "k1l2m3n4o5": "레인 간에 작업 이동하기",
+                    "p6q7r8s9t0": "상태가 변경되면 레인 간에 워크스페이스를 드래그하세요."
                   }
                 }
               }
