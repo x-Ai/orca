@@ -1,4 +1,5 @@
 import { translate } from '@/i18n/i18n'
+import { REMOTE_FILE_CHANGED_DURING_READ_MESSAGE } from '@/runtime/runtime-paged-file-read'
 
 const PATH_ACCESS_DENIED_PREFIX = 'Access denied: path resolves outside allowed directories'
 
@@ -21,6 +22,12 @@ export function formatFileLoadErrorMessage(message: string): string {
     return translate(
       'auto.components.editor.fileLoadError.pathAccessDenied',
       'Access denied: path resolves outside allowed directories. If this blocks a legitimate workflow, please file a GitHub issue.'
+    )
+  }
+  if (unwrapped === REMOTE_FILE_CHANGED_DURING_READ_MESSAGE) {
+    return translate(
+      'auto.components.editor.fileLoadError.changedDuringRead',
+      'File changed on disk while it was loading. Reload the file to see the latest version.'
     )
   }
   return unwrapped

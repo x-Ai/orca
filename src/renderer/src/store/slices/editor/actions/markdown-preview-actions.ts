@@ -13,6 +13,12 @@ import { resolveEditorFileIdForOwner } from '../file-ids/editor-file-ids'
 import { buildEditorActiveResult } from '../tabs/editor-open-target-group'
 import { openWorkspaceEditorItem } from '../tabs/workspace-editor-item'
 import { translate } from '@/i18n/i18n'
+import type { Tab } from '../../../../../../shared/tab-types'
+import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/layout-owner-switch'
+import {
+  previewEditorTabsOf,
+  recordPromotedEditorTabsInLayoutOwner
+} from '../tabs/editor-tab-layout-owner'
 
 export function createMarkdownPreviewActions(
   set: EditorSet,
@@ -51,7 +57,7 @@ export function createMarkdownPreviewActions(
           worktree.path,
           worktreeId,
           operationContext.connectionId,
-          operationContext.settings,
+          operationContext.target,
           operationProvenance,
           operationContext.expectedSshConnectionGeneration,
           operationContext.expectedSshTargetId,
@@ -171,7 +177,11 @@ export function createMarkdownPreviewActions(
     },
 
     makePreviewFilePermanent: (fileId, tabId) => {
+      const promoted: Tab[] = []
       set((s) => {
+        if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+          promoted.push(...previewEditorTabsOf(s.unifiedTabsByWorktree, fileId, tabId))
+        }
         let changed = false
         const openFiles = s.openFiles.map((file) => {
           if (file.id !== fileId || !file.isPreview) {
@@ -192,6 +202,10 @@ export function createMarkdownPreviewActions(
         }
         return changed ? { openFiles, unifiedTabsByWorktree } : s
       })
+      // Switch point: main records the preview tabs the user made permanent.
+      if (ORCA_LAYOUT_OWNER_IS_MAIN && promoted.length > 0) {
+        recordPromotedEditorTabsInLayoutOwner(get(), promoted)
+      }
     },
 
     pinFile: (fileId, tabId) => {

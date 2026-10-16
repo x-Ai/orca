@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { normalize, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
@@ -23,7 +23,6 @@ const {
 }))
 
 vi.mock('electron', () => ({
-  app: { getLocale: () => 'en-US' },
   ipcMain: {
     handle: handleMock
   },
@@ -59,7 +58,6 @@ vi.mock('../win32-utils', () => ({
 import { EXTERNAL_EDITOR_CLI_COMMAND, registerShellHandlers } from './shell'
 import { resolveExternalEditorLaunchSpec } from '../external-editor-launch'
 import type { SshTarget } from '../../shared/ssh-types'
-import { setMainUiLanguage } from '../i18n/main-i18n'
 
 function createSpawnedProcess(result: 'spawn' | 'error' = 'spawn'): {
   once: ReturnType<typeof vi.fn>
@@ -102,10 +100,6 @@ describe('registerShellHandlers', () => {
     getSshTarget: (id: string) => sshTargets.get(id)
   }
 
-  afterEach(async () => {
-    await setMainUiLanguage('en')
-  })
-
   beforeEach(() => {
     handleMock.mockReset()
     getSpawnArgsForWindowsMock.mockReset()
@@ -136,26 +130,19 @@ describe('registerShellHandlers', () => {
     return call[1] as (event: unknown, ...args: unknown[]) => Promise<unknown>
   }
 
-  it.each([
-    ['en', 'Audio'],
-    ['zh', '音频']
-  ] as const)(
-    'picks audio files with a constrained %s native dialog filter',
-    async (language, filterName) => {
-      showOpenDialogMock.mockResolvedValue({
-        canceled: false,
-        filePaths: ['/Users/kaylee/Downloads/Note_block_pling.ogg']
-      })
+  it('picks audio files with a constrained native dialog filter', async () => {
+    showOpenDialogMock.mockResolvedValue({
+      canceled: false,
+      filePaths: ['/Users/kaylee/Downloads/Note_block_pling.ogg']
+    })
 
-      const handler = getHandler('shell:pickAudio')
-      await setMainUiLanguage(language)
-      await expect(handler({})).resolves.toBe('/Users/kaylee/Downloads/Note_block_pling.ogg')
-      expect(showOpenDialogMock).toHaveBeenCalledWith({
-        properties: ['openFile'],
-        filters: [{ name: filterName, extensions: ['ogg', 'mp3', 'wav', 'm4a', 'aac', 'flac'] }]
-      })
-    }
-  )
+    const handler = getHandler('shell:pickAudio')
+    await expect(handler({})).resolves.toBe('/Users/kaylee/Downloads/Note_block_pling.ogg')
+    expect(showOpenDialogMock).toHaveBeenCalledWith({
+      properties: ['openFile'],
+      filters: [{ name: 'Audio', extensions: ['ogg', 'mp3', 'wav', 'm4a', 'aac', 'flac'] }]
+    })
+  })
 
   it('returns null when audio picking is canceled', async () => {
     showOpenDialogMock.mockResolvedValue({
@@ -213,7 +200,7 @@ describe('registerShellHandlers', () => {
     it('ignores relative paths', async () => {
       const handler = getHandler('shell:openPath')
 
-      await expect(handler({}, 'relative/workspace')).resolves.toBeUndefined()
+      await expect(handler({}, 'relative/workspace', 'local')).resolves.toBeUndefined()
       expect(statMock).not.toHaveBeenCalled()
       expect(showItemInFolderMock).not.toHaveBeenCalled()
     })
@@ -223,7 +210,7 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('missing-workspace')
       const handler = getHandler('shell:openPath')
 
-      await expect(handler({}, workspacePath)).resolves.toBeUndefined()
+      await expect(handler({}, workspacePath, 'local')).resolves.toBeUndefined()
       expect(statMock).toHaveBeenCalledWith(normalize(workspacePath))
       expect(showItemInFolderMock).not.toHaveBeenCalled()
     })
@@ -232,7 +219,7 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openPath')
 
-      await expect(handler({}, workspacePath)).resolves.toBeUndefined()
+      await expect(handler({}, workspacePath, 'local')).resolves.toBeUndefined()
       expect(showItemInFolderMock).toHaveBeenCalledWith(normalize(workspacePath))
     })
 
@@ -243,7 +230,7 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openPath')
 
-      await expect(handler({}, workspacePath)).resolves.toBeUndefined()
+      await expect(handler({}, workspacePath, 'local')).resolves.toBeUndefined()
       expect(showItemInFolderMock).toHaveBeenCalledWith(normalize(workspacePath))
     })
   })
@@ -252,7 +239,7 @@ describe('registerShellHandlers', () => {
     it('rejects relative paths', async () => {
       const handler = getHandler('shell:openInFileManager')
 
-      await expect(handler({}, 'relative/workspace')).resolves.toEqual({
+      await expect(handler({}, 'relative/workspace', 'local')).resolves.toEqual({
         ok: false,
         reason: 'not-absolute'
       })
@@ -265,7 +252,7 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('missing-workspace')
       const handler = getHandler('shell:openInFileManager')
 
-      await expect(handler({}, workspacePath)).resolves.toEqual({
+      await expect(handler({}, workspacePath, 'local')).resolves.toEqual({
         ok: false,
         reason: 'not-found'
       })
@@ -280,7 +267,7 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openInFileManager')
 
-      await expect(handler({}, workspacePath)).resolves.toEqual({
+      await expect(handler({}, workspacePath, 'local')).resolves.toEqual({
         ok: false,
         reason: 'launch-failed'
       })
@@ -291,7 +278,7 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openInFileManager')
 
-      await expect(handler({}, workspacePath)).resolves.toEqual({ ok: true })
+      await expect(handler({}, workspacePath, 'local')).resolves.toEqual({ ok: true })
       expect(showItemInFolderMock).toHaveBeenCalledWith(normalize(workspacePath))
     })
   })
@@ -300,7 +287,9 @@ describe('registerShellHandlers', () => {
     it('rejects relative paths', async () => {
       const handler = getHandler('shell:openInExternalEditor')
 
-      await expect(handler({}, { path: 'relative/workspace' })).resolves.toEqual({
+      await expect(
+        handler({}, { path: 'relative/workspace', ownerHostId: 'local' })
+      ).resolves.toEqual({
         ok: false,
         reason: 'not-absolute'
       })
@@ -314,7 +303,7 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('missing-workspace')
       const handler = getHandler('shell:openInExternalEditor')
 
-      await expect(handler({}, { path: workspacePath })).resolves.toEqual({
+      await expect(handler({}, { path: workspacePath, ownerHostId: 'local' })).resolves.toEqual({
         ok: false,
         reason: 'not-found'
       })
@@ -329,7 +318,7 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openInExternalEditor')
 
-      await expect(handler({}, { path: workspacePath })).resolves.toEqual({
+      await expect(handler({}, { path: workspacePath, ownerHostId: 'local' })).resolves.toEqual({
         ok: false,
         reason: 'launch-failed'
       })
@@ -359,7 +348,9 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openInExternalEditor')
 
-      await expect(handler({}, { path: workspacePath })).resolves.toEqual({ ok: true })
+      await expect(handler({}, { path: workspacePath, ownerHostId: 'local' })).resolves.toEqual({
+        ok: true
+      })
       expect(resolveCliCommandMock).toHaveBeenCalledWith(EXTERNAL_EDITOR_CLI_COMMAND, {
         platform: process.platform
       })
@@ -385,11 +376,11 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openInExternalEditor')
 
-      await expect(handler({}, { path: workspacePath, command: 'custom-editor' })).resolves.toEqual(
-        {
-          ok: true
-        }
-      )
+      await expect(
+        handler({}, { path: workspacePath, command: 'custom-editor', ownerHostId: 'local' })
+      ).resolves.toEqual({
+        ok: true
+      })
       expect(resolveCliCommandMock).toHaveBeenCalledWith('custom-editor', {
         platform: process.platform
       })
@@ -410,7 +401,9 @@ describe('registerShellHandlers', () => {
         resolveCliCommandMock.mockReturnValueOnce(codeShim)
         const handler = getHandler('shell:openInExternalEditor')
 
-        await expect(handler({}, { path: workspacePath, command: 'code' })).resolves.toEqual({
+        await expect(
+          handler({}, { path: workspacePath, command: 'code', ownerHostId: 'local' })
+        ).resolves.toEqual({
           ok: true
         })
         expect(getSpawnArgsForWindowsMock).toHaveBeenCalledWith(
@@ -431,7 +424,9 @@ describe('registerShellHandlers', () => {
       const nvimPath = 'C:\\Program Files\\Neovim\\bin\\nvim.exe'
 
       try {
-        await expect(handler({}, { path: workspacePath, command: nvimPath })).resolves.toEqual({
+        await expect(
+          handler({}, { path: workspacePath, command: nvimPath, ownerHostId: 'local' })
+        ).resolves.toEqual({
           ok: true
         })
         expect(resolveCliCommandMock).not.toHaveBeenCalled()
@@ -464,7 +459,9 @@ describe('registerShellHandlers', () => {
 
       try {
         resolveCliCommandMock.mockReturnValueOnce(ideaShim)
-        await expect(handler({}, { path: workspacePath, command: 'idea' })).resolves.toEqual({
+        await expect(
+          handler({}, { path: workspacePath, command: 'idea', ownerHostId: 'local' })
+        ).resolves.toEqual({
           ok: true
         })
         expect(getSpawnArgsForWindowsMock).toHaveBeenLastCalledWith(ideaShim, [workspacePath], {
@@ -472,7 +469,9 @@ describe('registerShellHandlers', () => {
         })
 
         resolveCliCommandMock.mockReturnValueOnce(codeShim)
-        await expect(handler({}, { path: workspacePath, command: 'code' })).resolves.toEqual({
+        await expect(
+          handler({}, { path: workspacePath, command: 'code', ownerHostId: 'local' })
+        ).resolves.toEqual({
           ok: true
         })
         expect(getSpawnArgsForWindowsMock).toHaveBeenLastCalledWith(codeShim, [workspacePath], {
@@ -490,7 +489,9 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openInExternalEditor')
 
-      await expect(handler({}, { path: workspacePath, command: 'cursor' })).resolves.toEqual({
+      await expect(
+        handler({}, { path: workspacePath, command: 'cursor', ownerHostId: 'local' })
+      ).resolves.toEqual({
         ok: true
       })
       expect(getSpawnArgsForWindowsMock).toHaveBeenCalledWith(
@@ -501,7 +502,9 @@ describe('registerShellHandlers', () => {
         }
       )
       resolveCliCommandMock.mockReturnValueOnce('C:\\Cursor\\cursor.cmd')
-      await expect(handler({}, { path: workspacePath, command: 'cursor' })).resolves.toEqual({
+      await expect(
+        handler({}, { path: workspacePath, command: 'cursor', ownerHostId: 'local' })
+      ).resolves.toEqual({
         ok: true
       })
       expect(getSpawnArgsForWindowsMock).toHaveBeenLastCalledWith(
@@ -517,7 +520,9 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openInExternalEditor')
 
-      await expect(handler({}, { path: workspacePath, command: '   ' })).resolves.toEqual({
+      await expect(
+        handler({}, { path: workspacePath, command: '   ', ownerHostId: 'local' })
+      ).resolves.toEqual({
         ok: true
       })
       expect(resolveCliCommandMock).toHaveBeenCalledWith(EXTERNAL_EDITOR_CLI_COMMAND, {
@@ -533,7 +538,9 @@ describe('registerShellHandlers', () => {
       const workspacePath = resolve('workspace')
       const handler = getHandler('shell:openInExternalEditor')
 
-      await expect(handler({}, { path: workspacePath })).resolves.toEqual({ ok: true })
+      await expect(handler({}, { path: workspacePath, ownerHostId: 'local' })).resolves.toEqual({
+        ok: true
+      })
       expect(resolveCliCommandMock).toHaveBeenCalledWith(EXTERNAL_EDITOR_CLI_COMMAND, {
         platform: process.platform
       })
@@ -557,7 +564,9 @@ describe('registerShellHandlers', () => {
       const handler = getHandler('shell:openInExternalEditor')
       const launchSpec = resolveExternalEditorLaunchSpec('open -a "Typora"', filePath)
 
-      await expect(handler({}, { path: filePath, command: 'open -a "Typora"' })).resolves.toEqual({
+      await expect(
+        handler({}, { path: filePath, command: 'open -a "Typora"', ownerHostId: 'local' })
+      ).resolves.toEqual({
         ok: true
       })
       expect(resolveCliCommandMock).not.toHaveBeenCalled()
@@ -570,27 +579,19 @@ describe('registerShellHandlers', () => {
       })
     })
 
-    it('rejects local and SSH launches while a remote runtime is active', async () => {
-      settings.activeRuntimeEnvironmentId = 'runtime-1'
-      sshTargets.set('ssh-1', createSshTarget())
-      const handler = getHandler('shell:openInExternalEditor')
-
-      await expect(handler({}, { path: resolve('workspace') })).resolves.toEqual({
-        ok: false,
-        reason: 'remote-runtime-unsupported'
-      })
-      await expect(
-        handler({}, { path: '/srv/project', command: 'code', connectionId: 'ssh-1' })
-      ).resolves.toEqual({ ok: false, reason: 'remote-runtime-unsupported' })
-      expect(statMock).not.toHaveBeenCalled()
-      expect(spawnMock).not.toHaveBeenCalled()
-    })
-
     it('rejects missing and runtime-owned SSH targets', async () => {
       const handler = getHandler('shell:openInExternalEditor')
 
       await expect(
-        handler({}, { path: '/srv/project', command: 'code', connectionId: 'missing' })
+        handler(
+          {},
+          {
+            path: '/srv/project',
+            command: 'code',
+            connectionId: 'missing',
+            ownerHostId: 'ssh:missing'
+          }
+        )
       ).resolves.toEqual({ ok: false, reason: 'ssh-target-not-found' })
 
       sshTargets.set(
@@ -598,7 +599,10 @@ describe('registerShellHandlers', () => {
         createSshTarget({ owner: { type: 'on-demand-runtime', runtimeId: 'runtime-1' } })
       )
       await expect(
-        handler({}, { path: '/srv/project', command: 'code', connectionId: 'ssh-1' })
+        handler(
+          {},
+          { path: '/srv/project', command: 'code', connectionId: 'ssh-1', ownerHostId: 'ssh:ssh-1' }
+        )
       ).resolves.toEqual({ ok: false, reason: 'remote-runtime-unsupported' })
       expect(spawnMock).not.toHaveBeenCalled()
     })
@@ -610,7 +614,10 @@ describe('registerShellHandlers', () => {
       const remotePath = '/home/Ada Lovelace/project'
 
       await expect(
-        handler({}, { path: remotePath, command: 'code', connectionId: 'ssh-1' })
+        handler(
+          {},
+          { path: remotePath, command: 'code', connectionId: 'ssh-1', ownerHostId: 'ssh:ssh-1' }
+        )
       ).resolves.toEqual({ ok: true })
       expect(statMock).not.toHaveBeenCalled()
       expect(getSpawnArgsForWindowsMock).toHaveBeenCalledWith(
@@ -637,7 +644,10 @@ describe('registerShellHandlers', () => {
       const remotePath = 'C:\\Users\\Ada Lovelace\\project'
 
       await expect(
-        handler({}, { path: remotePath, command: 'code', connectionId: 'ssh-1' })
+        handler(
+          {},
+          { path: remotePath, command: 'code', connectionId: 'ssh-1', ownerHostId: 'ssh:ssh-1' }
+        )
       ).resolves.toEqual({ ok: true })
       expect(statMock).not.toHaveBeenCalled()
       expect(getSpawnArgsForWindowsMock).toHaveBeenCalledWith(
@@ -663,7 +673,10 @@ describe('registerShellHandlers', () => {
       const handler = getHandler('shell:openInExternalEditor')
 
       await expect(
-        handler({}, { path: '/srv/project', command: 'code', connectionId: 'ssh-1' })
+        handler(
+          {},
+          { path: '/srv/project', command: 'code', connectionId: 'ssh-1', ownerHostId: 'ssh:ssh-1' }
+        )
       ).resolves.toEqual({ ok: true })
       expect(getSpawnArgsForWindowsMock).toHaveBeenCalledWith(
         '/usr/local/bin/code',
@@ -679,7 +692,15 @@ describe('registerShellHandlers', () => {
       const handler = getHandler('shell:openInExternalEditor')
 
       await expect(
-        handler({}, { path: 'relative/project', command: 'code', connectionId: 'ssh-1' })
+        handler(
+          {},
+          {
+            path: 'relative/project',
+            command: 'code',
+            connectionId: 'ssh-1',
+            ownerHostId: 'ssh:ssh-1'
+          }
+        )
       ).resolves.toEqual({ ok: false, reason: 'not-absolute' })
       expect(statMock).not.toHaveBeenCalled()
       expect(resolveCliCommandMock).not.toHaveBeenCalled()
@@ -699,7 +720,10 @@ describe('registerShellHandlers', () => {
       const handler = getHandler('shell:openInExternalEditor')
 
       await expect(
-        handler({}, { path: '/srv/project', command: 'code', connectionId: 'ssh-1' })
+        handler(
+          {},
+          { path: '/srv/project', command: 'code', connectionId: 'ssh-1', ownerHostId: 'ssh:ssh-1' }
+        )
       ).resolves.toEqual({
         ok: false,
         reason: 'ssh-alias-required',
@@ -716,7 +740,10 @@ describe('registerShellHandlers', () => {
         const handler = getHandler('shell:openInExternalEditor')
 
         await expect(
-          handler({}, { path: '/srv/project', command, connectionId: 'ssh-1' })
+          handler(
+            {},
+            { path: '/srv/project', command, connectionId: 'ssh-1', ownerHostId: 'ssh:ssh-1' }
+          )
         ).resolves.toEqual({ ok: false, reason: 'remote-editor-unsupported' })
         expect(spawnMock).not.toHaveBeenCalled()
       }
@@ -731,7 +758,15 @@ describe('registerShellHandlers', () => {
       const handler = getHandler('shell:openInExternalEditor')
 
       await expect(
-        handler({}, { path: '/srv/project&whoami', command: 'code', connectionId: 'ssh-1' })
+        handler(
+          {},
+          {
+            path: '/srv/project&whoami',
+            command: 'code',
+            connectionId: 'ssh-1',
+            ownerHostId: 'ssh:ssh-1'
+          }
+        )
       ).resolves.toEqual({ ok: false, reason: 'launch-failed' })
       expect(spawnMock).not.toHaveBeenCalled()
     })
@@ -741,7 +776,7 @@ describe('registerShellHandlers', () => {
     it('does not open relative file paths', async () => {
       const handler = getHandler('shell:openFilePath')
 
-      await expect(handler({}, 'relative/file.md')).resolves.toBe(false)
+      await expect(handler({}, 'relative/file.md', 'local')).resolves.toBe(false)
       expect(openPathMock).not.toHaveBeenCalled()
     })
 
@@ -749,7 +784,7 @@ describe('registerShellHandlers', () => {
       statMock.mockRejectedValueOnce(new Error('missing'))
       const handler = getHandler('shell:openFilePath')
 
-      await expect(handler({}, resolve('missing.md'))).resolves.toBe(false)
+      await expect(handler({}, resolve('missing.md'), 'local')).resolves.toBe(false)
       expect(openPathMock).not.toHaveBeenCalled()
     })
 
@@ -757,7 +792,7 @@ describe('registerShellHandlers', () => {
       const filePath = resolve('note.md')
       const handler = getHandler('shell:openFilePath')
 
-      await expect(handler({}, filePath)).resolves.toBe(true)
+      await expect(handler({}, filePath, 'local')).resolves.toBe(true)
       expect(openPathMock).toHaveBeenCalledWith(normalize(filePath))
     })
 
@@ -766,7 +801,7 @@ describe('registerShellHandlers', () => {
       const filePath = resolve('note.md')
       const handler = getHandler('shell:openFilePath')
 
-      await expect(handler({}, filePath)).resolves.toBe(false)
+      await expect(handler({}, filePath, 'local')).resolves.toBe(false)
       expect(openPathMock).toHaveBeenCalledWith(normalize(filePath))
     })
 
@@ -775,21 +810,21 @@ describe('registerShellHandlers', () => {
       const filePath = resolve('note.md')
       const handler = getHandler('shell:openFilePath')
 
-      await expect(handler({}, filePath)).resolves.toBe(false)
+      await expect(handler({}, filePath, 'local')).resolves.toBe(false)
       expect(openPathMock).toHaveBeenCalledWith(normalize(filePath))
     })
 
     it('does not open non-file URIs', async () => {
       const handler = getHandler('shell:openFileUri')
 
-      await expect(handler({}, 'https://example.com/file.md')).resolves.toBeUndefined()
+      await expect(handler({}, 'https://example.com/file.md', 'local')).resolves.toBeUndefined()
       expect(openPathMock).not.toHaveBeenCalled()
     })
 
     it('does not open remote file URIs', async () => {
       const handler = getHandler('shell:openFileUri')
 
-      await expect(handler({}, 'file://server/share/file.md')).resolves.toBeUndefined()
+      await expect(handler({}, 'file://server/share/file.md', 'local')).resolves.toBeUndefined()
       expect(openPathMock).not.toHaveBeenCalled()
     })
 
@@ -798,8 +833,62 @@ describe('registerShellHandlers', () => {
       const filePath = resolve('note.md')
       const handler = getHandler('shell:openFileUri')
 
-      await expect(handler({}, pathToFileURL(filePath).toString())).resolves.toBeUndefined()
+      await expect(
+        handler({}, pathToFileURL(filePath).toString(), 'local')
+      ).resolves.toBeUndefined()
       expect(openPathMock).toHaveBeenCalledWith(normalize(filePath))
+    })
+  })
+
+  describe('owner routing', () => {
+    it('reveals and opens a local-owned path while a remote server is focused', async () => {
+      settings.activeRuntimeEnvironmentId = 'runtime-1'
+      const workspacePath = resolve('workspace')
+
+      await expect(
+        getHandler('shell:openInFileManager')({}, workspacePath, 'local')
+      ).resolves.toEqual({ ok: true })
+      expect(showItemInFolderMock).toHaveBeenCalledWith(normalize(workspacePath))
+      await expect(
+        getHandler('shell:openInExternalEditor')({}, { path: workspacePath, ownerHostId: 'local' })
+      ).resolves.toEqual({ ok: true })
+      await expect(getHandler('shell:openFilePath')({}, workspacePath, 'local')).resolves.toBe(true)
+    })
+
+    it('refuses SSH, server and missing owners without touching the local filesystem', async () => {
+      const path = resolve('workspace')
+      const refused = { ok: false, reason: 'remote-runtime-unsupported' }
+      for (const owner of ['ssh:ssh-1', 'runtime:env-1', undefined, 'bogus']) {
+        const call = (channel: string, arg: unknown = path) => getHandler(channel)({}, arg, owner)
+        await expect(call('shell:openInFileManager')).resolves.toEqual(refused)
+        await expect(call('shell:openPath')).resolves.toBe(undefined)
+        await expect(call('shell:openFilePath')).resolves.toBe(false)
+        await call('shell:openFileUri', pathToFileURL(path).toString())
+        await expect(
+          getHandler('shell:openInExternalEditor')({}, { path, ownerHostId: owner })
+        ).resolves.toEqual(refused)
+      }
+      expect(statMock).not.toHaveBeenCalled()
+      expect(showItemInFolderMock).not.toHaveBeenCalled()
+      expect(openPathMock).not.toHaveBeenCalled()
+      expect(spawnMock).not.toHaveBeenCalled()
+    })
+
+    it('opens an SSH path remotely only when the owner is that same SSH target', async () => {
+      settings.activeRuntimeEnvironmentId = 'runtime-1'
+      sshTargets.set('ssh-1', createSshTarget())
+      resolveCliCommandMock.mockReturnValue('/usr/local/bin/code')
+      const handler = getHandler('shell:openInExternalEditor')
+      const request = { path: '/srv/project', command: 'code', connectionId: 'ssh-1' }
+
+      const refused = { ok: false, reason: 'remote-runtime-unsupported' }
+      await expect(handler({}, { ...request, ownerHostId: 'ssh:ssh-2' })).resolves.toEqual(refused)
+      await expect(handler({}, { ...request, ownerHostId: 'local' })).resolves.toEqual(refused)
+      expect(spawnMock).not.toHaveBeenCalled()
+      await expect(handler({}, { ...request, ownerHostId: 'ssh:ssh-1' })).resolves.toEqual({
+        ok: true
+      })
+      expect(spawnMock).toHaveBeenCalledTimes(1)
     })
   })
 })

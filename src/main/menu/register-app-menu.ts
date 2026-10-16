@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu, app } from 'electron'
+import { BrowserWindow, Menu, app, webContents } from 'electron'
 import {
   formatKeybindingList,
   getEffectiveKeybindingsForAction,
@@ -7,8 +7,10 @@ import {
 } from '../../shared/keybindings'
 import type { UpdateCheckOptions } from '../../shared/update-status-types'
 import { translateMain } from '../i18n/main-i18n'
+import { isNativeBrowserPopupWindow } from '../browser/native-browser-popup-windows'
 import { createAppMenuSelectionItem } from './app-menu-selection-item'
 import { labeledAppMenuRole } from './labeled-app-menu-role'
+import { createMacAppMenu } from './app-menu-mac-app-menu'
 import { createAppMenuQuitItem } from './app-menu-quit-item'
 import { createAppWindowMenu } from './app-menu-window'
 
@@ -150,22 +152,12 @@ function buildAndApplyMenu(options: RegisterAppMenuOptions): void {
   // the system menu bar. On Windows/Linux that menu would render as a
   // redundant "Orca" entry with roles that don't apply, so we omit it there
   // and distribute its items across File / Help instead.
-  const macAppMenu: Electron.MenuItemConstructorOptions = {
-    label: options.appMenuLabel ?? app.name,
-    submenu: [
-      labeledAppMenuRole('about', 'menu.about', 'About Orca'),
-      checkForUpdatesItem,
-      settingsItem,
-      { type: 'separator' },
-      labeledAppMenuRole('services', 'menu.services', 'Services'),
-      { type: 'separator' },
-      labeledAppMenuRole('hide', 'menu.hide', 'Hide Orca'),
-      labeledAppMenuRole('hideOthers', 'menu.hideOthers', 'Hide Others'),
-      labeledAppMenuRole('unhide', 'menu.unhide', 'Show All'),
-      { type: 'separator' },
-      createAppMenuQuitItem(options.onQuit, options.appMenuLabel ?? app.name)
-    ]
-  }
+  const macAppMenu = createMacAppMenu({
+    appMenuLabel: options.appMenuLabel ?? app.name,
+    checkForUpdatesItem,
+    settingsItem,
+    onQuit: options.onQuit
+  })
 
   const fileMenu: Electron.MenuItemConstructorOptions = {
     label: translateMain('menu.file', 'File'),
@@ -199,6 +191,9 @@ function buildAndApplyMenu(options: RegisterAppMenuOptions): void {
           // control, so raw Electron paste cannot know which Orca surface owns it.
           const focusedWindow = BrowserWindow.getFocusedWindow()
           if (focusedWindow) {
+            if (isNativeBrowserPopupWindow(focusedWindow)) {
+              return (webContents.getFocusedWebContents() ?? focusedWindow.webContents).paste()
+            }
             focusedWindow.webContents.send('ui:appMenuPaste')
             return
           }

@@ -197,7 +197,7 @@ function getRepoBackedTaskSourceSummary(args: {
   }
 }
 
-function getAccountBackedTaskSourceSummary(
+export function getAccountBackedTaskSourceSummary(
   providerLabel: string,
   args: {
     accountLabel: string | null | undefined

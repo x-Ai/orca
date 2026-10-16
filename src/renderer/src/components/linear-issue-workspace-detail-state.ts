@@ -11,6 +11,7 @@ import {
 } from '@/components/LinearItemDrawer'
 import type { LinearComment, LinearIssue } from '../../../shared/linear/issue-types'
 import type { LinearProjectSummary } from '../../../shared/linear/project-types'
+import { translate } from '@/i18n/i18n'
 
 const EDITED_LINEAR_ISSUE_FIELDS = [
   'state',
@@ -126,7 +127,14 @@ export function useLinearIssueWorkspaceDetail({
         })
         .catch((error) => {
           if (mountedRef.current && requestId === commentsRequestIdRef.current) {
-            setCommentsError(error instanceof Error ? error.message : 'Failed to load comments.')
+            setCommentsError(
+              error instanceof Error
+                ? error.message
+                : translate(
+                    'components.toastFallbacks.commentsLoadFailed',
+                    'Failed to load comments.'
+                  )
+            )
           }
         })
         .finally(() => {

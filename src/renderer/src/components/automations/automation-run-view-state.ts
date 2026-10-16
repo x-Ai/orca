@@ -52,11 +52,14 @@ export function canRerunAutomationRun({
 export function getAutomationRunViewState({
   run,
   workspaceExists,
-  terminalTargetExists
+  terminalTargetExists,
+  terminalOnPairedServer = false
 }: {
   run: AutomationRun
   workspaceExists: boolean
   terminalTargetExists: boolean
+  /** The workspace's paired server holds the terminal; only it can say whether it still lives. */
+  terminalOnPairedServer?: boolean
 }): AutomationRunViewState {
   const hasTerminalIdentity = Boolean(run.terminalPaneKey && run.terminalPtyId)
   if (run.workspaceId && workspaceExists && terminalTargetExists) {
@@ -69,6 +72,21 @@ export function getAutomationRunViewState({
       statusLabel: translate(
         'auto.components.automations.automation.run.view.state.22522086c4',
         'Run is open'
+      ),
+      canOpen: true
+    }
+  }
+
+  if (run.workspaceId && workspaceExists && hasTerminalIdentity && terminalOnPairedServer) {
+    return {
+      availability: 'terminal',
+      actionLabel: translate(
+        'auto.components.automations.automation.run.view.state.54f28daf9c',
+        'View run'
+      ),
+      statusLabel: translate(
+        'auto.components.automations.automation.run.view.state.runTerminalOnPairedServer',
+        'Run terminal is on the paired server.'
       ),
       canOpen: true
     }
@@ -89,12 +107,13 @@ export function getAutomationRunViewState({
     }
   }
 
-  if (run.workspaceId && workspaceExists) {
+  // Why: a run that never dispatched left no agent to resume; opening seeds an empty shell (STA-10103).
+  if (run.workspaceId && workspaceExists && run.dispatchedAt !== null) {
     return {
       availability: 'workspace',
       actionLabel: translate(
-        'auto.components.automations.automation.run.view.state.6ea3f7882d',
-        'Resume workspace'
+        'auto.components.automations.automation.run.view.state.openWorkspace',
+        'Open workspace'
       ),
       statusLabel: translate(
         'auto.components.automations.automation.run.view.state.160f368f8e',

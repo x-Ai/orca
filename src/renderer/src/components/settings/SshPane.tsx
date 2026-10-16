@@ -3,12 +3,9 @@ import { toast } from 'sonner'
 import { Plus, Upload } from 'lucide-react'
 import type { SshTarget } from '../../../../shared/ssh-types'
 import { useAppStore } from '@/store'
+import { localizedSshTargetConnectFailureText } from '@/ssh/ssh-target-connect-failure-copy'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { Button } from '../ui/button'
-import {
-  describeSshTerminateOutcome,
-  terminateSshSessionsWithReconnect
-} from './ssh-session-termination'
 import { SshTargetCard } from './SshTargetCard'
 import { SshTargetServerStatus } from './SshTargetServerStatus'
 import { SshTargetsEmptyState } from './SshTargetsEmptyState'
@@ -16,21 +13,16 @@ import { SshTargetDestructiveActions } from './SshTargetDestructiveActions'
 import { SshTargetForm, EMPTY_FORM, type EditingTarget } from './SshTargetForm'
 import { getEditingTargetForSshTarget } from './ssh-target-draft'
 import { buildSshTargetSavePayload } from './ssh-target-save-payload'
-import { formatSshErrorOrFallback } from './ssh-user-facing-error'
-import {
-  connectSshPaneTarget,
-  disconnectSshPaneTarget,
-  importSshPaneConfig,
-  removeSshPaneTarget,
-  resetSshPaneRelay,
-  testSshPaneConnection
-} from './ssh-pane-host-actions'
+import { formatSshUserFacingError } from './ssh-user-facing-error'
 import { HostRemoveDialog } from '../sidebar/HostRemoveDialog'
+import { isManagedServerSshHost, SshManagedHostRemoveDialog } from './SshManagedHostRemoveDialog'
+import { extractIpcErrorMessage } from '@/lib/ipc-error'
 import { resolveSshHostRemoval } from '../sidebar/ssh-host-remove-resolution'
 import { getAllWorktreesFromState } from '@/store/selectors'
 import { toSshExecutionHostId } from '../../../../shared/execution-host'
 import { translate } from '@/i18n/i18n'
 import { useSshAddTargetIntent } from './use-ssh-add-target-intent'
+import { syncSshConfigTargetsPassively } from '../../lib/ssh-config-passive-sync'
 export { getSshPaneSearchEntries } from './ssh-search'
 
 type SshPaneProps = { addTargetIntentSignal?: number }
@@ -57,6 +49,7 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
     targetId: string
     label: string
   } | null>(null)
+  const [managedHostRemoveLabel, setManagedHostRemoveLabel] = useState<string | null>(null)
   const mountedRef = useMountedRef()
 
   const setSshTargetsMetadata = useAppStore((s) => s.setSshTargetsMetadata)
@@ -88,12 +81,7 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
     // and newly added hosts appear without a manual Import click. Best-effort —
     // a sync failure must not block listing the already-known targets.
     void (async () => {
-      try {
-        const result = await window.api.ssh.importConfig()
-        useAppStore.getState().recordSshRepoReadoptions(result.repoReadoptions)
-      } catch {
-        // Surfaced on demand via the explicit Import button; ignore here.
-      }
+      await syncSshConfigTargetsPassively()
       if (abortController.signal.aborted) {
         return
       }
@@ -145,10 +133,9 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
     } catch (err) {
       if (mountedRef.current) {
         toast.error(
-          formatSshErrorOrFallback(
-            err,
-            translate('auto.components.settings.SshPane.2227ce47b6', 'Failed to save target')
-          )
+          err instanceof Error
+            ? formatSshUserFacingError(err.message)
+            : translate('auto.components.settings.SshPane.2227ce47b6', 'Failed to save target')
         )
       }
     } finally {
@@ -164,6 +151,11 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
     target: { id: string; label: string },
     requestPlainRemove: (target: { id: string; label: string }) => void
   ): void => {
+    const stored = targets.find((candidate) => candidate.id === target.id)
+    if (stored && isManagedServerSshHost(stored)) {
+      setManagedHostRemoveLabel(target.label)
+      return
+    }
     const resolution = resolveSshHostRemoval({
       targetId: target.id,
       repos: useAppStore.getState().repos,
@@ -178,12 +170,25 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
   }
 
   const handleRemove = async (id: string): Promise<void> => {
-    await removeSshPaneTarget({
-      id,
-      mountedRef,
-      clearRemovedSshTargetState,
-      loadTargets
-    })
+    try {
+      await window.api.ssh.removeTarget({ id })
+      // Why: a deleted passphrase-gated target may still have deferred
+      // reconnect metadata; clear it so focused SSH tabs stop retrying it.
+      clearRemovedSshTargetState(id)
+      if (mountedRef.current) {
+        toast.success(translate('auto.components.settings.SshPane.a0237eb1ca', 'Target removed'))
+      }
+      await loadTargets()
+    } catch (err) {
+      if (mountedRef.current) {
+        toast.error(
+          extractIpcErrorMessage(
+            err,
+            translate('auto.components.settings.SshPane.c2a69510e3', 'Failed to remove target')
+          )
+        )
+      }
+    }
   }
 
   const handleEdit = (target: SshTarget): void => {
@@ -193,48 +198,107 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
   }
 
   const handleConnect = async (targetId: string): Promise<void> => {
-    await connectSshPaneTarget(targetId, recordFeatureInteraction)
-  }
-
-  const handleDisconnect = async (targetId: string): Promise<void> => {
-    await disconnectSshPaneTarget(targetId, recordFeatureInteraction)
-  }
-
-  const handleTerminateSessions = async (targetId: string): Promise<void> => {
     try {
-      const report = describeSshTerminateOutcome(await terminateSshSessionsWithReconnect(targetId))
-      toast[report.level](report.message)
+      await window.api.ssh.connect({ targetId })
+      recordFeatureInteraction('ssh')
     } catch (err) {
       toast.error(
-        err instanceof Error
-          ? err.message
-          : translate(
-              'auto.components.settings.SshPane.025e107643',
-              'Failed to end remote terminals'
-            )
+        localizedSshTargetConnectFailureText(
+          targetId,
+          err,
+          translate('auto.components.settings.SshPane.e95d5ae10e', 'Connection failed')
+        )
       )
     }
   }
 
-  const handleResetRelay = async (targetId: string): Promise<void> => {
-    await resetSshPaneRelay({ targetId, mountedRef, loadTargets })
+  const handleDisconnect = async (targetId: string): Promise<void> => {
+    try {
+      await window.api.ssh.disconnect({ targetId })
+      recordFeatureInteraction('ssh')
+    } catch (err) {
+      toast.error(
+        err instanceof Error
+          ? formatSshUserFacingError(err.message)
+          : translate('auto.components.settings.SshPane.a43de1d3ee', 'Disconnect failed')
+      )
+    }
   }
 
   const handleTest = async (targetId: string): Promise<void> => {
-    await testSshPaneConnection({
-      targetId,
-      mountedRef,
-      recordFeatureInteraction,
-      setTestingIds
-    })
+    setTestingIds((prev) => new Set(prev).add(targetId))
+    try {
+      const result = await window.api.ssh.testConnection({ targetId })
+      recordFeatureInteraction('ssh')
+      if (mountedRef.current) {
+        if (result.success) {
+          toast.success(
+            translate('auto.components.settings.SshPane.81d08bcddf', 'Connection successful')
+          )
+        } else {
+          toast.error(
+            result.error ??
+              translate('auto.components.settings.SshPane.0cda732f43', 'Connection test failed')
+          )
+        }
+      }
+    } catch (err) {
+      if (mountedRef.current) {
+        toast.error(
+          err instanceof Error
+            ? formatSshUserFacingError(err.message)
+            : translate('auto.components.settings.SshPane.68c13b4589', 'Test failed')
+        )
+      }
+    } finally {
+      if (mountedRef.current) {
+        setTestingIds((prev) => {
+          const next = new Set(prev)
+          next.delete(targetId)
+          return next
+        })
+      }
+    }
   }
 
   const handleImport = async (): Promise<void> => {
-    await importSshPaneConfig({
-      mountedRef,
-      recordFeatureInteraction,
-      loadTargets
-    })
+    try {
+      // Why: the explicit Import action re-adopts every ~/.ssh/config host,
+      // including ones the user previously deleted — clear tombstones so a
+      // deliberate re-import can bring them back.
+      const result = await window.api.ssh.importConfig({ reAdopt: true })
+      useAppStore.getState().recordSshRepoReadoptions(result.repoReadoptions)
+      recordFeatureInteraction('ssh')
+      if (mountedRef.current) {
+        if (result.targets.length === 0) {
+          toast(
+            translate(
+              'auto.components.settings.SshPane.configAlreadyInSync',
+              '~/.ssh/config already in sync'
+            )
+          )
+        } else {
+          toast.success(
+            translate(
+              result.targets.length === 1
+                ? 'auto.components.settings.SshPane.syncedServerSingular'
+                : 'auto.components.settings.SshPane.syncedServerPlural',
+              result.targets.length === 1 ? 'Synced {{count}} server' : 'Synced {{count}} servers',
+              { count: result.targets.length }
+            )
+          )
+        }
+      }
+      await loadTargets()
+    } catch (err) {
+      if (mountedRef.current) {
+        toast.error(
+          err instanceof Error
+            ? formatSshUserFacingError(err.message)
+            : translate('auto.components.settings.SshPane.f495689b82', 'Import failed')
+        )
+      }
+    }
   }
 
   const cancelForm = (): void => {
@@ -275,13 +339,8 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
         </div>
       </div>
 
-      <SshTargetDestructiveActions
-        connectionStates={sshConnectionStates}
-        onRemove={handleRemove}
-        onResetRelay={handleResetRelay}
-        onTerminateSessions={handleTerminateSessions}
-      >
-        {({ busyActionForTarget, requestRemove, requestResetRelay, requestTerminateSessions }) => (
+      <SshTargetDestructiveActions onRemove={handleRemove}>
+        {({ busyActionForTarget, requestRemove }) => (
           <>
             {/* Target list */}
             {targets.length === 0 ? (
@@ -297,10 +356,6 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
                       busyAction={busyActionForTarget(target.id)}
                       onConnect={handleConnect}
                       onDisconnect={handleDisconnect}
-                      onTerminateSessions={(id) =>
-                        requestTerminateSessions({ id, label: target.label })
-                      }
-                      onResetRelay={(id) => requestResetRelay({ id, label: target.label })}
                       onTest={handleTest}
                       onEdit={handleEdit}
                       onRemove={(id) =>
@@ -329,6 +384,11 @@ export function SshPane({ addTargetIntentSignal }: SshPaneProps): React.JSX.Elem
             cancelForm()
           }
         }}
+      />
+
+      <SshManagedHostRemoveDialog
+        label={managedHostRemoveLabel}
+        onClose={() => setManagedHostRemoveLabel(null)}
       />
 
       {hostRemoveTarget ? (

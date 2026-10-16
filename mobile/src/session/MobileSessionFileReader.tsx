@@ -34,6 +34,7 @@ import type {
 import { DiffLineRow } from './MobileSessionDiffLineRow'
 import { translate } from '../../../src/renderer/src/i18n/i18n'
 import { sendableMobileDiffComments } from './mobile-diff-comments'
+import { MobileLoadErrorState } from '../components/MobileLoadErrorState'
 
 export function FileReader({
   doc,
@@ -182,11 +183,7 @@ export function FileReader({
     )
   }
   if (doc.status === 'error') {
-    return (
-      <View style={styles.markdownState}>
-        <Text style={styles.markdownError}>{doc.message}</Text>
-      </View>
-    )
+    return <MobileLoadErrorState message={doc.message} />
   }
 
   if (doc.kind === 'diff') {
