@@ -23,6 +23,7 @@ import { isAgentSessionAttachmentStorePath } from '../../../shared/agent-session
 import type { LocalFileAccess } from '../../../shared/local-file-access'
 import { readRuntimeTerminalArtifactContent } from './runtime-terminal-artifact-read'
 import {
+  REMOTE_FILE_PAGED_READ_UNSUPPORTED_MESSAGE,
   pagedTextFileResult,
   pinRemoteFileAddress,
   readRemoteFileInChunks,
@@ -114,7 +115,7 @@ export async function readRuntimeFileContent({
     }
     throw new Error(
       paged.kind === 'unsupported'
-        ? 'Remote file is larger than the 512 KB this Orca server can send. Update the server to open it.'
+        ? REMOTE_FILE_PAGED_READ_UNSUPPORTED_MESSAGE
         : `Remote file is too large to open in the editor (${paged.size} bytes)`
     )
   }

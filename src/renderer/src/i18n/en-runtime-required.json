@@ -2440,6 +2440,7 @@
             "76b06d4da5": "claude",
             "a28a5dd9b1": "error",
             "antigravityUsageDetails": "Open Antigravity usage details",
+            "codexSignInError": "Codex sign-in failed. Please try again.",
             "d2375976eb": "Open Gemini usage details",
             "d79c3362c4": "5h",
             "d7a0668acc": "opencode-go",

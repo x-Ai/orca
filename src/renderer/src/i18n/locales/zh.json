@@ -3679,7 +3679,10 @@
         "fileLoadError": {
           "fileNotFound": "ENOENT：无法打开 {{path}}，文件或目录不存在",
           "pathAccessDenied": "拒绝访问：路径解析到允许目录之外，如果这阻碍了合法工作流，请提交 GitHub 议题",
-          "changedDuringRead": "文件在加载过程中已在磁盘上更改，请重新加载文件以查看最新版本"
+          "changedDuringRead": "文件在加载过程中已在磁盘上更改，请重新加载文件以查看最新版本",
+          "remotePathIsDirectory": "远程路径是一个目录",
+          "remotePagedReadUnsupported": "远程文件超过了此 Orca 服务器可发送的 512 KB 上限，请更新服务器后再打开",
+          "remoteFileTooLarge": "远程文件过大，无法在编辑器中打开（{{bytes}} 字节）"
         },
         "markdown": {
           "rich": {
@@ -13476,6 +13479,11 @@
           "moved": "已将 {{host}} 切换为文件存储",
           "offerMove": "{{host}} 将其凭据密钥保存在 macOS 登录钥匙串中，而钥匙串在重启后已锁定，切换为文件存储后，即使仅通过 SSH 登录，Linear 和 Jira 也能继续工作，届时密钥会保存在只有此账户可读取的文件中，其保护程度低于钥匙串：它不与这台机器绑定，因此 ~/.orca 的备份或共享副本也能打开这些凭据",
           "moveAction": "切换为文件存储"
+        },
+        "accountsPaneActionErrors": {
+          "codexSignInTimedOut": "Codex 登录等待超时，请重试",
+          "codexSignInUnavailable": "Codex 登录暂时不可用，请一分钟后重试",
+          "claudeSignInFailed": "Claude 登录失败，请重试"
         }
       },
       "setup": {
@@ -18525,10 +18533,20 @@
         "hostUnresolvedWithheld": "Orca 暂时无法判断此工作区属于哪个主机"
       },
       "workspacePortScan": {
-        "hostMismatch": "服务器扫描的主机与此工作区运行的主机不同"
+        "hostMismatch": "服务器扫描的主机与此工作区运行的主机不同",
+        "serverSshUpdateRequired": "请更新服务器以查看其 SSH 主机上的端口"
       },
       "ephemeralVm": {
         "provisionedRootNeedsUpdate": "此虚拟机上的 Orca 服务器无法接管预置的根目录，请更新虚拟机上的 Orca"
+      },
+      "fileOwnerRuntimeTarget": {
+        "unresolved": "无法确认此文件所属的主机，请重新打开文件后重试"
+      },
+      "nativeChatCliFork": {
+        "hostUnavailable": "对话所在的主机不可用",
+        "preparationTimedOut": "对话准备超时",
+        "sourceChanged": "准备期间源聊天已发生变化",
+        "noSavedConversation": "此聊天没有可复制的已保存对话"
       }
     },
     "main": {

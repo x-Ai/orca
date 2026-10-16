@@ -60,7 +60,10 @@ export function getLandingPreflightIssues(
         'auto.components.Landing.73e1ad4282',
         'Orca uses the GitHub CLI (gh) to show pull requests, issues, and checks.'
       ),
-      fixLabel: translate('auto.components.landing.preflight.issues.903015746b', 'Install GitHub CLI'),
+      fixLabel: translate(
+        'auto.components.landing.preflight.issues.903015746b',
+        'Install GitHub CLI'
+      ),
       fixUrl: 'https://cli.github.com',
       dismissible: true
     })

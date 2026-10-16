@@ -1,5 +1,9 @@
 import { translate } from '@/i18n/i18n'
-import { REMOTE_FILE_CHANGED_DURING_READ_MESSAGE } from '@/runtime/runtime-paged-file-read'
+import {
+  REMOTE_FILE_CHANGED_DURING_READ_MESSAGE,
+  REMOTE_FILE_PAGED_READ_UNSUPPORTED_MESSAGE,
+  REMOTE_PATH_IS_DIRECTORY_MESSAGE
+} from '@/runtime/runtime-paged-file-read'
 
 const PATH_ACCESS_DENIED_PREFIX = 'Access denied: path resolves outside allowed directories'
 
@@ -28,6 +32,28 @@ export function formatFileLoadErrorMessage(message: string): string {
     return translate(
       'auto.components.editor.fileLoadError.changedDuringRead',
       'File changed on disk while it was loading. Reload the file to see the latest version.'
+    )
+  }
+  if (unwrapped === REMOTE_PATH_IS_DIRECTORY_MESSAGE) {
+    return translate(
+      'auto.components.editor.fileLoadError.remotePathIsDirectory',
+      'Remote path is a directory'
+    )
+  }
+  if (unwrapped === REMOTE_FILE_PAGED_READ_UNSUPPORTED_MESSAGE) {
+    return translate(
+      'auto.components.editor.fileLoadError.remotePagedReadUnsupported',
+      'Remote file is larger than the 512 KB this Orca server can send. Update the server to open it.'
+    )
+  }
+  const tooLarge = unwrapped.match(
+    /^Remote file is too large to open in the editor \((\d+) bytes\)$/
+  )
+  if (tooLarge) {
+    return translate(
+      'auto.components.editor.fileLoadError.remoteFileTooLarge',
+      'Remote file is too large to open in the editor ({{bytes}} bytes)',
+      { bytes: tooLarge[1] }
     )
   }
   return unwrapped

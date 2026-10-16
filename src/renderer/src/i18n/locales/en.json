@@ -3824,7 +3824,10 @@
         "fileLoadError": {
           "fileNotFound": "ENOENT: no such file or directory, open {{path}}",
           "pathAccessDenied": "Access denied: path resolves outside allowed directories. If this blocks a legitimate workflow, please file a GitHub issue.",
-          "changedDuringRead": "File changed on disk while it was loading. Reload the file to see the latest version."
+          "changedDuringRead": "File changed on disk while it was loading. Reload the file to see the latest version.",
+          "remotePathIsDirectory": "Remote path is a directory",
+          "remotePagedReadUnsupported": "Remote file is larger than the 512 KB this Orca server can send. Update the server to open it.",
+          "remoteFileTooLarge": "Remote file is too large to open in the editor ({{bytes}} bytes)"
         },
         "markdown": {
           "rich": {
@@ -13621,6 +13624,11 @@
               "microphoneTitle": "Microphone"
             }
           }
+        },
+        "accountsPaneActionErrors": {
+          "codexSignInTimedOut": "Codex sign-in took too long to finish. Please try again.",
+          "codexSignInUnavailable": "Codex sign-in is temporarily unavailable. Please try again in a minute.",
+          "claudeSignInFailed": "Claude sign-in failed. Please try again."
         }
       },
       "setup": {
@@ -18670,10 +18678,20 @@
         "hostUnresolvedWithheld": "Orca cannot tell which host owns this workspace yet."
       },
       "workspacePortScan": {
-        "hostMismatch": "The server scanned a different host than this workspace runs on."
+        "hostMismatch": "The server scanned a different host than this workspace runs on.",
+        "serverSshUpdateRequired": "Update the server to see ports on its SSH hosts."
       },
       "ephemeralVm": {
         "provisionedRootNeedsUpdate": "The Orca server on this VM cannot adopt a provisioned root. Update Orca on the VM."
+      },
+      "fileOwnerRuntimeTarget": {
+        "unresolved": "Couldn't verify which host owns this file. Reopen the file and try again."
+      },
+      "nativeChatCliFork": {
+        "hostUnavailable": "The conversation host is unavailable.",
+        "preparationTimedOut": "Conversation preparation timed out.",
+        "sourceChanged": "The source chat changed before preparation.",
+        "noSavedConversation": "This chat has no saved conversation to copy."
       }
     },
     "main": {

@@ -16,6 +16,12 @@ import { translate } from '@/i18n/i18n'
 
 export const WORKSPACE_PORTS_SERVER_SSH_UPDATE_REASON =
   'Update the server to see ports on its SSH hosts.'
+// Why: call-time so the reason follows the UI language instead of the module's first evaluation.
+const workspacePortsServerSshUpdateReason = (): string =>
+  translate(
+    'auto.lib.workspacePortScan.serverSshUpdateRequired',
+    'Update the server to see ports on its SSH hosts.'
+  )
 const WORKSPACE_PORT_RPC_TIMEOUT_MS = 15_000
 
 const WORKSPACE_PORT_PLATFORMS = new Set<NodeJS.Platform | 'unknown'>([
@@ -161,7 +167,7 @@ export async function scanWorkspacePortsOnExecutionHost(
       WORKSPACE_PORTS_HOST_SCOPED_RUNTIME_CAPABILITY
     ))
   ) {
-    return unavailableHostScan(host.executionHostId, WORKSPACE_PORTS_SERVER_SSH_UPDATE_REASON)
+    return unavailableHostScan(host.executionHostId, workspacePortsServerSshUpdateReason())
   }
   let response: unknown
   try {
@@ -173,7 +179,7 @@ export async function scanWorkspacePortsOnExecutionHost(
     )
   } catch (error) {
     if (isMethodNotFound(error)) {
-      return unavailableHostScan(host.executionHostId, WORKSPACE_PORTS_SERVER_SSH_UPDATE_REASON)
+      return unavailableHostScan(host.executionHostId, workspacePortsServerSshUpdateReason())
     }
     throw error
   }
@@ -212,7 +218,7 @@ export async function killWorkspacePortOnExecutionHost(
     )
   } catch (error) {
     if (isMethodNotFound(error)) {
-      return { ok: false, reason: WORKSPACE_PORTS_SERVER_SSH_UPDATE_REASON }
+      return { ok: false, reason: workspacePortsServerSshUpdateReason() }
     }
     throw error
   }
