@@ -1,5 +1,5 @@
 import type { NotificationDispatchRequest } from '../../shared/notification-settings-types'
-import { translateMain } from '../i18n/main-i18n'
+import { translateMain } from '../i18n/main-i18n-core'
 
 type NotificationStatusTranslator = (key: string, fallback: string) => string
 

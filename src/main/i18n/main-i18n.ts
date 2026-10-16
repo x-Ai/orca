@@ -1,16 +1,11 @@
-import i18next, {
-  type BackendModule,
-  type i18n as I18nInstance,
-  type ReadCallback,
-  type TOptions
-} from 'i18next'
+import type { BackendModule, i18n as I18nInstance, ReadCallback } from 'i18next'
 
-import { isPseudoLocalizationLocale, pseudoLocalizeString } from '../../shared/pseudo-localization'
 import { DEFAULT_UI_LOCALE, resolveUiLocale, type SupportedUiLocale } from '../../shared/ui-locale'
 import { UI_LANGUAGE_SYSTEM, type UiLanguage } from '../../shared/ui-language'
 import type { PluginLanguagePackRegistration } from '../../shared/plugins/plugin-language-pack-artifact'
+import { getMainUiLocale, mainI18n, translateMain } from './main-i18n-core'
 
-export const mainI18n: I18nInstance = i18next.createInstance()
+export { getMainUiLocale, mainI18n, translateMain }
 
 let initialized = false
 let pluginLanguagePacks: readonly PluginLanguagePackRegistration[] = []
@@ -105,10 +100,6 @@ export async function setMainUiLanguage(language: UiLanguage): Promise<string> {
   return locale
 }
 
-export function getMainUiLocale(): string {
-  return initialized ? mainI18n.resolvedLanguage || mainI18n.language : DEFAULT_UI_LOCALE
-}
-
 function applyMainPluginLanguagePacks(): void {
   for (const language of registeredPluginLanguages) {
     mainI18n.removeResourceBundle(language, 'translation')
@@ -131,12 +122,4 @@ export function setMainPluginLanguagePacks(
     applyMainPluginLanguagePacks()
   }
   return true
-}
-
-export function translateMain(key: string, fallback: string, options?: TOptions): string {
-  // Why: menu registration can run before async init finishes in tests; fall back
-  // to the English default instead of returning undefined from an uninitialized i18n.
-  const raw = initialized ? mainI18n.t(key, { defaultValue: fallback, ...options }) : fallback
-  const value = typeof raw === 'string' && raw.length > 0 ? raw : fallback
-  return isPseudoLocalizationLocale(mainI18n.language) ? pseudoLocalizeString(value) : value
 }

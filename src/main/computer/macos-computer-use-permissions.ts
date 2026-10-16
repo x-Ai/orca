@@ -3,7 +3,7 @@ import { RuntimeClientError } from './runtime-client-error'
 import { readMacosBundleId, resetMacosTccPermission } from '../macos-tcc-reset'
 import { resolveMacOSComputerUseAppPath } from './macos-native-provider-paths'
 import { getComputerUsePermissionStatus } from './macos-computer-use-permission-status'
-import { getMainUiLocale } from '../i18n/main-i18n'
+import { getMainUiLocale } from '../i18n/main-i18n-core'
 import type {
   ComputerUsePermissionId,
   ComputerUsePermissionResetResult,
