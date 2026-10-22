@@ -20,6 +20,7 @@ type FileExplorerToolbarProps = {
   connectionId?: string | null
   runtimeEnvironmentId?: string | null
   ownerUnresolved?: boolean
+  workspaceId?: string | null
   refresh: {
     isRefreshing: boolean
     showRefreshSpinner: boolean
@@ -42,6 +43,7 @@ export function FileExplorerToolbar({
   connectionId,
   runtimeEnvironmentId,
   ownerUnresolved,
+  workspaceId,
   refresh,
   canRefresh,
   canCollapseAll,
@@ -181,6 +183,7 @@ export function FileExplorerToolbar({
             connectionId={connectionId}
             runtimeEnvironmentId={runtimeEnvironmentId}
             ownerUnresolved={ownerUnresolved}
+            workspace={workspaceId ? { workspaceId } : null}
             labelPrefix={getOpenInLocalFileManagerPrefix()}
           />
         </DropdownMenuContent>

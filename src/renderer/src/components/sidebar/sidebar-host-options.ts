@@ -19,7 +19,10 @@ import {
   isWslHostRuntimeEnvironment,
   type PublicKnownRuntimeEnvironment
 } from '../../../../shared/runtime-environments'
-import type { RuntimeEnvironmentStatus } from '../../../../shared/runtime-host-status'
+import type {
+  RuntimeEnvironmentStatus,
+  RuntimeHostBlockedReason
+} from '../../../../shared/runtime-host-status'
 import type { WslHostStatus } from '../../../../shared/wsl-host-types'
 import { translate } from '@/i18n/i18n'
 import { translateExecutionHostDetail, translateExecutionHostLabel } from './execution-host-label'
@@ -39,6 +42,7 @@ export type SidebarHostOption = {
   presence: 'local' | 'configured' | 'project' | 'active'
   // Why: surfaced to the sidebar host-header menu so it can warn on version skew.
   compatibility?: RuntimeCompatVerdict
+  blockedReason?: RuntimeHostBlockedReason
   // Why: lets host headers spell out auth-needed SSH states, not just an icon.
   connectionStatus?: SshConnectionStatus
   aliasHostIds?: readonly ExecutionHostId[]
@@ -205,7 +209,10 @@ export function getSidebarHostVisibilityLabel(
   )
 }
 
-export function getSidebarHostHealthLabel(health: SidebarHostScopeOption['health']): string {
+export function getSidebarHostHealthLabel(
+  health: SidebarHostScopeOption['health'],
+  blockedReason?: RuntimeHostBlockedReason
+): string {
   switch (health) {
     case 'local':
       return translate('auto.components.sidebar.sidebarHostOptions.healthLocal', 'Local')
@@ -214,10 +221,15 @@ export function getSidebarHostHealthLabel(health: SidebarHostScopeOption['health
     case 'connecting':
       return translate('auto.components.sidebar.sidebarHostOptions.healthConnecting', 'Connecting')
     case 'blocked':
-      return translate(
-        'auto.components.sidebar.sidebarHostOptions.healthUpdateNeeded',
-        'Update needed'
-      )
+      return blockedReason === 'access-revoked'
+        ? translate(
+            'auto.components.sidebar.sidebarHostOptions.healthRepairNeeded',
+            'Re-pair needed'
+          )
+        : translate(
+            'auto.components.sidebar.sidebarHostOptions.healthUpdateNeeded',
+            'Update needed'
+          )
     case 'disconnected':
       return translate(
         'auto.components.sidebar.sidebarHostOptions.healthDisconnected',

@@ -1,19 +1,15 @@
-import { afterEach, describe, expect, it } from 'vitest'
-import { buildRows } from './build-rows'
-import { getFolderWorkspaceLaneKey } from './folder-workspace-lanes'
-import { getPRGroupKey, getPRLaneKey } from './group-keys'
-import type { Row, WorktreeGroupBy } from './row-types'
+import { describe, expect, it } from 'vitest'
+import { buildRows } from './build-rows.test-fixture'
+import { getFolderWorkspaceLaneKey } from '../../../../../../shared/sidebar-list/folder-workspace-lanes'
+import { getPRLaneKey } from '../../../../../../shared/sidebar-list/group-keys'
+import { getPRGroupKey } from './pr-group-key'
+import { getRenderRowKey } from '../listing/render-row'
+import type { Row, WorktreeGroupBy } from '../../../../../../shared/sidebar-list/row-types'
 import { repo, worktree } from '../../worktree-list-groups-test-fixtures'
 import type { FolderWorkspace } from '../../../../../../shared/folder-workspace-types'
 import type { ProjectGroup } from '../../../../../../shared/project-group-types'
 import type { Repo } from '../../../../../../shared/repo-types'
 import type { ExecutionHostId } from '../../../../../../shared/execution-host'
-import { setRendererUiLanguage } from '@/i18n/i18n'
-import { translateWorkspaceBoardStatusLabel } from '../../workspace-board-status-label'
-
-afterEach(async () => {
-  await setRendererUiLanguage('en')
-})
 
 const GROUP: ProjectGroup = {
   id: 'group-1',
@@ -100,7 +96,24 @@ describe('folder workspaces render under every Group by mode', () => {
 
   it('does not duplicate the row under repo grouping', () => {
     const rows = buildSidebarRows({ groupBy: 'repo' })
-    expect(folderRows(rows).map((row) => row.key)).toEqual(['folder-workspace:fw-1'])
+    expect(folderRows(rows).map((row) => row.key)).toEqual(['folder-workspace:local|folder:fw-1'])
+  })
+
+  it('keys the same folder id on two hosts apart, as the desktop draws them', () => {
+    const folders = [
+      makeFolderWorkspace(),
+      makeFolderWorkspace({ executionHostId: 'runtime:env-1', connectionId: null }),
+      makeFolderWorkspace({ connectionId: 'gpu-vm' })
+    ]
+    const rows = folderRows(buildSidebarRows({ groupBy: 'none', folderWorkspaces: folders }))
+    expect(new Set(rows.map((row) => row.key))).toEqual(
+      new Set([
+        'folder-workspace:local|folder:fw-1',
+        'folder-workspace:runtime:env-1|folder:fw-1',
+        'folder-workspace:ssh:gpu-vm|folder:fw-1'
+      ])
+    )
+    expect(rows.map(getRenderRowKey)).toEqual(rows.map((row) => row.key))
   })
 })
 
@@ -111,17 +124,6 @@ describe('a folder workspace can be the only member of a lane', () => {
     const header = rows.find((row) => row.type === 'header')
     expect(header).toBeDefined()
     expect(header && 'count' in header ? header.count : null).toBe(1)
-  })
-
-  it('localizes a folder-only default status lane', async () => {
-    await setRendererUiLanguage('zh')
-    expect(translateWorkspaceBoardStatusLabel({ id: 'in-progress', label: 'In progress' })).toBe(
-      '进行中'
-    )
-
-    const rows = buildSidebarRows({ groupBy: 'workspace-status', worktrees: [] })
-    const header = rows.find((row) => row.type === 'header')
-    expect(header && 'label' in header ? header.label : null).toBe('进行中')
   })
 
   it('renders in flat mode with no worktrees present', () => {

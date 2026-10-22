@@ -20,6 +20,9 @@ import { AgentIcon, getAgentCatalog } from '@/lib/agent-catalog'
 import { searchAgentPickerEntries } from '@/lib/agent-picker-search'
 import { translate } from '@/i18n/i18n'
 import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
+import { useBoundedHostRows } from '@/components/host-picker/use-bounded-host-rows'
+import { HostListSearchField } from '@/components/host-picker/HostListSearchField'
+import { HostListOverflowNote } from '@/components/host-picker/HostListOverflowNote'
 import type { AutomationHostCatalogEntry } from './automation-host-catalog-types'
 import {
   countAutomationListFilters,
@@ -139,6 +142,44 @@ export function AutomationListFilterPills({
   )
 }
 
+/** One row per catalog host, bounded and searchable; selected hosts always stay listed. */
+function AutomationHostFilterRows({
+  entries,
+  selectedHostKeys,
+  onToggle
+}: {
+  entries: readonly AutomationHostCatalogEntry[]
+  selectedHostKeys: readonly string[]
+  onToggle: (stableKey: string) => void
+}): React.JSX.Element {
+  const selected = new Set(selectedHostKeys)
+  const rows = useBoundedHostRows(
+    entries.map((entry) => ({
+      id: entry.stableKey,
+      label: translateExecutionHostLabel(entry.label)
+    })),
+    selected
+  )
+  return (
+    <>
+      {rows.searchable ? (
+        <HostListSearchField value={rows.query} onChange={rows.setQuery} inMenu />
+      ) : null}
+      {rows.shown.map((row) => (
+        <DropdownMenuCheckboxItem
+          key={row.id}
+          checked={selected.has(row.id)}
+          onCheckedChange={() => onToggle(row.id)}
+          onSelect={(event) => event.preventDefault()}
+        >
+          {row.label}
+        </DropdownMenuCheckboxItem>
+      ))}
+      <HostListOverflowNote hiddenCount={rows.hiddenCount} />
+    </>
+  )
+}
+
 export function AutomationListFilterMenu({
   filter,
   onChange,
@@ -212,16 +253,11 @@ export function AutomationListFilterMenu({
                 >
                   {translate('auto.components.automations.hostPicker.allHosts', 'All hosts')}
                 </DropdownMenuCheckboxItem>
-                {hostEntries.map((entry) => (
-                  <DropdownMenuCheckboxItem
-                    key={entry.stableKey}
-                    checked={selectedHostKeys.includes(entry.stableKey)}
-                    onCheckedChange={() => toggleHost(entry.stableKey)}
-                    onSelect={(event) => event.preventDefault()}
-                  >
-                    {translateExecutionHostLabel(entry.label)}
-                  </DropdownMenuCheckboxItem>
-                ))}
+                <AutomationHostFilterRows
+                  entries={hostEntries}
+                  selectedHostKeys={selectedHostKeys}
+                  onToggle={toggleHost}
+                />
               </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuSeparator />

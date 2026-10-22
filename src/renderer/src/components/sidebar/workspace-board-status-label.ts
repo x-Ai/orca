@@ -46,6 +46,14 @@ export function translateDefaultWorkflowStateLabel(label: string): string {
     : label
 }
 
+/** Status lane headers arrive in English from the shared emitter; shipped defaults localize here. */
+export function translateWorkspaceStatusHeaderLabel(
+  statusId: string | null,
+  label: string
+): string {
+  return statusId ? translateWorkspaceBoardStatusLabel({ id: statusId, label }) : label
+}
+
 export function newWorkspaceInStatusTooltip(statusLabel: string): string {
   return translate(
     'auto.components.sidebar.workspaceKanbanStatusLane.newWorkspaceInStatus',

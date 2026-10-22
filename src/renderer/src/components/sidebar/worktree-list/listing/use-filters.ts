@@ -28,7 +28,7 @@ import {
   isDefaultBranchWorkspace,
   isDetachedHeadWorkspace
 } from '../../../../../../shared/worktree/workspace-kinds'
-import { getFolderWorkspaceExecutionHostIdForRows } from './host-filtering'
+import { getFolderWorkspaceExecutionHostIdForRows } from '../../../../../../shared/sidebar-list/host-filtering'
 import {
   getPairedDeviceIdsByEnvironment,
   isWorkspaceOwnedBySomeoneElse
@@ -114,7 +114,10 @@ const REVEAL_WORKSPACE: Record<keyof WorkspaceRowFilters, (context: RevealContex
         state.ptyIdsByTabId,
         browserTabsByWorktree,
         liveAgentWorktrees,
-        getWorktreeIdsWithStructuredChat(state.unifiedTabsByWorktree)
+        getWorktreeIdsWithStructuredChat(
+          state.unifiedTabsByWorktree,
+          state.structuredChatSleptAtByPaneKey
+        )
       )
     ) {
       state.setShowSleepingWorkspaces(true)

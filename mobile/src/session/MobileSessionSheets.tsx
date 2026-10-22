@@ -12,12 +12,13 @@ import { MobileDictationSetupSheet } from '../components/MobileDictationSetupShe
 import { useWorkspaceOnPairedHost } from '../navigation/workspace-execution-host'
 import { MobileBrowserTabActionSheet } from './MobileBrowserTabActionSheet'
 import { getMobileTerminalActionSheetActions } from './mobile-terminal-action-sheet-actions'
+import { getMobileNativeChatCliForkActions } from './mobile-native-chat-cli-fork'
 import {
   getRepoIdFromMobileWorktreeId,
   isTerminalPhoneDisplayMode
 } from './mobile-session-route-helpers'
 import type { MobileSessionController } from './use-mobile-session-controller'
-import { translate } from '../../../src/renderer/src/i18n/i18n'
+import { sendReviewNotesSheetCopy } from './mobile-session-sheets-copy'
 
 export function MobileSessionSheets({ controller }: { controller: MobileSessionController }) {
   const {
@@ -167,14 +168,8 @@ export function MobileSessionSheets({ controller }: { controller: MobileSessionC
       />
       <ActionSheetModal
         visible={pendingDiffNotesDelivery !== null}
-        title={translate(
-          'mobile.app.h.hostId.session.worktreeId.sendReviewNotes',
-          'Send Review Notes'
-        )}
-        message={translate(
-          'mobile.app.h.hostId.session.worktreeId.chooseAgentSession',
-          'Choose an agent session for the current notes.'
-        )}
+        title={sendReviewNotesSheetCopy().title}
+        message={sendReviewNotesSheetCopy().message}
         actions={[
           ...sendDiffNotesAgentActions,
           {
@@ -288,9 +283,15 @@ export function MobileSessionSheets({ controller }: { controller: MobileSessionC
       <ActionSheetModal
         visible={agentSessionActionTarget != null}
         title={agentSessionActionTarget?.title || 'Chat'}
-        actions={closeWithBulkActions(agentSessionActionTarget, () =>
-          setAgentSessionActionTarget(null)
-        )}
+        actions={[
+          ...getMobileNativeChatCliForkActions({
+            controller,
+            tab: agentSessionActionTarget,
+            workspaceOnPairedHost: onPairedHost,
+            onDismiss: () => setAgentSessionActionTarget(null)
+          }),
+          ...closeWithBulkActions(agentSessionActionTarget, () => setAgentSessionActionTarget(null))
+        ]}
         onClose={() => setAgentSessionActionTarget(null)}
       />
       <ActionSheetModal
