@@ -13524,7 +13524,8 @@
           "commands": "Commands & panels",
           "catalogLabel": "Filter by catalog",
           "editors": "Editors",
-          "remoteVms": "Remote/VMs"
+          "remoteVms": "Remote/VMs",
+          "games": "Games"
         },
         "PluginUpdateAllDialog": {
           "previewError": "Couldn’t read this update",
@@ -17330,7 +17331,10 @@
           "5d2c3e7ae3": "No speech detected.",
           "micFallback": "Selected microphone unavailable. Using system default.",
           "micDisconnected": "Microphone disconnected. Dictation stopped.",
-          "noSpeechModel": "No speech model selected. Download one in Settings > Voice."
+          "noSpeechModel": "No speech model selected. Download one in Settings > Voice.",
+          "dictationDisabled": "Voice dictation is disabled. Enable it in Settings > Voice.",
+          "speechModelNotReady": "Speech model not ready. Download it in Settings > Voice.",
+          "speechModelUnavailable": "Selected model is no longer available. Please choose another in Settings > Voice."
         },
         "DictationIndicator": {
           "335e1bc6cb": "Stop dictation",
@@ -19033,7 +19037,9 @@
         "failingChip": "{{value0}} failing",
         "pendingChip": "{{value0}} pending",
         "needsActionChip": "{{value0}} action required",
-        "unresolvedChip": "{{value0}} unresolved"
+        "unresolvedChip": "{{value0}} unresolved",
+        "noChecks": "No checks found",
+        "passingSummary": "{{value0}} of {{value1}} checks passing"
       },
       "BrowserPane": {
         "streamConnectionLost": "Lost connection to the remote server.",

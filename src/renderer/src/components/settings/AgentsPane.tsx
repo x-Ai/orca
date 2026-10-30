@@ -3,7 +3,7 @@ import {
   getClaudeSubagentNavigationDescription
 } from './claude-subagent-navigation-copy'
 import type { GlobalSettings } from '../../../../shared/global-settings-types'
-import { getLocalExecutionHostLabel } from '../../../../shared/execution-host'
+import { translateLocalExecutionHostLabel } from '../sidebar/execution-host-label'
 import { useAppStore } from '@/store'
 import { AgentAwakeSetting } from './AgentAwakeSetting'
 import { AgentCacheTimerSection } from './AgentCacheTimerSection'
@@ -82,7 +82,7 @@ export function AgentsPane({
         />
       </section>
       <section className="space-y-8">
-        <SettingsSubsectionHeader title={getLocalExecutionHostLabel()} />
+        <SettingsSubsectionHeader title={translateLocalExecutionHostLabel()} />
         <AgentRuntimeSetting
           settings={settings}
           updateSettings={updateSettings}

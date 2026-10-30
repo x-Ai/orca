@@ -217,11 +217,11 @@ describe('Chinese localization regressions', () => {
         'No speech model selected. Go to Settings > Voice to download a model.'
       )
     ).toBe('尚未选择语音模型，请前往"设置 > 语音"下载模型')
-    expect(translate('auto.components.editor.useLocalImagePick.175cb8b8ce', 'Failed to insert image.')).toBe(
-      '插入图片失败'
-    )
+    expect(
+      translate('auto.components.editor.useLocalImagePick.175cb8b8ce', 'Failed to insert image.')
+    ).toBe('插入图片失败')
     expect(
       resolveRemoteOperationErrorMessage(new Error('updates were rejected'), { isPush: true })
-    ).toBe('推送被拒绝 — 远程有更改。请先拉取，再重试。')
+    ).toBe('推送被拒绝 — 远程有更改。请先拉取，再重试')
   })
 })

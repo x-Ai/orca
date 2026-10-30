@@ -3,6 +3,7 @@ import type { AgentLaunchPaneOutcome } from '../../../../shared/agent-launch-pan
 import { stripClientEnvironmentFooter } from '../../../../shared/client-environment-info'
 import type { TerminalTab } from '../../../../shared/terminal-tab-types'
 import { tuiAgentDisplayName } from '../../../../shared/tui-agent-display-names'
+import { joinSentences } from '../../../../shared/sentence-joining'
 
 /** What the pane shows, if its tab keeps a final launch outcome for this leaf. */
 export function agentLaunchPaneOutcomeForLeaf(
@@ -70,7 +71,7 @@ export function agentLaunchPaneNoticeText(
           'auto.components.terminal.pane.AgentLaunchPaneNotice.tryInTerminal',
           'Run it in a terminal in this folder to see why, then try again.'
         )
-  return `${reason} ${action}`
+  return joinSentences([reason, action])
 }
 
 function startupCode(line: string): string | undefined {

@@ -627,10 +627,6 @@
         }
       },
       "settings": {
-        "AccountsPane": {
-          "72b36ea174": "Optional. Orca can use your normal Claude login; add accounts only if you want quick switching without moving chat sessions.",
-          "cedfab35ab": "Optional. Orca can use your normal Codex login; add accounts only if you want quick switching in Orca."
-        },
         "ComputerUsePane": {
           "07bbe4c4cb": "Screenshots",
           "0c9a33f468": "Capture app windows so agents can inspect visual state.",

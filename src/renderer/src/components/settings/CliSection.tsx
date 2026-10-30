@@ -21,6 +21,7 @@ import { WslCliRegistration } from './WslCliRegistration'
 import { useCliRegistrationActions } from './use-cli-registration-actions'
 import { useLocalCliSkillFreshnessName } from './use-local-cli-skill-freshness-name'
 import { translate } from '@/i18n/i18n'
+import { formatCliUserFacingDetail } from '@/lib/cli-emulator-user-facing-copy'
 
 type CliSectionProps = {
   currentPlatform: string
@@ -120,7 +121,7 @@ export function CliSection({
       if (mountedRef.current) {
         toast.error(
           error instanceof Error
-            ? error.message
+            ? formatCliUserFacingDetail(error.message) || error.message
             : translate(
                 'auto.components.settings.CliSection.7baec27029',
                 'Failed to load CLI status.'
@@ -174,7 +175,8 @@ export function CliSection({
                     'auto.components.settings.CliSection.d363e5929b',
                     'Checking CLI registration…'
                   )
-                : (status?.detail ?? getInstallDescription(currentPlatform))}
+                : formatCliUserFacingDetail(status?.detail) ||
+                  getInstallDescription(currentPlatform)}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -244,7 +246,9 @@ export function CliSection({
         ) : null}
 
         {!loading && !isSupported && !isBrowserManaged && status?.detail ? (
-          <p className="text-xs text-muted-foreground">{status.detail}</p>
+          <p className="text-xs text-muted-foreground">
+            {formatCliUserFacingDetail(status.detail)}
+          </p>
         ) : null}
 
         {installFailure ? (
