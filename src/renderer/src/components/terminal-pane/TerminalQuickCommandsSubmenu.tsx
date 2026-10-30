@@ -13,6 +13,7 @@ import type { ExecutionHostId } from '../../../../shared/execution-host'
 import { isTerminalAgentQuickCommand } from '../../../../shared/terminal-quick-commands'
 import { AgentIcon } from '@/lib/agent-catalog'
 import { translate } from '@/i18n/i18n'
+import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
 import {
   getHostedTerminalQuickCommandKey,
   shouldShowTerminalQuickCommandHostOwnership,
@@ -83,7 +84,9 @@ export function TerminalQuickCommandsSubmenu({
             nonEmptyHosts.map((host, index) => (
               <div key={host.hostId}>
                 {index > 0 ? <DropdownMenuSeparator /> : null}
-                <DropdownMenuLabel className="truncate">{host.label}</DropdownMenuLabel>
+                <DropdownMenuLabel className="truncate">
+                  {translateExecutionHostLabel(host.label)}
+                </DropdownMenuLabel>
                 {[...host.repoCommands, ...host.globalCommands].map((command) =>
                   renderCommand(host.hostId, command)
                 )}
@@ -151,7 +154,7 @@ export function TerminalQuickCommandsSubmenu({
                 : translate(
                     'auto.components.terminal.pane.TerminalContextMenu.15dd899676',
                     'Add to {{value0}}…',
-                    { value0: host.label }
+                    { value0: translateExecutionHostLabel(host.label) }
                   )}
             </DropdownMenuItem>
           ))

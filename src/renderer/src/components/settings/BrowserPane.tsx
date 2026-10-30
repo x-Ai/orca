@@ -37,6 +37,7 @@ import {
 } from '../../../../shared/execution-host'
 import { isMacUserAgent } from '@/components/terminal-pane/pane-helpers'
 import { translate } from '@/i18n/i18n'
+import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
 import { translateBrowserSessionProfileLabel } from '@/lib/browser-session-profile-label'
 import { useUiLanguageRevision } from '@/i18n/use-ui-language-revision'
 import { resolveAvailableBrowserSessionHostId } from './browser-session-host-selection'
@@ -147,7 +148,7 @@ export function BrowserPane({
         .filter((host) => host.kind === 'local' || host.kind === 'runtime')
         .map((host) => ({
           id: host.id,
-          label: host.label,
+          label: translateExecutionHostLabel(host.label),
           detail:
             host.kind === 'local'
               ? translate('auto.components.settings.BrowserPane.86b7c83fee', 'This computer')

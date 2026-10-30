@@ -36,6 +36,7 @@ import { unwrapRuntimeRpcResult } from '@/runtime/runtime-rpc-result'
 import type { RuntimeStatus } from '../../../../shared/runtime-types'
 import type { HostHeaderRow } from '../../../../shared/sidebar-list/host-section-rows'
 import { buildHostHeaderMenuModel } from './host-header-menu-items'
+import { translateExecutionHostLabel } from './execution-host-label'
 import { HostRenameDialog } from './HostRenameDialog'
 import { HostRemoveDialog } from './HostRemoveDialog'
 import { RuntimeRepairDialog } from '../settings/RuntimeRepairDialog'
@@ -253,7 +254,7 @@ export function HostSectionHeaderMenu({ row }: { row: HostHeaderRow }): React.JS
           </>
         )}
         <DropdownMenuLabel className="truncate text-[11px] font-medium text-muted-foreground">
-          {row.label}
+          {translateExecutionHostLabel(row.label)}
         </DropdownMenuLabel>
         {model.actions.includes('rename') && (
           <DropdownMenuItem onSelect={() => setRenameOpen(true)}>

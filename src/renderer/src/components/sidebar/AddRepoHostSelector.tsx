@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils'
 import type { SidebarHostOption } from './sidebar-host-options'
 import { getSidebarHostHealthLabel, shouldShowHostScopeControls } from './sidebar-host-options'
+import { translateExecutionHostLabel } from './execution-host-label'
 import type { ExecutionHostId } from '../../../../shared/execution-host'
 
 import { describeRuntimeCompatBlock } from '@/lib/runtime-host-copy'
@@ -234,7 +235,7 @@ export function AddRepoHostSelector({
                 return (
                   <CommandItem
                     key={host.id}
-                    value={`${host.label} ${host.detail}`}
+                    value={`${translateExecutionHostLabel(host.label)} ${host.detail}`}
                     disabled={disabled && !canConnect}
                     aria-disabled={disabled}
                     onSelect={() => {
@@ -257,7 +258,9 @@ export function AddRepoHostSelector({
                     />
                     <span className="min-w-0 flex-1">
                       <span className="flex min-w-0 items-center gap-2">
-                        <span className="truncate font-medium">{host.label}</span>
+                        <span className="truncate font-medium">
+                          {translateExecutionHostLabel(host.label)}
+                        </span>
                       </span>
                       <span className="mt-0.5 block truncate text-[11px] text-muted-foreground">
                         <span className="min-w-0 flex-1 truncate" title={host.failureReason}>

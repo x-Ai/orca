@@ -16,6 +16,7 @@ import {
 import type { ProjectHostSetup } from '../../../shared/project-types'
 import type { Repo } from '../../../shared/repo-types'
 import { translate } from '@/i18n/i18n'
+import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
 import { dedupeReadySetupRows } from './project-host-setup-row-dedupe'
 
 export type ProjectHostSetupSelection = { id: string; hostId: ExecutionHostId }
@@ -184,7 +185,7 @@ function buildNeedsSetupOptions({
         kind: 'needs-setup' as const,
         projectId,
         hostId: host.id,
-        label: host.label || getExecutionHostLabel(host.id),
+        label: translateExecutionHostLabel(host.label || getExecutionHostLabel(host.id)),
         detail:
           unavailableDetail ??
           (pendingSetup
