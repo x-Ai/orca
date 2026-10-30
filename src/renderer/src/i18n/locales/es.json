@@ -6907,6 +6907,20 @@
           "needsInput": "Requiere intervención",
           "running": "En ejecución",
           "idle": "Inactivo"
+        },
+        "hostSection": {
+          "localWindows": "Windows local",
+          "localMac": "Mac local",
+          "localLinux": "Linux local",
+          "thisComputer": "Este equipo",
+          "host": "Host"
+        },
+        "workspaceBoardStatus": {
+          "todo": "Por hacer",
+          "inProgress": "En curso",
+          "inReview": "En revisión",
+          "done": "Hecho",
+          "numbered": "Estado {{number}}"
         }
       },
       "shared": {
@@ -12877,10 +12891,15 @@
         "PluginInstallConsent": {
           "fullAccessUpdates": "Las actualizaciones pueden cambiar su código sin preguntar",
           "noOtherAccess": "Ningún otro acceso",
-          "updatesKeepApproval": "Las actualizaciones solo vuelven a preguntar por accesos nuevos"
+          "updatesKeepApproval": "Las actualizaciones solo vuelven a preguntar por accesos nuevos",
+          "install": "Instalar y activar",
+          "keepOff": "Mantener desactivado",
+          "replacesShortcut": "{{value0}} ({{value1}}) reemplaza tu atajo para {{value2}}.",
+          "editsFileTypes": "Abre y edita archivos {{value0}} en Orca. Puede leer los archivos que abre."
         },
         "PluginPageAction": {
-          "contentOnly": "Solo contenido"
+          "contentOnly": "Solo contenido",
+          "failedTitle": "No se pudo instalar {{value0}}"
         },
         "PluginSettingsMenu": {
           "autoUpdateHint": "Solo vuelve a preguntar por accesos nuevos",
@@ -12951,6 +12970,22 @@
             "mod": "mod",
             "shortcut": "atajo"
           }
+        },
+        "PluginPageHero": {
+          "screenshots": "Capturas de pantalla",
+          "openScreenshot": "Abrir captura: {{value0}}",
+          "position": "{{value0}} de {{value1}}",
+          "previous": "Captura anterior",
+          "next": "Captura siguiente"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "Agrega comandos",
+          "addsPanel": "Agrega un panel",
+          "contentOnly": "Solo contenido",
+          "fullAccess": "Acceso completo",
+          "addsVmRecipes": "Agrega recetas de VM",
+          "opensAndEditsFiles": "Abre y edita archivos",
+          "runsPluginCode": "Ejecuta código del complemento"
         }
       },
       "right": {

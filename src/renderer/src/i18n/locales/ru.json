@@ -7597,6 +7597,20 @@
           "needsInput": "Требуется ввод",
           "running": "Работает",
           "idle": "Бездействует"
+        },
+        "hostSection": {
+          "localWindows": "Локальный Windows",
+          "localMac": "Локальный Mac",
+          "localLinux": "Локальный Linux",
+          "thisComputer": "Этот компьютер",
+          "host": "Сервер"
+        },
+        "workspaceBoardStatus": {
+          "todo": "К выполнению",
+          "inProgress": "В работе",
+          "inReview": "На проверке",
+          "done": "Готово",
+          "numbered": "Статус {{number}}"
         }
       },
       "shared": {
@@ -13380,6 +13394,42 @@
         "PluginSettingsMenu": {
           "autoUpdateLabel": "Обновлять плагины автоматически",
           "development": "Папки разработки…"
+        },
+        "PluginInstallConsent": {
+          "install": "Установить и включить",
+          "noOtherAccess": "Без прочих разрешений",
+          "keepOff": "Оставить выключенным",
+          "replacesShortcut": "{{value0}} ({{value1}}) заменяет ваше сочетание клавиш для {{value2}}.",
+          "updatesKeepApproval": "Обновления переспрашивают только при новом доступе",
+          "fullAccessUpdates": "Обновления могут менять код без запроса",
+          "editsFileTypes": "Открывает и редактирует файлы {{value0}} в Orca. Может читать открытые файлы."
+        },
+        "PluginPageHero": {
+          "screenshots": "Скриншоты",
+          "openScreenshot": "Открыть скриншот: {{value0}}",
+          "position": "{{value0}} из {{value1}}",
+          "previous": "Предыдущий скриншот",
+          "next": "Следующий скриншот"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "Добавляет команды",
+          "addsPanel": "Добавляет панель",
+          "contentOnly": "Только контент",
+          "fullAccess": "Полный доступ",
+          "addsVmRecipes": "Добавляет рецепты ВМ",
+          "opensAndEditsFiles": "Открывает и редактирует файлы",
+          "runsPluginCode": "Запускает код плагина"
+        },
+        "PluginCardAction": {
+          "installed": "Установлено",
+          "installing": "Установка…",
+          "reviewLabel": "Проверить и установить {{value0}}",
+          "review": "Проверить и установить",
+          "retry": "Повторить"
+        },
+        "PluginPageAction": {
+          "failedTitle": "Не удалось установить {{value0}}",
+          "contentOnly": "Только контент"
         }
       },
       "right": {

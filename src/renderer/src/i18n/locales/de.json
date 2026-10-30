@@ -7255,6 +7255,20 @@
           "needsInput": "Eingabe erforderlich",
           "running": "Läuft",
           "idle": "Inaktiv"
+        },
+        "hostSection": {
+          "localWindows": "Lokaler Windows",
+          "localMac": "Lokaler Mac",
+          "localLinux": "Lokaler Linux",
+          "thisComputer": "Dieser Computer",
+          "host": "Host"
+        },
+        "workspaceBoardStatus": {
+          "todo": "Zu erledigen",
+          "inProgress": "In Bearbeitung",
+          "inReview": "In Prüfung",
+          "done": "Fertig",
+          "numbered": "Status {{number}}"
         }
       },
       "shared": {
@@ -13018,6 +13032,42 @@
         "PluginSettingsMenu": {
           "autoUpdateLabel": "Plugins automatisch aktualisieren",
           "development": "Entwicklungsordner…"
+        },
+        "PluginInstallConsent": {
+          "install": "Installieren und aktivieren",
+          "noOtherAccess": "Kein weiterer Zugriff",
+          "keepOff": "Ausgeschaltet lassen",
+          "replacesShortcut": "{{value0}} ({{value1}}) ersetzt dein Tastenkürzel für {{value2}}.",
+          "updatesKeepApproval": "Updates fragen nur bei neuem Zugriff erneut",
+          "fullAccessUpdates": "Updates können den Code ohne Nachfrage ändern",
+          "editsFileTypes": "Öffnet und bearbeitet {{value0}}-Dateien in Orca. Es kann die geöffneten Dateien lesen."
+        },
+        "PluginPageHero": {
+          "screenshots": "Screenshots",
+          "openScreenshot": "Screenshot öffnen: {{value0}}",
+          "position": "{{value0}} von {{value1}}",
+          "previous": "Vorheriger Screenshot",
+          "next": "Nächster Screenshot"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "Fügt Befehle hinzu",
+          "addsPanel": "Fügt ein Panel hinzu",
+          "contentOnly": "Nur Inhalte",
+          "fullAccess": "Vollzugriff",
+          "addsVmRecipes": "Fügt VM-Rezepte hinzu",
+          "opensAndEditsFiles": "Öffnet und bearbeitet Dateien",
+          "runsPluginCode": "Führt Plugin-Code aus"
+        },
+        "PluginCardAction": {
+          "installed": "Installiert",
+          "installing": "Wird installiert…",
+          "reviewLabel": "{{value0}} prüfen und installieren",
+          "review": "Prüfen und installieren",
+          "retry": "Erneut versuchen"
+        },
+        "PluginPageAction": {
+          "failedTitle": "{{value0}} konnte nicht installiert werden",
+          "contentOnly": "Nur Inhalte"
         }
       },
       "right": {

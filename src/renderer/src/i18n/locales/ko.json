@@ -6631,6 +6631,20 @@
           "needsInput": "입력 필요",
           "running": "실행 중",
           "idle": "유휴"
+        },
+        "hostSection": {
+          "localWindows": "로컬 Windows",
+          "localMac": "로컬 Mac",
+          "localLinux": "로컬 Linux",
+          "thisComputer": "이 컴퓨터",
+          "host": "호스트"
+        },
+        "workspaceBoardStatus": {
+          "todo": "할 일",
+          "inProgress": "진행 중",
+          "inReview": "검토 중",
+          "done": "완료",
+          "numbered": "상태 {{number}}"
         }
       },
       "shared": {
@@ -12591,10 +12605,15 @@
         "PluginInstallConsent": {
           "fullAccessUpdates": "업데이트가 묻지 않고 코드를 바꿀 수 있습니다",
           "noOtherAccess": "다른 접근 권한 없음",
-          "updatesKeepApproval": "업데이트는 새 접근 권한이 있을 때만 다시 묻습니다"
+          "updatesKeepApproval": "업데이트는 새 접근 권한이 있을 때만 다시 묻습니다",
+          "install": "설치 및 활성화",
+          "keepOff": "꺼짐 유지",
+          "replacesShortcut": "{{value0}}({{value1}})이(가) {{value2}} 단축키를 대체합니다.",
+          "editsFileTypes": "Orca에서 {{value0}} 파일을 열고 편집합니다. 연 파일을 읽을 수도 있습니다."
         },
         "PluginPageAction": {
-          "contentOnly": "콘텐츠만"
+          "contentOnly": "콘텐츠만",
+          "failedTitle": "{{value0}}을(를) 설치할 수 없습니다"
         },
         "PluginSettingsMenu": {
           "autoUpdateHint": "새 접근 권한이 있을 때만 다시 묻습니다",
@@ -12665,6 +12684,22 @@
             "mod": "모드",
             "shortcut": "단축키"
           }
+        },
+        "PluginPageHero": {
+          "screenshots": "스크린샷",
+          "openScreenshot": "스크린샷 열기: {{value0}}",
+          "position": "{{value1}}개 중 {{value0}}번째",
+          "previous": "이전 스크린샷",
+          "next": "다음 스크린샷"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "명령을 추가합니다",
+          "addsPanel": "패널을 추가합니다",
+          "contentOnly": "콘텐츠만",
+          "fullAccess": "전체 접근 권한",
+          "addsVmRecipes": "VM 레시피를 추가합니다",
+          "opensAndEditsFiles": "파일을 열고 편집합니다",
+          "runsPluginCode": "플러그인 코드를 실행합니다"
         }
       },
       "right": {

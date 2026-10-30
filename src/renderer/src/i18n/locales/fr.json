@@ -7146,6 +7146,20 @@
           "needsInput": "Intervention requise",
           "running": "En cours",
           "idle": "Inactif"
+        },
+        "hostSection": {
+          "localWindows": "Windows local",
+          "localMac": "Mac local",
+          "localLinux": "Linux local",
+          "thisComputer": "Cet ordinateur",
+          "host": "Hôte"
+        },
+        "workspaceBoardStatus": {
+          "todo": "À faire",
+          "inProgress": "En cours",
+          "inReview": "En revue",
+          "done": "Terminé",
+          "numbered": "Statut {{number}}"
         }
       },
       "shared": {
@@ -13116,10 +13130,15 @@
         "PluginInstallConsent": {
           "fullAccessUpdates": "Les mises à jour peuvent modifier son code sans demander",
           "noOtherAccess": "Aucun autre accès",
-          "updatesKeepApproval": "Les mises à jour ne redemandent que pour un nouvel accès"
+          "updatesKeepApproval": "Les mises à jour ne redemandent que pour un nouvel accès",
+          "install": "Installer et activer",
+          "keepOff": "Laisser désactivé",
+          "replacesShortcut": "{{value0}} ({{value1}}) remplace votre raccourci pour {{value2}}.",
+          "editsFileTypes": "Ouvre et modifie des fichiers {{value0}} dans Orca. Il peut lire les fichiers qu’il ouvre."
         },
         "PluginPageAction": {
-          "contentOnly": "Contenu uniquement"
+          "contentOnly": "Contenu uniquement",
+          "failedTitle": "Impossible d’installer {{value0}}"
         },
         "PluginSettingsMenu": {
           "autoUpdateHint": "Ne redemande que pour un nouvel accès",
@@ -13190,6 +13209,22 @@
             "mod": "mod",
             "shortcut": "raccourci"
           }
+        },
+        "PluginPageHero": {
+          "screenshots": "Captures d’écran",
+          "openScreenshot": "Ouvrir la capture : {{value0}}",
+          "position": "{{value0}} sur {{value1}}",
+          "previous": "Capture précédente",
+          "next": "Capture suivante"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "Ajoute des commandes",
+          "addsPanel": "Ajoute un panneau",
+          "contentOnly": "Contenu uniquement",
+          "fullAccess": "Accès complet",
+          "addsVmRecipes": "Ajoute des recettes de VM",
+          "opensAndEditsFiles": "Ouvre et modifie des fichiers",
+          "runsPluginCode": "Exécute le code du plugin"
         }
       },
       "right": {

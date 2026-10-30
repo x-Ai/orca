@@ -9249,7 +9249,11 @@
         "PluginInstallConsent": {
           "fullAccessUpdates": "Atualizações podem mudar o código sem perguntar",
           "noOtherAccess": "Nenhum outro acesso",
-          "updatesKeepApproval": "Atualizações só perguntam de novo por novo acesso"
+          "updatesKeepApproval": "Atualizações só perguntam de novo por novo acesso",
+          "install": "Instalar e ativar",
+          "keepOff": "Manter desativado",
+          "replacesShortcut": "{{value0}} ({{value1}}) substitui seu atalho para {{value2}}.",
+          "editsFileTypes": "Abre e edita arquivos {{value0}} no Orca. Pode ler os arquivos que abre."
         },
         "PluginManagerRows": {
           "reinstall": "Reinstalar",
@@ -9259,7 +9263,8 @@
           "dataLoadFailed": "Não foi possível carregar os arquivos"
         },
         "PluginPageAction": {
-          "contentOnly": "Somente conteúdo"
+          "contentOnly": "Somente conteúdo",
+          "failedTitle": "Não foi possível instalar {{value0}}"
         },
         "PluginSettingsMenu": {
           "autoUpdateHint": "Só pergunta de novo por novo acesso",
@@ -9358,6 +9363,29 @@
           "remoteVms": "Remotos/VMs",
           "games": "Jogos",
           "catalogLabel": "Filtrar por catálogo"
+        },
+        "PluginPageHero": {
+          "screenshots": "Capturas de tela",
+          "openScreenshot": "Abrir captura: {{value0}}",
+          "position": "{{value0}} de {{value1}}",
+          "previous": "Captura anterior",
+          "next": "Próxima captura"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "Adiciona comandos",
+          "addsPanel": "Adiciona um painel",
+          "contentOnly": "Somente conteúdo",
+          "fullAccess": "Acesso total",
+          "addsVmRecipes": "Adiciona receitas de VM",
+          "opensAndEditsFiles": "Abre e edita arquivos",
+          "runsPluginCode": "Executa código do plugin"
+        },
+        "PluginCardAction": {
+          "installed": "Instalado",
+          "installing": "Instalando…",
+          "reviewLabel": "Revisar e instalar {{value0}}",
+          "review": "Revisar e instalar",
+          "retry": "Tentar novamente"
         }
       },
       "right": {
@@ -12440,6 +12468,20 @@
           "needsInput": "Precisa de interação",
           "running": "Em execução",
           "idle": "Ocioso"
+        },
+        "hostSection": {
+          "localWindows": "Windows local",
+          "localMac": "Mac local",
+          "localLinux": "Linux local",
+          "thisComputer": "Este computador",
+          "host": "Host"
+        },
+        "workspaceBoardStatus": {
+          "todo": "A fazer",
+          "inProgress": "Em andamento",
+          "inReview": "Em revisão",
+          "done": "Concluído",
+          "numbered": "Status {{number}}"
         }
       },
       "editor": {

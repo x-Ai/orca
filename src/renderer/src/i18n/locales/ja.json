@@ -6631,6 +6631,20 @@
           "needsInput": "入力待ち",
           "running": "実行中",
           "idle": "アイドル"
+        },
+        "hostSection": {
+          "localWindows": "この Windows",
+          "localMac": "この Mac",
+          "localLinux": "この Linux",
+          "thisComputer": "このコンピューター",
+          "host": "ホスト"
+        },
+        "workspaceBoardStatus": {
+          "todo": "未着手",
+          "inProgress": "進行中",
+          "inReview": "レビュー中",
+          "done": "完了",
+          "numbered": "ステータス {{number}}"
         }
       },
       "shared": {
@@ -12591,10 +12605,15 @@
         "PluginInstallConsent": {
           "fullAccessUpdates": "アップデートで確認なしにコードが変わることがあります",
           "noOtherAccess": "その他のアクセスはありません",
-          "updatesKeepApproval": "アップデートは新しいアクセスがあるときだけ確認します"
+          "updatesKeepApproval": "アップデートは新しいアクセスがあるときだけ確認します",
+          "install": "インストールして有効化",
+          "keepOff": "オフのままにする",
+          "replacesShortcut": "{{value0}}（{{value1}}）は {{value2}} のショートカットを置き換えます。",
+          "editsFileTypes": "Orca で {{value0}} ファイルを開いて編集します。開いたファイルを読み取ることもできます。"
         },
         "PluginPageAction": {
-          "contentOnly": "コンテンツのみ"
+          "contentOnly": "コンテンツのみ",
+          "failedTitle": "{{value0}} をインストールできませんでした"
         },
         "PluginSettingsMenu": {
           "autoUpdateHint": "新しいアクセスがあるときだけ確認します",
@@ -12665,6 +12684,22 @@
             "mod": "モッド",
             "shortcut": "ショートカット"
           }
+        },
+        "PluginPageHero": {
+          "screenshots": "スクリーンショット",
+          "openScreenshot": "スクリーンショットを開く: {{value0}}",
+          "position": "{{value1}} 件中 {{value0}} 件目",
+          "previous": "前のスクリーンショット",
+          "next": "次のスクリーンショット"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "コマンドを追加します",
+          "addsPanel": "パネルを追加します",
+          "contentOnly": "コンテンツのみ",
+          "fullAccess": "フルアクセス",
+          "addsVmRecipes": "VM レシピを追加します",
+          "opensAndEditsFiles": "ファイルを開いて編集します",
+          "runsPluginCode": "プラグインのコードを実行します"
         }
       },
       "right": {

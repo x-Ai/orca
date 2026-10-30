@@ -7241,6 +7241,20 @@
           "needsInput": "Girdi gerekiyor",
           "running": "Çalışıyor",
           "idle": "Boşta"
+        },
+        "hostSection": {
+          "localWindows": "Yerel Windows",
+          "localMac": "Yerel Mac",
+          "localLinux": "Yerel Linux",
+          "thisComputer": "Bu bilgisayar",
+          "host": "Sunucu"
+        },
+        "workspaceBoardStatus": {
+          "todo": "Yapılacak",
+          "inProgress": "Devam ediyor",
+          "inReview": "İncelemede",
+          "done": "Tamamlandı",
+          "numbered": "Durum {{number}}"
         }
       },
       "shared": {
@@ -13004,6 +13018,42 @@
         "PluginSettingsMenu": {
           "autoUpdateLabel": "Eklentileri otomatik güncelle",
           "development": "Geliştirme klasörleri…"
+        },
+        "PluginInstallConsent": {
+          "install": "Yükle ve etkinleştir",
+          "noOtherAccess": "Başka erişim yok",
+          "keepOff": "Kapalı tut",
+          "replacesShortcut": "{{value0}} ({{value1}}), {{value2}} için kısayolunuzun yerini alır.",
+          "updatesKeepApproval": "Güncellemeler yalnızca yeni erişim için yeniden sorar",
+          "fullAccessUpdates": "Güncellemeler kodu sormadan değiştirebilir",
+          "editsFileTypes": "Orca’da {{value0}} dosyalarını açar ve düzenler. Açtığı dosyaları okuyabilir."
+        },
+        "PluginPageHero": {
+          "screenshots": "Ekran görüntüleri",
+          "openScreenshot": "Ekran görüntüsünü aç: {{value0}}",
+          "position": "{{value1}} / {{value0}}",
+          "previous": "Önceki ekran görüntüsü",
+          "next": "Sonraki ekran görüntüsü"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "Komut ekler",
+          "addsPanel": "Panel ekler",
+          "contentOnly": "Yalnızca içerik",
+          "fullAccess": "Tam erişim",
+          "addsVmRecipes": "VM tarifleri ekler",
+          "opensAndEditsFiles": "Dosyaları açar ve düzenler",
+          "runsPluginCode": "Eklenti kodunu çalıştırır"
+        },
+        "PluginCardAction": {
+          "installed": "Yüklendi",
+          "installing": "Yükleniyor…",
+          "reviewLabel": "{{value0}} öğesini incele ve yükle",
+          "review": "İncele ve yükle",
+          "retry": "Yeniden dene"
+        },
+        "PluginPageAction": {
+          "failedTitle": "{{value0}} yüklenemedi",
+          "contentOnly": "Yalnızca içerik"
         }
       },
       "right": {

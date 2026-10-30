@@ -7078,6 +7078,20 @@
           "needsInput": "需要輸入",
           "running": "執行中",
           "idle": "閒置"
+        },
+        "hostSection": {
+          "localWindows": "本機 Windows",
+          "localMac": "本機 Mac",
+          "localLinux": "本機 Linux",
+          "thisComputer": "這台電腦",
+          "host": "主機"
+        },
+        "workspaceBoardStatus": {
+          "todo": "待處理",
+          "inProgress": "進行中",
+          "inReview": "審核中",
+          "done": "已完成",
+          "numbered": "狀態 {{number}}"
         }
       },
       "shared": {
@@ -12841,6 +12855,42 @@
         "PluginSettingsMenu": {
           "autoUpdateLabel": "自動更新外掛",
           "development": "開發資料夾…"
+        },
+        "PluginInstallConsent": {
+          "install": "安裝並啟用",
+          "noOtherAccess": "無其他存取權限",
+          "keepOff": "保持關閉",
+          "replacesShortcut": "{{value0}}（{{value1}}）將取代你為 {{value2}} 設定的快速鍵",
+          "updatesKeepApproval": "僅在需要新權限時，更新才會再次詢問",
+          "fullAccessUpdates": "更新可在不詢問的情況下變更其程式碼",
+          "editsFileTypes": "在 Orca 中開啟並編輯 {{value0}} 檔案，並可讀取它所開啟的檔案"
+        },
+        "PluginPageHero": {
+          "screenshots": "螢幕擷取畫面",
+          "openScreenshot": "開啟螢幕擷取畫面：{{value0}}",
+          "position": "第 {{value0}} 張，共 {{value1}} 張",
+          "previous": "上一張螢幕擷取畫面",
+          "next": "下一張螢幕擷取畫面"
+        },
+        "pluginConsentCopy": {
+          "addsCommands": "新增命令",
+          "addsPanel": "新增面板",
+          "contentOnly": "僅內容",
+          "fullAccess": "完整存取權限",
+          "addsVmRecipes": "新增虛擬機配方",
+          "opensAndEditsFiles": "開啟並編輯檔案",
+          "runsPluginCode": "執行外掛程式碼"
+        },
+        "PluginCardAction": {
+          "installed": "已安裝",
+          "installing": "正在安裝…",
+          "reviewLabel": "檢閱並安裝 {{value0}}",
+          "review": "檢閱並安裝",
+          "retry": "再試一次"
+        },
+        "PluginPageAction": {
+          "failedTitle": "無法安裝 {{value0}}",
+          "contentOnly": "僅內容"
         }
       },
       "right": {
