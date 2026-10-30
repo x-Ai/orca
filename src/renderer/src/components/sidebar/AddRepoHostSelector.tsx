@@ -9,7 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils'
 import type { SidebarHostOption } from './sidebar-host-options'
 import { getSidebarHostHealthLabel, shouldShowHostScopeControls } from './sidebar-host-options'
-import { translateExecutionHostLabel } from './execution-host-label'
+import { translateExecutionHostDetail, translateExecutionHostLabel } from './execution-host-label'
 import type { ExecutionHostId } from '../../../../shared/execution-host'
 
 import { describeRuntimeCompatBlock } from '@/lib/runtime-host-copy'
@@ -36,12 +36,12 @@ type AddRepoHostSelectorProps = {
 function getHostStatusDetail(host: SidebarHostOption): string {
   // A disabled WSL feature is not a disconnected-host failure.
   if (host.wslUnavailable) {
-    return host.detail
+    return translateExecutionHostDetail(host.detail)
   }
   if (host.compatibility?.kind === 'blocked') {
     return describeRuntimeCompatBlock(host.compatibility)
   }
-  const detail = host.failureReason ?? host.detail
+  const detail = host.failureReason ?? translateExecutionHostDetail(host.detail)
   return `${getSidebarHostHealthLabel(host.health, host.blockedReason)}${detail ? ` - ${detail}` : ''}`
 }
 
