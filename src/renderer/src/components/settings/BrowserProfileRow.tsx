@@ -1,6 +1,5 @@
 import { Import, Loader2, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { formatBrowserCookieImportFailure } from '@/lib/browser-cookie-import-failure'
 import { emitBrowserCookieImportToast } from '@/lib/browser-cookie-import-toast'
 import type {
   BrowserCookieImportSummary,
@@ -23,7 +22,7 @@ import { BrowserCookieImportMachineNotice } from '../BrowserCookieImportMachineN
 import { useAppStore } from '../../store'
 import { BROWSER_FAMILY_LABELS } from '../../../../shared/constants'
 import { translate } from '@/i18n/i18n'
-import { translateBrowserSessionProfileLabel } from '@/lib/browser-session-profile-label'
+import { browserCookieImportFailureText } from '@/lib/browser-cookie-import-error-copy'
 
 type DetectedBrowser = {
   family: string
@@ -56,7 +55,6 @@ export function BrowserProfileRow({
 }: BrowserProfileRowProps): React.JSX.Element {
   const isImporting = importState?.profileId === profile.id && importState.status === 'importing'
   const fetchDetectedBrowsers = useAppStore((s) => s.fetchDetectedBrowsers)
-  const displayLabel = translateBrowserSessionProfileLabel(profile.label, profile.id)
 
   const handleImportFromBrowser = async (
     browserFamily: string,
@@ -77,7 +75,7 @@ export function BrowserProfileRow({
                 value0: result.summary.importedCookies,
                 value1: browser?.label ?? browserFamily,
                 value2: browserProfile,
-                value3: displayLabel
+                value3: profile.label
               }
             )
           : translate(
@@ -86,13 +84,13 @@ export function BrowserProfileRow({
               {
                 value0: result.summary.importedCookies,
                 value1: browser?.label ?? browserFamily,
-                value2: displayLabel
+                value2: profile.label
               }
             ),
         result
       )
     } else {
-      toast.error(formatBrowserCookieImportFailure(result.reason))
+      toast.error(browserCookieImportFailureText(result))
     }
   }
 
@@ -104,12 +102,12 @@ export function BrowserProfileRow({
         translate(
           'auto.components.settings.BrowserProfileRow.b4c167764d',
           'Imported {{value0}} cookies from file into {{value1}}.',
-          { value0: result.summary.importedCookies, value1: displayLabel }
+          { value0: result.summary.importedCookies, value1: profile.label }
         ),
         result
       )
     } else if (result.reason !== 'canceled') {
-      toast.error(formatBrowserCookieImportFailure(result.reason))
+      toast.error(browserCookieImportFailureText(result))
     }
   }
 
@@ -117,9 +115,7 @@ export function BrowserProfileRow({
     ? `${BROWSER_FAMILY_LABELS[profile.source.browserFamily] ?? profile.source.browserFamily}${profile.source.profileName ? ` (${profile.source.profileName})` : ''}`
     : translate('auto.components.settings.BrowserProfileRow.796d846483', 'No cookies imported')
 
-  // Why: uses div[role=button] instead of <button> to avoid nested <button>
-  // elements — the dropdown trigger and trash actions inside also render as
-  // <button>, which is invalid HTML and causes React hydration warnings.
+  // Use role=button because nested dropdown/trash buttons make a native button invalid and trigger hydration warnings.
   return (
     <div
       role="button"
@@ -139,7 +135,7 @@ export function BrowserProfileRow({
     >
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className="truncate text-sm font-medium">{displayLabel}</span>
+          <span className="truncate text-sm font-medium">{profile.label}</span>
           {isActive ? (
             <span className="shrink-0 rounded border border-border/50 px-1.5 text-[10px] font-medium leading-4 text-foreground/80">
               {translate('auto.components.settings.BrowserProfileRow.c29648fe5b', 'Active')}
@@ -152,8 +148,7 @@ export function BrowserProfileRow({
         <DropdownMenu
           onOpenChange={(open) => {
             if (open) {
-              // Why: macOS treats other browsers' profile folders as app
-              // data. Only probe them when the user opens the import menu.
+              // Probe profile folders only when import opens; macOS treats them as protected app data.
               void fetchDetectedBrowsers()
             }
           }}
@@ -252,7 +247,7 @@ export function BrowserProfileRow({
                   translate(
                     'auto.components.settings.BrowserProfileRow.8e636cae25',
                     'Profile "{{value0}}" removed.',
-                    { value0: displayLabel }
+                    { value0: profile.label }
                   )
                 )
               }

@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { WorktreeOpenInMenuItems } from '@/components/sidebar/WorktreeOpenInMenu'
-import { getOpenInLocalFileManagerPrefix } from '@/lib/local-file-manager-label'
 import { translate } from '@/i18n/i18n'
 import { cn } from '@/lib/utils'
 
@@ -36,7 +35,16 @@ type FileExplorerToolbarProps = {
   onToggleDotfiles: () => void
 }
 
-/** Shares repository actions across explorer views. */
+function formatOpenInAppLabel(appName: string): string {
+  return translate(
+    'auto.components.right.sidebar.FileExplorerToolbar.openInApp',
+    'Open in {{app}}',
+    {
+      app: appName
+    }
+  )
+}
+
 export function FileExplorerToolbar({
   repoName,
   worktreePath,
@@ -77,7 +85,7 @@ export function FileExplorerToolbar({
               'Collapse All'
             )}
             aria-disabled={!canCollapseAll}
-            // Why: native disabled buttons suppress Radix tooltip triggers in Chromium.
+            // Native disabled buttons suppress Radix tooltip triggers in Chromium.
             onClick={(event) => {
               if (!canCollapseAll) {
                 event.preventDefault()
@@ -184,7 +192,7 @@ export function FileExplorerToolbar({
             runtimeEnvironmentId={runtimeEnvironmentId}
             ownerUnresolved={ownerUnresolved}
             workspace={workspaceId ? { workspaceId } : null}
-            labelPrefix={getOpenInLocalFileManagerPrefix()}
+            formatLabel={formatOpenInAppLabel}
           />
         </DropdownMenuContent>
       </DropdownMenu>

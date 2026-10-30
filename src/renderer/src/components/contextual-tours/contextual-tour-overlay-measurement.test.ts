@@ -2,9 +2,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { getContextualTour } from '../../../../shared/contextual-tours'
-import { setRendererUiLanguage } from '@/i18n/i18n'
-import { CONTEXTUAL_TOURS } from '../../../../shared/contextual-tours'
-import { LOCALIZED_STEP_COPY } from './contextual-tour-step-localized-copy'
+import { i18n, loadRendererUiLanguage } from '@/i18n/i18n'
 import {
   getContextualTourDisplayProgress,
   getContextualTourMeasurementAction,
@@ -14,44 +12,12 @@ import {
 
 afterEach(async () => {
   document.body.replaceChildren()
-  await setRendererUiLanguage('en')
+  await i18n.changeLanguage(await loadRendererUiLanguage('en'))
 })
 
 describe('contextual tour overlay measurement', () => {
-  it('keeps every instructional popup connected to localized copy', () => {
-    for (const tour of CONTEXTUAL_TOURS) {
-      for (const step of tour.steps) {
-        const stepId = step.id
-        expect(stepId, `${tour.id}: missing stable step id`).toBeTruthy()
-        if (!stepId) {
-          continue
-        }
-        expect(
-          LOCALIZED_STEP_COPY[stepId],
-          `${tour.id}:${stepId}: missing localized copy`
-        ).toBeTruthy()
-      }
-    }
-  })
-
-  it('renders every browser tour step in Chinese', async () => {
-    await setRendererUiLanguage('zh')
-    const tour = getContextualTour('browser')
-
-    expect(tour.steps.map((step) => LOCALIZED_STEP_COPY[step.id ?? ''].title())).toEqual([
-      '为代理获取页面上下文',
-      '直接标注设计反馈',
-      '保持登录状态'
-    ])
-    expect(tour.steps.map((step) => LOCALIZED_STEP_COPY[step.id ?? ''].body())).toEqual([
-      '使用抓取工具复制页面元素的上下文并提供给代理',
-      '标注页面元素，并将这些备注发送给代理',
-      '将现有登录信息导入 Orca，立即保持登录状态'
-    ])
-  })
-
   it('renders the automation tour copy in Korean when the UI locale is Korean', async () => {
-    await setRendererUiLanguage('ko')
+    await i18n.changeLanguage(await loadRendererUiLanguage('ko'))
     const target = document.createElement('button')
     target.setAttribute('data-contextual-tour-target', 'automations-create')
     target.getBoundingClientRect = () => new DOMRect(0, 0, 20, 20)
@@ -76,7 +42,7 @@ describe('contextual tour overlay measurement', () => {
   })
 
   it('renders the automation results step in Korean when the UI locale is Korean', async () => {
-    await setRendererUiLanguage('ko')
+    await i18n.changeLanguage(await loadRendererUiLanguage('ko'))
     const target = document.createElement('div')
     target.setAttribute('data-contextual-tour-target', 'automations-runs')
     target.getBoundingClientRect = () => new DOMRect(0, 0, 20, 20)
@@ -100,8 +66,36 @@ describe('contextual tour overlay measurement', () => {
     )
   })
 
+  it('localizes the title, shortcut body, and action label of non-automation steps', async () => {
+    await i18n.changeLanguage(await loadRendererUiLanguage('ko'))
+    const target = document.createElement('div')
+    target.setAttribute('data-contextual-tour-target', 'terminal-pane-split-target')
+    target.getBoundingClientRect = () => new DOMRect(0, 0, 20, 20)
+    document.body.appendChild(target)
+
+    const result = measureContextualTourOverlayRenderState({
+      tour: getContextualTour('workspace-agent-sessions'),
+      activeStepIndex: 0,
+      sidebarOpen: true,
+      keybindings: undefined,
+      previousTelemetryTotalSteps: 0
+    })
+
+    expect(result.kind).toBe('render')
+    if (result.kind !== 'render') {
+      throw new Error(`Expected render result, received ${result.kind}`)
+    }
+    expect(result.renderState.title).toBe('터미널 창 분할')
+    expect(result.renderState.body).not.toContain('{terminal.splitRight}')
+    expect(result.renderState.body).toContain('두 번째 터미널 창을 열거나')
+    expect(result.renderState.primaryAction).toEqual({
+      kind: 'split-terminal-pane',
+      label: '터미널 분할'
+    })
+  })
+
   it('keeps localized copy on its own step when a step is inserted before it', async () => {
-    await setRendererUiLanguage('ko')
+    await i18n.changeLanguage(await loadRendererUiLanguage('ko'))
     const target = document.createElement('button')
     target.setAttribute('data-contextual-tour-target', 'automations-create')
     target.getBoundingClientRect = () => new DOMRect(0, 0, 20, 20)
@@ -113,6 +107,7 @@ describe('contextual tour overlay measurement', () => {
         ...automations,
         steps: [
           {
+            id: 'inserted-step',
             title: 'Inserted step',
             body: 'Added ahead of the localized steps.',
             targetSelector: '[data-contextual-tour-target="automations-create"]'

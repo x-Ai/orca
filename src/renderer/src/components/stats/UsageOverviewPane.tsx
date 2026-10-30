@@ -8,8 +8,7 @@ import { StatCard } from './StatCard'
 import { getRecentUsageDays } from './usage-overview-daily-series'
 import { buildUsageOverview, formatUsageCost, formatUsageTokens } from './usage-overview-model'
 import { DailyIntensityGrid, ProviderUsageRow, TokenMixBar } from './usage-overview-sections'
-import { translate } from '@/i18n/i18n'
-import { formatUpdatedAt } from './usage-formatters'
+import { getIntlLocale, translate } from '@/i18n/i18n'
 
 const RECENT_DAY_COUNT = 42
 
@@ -18,6 +17,15 @@ function formatPercent(value: number | null): string {
     return 'n/a'
   }
   return `${Math.round(value * 100)}%`
+}
+
+function formatUpdatedAt(timestamp: number | null): string {
+  if (!timestamp) {
+    return translate('auto.components.stats.usageFormatters.notScannedYet', 'Not scanned yet')
+  }
+  return translate('auto.components.stats.usageFormatters.updatedAt', 'Updated {{time}}', {
+    time: new Date(timestamp).toLocaleString(getIntlLocale())
+  })
 }
 
 export function UsageOverviewPane(): React.JSX.Element {
@@ -231,7 +239,7 @@ export function UsageOverviewPane(): React.JSX.Element {
                   'auto.components.stats.UsageOverviewPane.327603fe8b',
                   'Active days'
                 )}
-                value={overview.activeDays.toLocaleString()}
+                value={overview.activeDays.toLocaleString(getIntlLocale())}
                 icon={<CalendarDays className="size-4" />}
               />
               <StatCard
@@ -268,16 +276,24 @@ export function UsageOverviewPane(): React.JSX.Element {
               {translate('auto.components.stats.UsageOverviewPane.33f7b043d2', 'Providers')}
             </h4>
             <p className="text-xs text-muted-foreground">
-              {overview.enabledProviderCount}{' '}
-              {translate('auto.components.stats.UsageOverviewPane.ecb0cd8a4c', 'enabled -')}{' '}
-              {overview.dataProviderCount}{' '}
-              {translate('auto.components.stats.UsageOverviewPane.444585cb41', 'with data')}
+              {translate(
+                'auto.components.stats.UsageOverviewPane.providersEnabledWithData',
+                '{{enabled}} enabled - {{withData}} with data',
+                { enabled: overview.enabledProviderCount, withData: overview.dataProviderCount }
+              )}
             </p>
           </div>
           <Badge variant="outline" className="gap-1">
             <Activity className="size-3" />
-            {overview.sessions.toLocaleString()}{' '}
-            {translate('auto.components.stats.UsageOverviewPane.22ed1b7669', 'sessions')}
+            {translate(
+              'auto.components.stats.UsageOverviewPane.sessionCount',
+              '{{formatted}} sessions',
+              {
+                count: overview.sessions,
+                formatted: overview.sessions.toLocaleString(getIntlLocale()),
+                defaultValue_one: '{{formatted}} session'
+              }
+            )}
           </Badge>
         </div>
         <div className="grid gap-3 xl:grid-cols-2">

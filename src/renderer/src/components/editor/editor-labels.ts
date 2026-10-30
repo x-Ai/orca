@@ -15,23 +15,23 @@ function getBaseLabel(file: OpenFile, variant: EditorLabelVariant): string {
   }
 }
 
-const DIFF_SOURCE_I18N_KEYS: Record<string, { key: string; fallback: string }> = {
-  staged: {
-    key: 'renderer.components.editor.editorLabels.stagedDiff',
-    fallback: 'staged diff'
-  },
-  unstaged: {
-    key: 'renderer.components.editor.editorLabels.diff',
-    fallback: 'diff'
-  },
-  branch: {
-    key: 'renderer.components.editor.editorLabels.branchDiff',
-    fallback: 'branch diff'
-  },
-  commit: {
-    key: 'renderer.components.editor.editorLabels.commitDiff',
-    fallback: 'commit diff'
+function getDiffTabLabel(name: string, source: OpenFile['diffSource']): string {
+  if (source === 'staged') {
+    return translate('auto.components.editor.editorLabels.stagedDiff', '{{name}} (staged diff)', {
+      name
+    })
   }
+  if (source === 'branch') {
+    return translate('auto.components.editor.editorLabels.branchDiff', '{{name}} (branch diff)', {
+      name
+    })
+  }
+  if (source === 'commit') {
+    return translate('auto.components.editor.editorLabels.commitDiff', '{{name}} (commit diff)', {
+      name
+    })
+  }
+  return translate('auto.components.editor.editorLabels.diff', '{{name}} (diff)', { name })
 }
 
 export function getEditorDisplayLabel(
@@ -39,7 +39,7 @@ export function getEditorDisplayLabel(
   variant: EditorLabelVariant = 'fileName'
 ): string {
   if (file.mode === 'conflict-review') {
-    return translate('renderer.components.editor.editorLabels.conflictReview', 'Conflict Review')
+    return translate('auto.components.editor.editorLabels.conflictReview', 'Conflict Review')
   }
 
   if (file.mode === 'check-details') {
@@ -47,7 +47,9 @@ export function getEditorDisplayLabel(
   }
 
   if (file.mode === 'markdown-preview') {
-    return `${getBaseLabel(file, variant)} (preview)`
+    return translate('auto.components.editor.editorLabels.preview', '{{name}} (preview)', {
+      name: getBaseLabel(file, variant)
+    })
   }
 
   if (file.mode !== 'diff') {
@@ -56,33 +58,38 @@ export function getEditorDisplayLabel(
 
   const source = file.diffSource
   if (source === 'combined-all') {
-    return translate('renderer.components.editor.editorLabels.allChanges', 'All Changes')
+    return translate('auto.components.editor.editorLabels.allChanges', 'All Changes')
   }
   if (source === 'combined-uncommitted') {
     return file.combinedAreaFilter
       ? getBaseLabel(file, variant)
-      : translate(
-          'renderer.components.editor.editorLabels.uncommittedChanges',
-          'Uncommitted Changes'
-        )
+      : translate('auto.components.editor.editorLabels.uncommittedChanges', 'Uncommitted Changes')
   }
   if (source === 'combined-branch') {
-    return translate(
-      'renderer.components.editor.editorLabels.branchChanges',
-      'Branch Changes ({{baseRef}})',
-      { baseRef: file.branchCompare?.baseRef ?? 'base' }
-    )
+    return file.branchCompare?.baseRef
+      ? translate(
+          'auto.components.editor.editorLabels.branchChanges',
+          'Branch Changes ({{baseRef}})',
+          {
+            baseRef: file.branchCompare.baseRef
+          }
+        )
+      : translate('auto.components.editor.editorLabels.branchChangesBase', 'Branch Changes (base)')
   }
   if (source === 'combined-commit') {
-    return file.commitCompare?.subject
-      ? `Commit ${file.commitCompare.compareRef}: ${file.commitCompare.subject}`
-      : `Commit ${file.commitCompare?.compareRef ?? 'diff'}`
+    if (file.commitCompare?.subject) {
+      return translate(
+        'auto.components.editor.editorLabels.commitWithSubject',
+        'Commit {{ref}}: {{subject}}',
+        { ref: file.commitCompare.compareRef, subject: file.commitCompare.subject }
+      )
+    }
+    return file.commitCompare?.compareRef
+      ? translate('auto.components.editor.editorLabels.commit', 'Commit {{ref}}', {
+          ref: file.commitCompare.compareRef
+        })
+      : translate('auto.components.editor.editorLabels.commitDiffFallback', 'Commit diff')
   }
 
-  const baseLabel = getBaseLabel(file, variant)
-  const i18nConfig = source && DIFF_SOURCE_I18N_KEYS[source]
-  const suffix = i18nConfig
-    ? translate(i18nConfig.key, i18nConfig.fallback)
-    : translate('renderer.components.editor.editorLabels.diff', 'diff')
-  return `${baseLabel} (${suffix})`
+  return getDiffTabLabel(getBaseLabel(file, variant), source)
 }

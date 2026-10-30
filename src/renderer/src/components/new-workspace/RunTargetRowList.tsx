@@ -7,10 +7,6 @@ import { HostRowIcon, RunTargetRow } from './RunTargetComboboxRow'
 import { ConnectHostButton, NeedsSetupHostIcon, SetLocationButton } from './RunTargetRowActions'
 import { RecipesSubmenuRow } from './RunTargetSubmenus'
 import type { EphemeralVmRecipeOption, RunTargetRowModel } from './run-target-options'
-import {
-  translateExecutionHostDetail,
-  translateExecutionHostLabel
-} from '@/components/sidebar/execution-host-label'
 
 /** The scrolling rows of the run-target picker; "Add host" is pinned outside this list. */
 export default function RunTargetRowList({
@@ -63,7 +59,7 @@ export default function RunTargetRowList({
             <RunTargetRow
               key={row.key}
               icon={<HostRowIcon hostId={row.option.hostId} />}
-              label={translateExecutionHostLabel(row.option.label)}
+              label={row.option.label}
               detail={row.option.path}
               armed={isArmed}
               current={row.option === selectedHost}
@@ -87,12 +83,9 @@ export default function RunTargetRowList({
                   attention={row.option.attention}
                 />
               }
-              label={translateExecutionHostLabel(row.option.label)}
-              // Why: Connect / Set project location already say the next
-              // step, so the detail line would only repeat that.
-              detail={
-                hasConnect || hasSetLocation ? '' : translateExecutionHostDetail(row.option.detail)
-              }
+              label={row.option.label}
+              // Inline Connect/Set location already provides the next step; omit duplicate detail text.
+              detail={hasConnect || hasSetLocation ? '' : row.option.detail}
               armed={isArmed}
               current={false}
               dimmed
@@ -107,7 +100,7 @@ export default function RunTargetRowList({
                   />
                 ) : hasSetLocation ? (
                   <SetLocationButton
-                    hostLabel={translateExecutionHostLabel(row.option.label)}
+                    hostLabel={row.option.label}
                     onSetLocation={() => onSetLocation(row.option)}
                   />
                 ) : undefined
@@ -115,7 +108,6 @@ export default function RunTargetRowList({
             />
           )
         }
-        // Recipes submenu row.
         return (
           <RecipesSubmenuRow
             key={row.key}

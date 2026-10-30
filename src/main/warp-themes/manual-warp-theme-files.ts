@@ -1,8 +1,8 @@
+import { translateMain } from '../i18n/main-i18n'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { BrowserWindow, dialog, type OpenDialogOptions, type WebContents } from 'electron'
 import type { WarpThemeImportSkippedFile } from '../../shared/terminal-custom-themes'
-import { translateMain } from '../i18n/main-i18n'
 import { isYamlFile, MAX_THEME_FILES, type ThemeFileCandidate } from './theme-file-scanner'
 
 export function createManualWarpThemeFileCandidates(filePaths: string[]): ThemeFileCandidate[] {
@@ -11,7 +11,6 @@ export function createManualWarpThemeFileCandidates(filePaths: string[]): ThemeF
     label: path.basename(filePath),
     contentHashDiscriminator: true
   }))
-  // Picking a single file is the common dialog outcome and needs no collation.
   if (candidates.length < 2) {
     return candidates
   }
@@ -21,8 +20,7 @@ export function createManualWarpThemeFileCandidates(filePaths: string[]): ThemeF
     if (labelComparison !== 0) {
       return labelComparison
     }
-    // Why: manual dialogs can return selections in click order. Sort only in
-    // main so duplicate basenames get deterministic IDs without persisting paths.
+    // Normalize click-ordered selections in main so duplicate basenames get deterministic IDs without persisting paths.
     return compareLabels(left.path, right.path)
   })
 }
@@ -42,11 +40,11 @@ export async function chooseManualWarpThemeFiles(webContents?: WebContents): Pro
 > {
   const ownerWindow = webContents ? BrowserWindow.fromWebContents(webContents) : null
   const options: OpenDialogOptions = {
-    title: translateMain('auto.main.warpThemes.importFileTitle', 'Import Warp Theme'),
+    title: translateMain('native.dialog.importWarpTheme', 'Import Warp Theme'),
     properties: ['openFile', 'multiSelections'],
     filters: [
       {
-        name: translateMain('auto.main.warpThemes.yamlFileFilter', 'Warp theme YAML'),
+        name: translateMain('native.dialog.warpThemeYaml', 'Warp theme YAML'),
         extensions: ['yaml', 'yml']
       }
     ]
@@ -81,7 +79,7 @@ export async function chooseManualWarpThemeFolderPath(
 ): Promise<string | null> {
   const ownerWindow = webContents ? BrowserWindow.fromWebContents(webContents) : null
   const options: OpenDialogOptions = {
-    title: translateMain('auto.main.warpThemes.importFolderTitle', 'Import Warp Theme Folder'),
+    title: translateMain('native.dialog.importWarpFolder', 'Import Warp Theme Folder'),
     properties: ['openDirectory']
   }
   const result = ownerWindow

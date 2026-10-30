@@ -91,11 +91,10 @@ export const ZH_VALUE_OVERRIDES = {
   'Quick actions': '快捷操作',
   'action recipes': '操作方案',
   'Repository action recipes. Global settings are used until this repository customizes them.':
-    '仓库操作方案。在此仓库自定义之前，将使用全局设置',
+    '仓库操作方案。在此仓库自定义之前，将使用全局设置。',
   'Adds action recipes for Source Control commit, pull request, branch-name, and fix actions.':
-    '为源代码管理的提交、拉取请求、分支命名和修复操作添加操作方案',
-  // Workspace status icon and color swatch labels; siblings below are translated, so English
-  // pins here would leave the picker half-Chinese on the next catalog regeneration.
+    '为源代码管理的提交、拉取请求、分支命名和修复操作添加操作方案。',
+  // Picker siblings are translated; English pins here would regenerate half-Chinese UI.
   Play: '播放',
   Flag: '标记',
   Zinc: '锌灰',
@@ -117,6 +116,24 @@ export const ZH_VALUE_OVERRIDES = {
   'Conductor Progress': 'Conductor 进度',
   'Conductor Review': 'Conductor 评审',
   'Conductor Done': 'Conductor 完成',
+  'Detecting agents...': '正在检测智能体...',
+  'Agents spawned': '已启动智能体',
+  'floating terminal': '浮动终端',
+  'New Issue': '新建议题',
+  'No issues match the selected filters. Clear a filter or try different criteria.':
+    '没有议题符合所选筛选条件。请清除筛选条件或尝试其他条件。',
+  'No issues in this workspace scope. Try searching or adjusting teams.':
+    '此工作区范围内没有议题。请尝试搜索或调整团队。',
+  'Close as duplicate': '作为重复议题关闭',
+  'Reply in this review thread': '在此评审线程中回复',
+  'Failed to add review comment.': '添加评审评论失败。',
+  'Localhost Worktree Labels': 'localhost 工作树标签',
+  'Open workspace ports as worktree-specific Orca localhost URLs so browser tabs are easier to tell apart.':
+    '将工作区端口作为工作树专属的 Orca localhost URL 打开，便于区分浏览器标签页。',
+  'Permanently deletes the remote Git worktrees and their branches. Cannot be undone.':
+    '永久删除远程 Git 工作树及其分支。此操作不可撤销。',
+  'Clears them from Orca only. Remote files, worktrees, and branches are left untouched.':
+    '仅从 Orca 中清除。远程文件、工作树和分支均不受影响。',
   'GitHub reports this pull request is blocked': 'GitHub 报告此拉取请求已被阻塞',
   'GitHub requires review approval before this pull request can merge':
     'GitHub 需要评审批准才能合并此拉取请求',
@@ -124,19 +141,19 @@ export const ZH_VALUE_OVERRIDES = {
     '由继承全局托管评审默认值的仓库使用。',
   'Use review template when available': '可用时使用评审模板',
   'Create hosted reviews as drafts unless changed in the composer.':
-    '除非在编辑器中更改，否则将托管评审创建为草稿',
-  'Start an agent from failed hosted-review checks.': '从失败的托管评审检查中启动代理。',
+    '除非在编辑器中更改，否则将托管评审创建为草稿。',
+  'Start an agent from failed hosted-review checks.': '从失败的托管评审检查中启动智能体。',
   'Checks require a Git branch and hosted review context': '检查需要 Git 分支和托管评审上下文',
   'Resolve Review Conflicts With AI': '使用 AI 解决评审冲突',
   'Hosted review operation in progress…': '托管评审操作进行中…',
   'Hosted review creation defaults': '托管评审创建默认值',
   'Open hosted review after creation': '创建后打开托管评审',
   'Hosted review creation defaults used when the hosted review editor opens.':
-    '打开托管评审编辑器时使用的托管评审创建默认值',
+    '打开托管评审编辑器时使用的托管评审创建默认值。',
   'Run hosted review detail generation once when the editor opens.':
-    '编辑器打开时运行一次托管评审详情生成',
+    '编辑器打开时运行一次托管评审详情生成。',
   'Show local Markdown review notes controls in rich editor mode.':
-    '在富文本编辑器模式下显示本地 Markdown 评审笔记控件',
+    '在富文本编辑器模式下显示本地 Markdown 评审笔记控件。',
   'Orca IDE': 'Orca IDE',
   'Orca first': 'Orca 优先',
   'Orca Mobile': 'Orca Mobile',
@@ -160,41 +177,41 @@ export const ZH_VALUE_OVERRIDES = {
   'Claude Code session started': 'Claude Code 会话已开始',
   'Codex session started': 'Codex 会话已开始',
   'Enable Codex': '启用 Codex',
-  'Most recent local Codex sessions in this scope.': '此范围内最近的本地 Codex 会话',
+  'Most recent local Codex sessions in this scope.': '此范围内最近的本地 Codex 会话。',
   'Hosted-review creation defaults': '托管评审创建默认值',
-  'Defaults used when the hosted-review composer opens.': '打开托管评审编辑器时使用的默认值',
+  'Defaults used when the hosted-review composer opens.': '打开托管评审编辑器时使用的默认值。',
   'Run hosted-review detail generation once when the composer opens.':
-    '编辑器打开时运行一次托管评审详情生成',
+    '编辑器打开时运行一次托管评审详情生成。',
   'Show local markdown review note controls in rich editor mode.':
     '在富文本编辑器模式下显示本地 Markdown 评审笔记控件。',
   'Start an agent for local or hosted-review merge conflicts.':
-    '启动用于解决本地或托管评审合并冲突的代理',
+    '启动用于解决本地或托管评审合并冲突的智能体。',
   'changed since you last approved. Re-review before it runs':
     '自您上次批准以来已发生变化。运行前请重新评审',
   'Run the weekly dependency audit and summarize risky changes.':
-    '每周运行依赖项审计并总结有风险的更改',
+    '每周运行依赖项审计并总结有风险的更改。',
   'This turns on a process-wide Electron networking switch after restart. Use it for corporate VPNs or proxies that reject HTTP/2 update downloads.':
-    '这将在重启后启用进程级 Electron 网络开关。适用于拒绝 HTTP/2 更新下载的企业 VPN 或代理',
+    '这将在重启后启用进程级 Electron 网络开关。适用于拒绝 HTTP/2 更新下载的企业 VPN 或代理。',
   'Use only when a corporate VPN or proxy breaks update downloads with HTTP/2 protocol errors. It affects all Electron networking after restart.':
-    '仅当企业 VPN 或代理因 HTTP/2 协议错误而中断更新下载时使用。重启后会影响所有 Electron 网络',
+    '仅当企业 VPN 或代理因 HTTP/2 协议错误而中断更新下载时使用。重启后会影响所有 Electron 网络。',
   'Use HTTP/1.1 for Electron networking when HTTP/2 fails behind a proxy.':
-    '当 HTTP/2 在代理后面失败时，使用 HTTP/1.1 进行 Electron 网络',
+    '当 HTTP/2 在代理后面失败时，使用 HTTP/1.1 进行 Electron 网络。',
   'Proxy Bypass Rules': '代理绕过规则',
-  'Hosts that should bypass the configured HTTP proxy.': '应绕过配置的 HTTP 代理的主机',
+  'Hosts that should bypass the configured HTTP proxy.': '应绕过配置的 HTTP 代理的主机。',
   'Leave empty to use system proxy settings and inherited proxy environment variables.':
-    '留空以使用系统代理设置和继承的代理环境变量',
+    '留空以使用系统代理设置和继承的代理环境变量。',
   'Proxy Command': '代理命令',
   "Give agents direct access to Orca's browser so they can test pages, capture screenshots, and act on what they see.":
-    '让代理直接访问 Orca 的浏览器，以便测试页面、捕获屏幕截图并根据所见内容执行操作',
-  'X finishes, send it the review task.”': 'X 完成后，把评审任务发给它”',
+    '让智能体直接访问 Orca 的浏览器，以便测试页面、捕获屏幕截图并根据所见内容执行操作。',
+  'X finishes, send it the review task.”': 'X 完成后，把评审任务发给它。”',
   'Branch naming, base refs, and Git AI Author.': '分支命名、基础引用和 Git AI Author。',
   'You have unsaved Git AI Author changes. Leaving will discard them.':
-    '您有未保存的 Git AI Author 更改。离开将丢弃它们',
+    '您有未保存的 Git AI Author 更改。离开将丢弃它们。',
   'Discard unsaved Git AI Author changes?': '放弃未保存的 Git AI Author 更改？',
   'Create a Linear project for the selected team.': '为所选团队创建 Linear 项目。',
   'Linear task mode': 'Linear 任务模式',
-  'Failed to switch Linear workspace.': '无法切换 Linear 工作区',
-  'Linear project is missing workspace context.': 'Linear 项目缺少工作区上下文',
+  'Failed to switch Linear workspace.': '无法切换 Linear 工作区。',
+  'Linear project is missing workspace context.': 'Linear 项目缺少工作区上下文。',
   'No Linear projects found': '未找到 Linear 项目',
   'Unable to load Linear projects': '无法加载 Linear 项目',
   'Change Linear state from {{value0}}': '将 Linear 状态从 {{value0}} 更改为',
@@ -202,7 +219,7 @@ export const ZH_VALUE_OVERRIDES = {
   'Each connected Linear workspace has one key stored by the active runtime. Full-access keys can cover all teams the key owner can access; restricted keys can be replaced any time.':
     '每个已连接的 Linear 工作区都有一个由活动运行时存储的密钥。全权限密钥可覆盖密钥所有者可访问的所有团队；受限密钥可随时更换。',
   'Show Linear in the Tasks source picker and sidebar shortcuts.':
-    '在任务源选择器和侧边栏快捷方式中显示 Linear',
+    '在任务源选择器和侧边栏快捷方式中显示 Linear。',
   'Local project, Git repo, or folder with many repos': '本地项目、Git 仓库或包含多个仓库的文件夹',
   'Staged Changes': '已暂存的更改',
   Changes: '更改',

@@ -1,6 +1,7 @@
+import { useActiveProjectSkillRuntime } from '@/hooks/useActiveProjectSkillRuntime'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import { ORCA_CLI_SKILL_NAME } from '@/lib/agent-feature-install-commands'
+import { ORCA_CLI_SKILL_NAME } from '@/lib/agent-feature-skill-names'
 import {
   GLOBAL_AGENT_SKILL_SOURCE_KINDS,
   useInstalledAgentSkill
@@ -11,6 +12,7 @@ import { formatCliUserFacingDetail } from '@/lib/cli-emulator-user-facing-copy'
 
 // Why: Orca terminals already provide the `orca` command, so agent control only needs the skill.
 export function useMobileEmulatorAgentSetupState(enabled = true): {
+  skillRuntime: ReturnType<typeof useActiveProjectSkillRuntime>
   cliSkillError: string | null
   cliSkillInstalled: boolean
   cliSkillLoading: boolean
@@ -20,6 +22,7 @@ export function useMobileEmulatorAgentSetupState(enabled = true): {
   setupRechecking: boolean
   statusReady: boolean
 } {
+  const skillRuntime = useActiveProjectSkillRuntime()
   const [setupRechecking, setSetupRechecking] = useState(false)
   const mountedRef = useMountedRef()
   const {
@@ -29,6 +32,8 @@ export function useMobileEmulatorAgentSetupState(enabled = true): {
     refresh: refreshCliSkill
   } = useInstalledAgentSkill(ORCA_CLI_SKILL_NAME, {
     enabled,
+    runtimeTarget: skillRuntime.discoveryRuntimeTarget,
+    discoveryTarget: skillRuntime.discoveryTarget,
     sourceKinds: GLOBAL_AGENT_SKILL_SOURCE_KINDS
   })
 
@@ -88,6 +93,7 @@ export function useMobileEmulatorAgentSetupState(enabled = true): {
   }, [mountedRef, refreshCliSkill, setupRechecking])
 
   return {
+    skillRuntime,
     cliSkillError,
     cliSkillInstalled,
     cliSkillLoading,

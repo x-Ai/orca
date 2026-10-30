@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/context-menu'
 import type { WorkspacePort } from '../../../../shared/workspace-ports'
 import { translate } from '@/i18n/i18n'
-import { translateUnassignedLabel } from '@/i18n/unassigned-label'
 
 const LOCAL_PORT_MENU_CONTENT_CLASS =
   '!rounded-md !border-border/60 !bg-popover !text-popover-foreground !shadow-[0_10px_24px_rgba(0,0,0,0.18)] !backdrop-blur-none'
@@ -57,8 +56,7 @@ export function LocalPortRow({
 
   const handleOpenBrowserButtonClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      // Why: keyboard activations have detail=0; only pointer clicks carry
-      // the modifier intent for the system-browser escape hatch.
+      // Keyboard clicks have detail=0; only pointer clicks carry the system-browser modifier intent.
       handleOpenBrowser(event.detail > 0 ? event : undefined)
       if (event.detail > 0) {
         event.currentTarget.blur()
@@ -77,14 +75,21 @@ export function LocalPortRow({
     [onStop, port]
   )
 
-  const processLabel = port.processName ?? (port.pid ? `PID ${port.pid}` : 'Unknown process')
+  const processLabel =
+    port.processName ??
+    (port.pid
+      ? `PID ${port.pid}`
+      : translate('auto.components.right.sidebar.PortsPanel.unknownProcess', 'Unknown process'))
   const address = addressForPort(port)
   const ownerLabel =
     port.kind === 'workspace'
       ? port.owner.displayName
       : port.kind === 'container'
-        ? 'Container or forwarded service'
-        : translateUnassignedLabel()
+        ? translate(
+            'auto.components.right.sidebar.PortsPanel.containerOrForwardedService',
+            'Container or forwarded service'
+          )
+        : translate('auto.components.right.sidebar.PortsPanel.unassigned', 'Unassigned')
   const openBrowserLabel = translate(
     'auto.components.right.sidebar.PortsPanel.b22b128b2a',
     'Open in Browser'

@@ -1,3 +1,5 @@
+import { translate } from '@/i18n/i18n'
+import { taskProviderErrorText } from '@/lib/task-provider-error-copy'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { createBrowserUuid } from '@/lib/browser-uuid'
@@ -11,7 +13,6 @@ import {
 } from '@/components/LinearItemDrawer'
 import type { LinearComment, LinearIssue } from '../../../shared/linear/issue-types'
 import type { LinearProjectSummary } from '../../../shared/linear/project-types'
-import { translate } from '@/i18n/i18n'
 
 const EDITED_LINEAR_ISSUE_FIELDS = [
   'state',
@@ -108,7 +109,7 @@ export function useLinearIssueWorkspaceDetail({
       id: comment.id || createBrowserUuid(),
       body: comment.body,
       createdAt: comment.createdAt,
-      user: { displayName: 'You' }
+      user: { displayName: translate('auto.components.issueComments.you', 'You') }
     }
     optimisticCommentsRef.current.push(added)
     setComments((current) => [...current, added])
@@ -129,11 +130,8 @@ export function useLinearIssueWorkspaceDetail({
           if (mountedRef.current && requestId === commentsRequestIdRef.current) {
             setCommentsError(
               error instanceof Error
-                ? error.message
-                : translate(
-                    'components.toastFallbacks.commentsLoadFailed',
-                    'Failed to load comments.'
-                  )
+                ? taskProviderErrorText(error.message)
+                : translate('taskProviders.linear.commentsLoadFailed', 'Failed to load comments.')
             )
           }
         })

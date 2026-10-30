@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useTranslation } from 'react-i18next'
+import { refreshRuntimeEnvironmentCatalog } from '@/runtime/runtime-environment-pairing-refresh'
 import {
   ArchiveRestore,
   ChevronRight,
@@ -35,7 +35,6 @@ import { translate } from '@/i18n/i18n'
 import type { AiVaultHostScopeOption } from './ai-vault-host-scope'
 import { AiVaultSessionLimitMenu } from './AiVaultSessionLimitMenu'
 import type { AiVaultSessionLimit } from './ai-vault-session-limit'
-import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
 
 const VAULT_HEADER_CONTROL_CLASS = 'size-6 shrink-0'
 
@@ -136,18 +135,20 @@ export function VaultScopeSwitch({
         value="workspace"
         disabled={!workspaceAvailable}
         className={VAULT_SCOPE_TOGGLE_ITEM_CLASS}
+        title={workspaceLabel}
       >
-        {workspaceLabel}
+        <span className="min-w-0 truncate">{workspaceLabel}</span>
       </ToggleGroupItem>
       <ToggleGroupItem
         value="project"
         disabled={!projectAvailable}
         className={VAULT_SCOPE_TOGGLE_ITEM_CLASS}
+        title={projectLabel}
       >
-        {projectLabel}
+        <span className="min-w-0 truncate">{projectLabel}</span>
       </ToggleGroupItem>
-      <ToggleGroupItem value="all" className={VAULT_SCOPE_TOGGLE_ITEM_CLASS}>
-        {allLabel}
+      <ToggleGroupItem value="all" className={VAULT_SCOPE_TOGGLE_ITEM_CLASS} title={allLabel}>
+        <span className="min-w-0 truncate">{allLabel}</span>
       </ToggleGroupItem>
     </ToggleGroup>
   )
@@ -162,14 +163,18 @@ export function VaultHostScopeMenu({
   hostOptions: readonly AiVaultHostScopeOption[]
   onExecutionHostScopeChange: (scope: ExecutionHostScope) => void
 }): React.JSX.Element {
-  useTranslation()
   const selectedOption = hostOptions.find((option) => option.id === executionHostScope)
-  const label = translateExecutionHostLabel(
-    selectedOption?.label ?? getExecutionHostLabel(executionHostScope)
-  )
+  const label = selectedOption?.label ?? getExecutionHostLabel(executionHostScope)
 
   return (
-    <DropdownMenu>
+    <DropdownMenu
+      onOpenChange={(open) => {
+        // A fresh profile has no saved-server file to watch until the first CLI add creates it.
+        if (open) {
+          void refreshRuntimeEnvironmentCatalog()
+        }
+      }}
+    >
       <DropdownMenuTrigger asChild>
         <Button
           type="button"
@@ -196,7 +201,7 @@ export function VaultHostScopeMenu({
         >
           {hostOptions.map((option) => (
             <DropdownMenuRadioItem key={option.id} value={option.id}>
-              {translateExecutionHostLabel(option.label)}
+              {option.label}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
@@ -269,12 +274,11 @@ export function VaultViewMenu({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={6} className="w-56">
-        {/* Why: Select all / Clear lets users isolate one agent without unchecking 15 boxes. */}
         <div className="flex items-center justify-between px-2 py-1">
           <span className="text-[11px] font-semibold text-muted-foreground">
             {translate('auto.components.right.sidebar.AiVaultPanelControls.agents', 'Agents')}
           </span>
-          {/* Why: real menu items so arrow keys reach them; plain buttons are skipped by Radix roving focus. */}
+          {/* Use menu items so Radix arrow navigation can reach Select all/Clear. */}
           <div className="flex items-center gap-1">
             <DropdownMenuItem
               disabled={allAgentsSelected}

@@ -4,7 +4,7 @@ import {
   jiraListTransitionsForTarget
 } from '@/runtime/runtime-jira-client'
 import type { RuntimeClientTarget } from '../../../shared/runtime-client-target'
-import type { JiraComment, JiraIssue, JiraTransition } from '../../../shared/jira-types'
+import type { JiraComment, JiraIssue, JiraTransition } from '../../../shared/jira/jira-types'
 import { translate } from '@/i18n/i18n'
 
 export function useJiraIssueRemoteDetails(
@@ -45,7 +45,7 @@ export function useJiraIssueRemoteDetails(
             error instanceof Error
               ? error.message
               : translate(
-                  'components.toastFallbacks.commentsLoadFailed',
+                  'auto.components.jiraIssue.loadCommentsFailed',
                   'Failed to load comments.'
                 )
           )
@@ -83,7 +83,7 @@ export function useJiraIssueRemoteDetails(
             error instanceof Error
               ? error.message
               : translate(
-                  'auto.components.TaskPage.jiraBoard.loadStatusChangesFailed',
+                  'auto.components.jiraIssue.loadStatusChangesFailed',
                   'Failed to load status changes.'
                 )
           )

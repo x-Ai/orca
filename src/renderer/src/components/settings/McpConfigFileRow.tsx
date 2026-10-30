@@ -15,39 +15,21 @@ type McpConfigFileRowProps = {
 
 function statusLabel(config: LoadedMcpConfigInspection): string {
   if (config.readError) {
-    return translate('auto.components.settings.McpConfigFileRow.unreadable', 'Unreadable')
+    return translate('settings.mcp.unreadable', 'Unreadable')
   }
   if (config.status === 'missing') {
-    return translate('auto.components.settings.McpConfigFileRow.notFound', 'Not found')
+    return translate('settings.mcp.notFound', 'Not found')
   }
   if (config.status === 'invalid') {
-    return translate('auto.components.settings.McpConfigFileRow.invalidJson', 'Invalid JSON')
+    return translate('settings.mcp.invalidJson', 'Invalid JSON')
   }
   if (config.servers.length === 0) {
-    return translate('auto.components.settings.McpConfigFileRow.noServers', 'No servers')
+    return translate('settings.mcp.noServers', 'No servers')
   }
-  return mcpServerCountLabel(config.servers.length)
-}
-
-export function mcpServerCountLabel(count: number): string {
-  return count === 1
-    ? translate('auto.components.settings.McpConfigFileRow.oneServer', '1 server')
-    : translate('auto.components.settings.McpConfigFileRow.nServers', '{{count}} servers', {
-        count
-      })
-}
-
-export function mcpConfigCandidateLabel(candidate: LoadedMcpConfigInspection['candidate']): string {
-  if (candidate.relativePath === '.mcp.json') {
-    return translate('auto.components.settings.McpConfigFileRow.workspace', 'Workspace')
-  }
-  if (candidate.relativePath === '.claude/mcp.json') {
-    return translate(
-      'auto.components.settings.McpConfigFileRow.claudeWorkspace',
-      'Claude workspace'
-    )
-  }
-  return candidate.label
+  return translate('settings.mcp.serverCount', '{{count}} servers', {
+    count: config.servers.length,
+    defaultValue_one: '{{count}} server'
+  })
 }
 
 function statusClassName(config: LoadedMcpConfigInspection): string {
@@ -62,20 +44,12 @@ function statusClassName(config: LoadedMcpConfigInspection): string {
 
 function serverDetailLabel(server: LoadedMcpConfigInspection['servers'][number]): string {
   if (server.transport === 'http') {
-    return (
-      server.url ?? translate('auto.components.settings.McpConfigFileRow.httpServer', 'HTTP server')
-    )
+    return server.url ?? translate('settings.mcp.httpServer', 'HTTP server')
   }
   if (server.transport === 'stdio') {
-    return (
-      server.command ??
-      translate('auto.components.settings.McpConfigFileRow.stdioServer', 'stdio server')
-    )
+    return server.command ?? translate('settings.mcp.stdioServer', 'stdio server')
   }
-  return (
-    server.issue ??
-    translate('auto.components.settings.McpConfigFileRow.invalidServer', 'Invalid server')
-  )
+  return server.issue ?? translate('settings.mcp.invalidServer', 'Invalid server')
 }
 
 export function McpConfigFileRow({ config, onOpen }: McpConfigFileRowProps): React.JSX.Element {
@@ -90,7 +64,11 @@ export function McpConfigFileRow({ config, onOpen }: McpConfigFileRowProps): Rea
         <div className="min-w-0 flex-1">
           <div className="flex min-w-0 items-center gap-2">
             <p className="truncate text-sm font-medium">
-              {mcpConfigCandidateLabel(config.candidate)}
+              {config.candidate.relativePath === '.mcp.json'
+                ? translate('settings.mcp.workspace', 'Workspace')
+                : config.candidate.relativePath === '.claude/mcp.json'
+                  ? translate('settings.mcp.claudeWorkspace', 'Claude workspace')
+                  : config.candidate.label}
             </p>
             <p className="truncate font-mono text-[11px] text-muted-foreground">
               {config.candidate.relativePath}

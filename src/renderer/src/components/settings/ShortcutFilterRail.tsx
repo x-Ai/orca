@@ -8,11 +8,6 @@ import { Input } from '../ui/input'
 import type { ShortcutTerminalStatus } from './shortcut-terminal-status'
 import { matchesSettingsSearch, type SettingsSearchEntry } from './settings-search'
 import { translate } from '@/i18n/i18n'
-import {
-  translateShortcutActionTitle,
-  translateShortcutFilterLabel,
-  translateShortcutGroupTitle
-} from './shortcut-action-copy'
 
 export type ShortcutFilter = 'all' | 'modified' | 'unassigned' | 'conflicts'
 
@@ -30,11 +25,13 @@ export type ShortcutRowsByGroup = {
   rows: ShortcutRowModel[]
 }
 
-const SHORTCUT_FILTER_LABELS: Record<ShortcutFilter, string> = {
-  all: 'All',
-  modified: 'Modified',
-  unassigned: 'Unassigned',
-  conflicts: 'Conflicts'
+const SHORTCUT_FILTER_LABELS: Record<ShortcutFilter, () => string> = {
+  all: () => translate('auto.components.settings.ShortcutFilterRail.filterAll', 'All'),
+  modified: () => translate('auto.components.settings.ShortcutCommandBlock.287e07ddde', 'Modified'),
+  unassigned: () =>
+    translate('auto.components.settings.ShortcutFilterRail.filterUnassigned', 'Unassigned'),
+  conflicts: () =>
+    translate('auto.components.settings.ShortcutFilterRail.filterConflicts', 'Conflicts')
 }
 
 export const SHORTCUT_LOCAL_SEARCH_QUERY_MAX_BYTES = 2 * 1024
@@ -54,20 +51,18 @@ export function normalizeShortcutLocalSearchQuery(query: string): string | null 
 }
 
 export function getShortcutSearchEntry(row: ShortcutRowModel): SettingsSearchEntry {
-  const groupTitle = translateShortcutGroupTitle(row.groupTitle)
   return {
-    title: translateShortcutActionTitle(row.item.id, row.item.title),
+    title: row.item.title,
     description: translate(
       'auto.components.settings.ShortcutFilterRail.1d5634ba31',
       '{{value0}} shortcut',
-      { value0: groupTitle }
+      { value0: row.groupTitle }
     ),
     keywords: [...row.item.searchKeywords]
   }
 }
 
-// Why: a sidebar query can select this pane by title alone while matching zero
-// rows; that would blank the list, so zero-row queries keep every row visible.
+// Title-only sidebar queries can select the pane without matching rows; keep all rows rather than blanking it.
 export function buildShortcutGlobalSearchMatcher(
   rows: readonly ShortcutRowModel[],
   searchQuery: string
@@ -103,10 +98,8 @@ export function matchesShortcutLocalSearch(
   }
   const searchableText = [
     row.item.title,
-    translateShortcutActionTitle(row.item.id, row.item.title),
     row.item.id,
     row.groupTitle,
-    translateShortcutGroupTitle(row.groupTitle),
     ...row.item.searchKeywords,
     formatKeybindingList(row.effective, platform)
   ]
@@ -132,7 +125,7 @@ export function ShortcutFilterRail({
 }): React.JSX.Element {
   const filters = (Object.keys(SHORTCUT_FILTER_LABELS) as ShortcutFilter[]).map((id) => ({
     id,
-    label: translateShortcutFilterLabel(id),
+    label: SHORTCUT_FILTER_LABELS[id](),
     count: filterCounts[id]
   }))
 

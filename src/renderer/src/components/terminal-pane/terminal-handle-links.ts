@@ -5,9 +5,11 @@ import { activateTabAndFocusPane } from '@/lib/activate-tab-and-focus-pane'
 import { focusTerminalTabSurface } from '@/lib/focus-terminal-tab-surface'
 import { revealWorkspaceSurface } from '@/lib/workspace-surface-reveal'
 import { callRuntimeRpc } from '@/runtime/runtime-rpc-client'
-import { parseRemoteRuntimePtyId } from '../../../../shared/remote-runtime-pty-id'
-import { translate } from '@/i18n/i18n'
-import { buildWrappedLogicalLine, rangeForParsedFileLink } from './wrapped-terminal-link-ranges'
+import { parseRemoteRuntimePtyId } from '../../../../shared/remote-runtime/remote-runtime-pty-id'
+import {
+  buildWrappedLogicalLine,
+  rangeForParsedFileLink
+} from '../../../../shared/wrapped-terminal-link-ranges'
 import {
   extractOrchestrationTaskLinks,
   focusRuntimeOrchestrationTask,
@@ -21,6 +23,7 @@ import {
   requestTerminalLinkAction,
   type TerminalLinkActionContext
 } from './terminal-link-action-request'
+import { translate } from '@/i18n/i18n'
 
 export { extractOrchestrationTaskLinks } from './terminal-orchestration-task-links'
 export type { ParsedOrchestrationTaskLink } from './terminal-orchestration-task-links'
@@ -259,8 +262,7 @@ async function activateParsedLink(
       }
       return
     }
-    // Why: a task can be retried onto a new dispatch; runtime DB is the
-    // authority for the latest terminal assigned to a stable task ID.
+    // Retries change dispatches; runtime DB owns the latest terminal for a stable task ID.
     await focusRuntimeOrchestrationTask(parsed.text, runtimeEnvironmentId, (handle) =>
       focusRendererTerminalHandle(handle, runtimeEnvironmentId)
     )
@@ -290,15 +292,10 @@ function ptyIdMatchesTerminalHandle(
 }
 
 function getTerminalHandleFocusHint(showActions: boolean): string {
-  const prefix = showActions
-    ? translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.clickForActionsOr',
-        'Click for actions or '
-      )
-    : ''
+  const prefix = showActions ? 'Click for actions or ' : ''
   return navigator.userAgent.includes('Mac')
-    ? `${prefix}${translate('auto.components.terminal.pane.terminal.handle.links.mac.switch.terminal', '⌘+click to switch terminal')}`
-    : `${prefix}${translate('auto.components.terminal.pane.terminal.handle.links.windows.switch.terminal', 'Ctrl+click to switch terminal')}`
+    ? `${prefix}⌘+click to switch terminal`
+    : `${prefix}Ctrl+click to switch terminal`
 }
 
 export async function focusRuntimeTerminalHandle(
@@ -309,7 +306,6 @@ export async function focusRuntimeTerminalHandle(
   const target = environmentId
     ? ({ kind: 'environment', environmentId } as const)
     : ({ kind: 'local' } as const)
-  // Why: main owns the `term_*` mapping. Defer to terminal.focus on click
-  // instead of mirroring that state in renderer hover parsing.
+  // Main owns term_* mapping; resolve through terminal.focus on click instead of mirroring hover state.
   await callRuntimeRpc(target, 'terminal.focus', { terminal: handle, navigation: 'host' })
 }

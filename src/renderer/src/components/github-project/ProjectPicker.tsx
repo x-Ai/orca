@@ -1,6 +1,5 @@
 import type { RuntimeClientTarget } from '../../../../shared/runtime-client-target'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { ChevronDown } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -8,7 +7,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { useAppStore } from '@/store'
 import { translate } from '@/i18n/i18n'
-import { formatGitHubProjectErrorMessage } from '@/lib/github-project-error-copy'
 import type {
   GitHubProjectOwnerType,
   GitHubProjectSettings,
@@ -27,6 +25,7 @@ import { filterGitHubProjectPickerProjects } from './github-project-picker-filte
 import { ProjectPickerBrowse } from './ProjectPickerBrowse'
 import { ProjectViewPickStep } from './ProjectPickerPanels'
 import { parseProjectInput } from './project-picker-input'
+import { projectViewErrorMessage } from './project-view-error-copy'
 import {
   getProjectPickerBrowseHost,
   listProjectViewsForRuntime,
@@ -63,7 +62,6 @@ export default function ProjectPicker({
   onSelect,
   sourceTarget
 }: Props): React.JSX.Element {
-  useTranslation()
   const settings = useAppStore((state) => state.settings)
   const updateSettings = useAppStore((state) => state.updateSettings)
   const mountedRef = useMountedRef()
@@ -163,7 +161,9 @@ export default function ProjectPicker({
         }
         if (!result.ok) {
           setViewList([])
-          toast.error(formatGitHubProjectErrorMessage(result.error.message))
+          toast.error(
+            projectViewErrorMessage(result.error, { host: githubProjectHost(choice.host) })
+          )
           return
         }
         setViewList(result.views)
@@ -193,13 +193,21 @@ export default function ProjectPicker({
 
   const handlePaste = useCallback(async () => {
     if (isGitHubProjectRefInputTooLarge(pasteInput)) {
-      setPasteError(GITHUB_PROJECT_REF_INPUT_TOO_LARGE_ERROR)
+      setPasteError(
+        projectViewErrorMessage({
+          type: 'validation_error',
+          message: GITHUB_PROJECT_REF_INPUT_TOO_LARGE_ERROR,
+          reason: 'input_too_large'
+        })
+      )
       return
     }
     const input = pasteInput.trim()
     const parsed = parseProjectInput(input)
     if (!parsed) {
-      setPasteError('Expected a project URL or owner/number')
+      setPasteError(
+        translate('projectViews.picker.pasteUnparseable', 'Expected a project URL or owner/number')
+      )
       return
     }
     setPasteError(null)
@@ -210,7 +218,7 @@ export default function ProjectPicker({
         return
       }
       if (!result.ok) {
-        setPasteError(formatGitHubProjectErrorMessage(result.error.message))
+        setPasteError(projectViewErrorMessage(result.error, { host: parsed.host }))
         return
       }
       setPasteInput('')
@@ -241,7 +249,7 @@ export default function ProjectPicker({
   )
   const buttonLabel = activeProject
     ? `${activeProject.owner} / ${activeProject.title ?? `#${activeProject.number}`}`
-    : translate('auto.components.github.project.ProjectPicker.chooseAProject', 'Choose a project')
+    : 'Choose a project'
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

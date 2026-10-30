@@ -49,8 +49,7 @@ export function GeneralEditorSettingsSection({
     settings.editorAutoSaveDelayMs
   )
   if (resolvedAutoSaveDelayDraftState !== autoSaveDelayDraftState) {
-    // Why: Settings can be updated outside this pane; reconcile drafts before
-    // paint so the visible input never lags behind the persisted value.
+    // Reconcile external settings before paint so drafts cannot lag persisted values.
     setAutoSaveDelayDraftState(resolvedAutoSaveDelayDraftState)
   }
   const autoSaveDelayDraft = resolvedAutoSaveDelayDraftState.draft
@@ -145,10 +144,10 @@ export function GeneralEditorSettingsSection({
           <p className="text-xs text-muted-foreground">
             {translate(
               'auto.components.settings.GeneralEditorSettingsSection.8112cd6dcf',
-              'How long Orca waits after your last edit before auto-saving. First launch defaults to'
+              'How long Orca waits after your last edit before saving automatically. First launch defaults to'
             )}{' '}
             {DEFAULT_EDITOR_AUTO_SAVE_DELAY_MS}{' '}
-            {translate('auto.components.settings.GeneralEditorSettingsSection.fc5c5306ff', 'ms')}
+            {translate('auto.components.settings.GeneralEditorSettingsSection.fc5c5306ff', 'ms.')}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">

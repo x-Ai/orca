@@ -59,6 +59,7 @@ function makeRepo(path: string): Repo {
 describe('useAddRepoLocalFolderFlow', () => {
   const addRepoPath = vi.fn()
   const closeModal = vi.fn()
+  const openModal = vi.fn()
   const fetchWorktrees = vi.fn()
   const scanNestedRepos = vi.fn()
   const setActiveNestedScanId = vi.fn()
@@ -97,6 +98,7 @@ describe('useAddRepoLocalFolderFlow', () => {
       droppedLocalPath: '',
       activeRuntimeEnvironmentId: null,
       addRepoPath,
+      openModal,
       closeModal,
       fetchWorktrees,
       scanNestedRepos,
@@ -105,7 +107,7 @@ describe('useAddRepoLocalFolderFlow', () => {
       showNestedRepoReview,
       onGitRepoReady,
       setIsAdding,
-      setAddProjectBusyLabel
+      setAddProjectBusyLabel,
     })
 
     await handleBrowse()
@@ -153,7 +155,8 @@ describe('useAddRepoLocalFolderFlow', () => {
       showNestedRepoReview,
       onGitRepoReady,
       setIsAdding,
-      setAddProjectBusyLabel
+      setAddProjectBusyLabel,
+      openModal
     })
 
     await handleBrowse()
@@ -179,6 +182,7 @@ describe('useAddRepoLocalFolderFlow', () => {
       droppedLocalPath: '',
       activeRuntimeEnvironmentId: null,
       addRepoPath,
+      openModal,
       closeModal,
       fetchWorktrees,
       scanNestedRepos,
@@ -187,7 +191,7 @@ describe('useAddRepoLocalFolderFlow', () => {
       showNestedRepoReview,
       onGitRepoReady,
       setIsAdding,
-      setAddProjectBusyLabel
+      setAddProjectBusyLabel,
     })
 
     await handleBrowse()
@@ -216,6 +220,7 @@ describe('useAddRepoLocalFolderFlow', () => {
       droppedLocalPath: '',
       activeRuntimeEnvironmentId: null,
       addRepoPath,
+      openModal,
       closeModal,
       fetchWorktrees,
       scanNestedRepos,
@@ -224,7 +229,7 @@ describe('useAddRepoLocalFolderFlow', () => {
       showNestedRepoReview,
       onGitRepoReady,
       setIsAdding,
-      setAddProjectBusyLabel
+      setAddProjectBusyLabel,
     })
 
     await handleBrowse()
@@ -237,7 +242,7 @@ describe('useAddRepoLocalFolderFlow', () => {
     expect(onGitRepoReady).toHaveBeenCalledWith('git', 'local_folder_picker', 'local')
   })
 
-  it('drops a local scan completion after host-scoped reset', async () => {
+  it('ignores stale scans and offers Open as Folder only for the current plain directory', async () => {
     pickFolders.mockResolvedValue(['/projects/stale'])
     let resolveScan!: (scan: NestedRepoScanResult) => void
     scanNestedRepos.mockReturnValueOnce(
@@ -251,6 +256,7 @@ describe('useAddRepoLocalFolderFlow', () => {
       droppedLocalPath: '',
       activeRuntimeEnvironmentId: null,
       addRepoPath,
+      openModal,
       closeModal,
       fetchWorktrees,
       scanNestedRepos,
@@ -259,7 +265,7 @@ describe('useAddRepoLocalFolderFlow', () => {
       showNestedRepoReview,
       onGitRepoReady,
       setIsAdding,
-      setAddProjectBusyLabel
+      setAddProjectBusyLabel,
     })
 
     const adding = flow.handleBrowse()
@@ -270,5 +276,16 @@ describe('useAddRepoLocalFolderFlow', () => {
 
     expect(addRepoPath).not.toHaveBeenCalled()
     expect(onGitRepoReady).not.toHaveBeenCalled()
+    scanNestedRepos.mockResolvedValueOnce(
+      makeScan('/projects/notes', { selectedPathKind: 'non_git_folder' })
+    )
+    await flow.handleAddLocalPath('/projects/notes', 'local_folder_picker')
+    expect(openModal).toHaveBeenCalledWith('confirm-non-git-folder', {
+      folderPath: '/projects/notes'
+    })
+    expect(closeModal.mock.invocationCallOrder[0]).toBeLessThan(
+      openModal.mock.invocationCallOrder[0]
+    )
+    expect(addRepoPath).not.toHaveBeenCalled()
   })
 })

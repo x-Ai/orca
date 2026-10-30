@@ -1,7 +1,6 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { translate } from '@/i18n/i18n'
-import { findRepoForHost, getRepoHostIdentity } from '@/store/slices/repo-host-identity'
+import { findRepoForHost } from '@/store/slices/repo-host-identity'
 import type { AppState } from '@/store/types'
 import type { Repo } from '../../../../../../shared/repo-types'
 import { ProjectGroupNameDialog } from '../../ProjectGroupNameDialog'
@@ -29,18 +28,10 @@ export function SidebarWorktreeListDialogs({
   onConfirmSuppressExternalWorktreeInbox: () => void
   onOpenWorktreeVisibility: (repo: Repo) => void
 }): React.JSX.Element {
-  useTranslation()
   const { nameDialog, setNameDialog, deleteDialog, setDeleteDialog } = dialogs
   return (
     <>
       <ProjectGroupNameDialog
-        key={
-          nameDialog?.type === 'rename'
-            ? JSON.stringify(['rename', nameDialog.hostId ?? 'local', nameDialog.groupId])
-            : nameDialog
-              ? `create:${getRepoHostIdentity(nameDialog.repo)}`
-              : 'closed'
-        }
         open={nameDialog !== null}
         title={
           nameDialog?.type === 'rename'
@@ -63,7 +54,7 @@ export function SidebarWorktreeListDialogs({
             ? nameDialog.currentName
             : nameDialog
               ? translate(
-                  'auto.components.sidebar.ProjectGroupNameDialog.defaultName',
+                  'auto.components.sidebar.ProjectGroupNameDialog.defaultGroupName',
                   '{{name}} group',
                   { name: nameDialog.repo.displayName }
                 )
@@ -129,6 +120,7 @@ export function SidebarWorktreeListDialogs({
           }
         }}
         onConfirm={dialogs.handleConfirmDeleteProjectGroup}
+        unsavedTargets={dialogs.deleteUnsavedTargets}
       />
     </>
   )

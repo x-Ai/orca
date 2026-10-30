@@ -7,7 +7,8 @@ vi.mock('@/hooks/useShortcutLabel', () => ({
 }))
 
 vi.mock('@/i18n/i18n', () => ({
-  translate: () => '复制上下文'
+  translate: (_key: string, _fallback: string, options?: Record<string, unknown>) =>
+    ['复制上下文', options?.shortcut].filter(Boolean).join(' ')
 }))
 
 vi.mock('@/lib/monaco-setup', () => ({

@@ -1,3 +1,4 @@
+import { textGenerationErrorText } from '@/lib/text-generation-error-copy'
 import React, { useMemo } from 'react'
 import { TriangleAlert } from 'lucide-react'
 import {
@@ -23,6 +24,7 @@ import {
   type SourceControlTextGenerationSaveTarget
 } from './text-generation-dialog-form'
 import { translate } from '@/i18n/i18n'
+import { useUiLanguageRevision } from '@/i18n/use-ui-language-revision'
 
 export { buildCommitMessageGenerationParams } from './text-generation-params'
 
@@ -82,6 +84,41 @@ function buildBasePromptPreview(actionId: SourceControlTextActionId): string {
   }
 }
 
+function savedRecipeMessage(actionId: SourceControlTextActionId, scope: 'repo' | 'global'): string {
+  switch (actionId) {
+    case 'commitMessage':
+      return scope === 'repo'
+        ? translate(
+            'sourceControl.textGeneration.savedCommitRecipeRepo',
+            'Saved commit-message recipe for this repository.'
+          )
+        : translate(
+            'sourceControl.textGeneration.savedCommitRecipeGlobal',
+            'Saved commit-message recipe as a global default.'
+          )
+    case 'pullRequest':
+      return scope === 'repo'
+        ? translate(
+            'sourceControl.textGeneration.savedReviewRecipeRepo',
+            'Saved hosted-review recipe for this repository.'
+          )
+        : translate(
+            'sourceControl.textGeneration.savedReviewRecipeGlobal',
+            'Saved hosted-review recipe as a global default.'
+          )
+    case 'branchName':
+      return scope === 'repo'
+        ? translate(
+            'sourceControl.textGeneration.savedBranchRecipeRepo',
+            'Saved branch-name recipe for this repository.'
+          )
+        : translate(
+            'sourceControl.textGeneration.savedBranchRecipeGlobal',
+            'Saved branch-name recipe as a global default.'
+          )
+  }
+}
+
 export function SourceControlTextGenerationDialog({
   actionId,
   title,
@@ -96,6 +133,7 @@ export function SourceControlTextGenerationDialog({
   onGenerate,
   onSaveDefaults
 }: SourceControlTextGenerationDialogProps): React.JSX.Element {
+  const languageRevision = useUiLanguageRevision()
   const resolved = useMemo(
     () =>
       settings
@@ -112,24 +150,10 @@ export function SourceControlTextGenerationDialog({
               'Settings are not loaded.'
             )
           },
-    [actionId, discoveryHostKey, repo, settings]
+    // oxlint-disable-next-line react-hooks/exhaustive-deps -- translate() reads the UI language implicitly.
+    [actionId, discoveryHostKey, repo, settings, languageRevision]
   )
   const baseParams = resolved.ok ? resolved.value.params : null
-  const recipeLabel =
-    actionId === 'commitMessage'
-      ? translate(
-          'auto.components.right.sidebar.SourceControlTextGenerationDialog.1d156632e1',
-          'commit-message recipe'
-        )
-      : actionId === 'pullRequest'
-        ? translate(
-            'auto.components.right.sidebar.SourceControlTextGenerationDialog.e935cb4eaa',
-            'hosted-review recipe'
-          )
-        : translate(
-            'auto.components.right.sidebar.SourceControlTextGenerationDialog.e3d0a41d63',
-            'branch-name recipe'
-          )
   const saveTargets: SourceControlTextGenerationSaveTarget[] = repo?.id
     ? [
         {
@@ -138,11 +162,7 @@ export function SourceControlTextGenerationDialog({
             'auto.components.right.sidebar.SourceControlTextGenerationDialog.5959da1e4d',
             'Save for this repository only'
           ),
-          successMessage: translate(
-            'auto.components.right.sidebar.SourceControlTextGenerationDialog.649f3d1762',
-            'Saved {{value0}} for this repository.',
-            { value0: recipeLabel }
-          )
+          successMessage: savedRecipeMessage(actionId, 'repo')
         },
         {
           target: { type: 'global' },
@@ -150,11 +170,7 @@ export function SourceControlTextGenerationDialog({
             'auto.components.right.sidebar.SourceControlTextGenerationDialog.7f1ec309a4',
             'Save as default for all repositories'
           ),
-          successMessage: translate(
-            'auto.components.right.sidebar.SourceControlTextGenerationDialog.369167678c',
-            'Saved {{value0}} as a global default.',
-            { value0: recipeLabel }
-          )
+          successMessage: savedRecipeMessage(actionId, 'global')
         }
       ]
     : [
@@ -164,11 +180,7 @@ export function SourceControlTextGenerationDialog({
             'auto.components.right.sidebar.SourceControlTextGenerationDialog.c5b7fa7cb6',
             'Save as global default'
           ),
-          successMessage: translate(
-            'auto.components.right.sidebar.SourceControlTextGenerationDialog.369167678c',
-            'Saved {{value0}} as a global default.',
-            { value0: recipeLabel }
-          )
+          successMessage: savedRecipeMessage(actionId, 'global')
         }
       ]
   const formKey = open
@@ -192,7 +204,7 @@ export function SourceControlTextGenerationDialog({
         {!resolved.ok ? (
           <p className="flex items-start gap-1.5 rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive">
             <TriangleAlert className="mt-px size-3.5 shrink-0" />
-            {resolved.error}
+            {textGenerationErrorText(resolved)}
           </p>
         ) : null}
 

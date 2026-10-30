@@ -4,10 +4,7 @@ import { FolderOpen, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
 import type { CliInstallStatus } from '../../../../shared/cli-install-types'
 import type { GlobalSettings } from '../../../../shared/global-settings-types'
-import {
-  ORCA_CLI_SKILL_INSTALL_COMMAND,
-  ORCA_CLI_SKILL_NAME
-} from '@/lib/agent-feature-install-commands'
+import { ORCA_CLI_SKILL_NAME } from '@/lib/agent-feature-skill-names'
 import {
   GLOBAL_AGENT_SKILL_SOURCE_KINDS,
   useInstalledAgentSkill
@@ -19,18 +16,11 @@ import { Switch } from '../ui/switch'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
 import { AgentSkillSetupPanel } from './AgentSkillSetupPanel'
 import { CliRegistrationDialog } from './CliRegistrationDialog'
-import {
-  buildSkillCommandForRuntime,
-  getAgentSkillTerminalShellOverride,
-  getSelectedAgentRuntime,
-  getSkillDiscoveryTargetForRuntime
-} from './CliSkillRuntimeSetup'
+import { getSelectedAgentRuntime, getSkillDiscoveryTargetForRuntime } from './CliSkillRuntimeSetup'
 import { WslCliRegistration } from './WslCliRegistration'
 import { useCliRegistrationActions } from './use-cli-registration-actions'
 import { useLocalCliSkillFreshnessName } from './use-local-cli-skill-freshness-name'
 import { translate } from '@/i18n/i18n'
-import { formatCliUserFacingDetail } from '@/lib/cli-emulator-user-facing-copy'
-import { getCliInstallDescription, getCliRevealLabel } from './cli-section-copy'
 
 type CliSectionProps = {
   currentPlatform: string
@@ -38,6 +28,29 @@ type CliSectionProps = {
   wslSupportedPlatform?: boolean
   wslAvailable?: boolean
   wslCapabilitiesLoading?: boolean
+}
+
+function getRevealLabel(platform: string): string {
+  if (platform === 'darwin') {
+    return translate('auto.components.settings.CliSection.6f894ef9c2', 'Show in Finder')
+  }
+  if (platform === 'win32') {
+    return translate('auto.components.settings.CliSection.cbe55e4d48', 'Show in Explorer')
+  }
+  return translate('auto.components.settings.CliSection.9fd4023db0', 'Show in File Manager')
+}
+
+function getInstallDescription(platform: string): string {
+  if (platform === 'darwin') {
+    return 'Register `orca` in /usr/local/bin.'
+  }
+  if (platform === 'linux') {
+    return 'Register `orca-ide` in ~/.local/bin.'
+  }
+  if (platform === 'win32') {
+    return 'Register `orca` in your user PATH.'
+  }
+  return 'CLI registration is not yet available on this platform.'
 }
 
 function getFallbackCommandName(platform: string): string {
@@ -61,8 +74,12 @@ export function CliSection({
     [settings, wslAvailable, wslCapabilitiesLoading, wslSupportedPlatform]
   )
   const cliSkillFreshnessName = useLocalCliSkillFreshnessName(agentRuntime)
-  const cliSkillDiscoveryTarget = useMemo(
-    () => getSkillDiscoveryTargetForRuntime(agentRuntime),
+  const skillRuntime = useMemo(
+    () => ({
+      discoveryTarget: getSkillDiscoveryTargetForRuntime(agentRuntime),
+      discoveryRuntimeTarget: { kind: 'local' } as const,
+      bundledSkillTarget: agentRuntime.runtime === 'wsl' ? null : ({ kind: 'local' } as const)
+    }),
     [agentRuntime]
   )
   const {
@@ -71,18 +88,10 @@ export function CliSection({
     error: cliSkillError,
     refresh: refreshCliSkill
   } = useInstalledAgentSkill(ORCA_CLI_SKILL_NAME, {
-    discoveryTarget: cliSkillDiscoveryTarget,
+    discoveryTarget: skillRuntime.discoveryTarget,
+    runtimeTarget: skillRuntime.discoveryRuntimeTarget,
     sourceKinds: GLOBAL_AGENT_SKILL_SOURCE_KINDS
   })
-  const cliSkillInstallCommand = buildSkillCommandForRuntime(
-    ORCA_CLI_SKILL_INSTALL_COMMAND,
-    agentRuntime
-  )
-  const cliSkillTerminalShellOverride = getAgentSkillTerminalShellOverride(
-    currentPlatform,
-    settings,
-    agentRuntime
-  )
   const handleStatusChange = useCallback(
     (nextStatus: CliInstallStatus): void => {
       if (mountedRef.current) {
@@ -109,13 +118,13 @@ export function CliSection({
       handleStatusChange(await window.api.cli.getInstallStatus())
     } catch (error) {
       if (mountedRef.current) {
-        const reason = error instanceof Error ? formatCliUserFacingDetail(error.message) : ''
         toast.error(
-          reason ||
-            translate(
-              'auto.components.settings.CliSection.7baec27029',
-              'Failed to load CLI status.'
-            )
+          error instanceof Error
+            ? error.message
+            : translate(
+                'auto.components.settings.CliSection.7baec27029',
+                'Failed to load CLI status.'
+              )
         )
       }
     } finally {
@@ -133,7 +142,7 @@ export function CliSection({
   const isEnabled = status?.state === 'installed' && !pathStatusUnknown
   const isSupported = status?.supported ?? false
   const isBrowserManaged = status?.unsupportedReason === 'launch_mode_unavailable'
-  const revealLabel = getCliRevealLabel(currentPlatform)
+  const revealLabel = getRevealLabel(currentPlatform)
   const canRevealCommandPath =
     status?.commandPath != null && ['installed', 'stale', 'conflict'].includes(status.state)
 
@@ -165,8 +174,7 @@ export function CliSection({
                     'auto.components.settings.CliSection.d363e5929b',
                     'Checking CLI registration…'
                   )
-                : formatCliUserFacingDetail(status?.detail) ||
-                  getCliInstallDescription(currentPlatform)}
+                : (status?.detail ?? getInstallDescription(currentPlatform))}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -236,9 +244,7 @@ export function CliSection({
         ) : null}
 
         {!loading && !isSupported && !isBrowserManaged && status?.detail ? (
-          <p className="text-xs text-muted-foreground">
-            {formatCliUserFacingDetail(status.detail)}
-          </p>
+          <p className="text-xs text-muted-foreground">{status.detail}</p>
         ) : null}
 
         {installFailure ? (
@@ -307,17 +313,9 @@ export function CliSection({
                 'auto.components.settings.CliSection.e8012c03a1',
                 'Enables agents to use Orca workspace, terminal, and progress commands.'
               )}
-              command={cliSkillInstallCommand}
-              terminalTitle={translate(
-                'auto.components.settings.CliSection.cliSkillTerminalTitle',
-                'CLI skill setup'
-              )}
-              terminalAriaLabel={translate(
-                'auto.components.settings.CliSection.cliSkillTerminalAria',
-                'CLI skill install terminal'
-              )}
-              terminalWorktreeId={`settings-cli-skill-terminal-${agentRuntime.runtime}`}
-              terminalShellOverride={cliSkillTerminalShellOverride}
+              skillNames={[ORCA_CLI_SKILL_NAME]}
+              target={skillRuntime.bundledSkillTarget}
+              // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
               terminalRuntime={agentRuntime}
               installed={cliSkillDetected}
               loading={cliSkillLoading}

@@ -1,10 +1,8 @@
 import { toast } from 'sonner'
 import { useAppStore } from '@/store'
 import { translate } from '@/i18n/i18n'
-import {
-  speechModelNotReadyToastMessage,
-  speechModelUnavailableToastMessage
-} from './dictation-toast-copy'
+import { compactIpcErrorMessage } from '@/lib/ipc-error'
+import { hostDictationErrorMessage } from '../../../../shared/host-dictation-error-messages'
 
 function openVoiceSettings(): void {
   useAppStore.getState().openSettingsTarget({ pane: 'voice', repoId: null })
@@ -12,7 +10,10 @@ function openVoiceSettings(): void {
 }
 
 export function showDictationStartErrorToast(message: string): void {
-  if (message.includes('Permission') || message.includes('NotAllowed')) {
+  const hostMessage = hostDictationErrorMessage(compactIpcErrorMessage(message) ?? '')
+  if (hostMessage) {
+    toast.error(hostMessage)
+  } else if (message.includes('Permission') || message.includes('NotAllowed')) {
     toast.error(
       translate(
         'auto.components.dictation.DictationController.2d5b9fabf9',
@@ -20,9 +21,9 @@ export function showDictationStartErrorToast(message: string): void {
       )
     )
   } else if (message.includes('not ready')) {
-    toast(speechModelNotReadyToastMessage())
+    toast('Speech model not ready. Download it in Settings > Voice.')
   } else if (message.includes('Unknown model')) {
-    toast(speechModelUnavailableToastMessage(), {
+    toast('Selected model is no longer available. Please choose another in Settings > Voice.', {
       action: {
         label: translate(
           'auto.components.dictation.DictationController.bb7f599ee7',

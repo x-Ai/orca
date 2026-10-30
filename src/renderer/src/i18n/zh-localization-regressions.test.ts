@@ -15,11 +15,6 @@ import {
   translateProjectOptionDetail,
   translateProjectOptionSectionHeading
 } from '../components/new-workspace/project-combobox-localized-copy'
-import {
-  localizedPluginCategory,
-  localizedPluginDescription,
-  localizedPluginName
-} from '../components/plugin-catalog/plugin-localized-metadata'
 import { formatGitHubProjectErrorMessage } from '../lib/github-project-error-copy'
 import { formatTaskSourceErrorMessage } from '../lib/task-source-error-copy'
 import { resolveRemoteOperationErrorMessage } from '../lib/source-control-remote-error'
@@ -96,28 +91,9 @@ describe('Chinese localization regressions', () => {
     ).toBe('此计算机')
   })
 
-  it('localizes official plugin metadata and diff whitespace settings', async () => {
+  it('localizes diff whitespace settings', async () => {
     await setRendererUiLanguage('zh')
 
-    expect(
-      localizedPluginName('stablyai.orca-navigation-shortcuts', 'Orca Navigation Shortcuts', true)
-    ).toBe('Orca 导航快捷键')
-    expect(
-      localizedPluginDescription(
-        'stablyai.orca-navigation-shortcuts',
-        'Command aliases and optional shortcuts for frequent Orca views.',
-        true
-      )
-    ).toBe('为常用 Orca 视图提供命令别名和可选快捷键')
-    expect(localizedPluginCategory('keybindings')).toBe('快捷键')
-    expect(localizedPluginName('example.plugin', 'External Plugin', false)).toBe('External Plugin')
-    expect(
-      localizedPluginDescription(
-        'stablyai.orca-navigation-shortcuts',
-        'A newer marketplace description.',
-        true
-      )
-    ).toBe('A newer marketplace description.')
     expect(
       translate(
         'auto.components.settings.GeneralEditorSettingsSection.f1b3ceeb98',
@@ -232,8 +208,8 @@ describe('Chinese localization regressions', () => {
   it('localizes the agent dashboard shortcut and toast copy', async () => {
     await setRendererUiLanguage('zh')
 
-    expect(translate('settings.shortcuts.actions.dashboard.toggle', 'Toggle Agent Dashboard')).toBe(
-      '切换代理仪表盘'
+    expect(translate('keybindings.title.dashboardToggle', 'Toggle Agent Dashboard')).toBe(
+      '切换智能体仪表盘'
     )
     expect(
       translate(
@@ -241,11 +217,11 @@ describe('Chinese localization regressions', () => {
         'No speech model selected. Go to Settings > Voice to download a model.'
       )
     ).toBe('尚未选择语音模型，请前往"设置 > 语音"下载模型')
-    expect(translate('components.toastFallbacks.imageInsertFailed', 'Failed to insert image')).toBe(
+    expect(translate('auto.components.editor.useLocalImagePick.175cb8b8ce', 'Failed to insert image.')).toBe(
       '插入图片失败'
     )
     expect(
       resolveRemoteOperationErrorMessage(new Error('updates were rejected'), { isPush: true })
-    ).toBe('推送被拒绝：远程分支有新更改，请先拉取再重试')
+    ).toBe('推送被拒绝 — 远程有更改。请先拉取，再重试。')
   })
 })

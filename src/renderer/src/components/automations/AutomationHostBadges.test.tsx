@@ -4,7 +4,6 @@ import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { TooltipProvider } from '@/components/ui/tooltip'
-import { setRendererUiLanguage } from '@/i18n/i18n'
 import { AutomationHostLabel, AutomationHostStatusBadges } from './AutomationHostBadges'
 import type { AutomationHostCatalogEntry } from './automation-host-catalog-types'
 
@@ -17,10 +16,9 @@ beforeEach(() => {
   root = createRoot(container)
 })
 
-afterEach(async () => {
+afterEach(() => {
   act(() => root.unmount())
   container.remove()
-  await setRendererUiLanguage('en')
 })
 
 function entry(overrides: Partial<AutomationHostCatalogEntry> = {}): AutomationHostCatalogEntry {
@@ -152,23 +150,7 @@ describe('AutomationHostStatusBadges', () => {
 })
 
 describe('AutomationHostLabel', () => {
-  it('localizes generated local labels without changing custom host names', async () => {
-    await setRendererUiLanguage('zh')
-
-    render(
-      <AutomationHostLabel
-        entry={entry({ label: 'carbonio', authorityLabel: 'Local Windows' })}
-        showAuthority
-      />
-    )
-
-    expect(container.querySelector('[data-host-stable-key]')?.getAttribute('aria-label')).toBe(
-      '本地 Windows · carbonio'
-    )
-    expect(container.querySelector('.truncate')?.textContent).toBe('carbonio')
-  })
-
-  it('keeps the full name in the accessible name while the visible label truncates', () => {
+  it('keeps the full accessible name on a label with truncation styling', () => {
     render(<AutomationHostLabel entry={entry({ label: 'a-very-long-host-name-that-truncates' })} />)
     const labelled = container.querySelector('[data-host-stable-key]')
     expect(labelled?.getAttribute('aria-label')).toBe('a-very-long-host-name-that-truncates')

@@ -1,41 +1,44 @@
+import { getIntlLocale, translate } from '@/i18n/i18n'
 import { getCheckConclusion } from '@/components/pr-check-counts'
 import type {
   PRCheckAnnotation,
   PRCheckDetail,
   PRCheckJob
 } from '../../../../shared/github/check-types'
-import { translate } from '@/i18n/i18n'
 
 export function getCheckStatusLabel(check: PRCheckDetail): string {
   const conclusion = getCheckConclusion(check)
   if (conclusion === 'success') {
-    return translate('components.github.prCheckPresentation.successful', 'Successful')
+    return translate('auto.components.github.prCheckPresentation.successful', 'Successful')
   }
   if (conclusion === 'failure') {
-    return translate('components.github.prCheckPresentation.failed', 'Failed')
+    return translate('auto.components.editor.CheckRunDetailsPanel.4c8e1b2d73', 'Failed')
   }
   if (conclusion === 'cancelled') {
-    return translate('components.github.prCheckPresentation.cancelled', 'Cancelled')
+    return translate('auto.components.editor.CheckRunDetailsPanel.91a4c7e2b0', 'Cancelled')
   }
   if (conclusion === 'timed_out') {
-    return translate('components.github.prCheckPresentation.timedOut', 'Timed out')
+    return translate('auto.components.editor.CheckRunDetailsPanel.2f6d8a1c45', 'Timed out')
   }
   if (conclusion === 'action_required') {
-    return translate('components.github.prCheckPresentation.actionRequired', 'Action required')
+    return translate(
+      'auto.components.editor.CheckRunDetailsPanel.actionRequired',
+      'Action required'
+    )
   }
   if (conclusion === 'neutral') {
-    return translate('components.github.prCheckPresentation.neutral', 'Neutral')
+    return translate('auto.components.editor.CheckRunDetailsPanel.5a1c8e3d67', 'Neutral')
   }
   if (conclusion === 'skipped') {
-    return translate('components.github.prCheckPresentation.skipped', 'Skipped')
+    return translate('auto.components.editor.CheckRunDetailsPanel.7b3e9d4f12', 'Skipped')
   }
   if (check.status === 'queued') {
-    return translate('components.github.prCheckPresentation.queued', 'Queued')
+    return translate('auto.components.right.sidebar.checks.panel.content.b4e8a1c902', 'Queued')
   }
   if (check.status === 'in_progress') {
-    return translate('components.github.prCheckPresentation.inProgress', 'In progress')
+    return translate('auto.components.github.prCheckPresentation.inProgress', 'In progress')
   }
-  return translate('components.github.prCheckPresentation.pending', 'Pending')
+  return translate('auto.components.editor.CheckRunDetailsPanel.3d9f2b8e14', 'Pending')
 }
 
 export function getCheckDetailsKey(check: PRCheckDetail): string {
@@ -54,8 +57,7 @@ function getCheckAnnotationKey(annotation: PRCheckAnnotation): string {
   ].join('\0')
 }
 
-// Why: a check run can repeat a job name (matrix reruns) and omit the id, so fall back to the
-// fields that separate two same-named jobs.
+// Disambiguate same-named matrix jobs by other fields when GitHub omits ids.
 function getCheckJobKey(job: PRCheckJob): string {
   return job.id !== null
     ? String(job.id)
@@ -91,7 +93,7 @@ export function formatCheckTimestamp(input: string | null | undefined): string |
   if (Number.isNaN(date.getTime())) {
     return null
   }
-  return date.toLocaleString(undefined, {
+  return date.toLocaleString(getIntlLocale(), {
     month: 'short',
     day: 'numeric',
     hour: 'numeric',

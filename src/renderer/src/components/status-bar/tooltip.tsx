@@ -1,9 +1,11 @@
 import type { ProviderRateLimits, RateLimitWindow } from '../../../../shared/rate-limit-types'
-import { formatResetDuration } from '../../../../shared/rate-limit-reset-format'
+import {
+  formatResetCountdown,
+  formatResetDuration
+} from '../../../../shared/rate-limit-reset-format'
 import { AgentIcon } from '@/lib/agent-catalog'
 import { ClaudeIcon, GeminiIcon, MiniMaxIcon, OpenAIIcon, OpenCodeGoIcon } from './icons'
 import { translate } from '@/i18n/i18n'
-import { formatRateLimitUserFacingError } from '@/lib/rate-limit-user-facing-error'
 import {
   getProviderDisplayName,
   getProviderUsageErrorMessage,
@@ -25,7 +27,6 @@ export {
   USAGE_WARNING_PERCENT
 } from './provider-extra-usage-section'
 
-// Re-exported from its shared home so status-bar callers keep a single import.
 export { clampUsedPercent }
 
 export {
@@ -34,36 +35,23 @@ export {
   getProviderUsageStatusLabel
 } from './usage-error-copy'
 
-// ---------------------------------------------------------------------------
-// Formatting helpers
-// ---------------------------------------------------------------------------
-
 export function formatTimeAgo(ts: number): string {
   const diff = Date.now() - ts
   if (diff < 60_000) {
-    return translate('auto.components.status.bar.usage.justNow', 'just now')
+    return translate('auto.components.status.bar.tooltip.justNow', 'just now')
   }
   const mins = Math.floor(diff / 60_000)
   if (mins < 60) {
-    return translate('auto.components.status.bar.usage.minutesAgo', '{{value0}}m ago', {
-      value0: mins
+    return translate('auto.components.status.bar.tooltip.minutesAgo', '{{minutes}}m ago', {
+      minutes: mins
     })
   }
   const hours = Math.floor(mins / 60)
-  return translate('auto.components.status.bar.usage.hoursAgo', '{{value0}}h ago', {
-    value0: hours
-  })
+  return translate('auto.components.status.bar.tooltip.hoursAgo', '{{hours}}h ago', { hours })
 }
 
-export function formatResetCountdown(ms: number): string {
-  const duration = formatResetDuration(ms)
-  if (duration === 'now') {
-    return translate('auto.components.status.bar.usage.resetsNow', 'Resets now')
-  }
-  return translate('auto.components.status.bar.usage.resetsIn', 'Resets in {{duration}}', {
-    duration
-  })
-}
+// Preserve tooltip imports while sharing countdown formatting with mobile.
+export { formatResetCountdown }
 
 export function formatResetCreditExpiry(
   expiresAt: number | null | undefined,
@@ -86,10 +74,6 @@ export function formatResetCreditExpiry(
         value0: duration
       })
 }
-
-// ---------------------------------------------------------------------------
-// Shared icon component
-// ---------------------------------------------------------------------------
 
 export function ProviderIcon({ provider }: { provider: string }): React.JSX.Element {
   if (provider === 'codex') {
@@ -157,10 +141,6 @@ function ErrorMessage({
   )
 }
 
-// ---------------------------------------------------------------------------
-// Window section derivation
-// ---------------------------------------------------------------------------
-
 export function getWindowSections(
   p: ProviderRateLimits
 ): { label: string; window: RateLimitWindow | null }[] {
@@ -168,8 +148,7 @@ export function getWindowSections(
     const bucketSections = p.buckets.map((b) => ({ label: b.name, window: b as RateLimitWindow }))
     return [
       ...bucketSections,
-      // Why: Cursor reports the plan total in `monthly` and its pools as buckets,
-      // so dropping it here would hide the number closest to the user's cap.
+      // Include Cursor’s monthly plan total because pools can understate proximity to its cap.
       ...(p.monthly
         ? [
             {
@@ -215,14 +194,7 @@ export function getWindowSections(
   return sections
 }
 
-// ---------------------------------------------------------------------------
-// Tooltip — progress bar section for a single window
-// ---------------------------------------------------------------------------
-
-// Why: the base tooltip component uses `bg-foreground text-background` which
-// inverts the color scheme (light bg in dark mode). These rich tooltips use
-// `text-background` for primary text and `text-background/50` for secondary
-// to stay readable inside the inverted tooltip container.
+// Tooltips invert the theme; use background text tokens for legible primary and secondary content.
 
 function ProviderRateLimitWindowSection({
   window,
@@ -305,9 +277,7 @@ export function ProviderPanel({
           {name}
         </div>
         <div className={mutedClass}>
-          {p.error
-            ? formatRateLimitUserFacingError(p.error) || p.error
-            : translate('auto.components.status.bar.tooltip.1292d4f2ee', 'Unavailable')}
+          {p.error ?? translate('auto.components.status.bar.tooltip.1292d4f2ee', 'Unavailable')}
         </div>
       </div>
     )
@@ -332,10 +302,10 @@ export function ProviderPanel({
   }
 
   const updatedAgo = p.updatedAt
-    ? translate('auto.components.status.bar.usage.updatedAgo', 'Updated {{ago}}', {
-        ago: formatTimeAgo(p.updatedAt)
+    ? translate('auto.components.status.bar.tooltip.updatedAgo', 'Updated {{time}}', {
+        time: formatTimeAgo(p.updatedAt)
       })
-    : translate('auto.components.status.bar.usage.notYetUpdated', 'Not yet updated')
+    : translate('auto.components.status.bar.tooltip.notYetUpdated', 'Not yet updated')
   const resetCreditCount =
     showResetCredits && p.provider === 'codex'
       ? (p.rateLimitResetCredits?.availableCount ?? null)
@@ -355,16 +325,11 @@ export function ProviderPanel({
         <div className={faintClass}>{updatedAgo}</div>
         {resetCreditCount !== null && resetCreditCount !== undefined ? (
           <div className={mutedClass}>
-            {resetCreditCount === 1
-              ? translate(
-                  'auto.components.status.bar.tooltip.45198c7d95',
-                  '1 rate-limit reset available'
-                )
-              : translate(
-                  'auto.components.status.bar.tooltip.bce421cba3',
-                  '{{value0}} rate-limit resets available',
-                  { value0: resetCreditCount }
-                )}
+            {translate(
+              'auto.components.status.bar.tooltip.rateLimitResetsAvailable',
+              '{{count}} rate-limit resets available',
+              { count: resetCreditCount, defaultValue_one: '{{count}} rate-limit reset available' }
+            )}
           </div>
         ) : null}
         {resetCreditExpiry ? <div className={faintClass}>{resetCreditExpiry}</div> : null}
@@ -399,7 +364,7 @@ export function ProviderPanel({
 
       {p.error ? (
         <ErrorMessage
-          message={formatRateLimitUserFacingError(p.error) || p.error}
+          message={p.error}
           stale={!!(p.session || p.weekly || p.fableWeekly || p.monthly)}
           inverted={inverted}
         />

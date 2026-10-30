@@ -30,7 +30,7 @@ export function resolveGitOperationTarget(
     toast.error(
       translate(
         'auto.store.slices.editor.gitOperationTarget.unresolvedHost',
-        UNRESOLVED_GIT_HOST_ERROR
+        'The workspace host is unresolved. Refresh the workspace and retry.'
       )
     )
     throw new Error(UNRESOLVED_GIT_HOST_ERROR)

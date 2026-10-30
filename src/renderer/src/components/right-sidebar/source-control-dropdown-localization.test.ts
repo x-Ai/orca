@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { i18n } from '@/i18n/i18n'
 import { resolveDropdownItems } from './source-control-dropdown-items'
-import type { DropdownActionInputs } from './source-control-dropdown-item-types'
+import type { DropdownActionInputs } from '../../../../shared/source-control-dropdown-item-types'
 
 function inputs(): DropdownActionInputs {
   return {

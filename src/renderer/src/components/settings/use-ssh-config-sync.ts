@@ -5,10 +5,7 @@ import { useMountedRef } from '@/hooks/useMountedRef'
 import { translate } from '@/i18n/i18n'
 import { formatSshUserFacingError } from './ssh-user-facing-error'
 
-/**
- * The explicit ~/.ssh/config actions. `restoreRemoved` is the only path that lifts the tombstones
- * of hosts removed in Orca; a plain sync keeps them removed so bulk removal sticks.
- */
+/** Only explicit restoreRemoved lifts tombstones; plain config sync must preserve removals. */
 export function useSshConfigSync(onSynced: () => Promise<void>): {
   syncing: boolean
   sync: (options?: { restoreRemoved?: boolean }) => Promise<void>

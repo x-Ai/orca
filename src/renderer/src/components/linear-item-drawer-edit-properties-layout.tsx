@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils'
 import { getLinearStateMarkerStyle } from '@/components/linear-state-pill-style'
 import { LinearPriorityIcon } from '@/components/linear-priority-icon'
+import { getLinearPriorityLabel } from '@/components/task-page/task-page-localized-options'
 import { translate } from '@/i18n/i18n'
 import { translateUnassignedLabel } from '@/i18n/unassigned-label'
 import { translateDefaultWorkflowStateLabel } from '@/components/sidebar/workspace-board-status-label'
@@ -15,7 +16,6 @@ import {
   LINEAR_EDIT_MENU_ITEM_WITH_ICON_CLASS,
   LINEAR_ESTIMATE_PRESETS,
   LinearEditChipAdornment,
-  PRIORITY_LABELS,
   formatLinearEstimateLabel
 } from '@/components/linear-item-drawer-edit-controls'
 import type { LinearIssueEditController } from '@/components/linear-item-drawer-edit-controller'
@@ -136,7 +136,7 @@ export function renderLinearIssuePropertiesLayout(
               >
                 <LinearPriorityIcon priority={localPriority} />
                 <span className="min-w-0 flex-1 truncate">
-                  {PRIORITY_LABELS[localPriority] ?? `P${localPriority}`}
+                  {getLinearPriorityLabel(localPriority)}
                 </span>
                 <LinearEditChipAdornment pending={priorityPending} />
               </button>
@@ -153,7 +153,7 @@ export function renderLinearIssuePropertiesLayout(
                   )}
                 >
                   <LinearPriorityIcon priority={p} />
-                  {PRIORITY_LABELS[p]}
+                  {getLinearPriorityLabel(p)}
                 </button>
               ))}
             </PopoverContent>

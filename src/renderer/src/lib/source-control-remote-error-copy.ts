@@ -1,167 +1,306 @@
 import { translate } from '@/i18n/i18n'
+import {
+  classifySubmodulePushFailure,
+  formatSubmodulePushFailureSentence
+} from '../../../shared/git-remote-error'
+import {
+  LINT_PUSH_FAILURE_SUMMARY,
+  PRE_PUSH_FAILURE_SUMMARY
+} from '../../../shared/source-control-push-failure'
 
-export type RemoteOperationKind =
-  | 'publish'
-  | 'sync'
-  | 'forcePush'
-  | 'push'
-  | 'fetch'
-  | 'fastForward'
-  | 'rebase'
+export type PushLikeOperation = 'publish' | 'sync' | 'forcePush' | 'push'
+export type RemoteOperation = PushLikeOperation | 'fetch' | 'fastForward' | 'rebase' | 'pull'
+// Sync shares pull wording for merge refusals; fast-forward only differs for overwrite refusals.
+export type PullLikeOperation = 'rebase' | 'sync' | 'fastForward' | 'pull'
 
-export type FixedRemoteOperationError =
-  | 'generic'
-  | 'rebaseExistingConflicts'
-  | 'syncExistingConflicts'
-  | 'pullExistingConflicts'
-  | 'rebaseNewConflicts'
-  | 'syncNewConflicts'
-  | 'pullNewConflicts'
-  | 'syncRemoteMoved'
-  | 'forcePushRemoteChanged'
-  | 'pushRemoteChanged'
-  | 'pullLocalChangesBlocked'
-  | 'pullUntrackedFilesBlocked'
-
-export function remoteOperationLabel(kind: RemoteOperationKind): string {
-  switch (kind) {
-    case 'publish':
-      return translate('sourceControl.remoteErrors.labels.publish', 'Publish Branch')
-    case 'sync':
-      return translate('sourceControl.remoteErrors.labels.sync', 'Sync')
-    case 'forcePush':
-      return translate('sourceControl.remoteErrors.labels.forcePush', 'Force Push')
-    case 'push':
-      return translate('sourceControl.remoteErrors.labels.push', 'Push')
-    case 'fetch':
-      return translate('sourceControl.remoteErrors.labels.fetch', 'Fetch')
-    case 'fastForward':
-      return translate('sourceControl.remoteErrors.labels.fastForward', 'Fast-forward')
-    case 'rebase':
-      return translate('sourceControl.remoteErrors.labels.rebase', 'Rebase')
+export function translateSubmodulePushFailureDetail(message: string): string | null {
+  const failure = classifySubmodulePushFailure(message)
+  if (!failure) {
+    return null
   }
-}
-
-export function fixedRemoteOperationErrorMessage(kind: FixedRemoteOperationError): string {
-  switch (kind) {
-    case 'generic':
-      return translate('sourceControl.remoteErrors.generic', 'Remote operation failed')
-    case 'rebaseExistingConflicts':
-      return translate(
-        'sourceControl.remoteErrors.rebaseExistingConflicts',
-        'Rebase blocked — resolve existing conflicts first.'
-      )
-    case 'syncExistingConflicts':
-      return translate(
-        'sourceControl.remoteErrors.syncExistingConflicts',
-        'Sync blocked — resolve existing merge conflicts first.'
-      )
-    case 'pullExistingConflicts':
-      return translate(
-        'sourceControl.remoteErrors.pullExistingConflicts',
-        'Pull blocked — resolve existing merge conflicts first.'
-      )
-    case 'rebaseNewConflicts':
-      return translate(
-        'sourceControl.remoteErrors.rebaseNewConflicts',
-        'Rebase stopped with conflicts. Resolve them in Source Control, then continue the rebase.'
-      )
-    case 'syncNewConflicts':
-      return translate(
-        'sourceControl.remoteErrors.syncNewConflicts',
-        'Sync stopped with merge conflicts. Resolve them in Source Control, then commit the merge.'
-      )
-    case 'pullNewConflicts':
-      return translate(
-        'sourceControl.remoteErrors.pullNewConflicts',
-        'Pull stopped with merge conflicts. Resolve them in Source Control, then commit the merge.'
-      )
-    case 'syncRemoteMoved':
-      return translate(
-        'sourceControl.remoteErrors.syncRemoteMoved',
-        'Sync failed — remote moved while syncing. Try again.'
-      )
-    case 'forcePushRemoteChanged':
-      return translate(
-        'sourceControl.remoteErrors.forcePushRemoteChanged',
-        'Force push rejected — remote changed since last fetch. Fetch first, then try again.'
-      )
-    case 'pushRemoteChanged':
-      return translate(
-        'sourceControl.remoteErrors.pushRemoteChanged',
-        'Push rejected — remote has changes. Pull first, then try again.'
-      )
-    case 'pullLocalChangesBlocked':
-      return translate(
-        'sourceControl.remoteErrors.pullLocalChangesBlocked',
-        'Pull blocked — commit or stash your local changes first.'
-      )
-    case 'pullUntrackedFilesBlocked':
-      return translate(
-        'sourceControl.remoteErrors.pullUntrackedFilesBlocked',
-        'Pull blocked — move, remove, or add untracked files first.'
-      )
+  // Case-variant normalized text is not Orca's sentence; show it verbatim.
+  if (
+    failure.detail !==
+    formatSubmodulePushFailureSentence(failure.submoduleName, failure.remoteChanged)
+  ) {
+    return failure.detail
   }
-}
-
-export function formatRemoteOperationFailure(
-  operation: RemoteOperationKind,
-  detail: string
-): string {
-  return translate(
-    'sourceControl.remoteErrors.operationFailedWithDetail',
-    '{{operation}} failed. {{detail}}',
-    { operation: remoteOperationLabel(operation), detail }
-  )
-}
-
-export function formatRemoteOperationHookBlocked(
-  operation: RemoteOperationKind,
-  detail: string
-): string {
-  return translate('sourceControl.remoteErrors.hookBlocked', '{{operation}} blocked — {{detail}}', {
-    operation: remoteOperationLabel(operation),
-    detail
-  })
-}
-
-export function formatRemoteOperationLocalChangesBlocked(operation: RemoteOperationKind): string {
-  return translate(
-    'sourceControl.remoteErrors.localChangesBlocked',
-    '{{operation}} blocked — commit or stash your local changes first.',
-    { operation: remoteOperationLabel(operation) }
-  )
-}
-
-export function formatRemoteOperationUntrackedFilesBlocked(operation: RemoteOperationKind): string {
-  return translate(
-    'sourceControl.remoteErrors.untrackedFilesBlocked',
-    '{{operation}} blocked — move, remove, or add untracked files first.',
-    { operation: remoteOperationLabel(operation) }
-  )
-}
-
-export function formatRemoteOperationAccessFailure(
-  operation: RemoteOperationKind,
-  detail?: string
-): string {
-  return detail
+  const name = failure.submoduleName
+  if (failure.remoteChanged) {
+    return name
+      ? translate(
+          'sourceControl.remoteError.submodule.namedRemoteChanged',
+          "Submodule '{{name}}' has remote changes. Pull inside the submodule, then try again.",
+          { name }
+        )
+      : translate(
+          'sourceControl.remoteError.submodule.remoteChanged',
+          'A submodule has remote changes. Pull inside the submodule, then try again.'
+        )
+  }
+  return name
     ? translate(
-        'sourceControl.remoteErrors.failedWithRemoteAccessDetail',
-        '{{operation}} failed. {{detail}}. Check your remote access and try again.',
-        { operation: remoteOperationLabel(operation), detail }
+        'sourceControl.remoteError.submodule.namedPushFailed',
+        "Submodule '{{name}}' could not be pushed. Resolve the submodule push error, then try again.",
+        { name }
       )
     : translate(
-        'sourceControl.remoteErrors.failedRemoteAccess',
-        '{{operation}} failed. Check your remote access and try again.',
-        { operation: remoteOperationLabel(operation) }
+        'sourceControl.remoteError.submodule.pushFailed',
+        'A submodule could not be pushed. Resolve the submodule push error, then try again.'
       )
 }
 
-export function formatRemoteOperationConnectionFailure(operation: RemoteOperationKind): string {
+// Detail is a whole sentence (translated Orca copy or verbatim git output).
+export function operationFailedWithDetail(operation: RemoteOperation, detail: string): string {
+  switch (operation) {
+    case 'publish':
+      return translate(
+        'sourceControl.remoteError.failedWithDetail.publish',
+        'Publish Branch failed. {{detail}}',
+        { detail }
+      )
+    case 'sync':
+      return translate(
+        'sourceControl.remoteError.failedWithDetail.sync',
+        'Sync failed. {{detail}}',
+        {
+          detail
+        }
+      )
+    case 'forcePush':
+      return translate(
+        'sourceControl.remoteError.failedWithDetail.forcePush',
+        'Force Push failed. {{detail}}',
+        { detail }
+      )
+    case 'push':
+      return translate(
+        'sourceControl.remoteError.failedWithDetail.push',
+        'Push failed. {{detail}}',
+        {
+          detail
+        }
+      )
+    case 'fetch':
+      return translate(
+        'sourceControl.remoteError.failedWithDetail.fetch',
+        'Fetch failed. {{detail}}',
+        { detail }
+      )
+    case 'fastForward':
+      return translate(
+        'sourceControl.remoteError.failedWithDetail.fastForward',
+        'Fast-forward failed. {{detail}}',
+        { detail }
+      )
+    case 'rebase':
+      return translate(
+        'sourceControl.remoteError.failedWithDetail.rebase',
+        'Rebase failed. {{detail}}',
+        { detail }
+      )
+    case 'pull':
+      return translate(
+        'sourceControl.remoteError.failedWithDetail.pull',
+        'Pull failed. {{detail}}',
+        {
+          detail
+        }
+      )
+  }
+}
+
+export function pushHookBlockedMessage(operation: PushLikeOperation, summary: string): string {
+  if (summary === LINT_PUSH_FAILURE_SUMMARY) {
+    switch (operation) {
+      case 'publish':
+        return translate(
+          'sourceControl.remoteError.hookBlocked.lint.publish',
+          'Publish Branch blocked — lint failed during push.'
+        )
+      case 'sync':
+        return translate(
+          'sourceControl.remoteError.hookBlocked.lint.sync',
+          'Sync blocked — lint failed during push.'
+        )
+      case 'forcePush':
+        return translate(
+          'sourceControl.remoteError.hookBlocked.lint.forcePush',
+          'Force Push blocked — lint failed during push.'
+        )
+      case 'push':
+        return translate(
+          'sourceControl.remoteError.hookBlocked.lint.push',
+          'Push blocked — lint failed during push.'
+        )
+    }
+  }
+  if (summary === PRE_PUSH_FAILURE_SUMMARY) {
+    switch (operation) {
+      case 'publish':
+        return translate(
+          'sourceControl.remoteError.hookBlocked.prePush.publish',
+          'Publish Branch blocked — pre-push hook failed.'
+        )
+      case 'sync':
+        return translate(
+          'sourceControl.remoteError.hookBlocked.prePush.sync',
+          'Sync blocked — pre-push hook failed.'
+        )
+      case 'forcePush':
+        return translate(
+          'sourceControl.remoteError.hookBlocked.prePush.forcePush',
+          'Force Push blocked — pre-push hook failed.'
+        )
+      case 'push':
+        return translate(
+          'sourceControl.remoteError.hookBlocked.prePush.push',
+          'Push blocked — pre-push hook failed.'
+        )
+    }
+  }
+  // Raw hook output line; lowercase its first letter to read as a clause after the dash.
+  const detail = `${summary.charAt(0).toLowerCase()}${summary.slice(1)}`
+  switch (operation) {
+    case 'publish':
+      return translate(
+        'sourceControl.remoteError.hookBlocked.detail.publish',
+        'Publish Branch blocked — {{detail}}',
+        { detail }
+      )
+    case 'sync':
+      return translate(
+        'sourceControl.remoteError.hookBlocked.detail.sync',
+        'Sync blocked — {{detail}}',
+        {
+          detail
+        }
+      )
+    case 'forcePush':
+      return translate(
+        'sourceControl.remoteError.hookBlocked.detail.forcePush',
+        'Force Push blocked — {{detail}}',
+        { detail }
+      )
+    case 'push':
+      return translate(
+        'sourceControl.remoteError.hookBlocked.detail.push',
+        'Push blocked — {{detail}}',
+        {
+          detail
+        }
+      )
+  }
+}
+
+export function remoteAccessFailedMessage(
+  operation: PushLikeOperation,
+  detail: string | null
+): string {
+  if (detail) {
+    switch (operation) {
+      case 'publish':
+        return translate(
+          'sourceControl.remoteError.remoteAccessWithDetail.publish',
+          'Publish Branch failed. {{detail}}. Check your remote access and try again.',
+          { detail }
+        )
+      case 'sync':
+        return translate(
+          'sourceControl.remoteError.remoteAccessWithDetail.sync',
+          'Sync failed. {{detail}}. Check your remote access and try again.',
+          { detail }
+        )
+      case 'forcePush':
+        return translate(
+          'sourceControl.remoteError.remoteAccessWithDetail.forcePush',
+          'Force Push failed. {{detail}}. Check your remote access and try again.',
+          { detail }
+        )
+      case 'push':
+        return translate(
+          'sourceControl.remoteError.remoteAccessWithDetail.push',
+          'Push failed. {{detail}}. Check your remote access and try again.',
+          { detail }
+        )
+    }
+  }
+  switch (operation) {
+    case 'publish':
+      return translate(
+        'sourceControl.remoteError.publishFailed',
+        'Publish Branch failed. Check your remote access and try again.'
+      )
+    case 'sync':
+      return translate(
+        'sourceControl.remoteError.syncFailed',
+        'Sync failed. Check your connection and try again.'
+      )
+    case 'forcePush':
+      return translate(
+        'sourceControl.remoteError.forcePushFailed',
+        'Force Push failed. Check your connection and try again.'
+      )
+    case 'push':
+      return translate(
+        'sourceControl.remoteError.pushFailed',
+        'Push failed. Check your connection and try again.'
+      )
+  }
+}
+
+export function localChangesBlockedMessage(operation: PullLikeOperation): string {
+  if (operation === 'rebase') {
+    return translate(
+      'sourceControl.remoteError.localChangesBlocked.rebase',
+      'Rebase blocked — commit or stash your local changes first.'
+    )
+  }
+  if (operation === 'fastForward') {
+    return translate(
+      'sourceControl.remoteError.localChangesBlocked.fastForward',
+      'Fast-forward blocked — commit or stash your local changes first.'
+    )
+  }
   return translate(
-    'sourceControl.remoteErrors.failedConnection',
-    '{{operation}} failed. Check your connection and try again.',
-    { operation: remoteOperationLabel(operation) }
+    'sourceControl.remoteError.localChangesBlocked.pull',
+    'Pull blocked — commit or stash your local changes first.'
   )
+}
+
+export function untrackedFilesBlockedMessage(operation: PullLikeOperation): string {
+  if (operation === 'rebase') {
+    return translate(
+      'sourceControl.remoteError.untrackedFilesBlocked.rebase',
+      'Rebase blocked — move, remove, or add untracked files first.'
+    )
+  }
+  if (operation === 'fastForward') {
+    return translate(
+      'sourceControl.remoteError.untrackedFilesBlocked.fastForward',
+      'Fast-forward blocked — move, remove, or add untracked files first.'
+    )
+  }
+  return translate(
+    'sourceControl.remoteError.untrackedFilesBlocked.pull',
+    'Pull blocked — move, remove, or add untracked files first.'
+  )
+}
+
+export function mergeConflictsMessage(operation: PullLikeOperation): string {
+  if (operation === 'rebase') {
+    return translate(
+      'sourceControl.remoteError.mergeConflicts.rebase',
+      'Rebase stopped with conflicts. Resolve them in Source Control, then continue the rebase.'
+    )
+  }
+  return operation === 'sync'
+    ? translate(
+        'sourceControl.remoteError.mergeConflicts.sync',
+        'Sync stopped with merge conflicts. Resolve them in Source Control, then commit the merge.'
+      )
+    : translate(
+        'sourceControl.remoteError.mergeConflicts.pull',
+        'Pull stopped with merge conflicts. Resolve them in Source Control, then commit the merge.'
+      )
 }

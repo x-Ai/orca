@@ -33,7 +33,7 @@ export type ContextualTourStepPlacement = 'top' | 'right' | 'bottom' | 'left'
 
 export type ContextualTourStep = {
   // Stable anchor for localized copy — position-keyed translations shift onto the wrong step when one is inserted.
-  id?: string
+  id: string
   title: string
   body: string
   targetSelector: string
@@ -79,7 +79,7 @@ export const CONTEXTUAL_TOURS = [
     id: 'workspace-agent-sessions',
     steps: [
       {
-        id: 'workspace-agent-sessions-split-pane',
+        id: 'agent-sessions-split',
         title: 'Split a terminal pane',
         body: 'Open a second terminal pane with {terminal.splitRight}, or right-click the pane for split options.',
         targetSelector:
@@ -90,7 +90,7 @@ export const CONTEXTUAL_TOURS = [
         advanceOnFeatureInteraction: 'terminal-pane-split'
       },
       {
-        id: 'workspace-agent-sessions-parallel-task',
+        id: 'agent-sessions-parallel',
         title: 'Start another task in parallel',
         body: 'Each worktree gets its own branch, so parallel work stays separate.',
         targetSelector: '[data-contextual-tour-target="workspace-create-control"]',
@@ -104,7 +104,7 @@ export const CONTEXTUAL_TOURS = [
     id: 'browser',
     steps: [
       {
-        id: 'browser-grab-context',
+        id: 'browser-grab',
         title: 'Grab page context for agents',
         body: "Use the grab tool to copy a page element's context for agents.",
         targetSelector: '[data-contextual-tour-target="browser-grab-control"]',
@@ -112,21 +112,19 @@ export const CONTEXTUAL_TOURS = [
         preferredPlacement: 'bottom'
       },
       {
-        id: 'browser-annotate-feedback',
+        id: 'browser-annotate',
         title: 'Mark design feedback in place',
         body: 'Annotate elements and send those notes to an agent.',
         targetSelector: '[data-contextual-tour-target="browser-annotation-control"]',
         preferredPlacement: 'bottom'
       },
       {
-        id: 'browser-import-logins',
+        id: 'browser-logins',
         title: 'Stay logged in',
         body: 'Bring your existing logins into Orca to stay signed in immediately.',
-        // Prefer the always-visible Import button; fall back to the overflow-menu
-        // item only once the user has dismissed the import hint.
+        // Prefer visible Import; use overflow after the hint is dismissed.
         targetSelector:
           '[data-contextual-tour-target="browser-import-hint"], [data-contextual-tour-target="browser-import-cookies-control"]',
-        // Sit below the Import button with the arrow pointing up at it.
         preferredPlacement: 'bottom'
       }
     ]
@@ -150,20 +148,20 @@ export const CONTEXTUAL_TOURS = [
     id: 'tasks',
     steps: [
       {
-        id: 'tasks-work-source',
+        id: 'tasks-source',
         title: 'Choose the work source',
         body: 'Switch between connected providers and project filters without changing pages.',
         targetSelector: '[data-contextual-tour-target="tasks-source-filters"]',
         requiredForStart: true
       },
       {
-        id: 'tasks-filter-work',
+        id: 'tasks-filter',
         title: 'Filter to the work you need',
         body: 'Use presets and search to narrow issues, reviews, merge requests, or tasks.',
         targetSelector: '[data-contextual-tour-target="tasks-search-presets"]'
       },
       {
-        id: 'tasks-start-from-items',
+        id: 'tasks-start',
         title: 'Start from work items',
         body: 'Use Start or Open on a task, issue, review, or merge request to bring its context into a workspace.',
         targetSelector:
@@ -193,11 +191,10 @@ export const CONTEXTUAL_TOURS = [
     id: 'floating-workspace',
     steps: [
       {
-        id: 'floating-workspace-all-repos',
+        id: 'floating-workspace-repos',
         title: 'Run an agent across every repo',
         body: 'Agents here run in any folder you choose. Point one at the directory above your services to work across all your repos at once.',
-        // Why: the per-action anchors only render in the empty state; fall back
-        // to the panel surface when floating tabs already exist.
+        // Action anchors exist only in empty state; use the panel when floating tabs already exist.
         targetSelector:
           '[data-contextual-tour-target="floating-workspace-new-terminal"], [data-contextual-tour-target="floating-workspace-surface"]',
         requiredForStart: true,
@@ -240,6 +237,8 @@ export const CONTEXTUAL_TOURS = [
     ]
   }
 ] as const satisfies readonly ContextualTour[]
+
+export type ContextualTourStepId = (typeof CONTEXTUAL_TOURS)[number]['steps'][number]['id']
 
 export const CONTEXTUAL_TOUR_IDS = CONTEXTUAL_TOURS.map((tour) => tour.id)
 

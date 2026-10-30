@@ -42,8 +42,7 @@ export class SkillUploadStagingOwnership {
     await mkdir(this.directory, { recursive: true, mode: 0o700 })
   }
 
-  // Callers race this (an in-flight operation and disposal), and a second rmdir of a
-  // delete-pending directory fails with EPERM on Windows, so join one removal instead.
+  // Coalesce removal: concurrent retries hit Windows delete-pending EPERM after the first rmdir.
   async remove(): Promise<void> {
     const removal = (this.removal ??= rm(this.directory, STAGING_REMOVAL_OPTIONS))
     try {

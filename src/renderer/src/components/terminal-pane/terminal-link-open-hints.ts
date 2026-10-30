@@ -1,45 +1,41 @@
-import { canSourceOwnerOpenInOrca } from '@/lib/http-link-destinations'
+import {
+  canSourceOwnerOpenInOrca,
+  type HttpLinkActionDestinations
+} from '@/lib/http-link-destinations'
 import type { HttpLinkSourceOwner } from '@/lib/http-link-routing'
-import { translate } from '@/i18n/i18n'
 
 export function isMacPlatform(): boolean {
   return navigator.userAgent.includes('Mac')
 }
 
 function terminalLinkActionHintPrefix(showActions: boolean): string {
-  return showActions
-    ? translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.clickForActions',
-        'Click for actions, '
-      )
-    : ''
+  return showActions ? 'Click for actions, ' : ''
 }
 
 export function getTerminalFileOpenHint(showActions = true): string {
   const prefix = terminalLinkActionHintPrefix(showActions)
   return isMacPlatform()
-    ? `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.mac.open.file', '⌘+click to open, or ⇧⌘+click for default app')}`
-    : `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.windows.open.file', 'Ctrl+click to open, or Shift+Ctrl+click for default app')}`
+    ? `${prefix}⌘+click to open, or ⇧⌘+click for default app`
+    : `${prefix}Ctrl+click to open, or Shift+Ctrl+click for default app`
 }
 
 export function getTerminalOrcaFileOpenHint(showActions = true): string {
-  const prefix = showActions
-    ? translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.clickForActionsOr',
-        'Click for actions or '
-      )
-    : ''
+  const prefix = showActions ? 'Click for actions or ' : ''
   return isMacPlatform()
-    ? `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.mac.open.in.orca', '⌘+click to open in Orca')}`
-    : `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.windows.open.in.orca', 'Ctrl+click to open in Orca')}`
+    ? `${prefix}⌘+click to open in Orca`
+    : `${prefix}Ctrl+click to open in Orca`
 }
 
-// Why: local HTML paths keep Shift+modifier as the system-browser shortcut.
-export function getTerminalHtmlFileOpenHint(showActions = true): string {
-  const prefix = terminalLinkActionHintPrefix(showActions)
-  return isMacPlatform()
-    ? `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.mac.open.html', '⌘+click to open, or ⇧⌘+click for default browser')}`
-    : `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.windows.open.html', 'Ctrl+click to open, or Shift+Ctrl+click for default browser')}`
+// Why: Shift+modifier on a local HTML file always takes the other link-routing destination.
+export function getTerminalHtmlFileOpenHint(
+  destinations: HttpLinkActionDestinations,
+  showActions = true
+): string {
+  return getTerminalUrlOpenHint({
+    openLinksInApp: destinations.primary === 'orca',
+    modifierInverts: true,
+    showActions
+  })
 }
 
 export type TerminalUrlOpenHintOptions = {
@@ -70,45 +66,27 @@ export function terminalUrlOpenHintOptionsFor(
   }
 }
 
-// Why: with modifierInverts on, Shift no longer always means "system browser" —
-// it means "the other one" — so the hint has to name the actual destination.
+// With inversion, Shift means the other destination; name the resolved one instead of always promising the system browser.
 export function getTerminalUrlOpenHint(options: TerminalUrlOpenHintOptions = {}): string {
   const invertsToOrca = options.modifierInverts === true && options.openLinksInApp !== true
   const prefix = terminalLinkActionHintPrefix(options.showActions !== false)
   if (invertsToOrca) {
     return isMacPlatform()
-      ? `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.mac.open.url.orca', '⌘+click to open, or ⇧⌘+click to open in Orca')}`
-      : `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.windows.open.url.orca', 'Ctrl+click to open, or Shift+Ctrl+click to open in Orca')}`
+      ? `${prefix}⌘+click to open, or ⇧⌘+click to open in Orca`
+      : `${prefix}Ctrl+click to open, or Shift+Ctrl+click to open in Orca`
   }
   return isMacPlatform()
-    ? `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.mac.open.url.system', '⌘+click to open, or ⇧⌘+click for system browser')}`
-    : `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.windows.open.url.system', 'Ctrl+click to open, or Shift+Ctrl+click for system browser')}`
+    ? `${prefix}⌘+click to open, or ⇧⌘+click for system browser`
+    : `${prefix}Ctrl+click to open, or Shift+Ctrl+click for system browser`
 }
 
 export function getTerminalUrlSystemBrowserHint(): string {
-  return isMacPlatform()
-    ? translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.mac.system.browser',
-        '⇧⌘+click for system browser'
-      )
-    : translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.windows.system.browser',
-        'Shift+Ctrl+click for system browser'
-      )
+  return isMacPlatform() ? '⇧⌘+click for system browser' : 'Shift+Ctrl+click for system browser'
 }
 
-// Why: the mirror of the system-browser hint for surfaces where inverting sends the
-// modifier the other way; a plain click there already opens the system browser.
+// Invert the hint too when plain click already opens the system browser.
 export function getTerminalUrlOrcaBrowserHint(): string {
-  return isMacPlatform()
-    ? translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.mac.orca.browser',
-        '⇧⌘+click to open in Orca'
-      )
-    : translate(
-        'auto.components.terminal.pane.terminal.link.open.hints.windows.orca.browser',
-        'Shift+Ctrl+click to open in Orca'
-      )
+  return isMacPlatform() ? '⇧⌘+click to open in Orca' : 'Shift+Ctrl+click to open in Orca'
 }
 
 export function getTerminalWorktreePathOpenHint(
@@ -117,18 +95,13 @@ export function getTerminalWorktreePathOpenHint(
 ): string {
   const prefix = terminalLinkActionHintPrefix(showActions)
   if (!canOpenWithSystemDefault) {
-    const directPrefix = showActions
-      ? translate(
-          'auto.components.terminal.pane.terminal.link.open.hints.clickForActionsOr',
-          'Click for actions or '
-        )
-      : ''
+    const directPrefix = showActions ? 'Click for actions or ' : ''
     return isMacPlatform()
-      ? `${directPrefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.mac.switch.workspace', '⌘+click to switch workspace')}`
-      : `${directPrefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.windows.switch.workspace', 'Ctrl+click to switch workspace')}`
+      ? `${directPrefix}⌘+click to switch workspace`
+      : `${directPrefix}Ctrl+click to switch workspace`
   }
 
   return isMacPlatform()
-    ? `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.mac.worktree.finder', '⌘+click to switch workspace, or ⇧⌘+click to open in Finder')}`
-    : `${prefix}${translate('auto.components.terminal.pane.terminal.link.open.hints.windows.worktree.folder', 'Ctrl+click to switch workspace, or Shift+Ctrl+click to open folder')}`
+    ? `${prefix}⌘+click to switch workspace, or ⇧⌘+click to open in Finder`
+    : `${prefix}Ctrl+click to switch workspace, or Shift+Ctrl+click to open folder`
 }

@@ -19,16 +19,16 @@ export function formatCost(value: number | null): string {
 
 export function formatUpdatedAt(timestamp: number | null): string {
   if (!timestamp) {
-    return translate('auto.components.stats.usage.notScannedYet', 'Not scanned yet')
+    return translate('auto.components.stats.usageFormatters.notScannedYet', 'Not scanned yet')
   }
-  return translate('auto.components.stats.usage.updatedAt', 'Updated {{when}}', {
-    when: new Date(timestamp).toLocaleString(getIntlLocale())
+  return translate('auto.components.stats.usageFormatters.updatedAt', 'Updated {{time}}', {
+    time: new Date(timestamp).toLocaleString(getIntlLocale())
   })
 }
 
 export function formatUnknownLocationLabel(label: string): string {
   if (label === 'Unknown location') {
-    return translate('auto.components.stats.usage.unknownLocation', 'Unknown location')
+    return translate('auto.components.stats.usageFormatters.unknownLocation', 'Unknown location')
   }
   return label
 }

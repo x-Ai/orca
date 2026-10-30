@@ -75,7 +75,7 @@ export function MarkdownTemplatePicker(): JSX.Element {
         </CommandEmpty>
         <CommandGroup
           heading={translate(
-            'auto.components.editor.MarkdownTemplatePicker.a1f5705792',
+            'auto.components.editor.MarkdownTemplatePicker.newDocumentHeading',
             'New Document'
           )}
         >

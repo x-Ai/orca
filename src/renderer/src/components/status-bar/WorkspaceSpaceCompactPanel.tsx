@@ -6,6 +6,7 @@ import { Button } from '../ui/button'
 import {
   formatBytes,
   getWorkspaceSpaceProgressLabel,
+  getWorkspaceSpaceScanningFallbackLabel,
   getWorkspaceSpaceScanTimeLabel
 } from './workspace-space-format'
 import { translate } from '@/i18n/i18n'
@@ -34,7 +35,7 @@ export function WorkspaceSpaceCompactPanel({
   }, [cancelWorkspaceSpaceScan])
 
   return (
-    <div className="border-t border-border/50 bg-muted/15 px-3 py-2">
+    <div className="shrink-0 border-t border-border/50 bg-muted/15 px-3 py-2">
       <div className="flex items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2">
           <HardDrive className="size-3.5 shrink-0 text-muted-foreground" />
@@ -60,12 +61,7 @@ export function WorkspaceSpaceCompactPanel({
                       'auto.components.status.bar.WorkspaceSpaceCompactPanel.3d8d47ce77',
                       '{{value0}} · last result kept',
                       {
-                        value0:
-                          progressLabel ??
-                          translate(
-                            'auto.components.statusBar.workspaceSpaceFormat.scanningWorkspaceSizes',
-                            'Scanning workspace sizes'
-                          )
+                        value0: progressLabel ?? getWorkspaceSpaceScanningFallbackLabel()
                       }
                     )
                   : analysis.unavailableWorktreeCount > 0
@@ -78,11 +74,12 @@ export function WorkspaceSpaceCompactPanel({
                         }
                       )
                     : translate(
-                        'workspaceSpace.compact.linkedAndScanned',
-                        '{{value0}} in linked worktrees · {{value1}} workspaces',
+                        'workspaceSpace.compact.linkedAndScannedCount',
+                        '{{size}} in linked worktrees · {{count}} workspaces',
                         {
-                          value0: formatBytes(analysis.reclaimableBytes),
-                          value1: analysis.scannedWorktreeCount
+                          size: formatBytes(analysis.reclaimableBytes),
+                          count: analysis.scannedWorktreeCount,
+                          defaultValue_one: '{{size}} in linked worktrees · {{count}} workspace'
                         }
                       )
                 : isScanning

@@ -24,7 +24,7 @@ const FEATURE_TIP_COPY: Record<
           )
         }
       ),
-    ctaLabel: () => translate('featureTips.nativeChatUpgrade.gotIt', 'Got it')
+    ctaLabel: () => translate('featureTips.nativeChatUpgrade.gotIt', 'Got It')
   },
   'agent-session-search': {
     eyebrow: () => translate('auto.components.feature.tips.feature.tip.copy.1fcdfc5fe8', 'New'),

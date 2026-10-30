@@ -2,9 +2,7 @@ import React from 'react'
 import type { GitConflictOperation } from '../../../../shared/git-status-types'
 import type { CheckStatus } from '../../../../shared/github/pull-request-types'
 import type { TerminalTab } from '../../../../shared/terminal-tab-types'
-import { translate } from '../../i18n/i18n'
-
-// ── Pure helper functions ────────────────────────────────────────────
+import { translate } from '@/i18n/i18n'
 
 export function branchDisplayName(branch: string): string {
   return branch.replace(/^refs\/heads\//, '')
@@ -23,35 +21,24 @@ export function checksLabel(status: CheckStatus): string {
   }
 }
 
-export function conflictOperationLabel(
-  operation: Exclude<GitConflictOperation, 'unknown'>
-): string {
+export function conflictOperationLabel(operation: GitConflictOperation): string {
   switch (operation) {
     case 'merge':
-      return translate('renderer.components.sidebar.WorktreeCardHelpers.merging', 'Merging')
+      return translate('auto.components.sidebar.WorktreeCardHelpers.conflictMerging', 'Merging')
     case 'rebase':
-      return translate('renderer.components.sidebar.WorktreeCardHelpers.rebasing', 'Rebasing')
+      return translate('auto.components.sidebar.WorktreeCardHelpers.conflictRebasing', 'Rebasing')
     case 'cherry-pick':
       return translate(
-        'renderer.components.sidebar.WorktreeCardHelpers.cherryPicking',
+        'auto.components.sidebar.WorktreeCardHelpers.conflictCherryPicking',
         'Cherry-picking'
       )
+    case 'unknown':
+      return ''
   }
 }
 
-// Deprecated: use conflictOperationLabel() function instead for i18n support
-export const CONFLICT_OPERATION_LABELS: Record<Exclude<GitConflictOperation, 'unknown'>, string> = {
-  merge: 'Merging',
-  rebase: 'Rebasing',
-  'cherry-pick': 'Cherry-picking'
-}
-
-// ── Stable empty arrays for tabs fallback ────────────────────────────
-
 export const EMPTY_TABS: TerminalTab[] = []
 export const EMPTY_BROWSER_TABS: { id: string }[] = []
-
-// ── SVG icon components ──────────────────────────────────────────────
 
 export function FilledBellIcon({ className }: { className?: string }): React.JSX.Element {
   return (

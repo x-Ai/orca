@@ -1,3 +1,4 @@
+import { taskProviderErrorText } from '@/lib/task-provider-error-copy'
 import { ImeTextarea } from '@/lib/ime-text-field'
 import React, { useCallback, useRef, useState } from 'react'
 import { LoaderCircle, Send } from 'lucide-react'
@@ -40,8 +41,7 @@ export function LinearIssueCommentFooter({
   const mountedRef = useRef(true)
 
   const handleFooterRef = useCallback((node: HTMLDivElement | null): void => {
-    // Why: comment submission can resolve after the footer unmounts; the root
-    // ref keeps that completion from writing stale local state without an Effect.
+    // Track the footer’s attached lifetime so late submissions cannot write stale local state.
     mountedRef.current = node !== null
   }, [])
 
@@ -98,7 +98,7 @@ export function LinearIssueCommentFooter({
       if (mountedRef.current) {
         toast.error(
           err instanceof Error
-            ? err.message
+            ? taskProviderErrorText(err.message)
             : translate('auto.components.LinearItemDrawer.6ab35eafd5', 'Failed to add comment')
         )
       }

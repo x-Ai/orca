@@ -2,7 +2,7 @@ import { absolutePathToFileUri } from '@/components/editor/markdown-internal-lin
 import { getConnectionIdForFile } from '@/lib/connection-context'
 import { basename } from '@/lib/path'
 import { isTwinWorkspace } from '@/lib/resolve-owner'
-import { runtimeEnvironmentIdWithLegacyFallbackUnlessTwin } from '@/lib/worktree-runtime-owner'
+import { runtimeEnvironmentIdOrLocalUnlessTwin } from '@/lib/worktree-runtime-owner'
 import { useAppStore } from '@/store'
 import { translate } from '@/i18n/i18n'
 
@@ -16,14 +16,14 @@ export const TWIN_FILE_BROWSER_UNSUPPORTED_MESSAGE =
 export function remoteFileBrowserUnsupportedMessage(): string {
   return translate(
     'renderer.lib.filePreview.remoteFileUnsupported',
-    REMOTE_FILE_BROWSER_UNSUPPORTED_MESSAGE
+    'Open in Orca Browser is only available for local files.'
   )
 }
 
 export function twinFileBrowserUnsupportedMessage(): string {
   return translate(
     'renderer.lib.filePreview.twinFileUnsupported',
-    TWIN_FILE_BROWSER_UNSUPPORTED_MESSAGE
+    'This project is on more than one host, so Orca cannot tell which copy to open.'
   )
 }
 
@@ -55,10 +55,9 @@ export function getWorkspaceFileBrowserOpenTarget(params: {
   }
   if (
     getConnectionIdForFile(params.worktreeId, params.filePath) !== null ||
-    runtimeEnvironmentIdWithLegacyFallbackUnlessTwin(state, params.worktreeId)
+    runtimeEnvironmentIdOrLocalUnlessTwin(state, params.worktreeId)
   ) {
-    // Why: Chromium resolves file:// URLs on the local machine. Remote files
-    // need an Orca-served URL before the browser can render them correctly.
+    // file:// always resolves locally; serve remote files through Orca before browser rendering.
     return {
       status: 'unsupported',
       reason: 'remote-worktree',

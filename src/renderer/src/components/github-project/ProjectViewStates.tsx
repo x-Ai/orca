@@ -4,11 +4,12 @@ import { Button } from '@/components/ui/button'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 import { cn } from '@/lib/utils'
 import { translate } from '@/i18n/i18n'
-import { formatGitHubProjectErrorMessage } from '@/lib/github-project-error-copy'
 import { GhAuthErrorHelp } from './GhAuthErrorHelp'
+import { projectViewErrorMessage } from './project-view-error-copy'
 import { isRenderableProjectViewLayout } from '../../../../shared/github/project-types'
 import type { GitHubProjectViewSummary } from '../../../../shared/github/project-types'
 import type { GitHubProjectViewError } from '../../../../shared/github/project-result-types'
+import { openAppHttpLink } from '@/lib/app-http-link-open'
 
 const ORCA_FEATURE_REQUEST_URL = 'https://github.com/stablyai/orca/issues/new'
 
@@ -47,11 +48,11 @@ function ProjectViewTab({
   const supported = isRenderableProjectViewLayout(view.layout)
   const layoutLabel =
     view.layout === 'BOARD_LAYOUT'
-      ? 'Board'
+      ? translate('projectViews.layout.board', 'Board')
       : view.layout === 'ROADMAP_LAYOUT'
-        ? 'Roadmap'
+        ? translate('projectViews.layout.roadmap', 'Roadmap')
         : view.layout === 'TABLE_LAYOUT'
-          ? 'Table'
+          ? translate('projectViews.layout.table', 'Table')
           : formatUnknownLayout(view.layout)
   const Icon =
     view.layout === 'BOARD_LAYOUT'
@@ -89,7 +90,11 @@ function ProjectViewTab({
   if (supported) {
     return tab
   }
-  const message = `Orca doesn't support ${layoutLabel} project views yet.`
+  const message = translate(
+    'projectViews.unsupported.layoutNotSupported',
+    "Orca doesn't support {{layout}} project views yet.",
+    { layout: layoutLabel }
+  )
   return (
     <HoverCard openDelay={200} closeDelay={100}>
       <HoverCardTrigger asChild>
@@ -118,7 +123,7 @@ function ProjectViewTab({
             type="button"
             size="xs"
             variant="outline"
-            onClick={() => void window.api.shell.openUrl(ORCA_FEATURE_REQUEST_URL)}
+            onClick={(event) => openAppHttpLink(ORCA_FEATURE_REQUEST_URL, { event })}
           >
             {translate(
               'auto.components.github.project.ProjectViewWrapper.4d2a77a119',
@@ -155,34 +160,11 @@ export function ProjectViewErrorState({
     )
   }
   const copy =
-    error.type === 'too_large'
-      ? translate(
-          'auto.components.github.project.ProjectViewWrapper.a435c479d5',
-          "This view has {{value0}} items — too large to render in Orca. Narrow the view's filter on GitHub.",
-          {
-            value0:
-              totalCount ??
-              translate('auto.components.github.project.ProjectViewWrapper.6f5c52db05', 'many')
-          }
-        )
-      : error.type === 'unsupported_layout'
-        ? // Why: an older paired host still reports roadmaps as unsupported, so this
-          // copy must not name the layout — the tab strip already does that.
-          translate(
-            'projectViews.unsupported.description',
-            'Orca renders table, board, and roadmap project views. This view uses a layout it cannot render yet.'
-          )
-        : error.type === 'not_found'
-          ? translate(
-              'auto.components.github.project.ProjectViewWrapper.768f6f3014',
-              'Could not find this project or view.'
-            )
-          : error.type === 'schema_drift'
-            ? translate(
-                'auto.components.github.project.ProjectViewWrapper.e8f5b063b4',
-                'Could not read this project view.'
-              )
-            : formatGitHubProjectErrorMessage(error.message)
+    error.type === 'not_found'
+      ? translate('projectViews.error.notFoundState', 'Could not find this project or view.')
+      : error.type === 'schema_drift'
+        ? translate('projectViews.error.schemaDrift', 'Could not read this project view.')
+        : projectViewErrorMessage(error, { host, totalCount })
   return (
     <div className="flex flex-1 flex-col items-start gap-3 p-6 text-sm">
       <div className="text-muted-foreground">{copy}</div>
@@ -240,15 +222,7 @@ export function ProjectTableSkeleton(): React.JSX.Element {
   )
 }
 
-/**
- * Empty result for a project view, worded from the view's own filter.
- *
- * Why: an unfiltered view has no filter to blame, so "no items match this
- * view's filter" reads as data loss when a freshly populated board momentarily
- * comes back empty (#12648). `ProjectV2.items(query:)` defaults to `""`, so
- * there is no non-search request shape to fall back to — the honest remedy is
- * to name the state correctly and say the emptiness may be transient.
- */
+/** Unfiltered empty results may be transient; blaming a nonexistent filter would imply data loss. */
 export function ProjectItemsEmptyState({ filter }: { filter: string }): React.JSX.Element {
   if (filter.trim().length > 0) {
     return (

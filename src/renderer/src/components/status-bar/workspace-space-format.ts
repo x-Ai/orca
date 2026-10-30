@@ -5,27 +5,13 @@ import type {
 } from '../../../../shared/workspace-space-types'
 import { formatUiRelativeTime } from '@/i18n/relative-time-format'
 import { translate } from '@/i18n/i18n'
+import { uiDateTimeFormat } from '@/i18n/ui-intl-formatters'
 
-const BYTE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'] as const
-const fullDateTimeFormatter = new Intl.DateTimeFormat(undefined, {
+export { formatBytes } from '../../../../shared/format-bytes'
+
+const FULL_DATE_TIME_OPTIONS: Intl.DateTimeFormatOptions = {
   dateStyle: 'medium',
   timeStyle: 'short'
-})
-
-export function formatBytes(bytes: number): string {
-  if (!Number.isFinite(bytes) || bytes <= 0) {
-    return '0 B'
-  }
-
-  let value = bytes
-  let unitIndex = 0
-  while (value >= 1024 && unitIndex < BYTE_UNITS.length - 1) {
-    value /= 1024
-    unitIndex += 1
-  }
-
-  const precision = value >= 100 || unitIndex === 0 ? 0 : value >= 10 ? 1 : 2
-  return `${value.toFixed(precision)} ${BYTE_UNITS[unitIndex]}`
 }
 
 export function formatCompactCount(count: number): string {
@@ -46,7 +32,7 @@ export function getWorkspaceSpaceScanTimeLabel(scannedAt: number, now = Date.now
 }
 
 export function getWorkspaceSpaceScanDateTimeLabel(scannedAt: number): string {
-  return fullDateTimeFormatter.format(new Date(scannedAt))
+  return uiDateTimeFormat(FULL_DATE_TIME_OPTIONS).format(new Date(scannedAt))
 }
 
 export function getWorkspaceSpaceProgressLabel(
@@ -57,7 +43,7 @@ export function getWorkspaceSpaceProgressLabel(
   }
   if (progress.state === 'cancelling') {
     return translate(
-      'auto.components.statusBar.workspaceSpaceFormat.cancellingScan',
+      'auto.components.status.bar.workspaceSpaceFormat.cancellingScan',
       'Cancelling scan'
     )
   }
@@ -65,10 +51,10 @@ export function getWorkspaceSpaceProgressLabel(
   const current =
     progress.currentWorktreeDisplayName ??
     progress.currentRepoDisplayName ??
-    translate('auto.components.statusBar.workspaceSpaceFormat.workspaces', 'workspaces')
+    translate('auto.components.status.bar.workspaceSpaceFormat.currentWorkspaces', 'workspaces')
   if (progress.totalWorktreeCount > 0) {
     return translate(
-      'auto.components.statusBar.workspaceSpaceFormat.scanningWorktrees',
+      'auto.components.status.bar.workspaceSpaceFormat.scanningWorkspaces',
       'Scanning {{scanned}} of {{total}} · {{current}}',
       {
         scanned: progress.scannedWorktreeCount,
@@ -79,17 +65,22 @@ export function getWorkspaceSpaceProgressLabel(
   }
   if (progress.totalRepoCount > 0) {
     return translate(
-      'auto.components.statusBar.workspaceSpaceFormat.scanningRepos',
-      'Scanning {{scanned}} of {{total}} repos · {{current}}',
+      'auto.components.status.bar.workspaceSpaceFormat.scanningRepos',
+      'Scanning {{scanned}} of {{count}} repos · {{current}}',
       {
         scanned: progress.scannedRepoCount,
-        total: progress.totalRepoCount,
-        current
+        count: progress.totalRepoCount,
+        current,
+        defaultValue_one: 'Scanning {{scanned}} of {{count}} repo · {{current}}'
       }
     )
   }
+  return getWorkspaceSpaceScanningFallbackLabel()
+}
+
+export function getWorkspaceSpaceScanningFallbackLabel(): string {
   return translate(
-    'auto.components.statusBar.workspaceSpaceFormat.scanningWorkspaceSizes',
+    'auto.components.status.bar.workspaceSpaceFormat.scanningSizes',
     'Scanning workspace sizes'
   )
 }
@@ -97,27 +88,30 @@ export function getWorkspaceSpaceProgressLabel(
 export function getWorkspaceSpaceStatusLabel(status: WorkspaceSpaceScanStatus): string {
   switch (status) {
     case 'ok':
-      return translate('auto.components.statusBar.workspaceSpaceFormat.statusScanned', 'Scanned')
+      return translate('auto.components.status.bar.workspaceSpaceFormat.status.scanned', 'Scanned')
     case 'missing':
-      return translate('auto.components.statusBar.workspaceSpaceFormat.statusMissing', 'Missing')
+      return translate('auto.components.status.bar.workspaceSpaceFormat.status.missing', 'Missing')
     case 'permission-denied':
-      return translate('auto.components.statusBar.workspaceSpaceFormat.statusNoAccess', 'No access')
+      return translate(
+        'auto.components.status.bar.workspaceSpaceFormat.status.noAccess',
+        'No access'
+      )
     case 'unavailable':
       return translate(
-        'auto.components.statusBar.workspaceSpaceFormat.statusUnavailable',
+        'auto.components.status.bar.workspaceSpaceFormat.status.unavailable',
         'Unavailable'
       )
     case 'error':
-      return translate('auto.components.statusBar.workspaceSpaceFormat.statusFailed', 'Failed')
+      return translate('auto.components.status.bar.workspaceSpaceFormat.status.failed', 'Failed')
   }
 }
 
 export function getWorkspaceSpaceBranchLabel(worktree: WorkspaceSpaceWorktree): string {
   const branch = worktree.branch.replace(/^refs\/heads\//, '').trim()
-  if (branch) {
-    return branch
-  }
-  return worktree.isMainWorktree
-    ? translate('auto.components.statusBar.workspaceSpaceFormat.mainWorktree', 'main worktree')
-    : translate('auto.components.statusBar.workspaceSpaceFormat.detached', 'detached')
+  return (
+    branch ||
+    (worktree.isMainWorktree
+      ? translate('auto.components.status.bar.workspaceSpaceFormat.mainWorktree', 'main worktree')
+      : translate('auto.components.status.bar.workspaceSpaceFormat.detached', 'detached'))
+  )
 }

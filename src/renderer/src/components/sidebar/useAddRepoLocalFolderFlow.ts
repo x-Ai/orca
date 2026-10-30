@@ -4,30 +4,19 @@ import { track } from '@/lib/telemetry'
 import { isGitRepoKind } from '../../../../shared/repo-kind'
 import {
   buildNestedRepoScanTelemetry,
-  createNestedRepoTelemetryAttemptId,
-  type NestedRepoTelemetryRuntimeKind
+  createNestedRepoTelemetryAttemptId
 } from '../../../../shared/nested-repo-telemetry'
 import type { AddRepoExistingWorkspaceSource } from '../../../../shared/telemetry-events'
-import type { NestedRepoScanResult } from '../../../../shared/project-group-types'
 import type { Repo } from '../../../../shared/repo-types'
 import type { WorktreeFetchOptions } from '@/store/slices/worktree-helpers'
 import type { RepoSlice } from '@/store/repos/repo-state'
+import type { AppState } from '@/store/types'
+import type { ShowNestedRepoReviewArgs } from './useAddRepoNestedReviewState'
 import { createNestedRepoScanId } from './add-repo-dialog-types'
 import { translate } from '@/i18n/i18n'
 import { worktreeRefreshOptions } from './add-repo-runtime-owner'
 import type { ExecutionHostId } from '../../../../shared/execution-host'
-import * as addRepoLabels from './add-repo-busy-labels'
-
-type ShowNestedRepoReview = (args: {
-  scan: NestedRepoScanResult
-  selectedPath: string
-  connectionId: string | null
-  attemptId: string
-  runtimeKind: NestedRepoTelemetryRuntimeKind
-  inProgress: boolean
-  scanId: string | null
-  runtimeEnvironmentId?: string | null
-}) => void
+import { addRepoBusyLabels } from './add-repo-busy-labels'
 
 type LocalPathAddResult =
   | { status: 'completed'; repo: Repo }
@@ -40,6 +29,7 @@ export function useAddRepoLocalFolderFlow({
   droppedLocalPath,
   activeRuntimeEnvironmentId,
   addRepoPath,
+  openModal,
   closeModal,
   fetchWorktrees,
   scanNestedRepos,
@@ -54,12 +44,13 @@ export function useAddRepoLocalFolderFlow({
   droppedLocalPath: string
   activeRuntimeEnvironmentId: string | null | undefined
   addRepoPath: RepoSlice['addRepoPath']
+  openModal: AppState['openModal']
   closeModal: () => void
   fetchWorktrees: (repoId: string, options?: WorktreeFetchOptions) => Promise<unknown>
   scanNestedRepos: RepoSlice['scanNestedRepos']
   setActiveNestedScanId: (scanId: string | null, runtimeEnvironmentId?: string | null) => void
   setNestedScanInProgress: (inProgress: boolean) => void
-  showNestedRepoReview: ShowNestedRepoReview
+  showNestedRepoReview: (args: ShowNestedRepoReviewArgs) => void
   onGitRepoReady: (
     repoId: string,
     source: AddRepoExistingWorkspaceSource,
@@ -70,6 +61,7 @@ export function useAddRepoLocalFolderFlow({
 }): {
   handleBrowse: () => Promise<void>
   resetLocalFolderFlow: () => void
+  handleAddLocalPath: (path: string, source: AddRepoExistingWorkspaceSource) => Promise<unknown>
 } {
   const localAddGenRef = useRef(0)
   const droppedLocalPathHandledRef = useRef<string | null>(null)
@@ -101,7 +93,7 @@ export function useAddRepoLocalFolderFlow({
         closeModal()
         return { status: 'paused' }
       }
-      setAddProjectBusyLabel(addRepoLabels.addRepoScanningRepositoriesLabel())
+      setAddProjectBusyLabel(addRepoBusyLabels.scanningRepositories())
       try {
         const attemptId = createNestedRepoTelemetryAttemptId()
         const scanId = createNestedRepoScanId()
@@ -161,7 +153,12 @@ export function useAddRepoLocalFolderFlow({
           })
           return { status: 'paused' }
         }
-        setAddProjectBusyLabel(addRepoLabels.addRepoOpeningProjectLabel())
+        if (scan?.selectedPathKind === 'non_git_folder') {
+          closeModal()
+          openModal('confirm-non-git-folder', { folderPath: path })
+          return { status: 'paused' }
+        }
+        setAddProjectBusyLabel(addRepoBusyLabels.openingProject())
         const repo = await addRepoPath(path, undefined, {
           runtimeEnvironmentId: activeRuntimeEnvironmentId ?? null
         })
@@ -183,8 +180,7 @@ export function useAddRepoLocalFolderFlow({
           }
           await onGitRepoReady(repo.id, source, ownerOptions.executionHostId)
         } else {
-          // Why: folder repos skip the Git default-checkout handoff and activate
-          // their synthetic root workspace in the folder add flow.
+          // Folder projects activate their synthetic root through the add flow instead of Git checkout completion.
           closeModal()
         }
         return { status: 'completed', repo }
@@ -201,6 +197,7 @@ export function useAddRepoLocalFolderFlow({
       closeModal,
       fetchWorktrees,
       onGitRepoReady,
+      openModal,
       scanNestedRepos,
       setActiveNestedScanId,
       setAddProjectBusyLabel,
@@ -295,7 +292,7 @@ export function useAddRepoLocalFolderFlow({
   const handleBrowse = useCallback(async (): Promise<void> => {
     const gen = ++localAddGenRef.current
     setIsAdding(true)
-    setAddProjectBusyLabel(addRepoLabels.addRepoChooseFolderLabel())
+    setAddProjectBusyLabel(addRepoBusyLabels.chooseFolder())
     try {
       const paths = await window.api.repos.pickFolders()
       if (paths.length === 0 || gen !== localAddGenRef.current) {
@@ -311,5 +308,5 @@ export function useAddRepoLocalFolderFlow({
     }
   }, [clearNestedScanState, handleAddLocalPaths, setAddProjectBusyLabel, setIsAdding])
 
-  return { handleBrowse, resetLocalFolderFlow }
+  return { handleBrowse, resetLocalFolderFlow, handleAddLocalPath }
 }

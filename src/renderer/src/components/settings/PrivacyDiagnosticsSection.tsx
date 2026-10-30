@@ -12,6 +12,7 @@ import {
   PrivacyDiagnosticBundleControls
 } from './PrivacyDiagnosticBundleControls'
 import { translate } from '@/i18n/i18n'
+import { diagnosticsErrorText } from './diagnostics-bundle-error-copy'
 
 export function PrivacyDiagnosticsSection(): React.JSX.Element {
   const [status, setStatus] = useState<DiagnosticsStatusPayload | null>(null)
@@ -34,7 +35,7 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
         setStatus(next)
       }
     } catch {
-      /* swallow — pane shows N/A while the IPC is unavailable */
+      /* Show N/A while IPC is unavailable. */
     }
   }, [])
 
@@ -60,8 +61,7 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
         await window.api.diagnostics.discardBundlePreview(nextBundle.bundleSubmissionId)
         return
       }
-      // Why: unmount cleanup may run before a passive ref mirror would fire;
-      // keep the retained preview id in sync at the creation/clear sites.
+      // Update retained preview IDs at mutation sites; unmount cleanup can precede passive ref mirrors.
       activeBundleSubmissionIdRef.current = nextBundle.bundleSubmissionId
       setBundle(nextBundle)
       setPreviewOpened(false)
@@ -75,12 +75,9 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
     } catch (error) {
       if (mountedRef.current) {
         toast.error(
-          getDiagnosticsErrorMessage(
+          diagnosticsErrorText(
             error,
-            translate(
-              'components.toastFallbacks.diagnosticsCreateReviewFailed',
-              'Could not create review file'
-            )
+            translate('settings.diagnostics.errors.createFailed', 'Could not create review file')
           )
         )
       }
@@ -111,12 +108,9 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
     } catch (error) {
       if (mountedRef.current) {
         toast.error(
-          getDiagnosticsErrorMessage(
+          diagnosticsErrorText(
             error,
-            translate(
-              'components.toastFallbacks.diagnosticsOpenReviewFailed',
-              'Could not open review file'
-            )
+            translate('settings.diagnostics.errors.openFailed', 'Could not open review file')
           )
         )
       }
@@ -153,12 +147,9 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
     } catch (error) {
       if (mountedRef.current) {
         toast.error(
-          getDiagnosticsErrorMessage(
+          diagnosticsErrorText(
             error,
-            translate(
-              'components.toastFallbacks.diagnosticsSendFailed',
-              'Could not send diagnostics'
-            )
+            translate('settings.diagnostics.errors.sendFailed', 'Could not send diagnostics')
           )
         )
       }
@@ -191,12 +182,9 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
     } catch (error) {
       if (mountedRef.current) {
         toast.error(
-          getDiagnosticsErrorMessage(
+          diagnosticsErrorText(
             error,
-            translate(
-              'components.toastFallbacks.diagnosticsDiscardReviewFailed',
-              'Could not discard review file'
-            )
+            translate('settings.diagnostics.errors.discardFailed', 'Could not discard review file')
           )
         )
       }
@@ -259,10 +247,10 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
     } catch (error) {
       if (mountedRef.current) {
         toast.error(
-          getDiagnosticsErrorMessage(
+          diagnosticsErrorText(
             error,
             translate(
-              'components.toastFallbacks.diagnosticsDeleteSentFailed',
+              'settings.diagnostics.errors.deleteFailed',
               'Could not delete sent diagnostics'
             )
           )
@@ -311,10 +299,6 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       </PrivacyDiagnosticsRow>
     </>
   )
-}
-
-function getDiagnosticsErrorMessage(error: unknown, fallback: string): string {
-  return error instanceof Error && error.message ? error.message : fallback
 }
 
 function DiagnosticsDisabledStateNote({

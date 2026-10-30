@@ -1,3 +1,4 @@
+import { shallow } from 'zustand/shallow'
 import type { GlobalSettings } from '../../../../shared/global-settings-types'
 import type { Repo } from '../../../../shared/repo-types'
 import type { WorkspaceHostScope } from '../../../../shared/ui-chrome-types'
@@ -9,8 +10,11 @@ import {
 } from '../../../../shared/execution-host'
 import {
   buildExecutionHostRegistry,
-  type ExecutionHostHealth
+  type ExecutionHostHealth,
+  type ExecutionHostRegistryEntry
 } from '../../../../shared/execution-host-registry'
+
+import { getExecutionHostHealthLabel } from '@/lib/runtime-host-copy'
 import { pickerExecutionHosts } from '../../../../shared/managed-orcad-execution-host'
 import { getCheckedHostRows } from '../../../../shared/workspace-view/workspace-host-visibility'
 import type { RuntimeCompatVerdict } from '../../../../shared/protocol-compat'
@@ -25,7 +29,7 @@ import type {
 } from '../../../../shared/runtime-host-status'
 import type { WslHostStatus } from '../../../../shared/wsl-host-types'
 import { translate } from '@/i18n/i18n'
-import { translateExecutionHostDetail, translateExecutionHostLabel } from './execution-host-label'
+import { sshConnectFailureText } from '@/ssh/ssh-host-server-status-copy'
 import {
   getWslHostRowDetail,
   getWslHostRowHealth,
@@ -40,10 +44,12 @@ export type SidebarHostOption = {
   kind: 'local' | 'ssh' | 'runtime'
   health: ExecutionHostHealth
   presence: 'local' | 'configured' | 'project' | 'active'
-  // Why: surfaced to the sidebar host-header menu so it can warn on version skew.
+  /** Why a failed SSH host failed, as Settings → SSH Hosts says it; host pickers show it. */
+  failureReason?: string
+  // Host menus need the compatibility verdict to explain version skew.
   compatibility?: RuntimeCompatVerdict
   blockedReason?: RuntimeHostBlockedReason
-  // Why: lets host headers spell out auth-needed SSH states, not just an icon.
+  // Host headers use this status to describe authentication requirements.
   connectionStatus?: SshConnectionStatus
   aliasHostIds?: readonly ExecutionHostId[]
   mergedIntoHostId?: ExecutionHostId
@@ -65,15 +71,13 @@ export function buildSidebarHostOptions(args: {
   sshTargetLabels: ReadonlyMap<string, string>
   sshConnectionStates?: ReadonlyMap<string, SshConnectionState>
   settings: Pick<GlobalSettings, 'activeRuntimeEnvironmentId'> | null | undefined
-  // Why: live per-environment runtime status lets the registry surface compat
-  // verdicts and blocked health in the sidebar without re-probing servers.
+  // Reuse live server status for compatibility and health without re-probing.
   runtimeStatusByEnvironmentId?: ReadonlyMap<string, RuntimeEnvironmentStatus>
   runtimeEnvironments?: readonly Pick<
     PublicKnownRuntimeEnvironment,
     'id' | 'name' | 'source' | 'orcadDeployment'
   >[]
-  // Why: per-host display-label overrides rename hosts everywhere the sidebar
-  // options feed (host headers, scope picker, focus menu).
+  // Apply display-label overrides consistently across sidebar host controls.
   hostLabelOverrides?: ReadonlyMap<ExecutionHostId, string>
   wslHostStatuses?: Readonly<Record<string, WslHostStatus>>
   /** False keeps WSL hosts' rows but marks them turned off. */
@@ -112,20 +116,18 @@ export function buildSidebarHostOptions(args: {
     runtimeStatusByEnvironmentId: args.runtimeStatusByEnvironmentId,
     hostLabelOverrides: args.hostLabelOverrides
   }).map((host) => {
-    const localizedHost = {
-      ...host,
-      label: translateExecutionHostLabel(host.label),
-      detail: translateExecutionHostDetail(host.detail)
-    }
     if (host.kind === 'local') {
-      return { ...localizedHost, presence: 'local' }
+      return { ...host, presence: 'local' }
     }
     if (host.kind === 'ssh') {
       const targetId = decodeURIComponent(host.id.slice('ssh:'.length))
-      // Why: configured hosts explain why a disconnected target remains
-      // visible; project-only hosts remain because workspaces still point at it.
+      const state = args.sshConnectionStates?.get(targetId)
+      // Disconnected hosts remain listed when configured or still referenced by projects.
       return {
-        ...localizedHost,
+        ...host,
+        ...(host.health === 'error' && state
+          ? { failureReason: sshConnectFailureText(state, state.error?.trim() || host.detail) }
+          : {}),
         presence: configuredSshTargetIds.has(targetId)
           ? 'configured'
           : projectSshTargetIds.has(targetId)
@@ -136,7 +138,7 @@ export function buildSidebarHostOptions(args: {
     const wsl = wslDistroByHostId.get(host.id)
     const status = wsl ? args.wslHostStatuses?.[wsl.environmentId] : undefined
     return {
-      ...localizedHost,
+      ...host,
       ...(wsl && args.wslHostServerFilesMissing === true
         ? {
             wslDistro: wsl.distro,
@@ -200,47 +202,44 @@ export function getSidebarHostVisibilityLabel(
     return checkedRows[0].label
   }
   if (checkedRows.length === 0) {
-    return 'Hosts'
+    return translate('auto.components.sidebar.sidebarHostOptions.hosts', 'Hosts')
   }
-  return translate(
-    'auto.components.sidebar.sidebarHostOptions.visibleHostsCount',
-    '{{value0}} hosts',
-    { value0: checkedRows.length }
-  )
+  return translate('auto.components.sidebar.sidebarHostOptions.visibleHosts', '{{count}} hosts', {
+    count: checkedRows.length,
+    defaultValue_one: '{{count}} host'
+  })
 }
 
 export function getSidebarHostHealthLabel(
   health: SidebarHostScopeOption['health'],
   blockedReason?: RuntimeHostBlockedReason
 ): string {
-  switch (health) {
-    case 'local':
-      return translate('auto.components.sidebar.sidebarHostOptions.healthLocal', 'Local')
-    case 'available':
-      return translate('auto.components.sidebar.sidebarHostOptions.healthConnected', 'Connected')
-    case 'connecting':
-      return translate('auto.components.sidebar.sidebarHostOptions.healthConnecting', 'Connecting')
-    case 'blocked':
-      return blockedReason === 'access-revoked'
-        ? translate(
-            'auto.components.sidebar.sidebarHostOptions.healthRepairNeeded',
-            'Re-pair needed'
-          )
-        : translate(
-            'auto.components.sidebar.sidebarHostOptions.healthUpdateNeeded',
-            'Update needed'
-          )
-    case 'disconnected':
-      return translate(
-        'auto.components.sidebar.sidebarHostOptions.healthDisconnected',
-        'Disconnected'
-      )
-    case 'error':
-      return translate(
-        'auto.components.sidebar.sidebarHostOptions.healthNeedsAttention',
-        'Needs attention'
-      )
-    case 'mixed':
-      return translate('auto.components.sidebar.sidebarHostOptions.healthMixed', 'Mixed')
+  return health === 'mixed'
+    ? translate('runtime.health.mixed', 'Mixed')
+    : getExecutionHostHealthLabel(health, blockedReason)
+}
+
+// Diagnostics do not change host choices; retain every other exposed registry field.
+export function sidebarHostSemantics(host: SidebarHostOption & ExecutionHostRegistryEntry) {
+  const { remoteControlState, ...option } = host
+  return {
+    ...option,
+    remoteControlState: remoteControlState && {
+      state: remoteControlState.state,
+      lastError: remoteControlState.lastError,
+      lastClose: remoteControlState.lastClose,
+      lastCloseCause: remoteControlState.lastCloseCause
+    }
+  }
+}
+
+export function createSidebarHostLabelsSelector() {
+  let result = new Map<ExecutionHostId, string>()
+  return (hosts: readonly SidebarHostOption[]): ReadonlyMap<ExecutionHostId, string> => {
+    const next = new Map(hosts.map((host) => [host.id, host.label]))
+    if (!shallow(result, next)) {
+      result = next
+    }
+    return result
   }
 }

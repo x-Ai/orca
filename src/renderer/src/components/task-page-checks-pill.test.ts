@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { getChecksLabel, getChecksPillTone } from './task-page-checks-pill'
+import { getChecksLabel, getChecksPillTone } from './task-page/task-page-checks-pill'
 import { setRendererUiLanguage } from '@/i18n/i18n'
 
 afterEach(async () => {

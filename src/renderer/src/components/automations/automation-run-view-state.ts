@@ -62,30 +62,23 @@ export function getAutomationRunViewState({
   terminalOnPairedServer?: boolean
 }): AutomationRunViewState {
   const hasTerminalIdentity = Boolean(run.terminalPaneKey && run.terminalPtyId)
+  // Why the pane alone: a slept run drops its PTY id but keeps its pane, which the server resumes.
+  const hasPaneIdentity = Boolean(run.terminalPaneKey)
   if (run.workspaceId && workspaceExists && terminalTargetExists) {
     return {
       availability: 'terminal',
-      actionLabel: translate(
-        'auto.components.automations.automation.run.view.state.54f28daf9c',
-        'View run'
-      ),
-      statusLabel: translate(
-        'auto.components.automations.automation.run.view.state.22522086c4',
-        'Run is open'
-      ),
+      actionLabel: translate('auto.components.automations.runViewState.viewRun', 'View run'),
+      statusLabel: translate('auto.components.automations.runViewState.runOpen', 'Run is open'),
       canOpen: true
     }
   }
 
-  if (run.workspaceId && workspaceExists && hasTerminalIdentity && terminalOnPairedServer) {
+  if (run.workspaceId && workspaceExists && hasPaneIdentity && terminalOnPairedServer) {
     return {
       availability: 'terminal',
-      actionLabel: translate(
-        'auto.components.automations.automation.run.view.state.54f28daf9c',
-        'View run'
-      ),
+      actionLabel: translate('auto.components.automations.runViewState.viewRun', 'View run'),
       statusLabel: translate(
-        'auto.components.automations.automation.run.view.state.runTerminalOnPairedServer',
+        'auto.components.automations.runViewState.terminalOnPairedServer',
         'Run terminal is on the paired server.'
       ),
       canOpen: true
@@ -95,12 +88,9 @@ export function getAutomationRunViewState({
   if (run.workspaceId && workspaceExists && hasTerminalIdentity) {
     return {
       availability: 'terminal',
-      actionLabel: translate(
-        'auto.components.automations.automation.run.view.state.54f28daf9c',
-        'View run'
-      ),
+      actionLabel: translate('auto.components.automations.runViewState.viewRun', 'View run'),
       statusLabel: translate(
-        'auto.components.automations.automation.run.view.state.512cb6234a',
+        'auto.components.automations.runViewState.terminalUnavailable',
         'Run terminal is unavailable.'
       ),
       canOpen: true
@@ -112,11 +102,11 @@ export function getAutomationRunViewState({
     return {
       availability: 'workspace',
       actionLabel: translate(
-        'auto.components.automations.automation.run.view.state.openWorkspace',
+        'auto.components.automations.runViewState.openWorkspace',
         'Open workspace'
       ),
       statusLabel: translate(
-        'auto.components.automations.automation.run.view.state.160f368f8e',
+        'auto.components.automations.runViewState.workspaceAvailable',
         'Workspace is available.'
       ),
       canOpen: true
@@ -127,11 +117,11 @@ export function getAutomationRunViewState({
     return {
       availability: 'snapshot',
       actionLabel: translate(
-        'auto.components.automations.automation.run.view.state.358ae795ea',
+        'auto.components.automations.runViewState.snapshotSaved',
         'Snapshot saved'
       ),
       statusLabel: translate(
-        'auto.components.automations.automation.run.view.state.63a8bd42bd',
+        'auto.components.automations.runViewState.showingSnapshot',
         'Showing saved run snapshot.'
       ),
       canOpen: false
@@ -140,23 +130,20 @@ export function getAutomationRunViewState({
 
   return {
     availability: 'metadata',
-    actionLabel: translate(
-      'auto.components.automations.automation.run.view.state.54f28daf9c',
-      'View run'
-    ),
+    actionLabel: translate('auto.components.automations.runViewState.viewRun', 'View run'),
     statusLabel: run.workspaceId
       ? run.workspaceDisplayName?.trim()
         ? translate(
-            'auto.components.automations.automation.run.view.state.a4f3aa5960',
-            '{{value0}} no longer available',
-            { value0: run.workspaceDisplayName.trim() }
+            'auto.components.automations.runViewState.namedWorkspaceGone',
+            '{{name}} no longer available',
+            { name: run.workspaceDisplayName.trim() }
           )
         : translate(
-            'auto.components.automations.automation.run.view.state.272939969f',
+            'auto.components.automations.runViewState.workspaceGone',
             'Workspace no longer available'
           )
       : translate(
-          'auto.components.automations.automation.run.view.state.cbd6ff6dd8',
+          'auto.components.automations.runViewState.noWorkspaceLaunched',
           'No workspace launched'
         ),
     canOpen: false

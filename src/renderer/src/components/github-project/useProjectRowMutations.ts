@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { toast } from 'sonner'
 import { useAppStore } from '@/store'
-import { formatGitHubProjectErrorMessage } from '@/lib/github-project-error-copy'
+import { projectViewErrorMessage } from './project-view-error-copy'
 import type {
   GitHubIssueType,
   GitHubProjectFieldMutationValue,
@@ -23,7 +23,7 @@ export function useProjectRowMutations(currentCacheKey: string | null) {
         ...(remove.length ? { removeAssignees: remove } : {})
       })
       if (!result.ok) {
-        toast.error(formatGitHubProjectErrorMessage(result.error.message))
+        toast.error(projectViewErrorMessage(result.error))
       }
     },
     [currentCacheKey, patchProjectIssueOrPr]
@@ -38,7 +38,7 @@ export function useProjectRowMutations(currentCacheKey: string | null) {
         ...(remove.length ? { removeLabels: remove } : {})
       })
       if (!result.ok) {
-        toast.error(formatGitHubProjectErrorMessage(result.error.message))
+        toast.error(projectViewErrorMessage(result.error))
       }
     },
     [currentCacheKey, patchProjectIssueOrPr]
@@ -50,7 +50,7 @@ export function useProjectRowMutations(currentCacheKey: string | null) {
       }
       const result = await patchProjectRowIssueType(currentCacheKey, row.id, issueType)
       if (!result.ok) {
-        toast.error(formatGitHubProjectErrorMessage(result.error.message))
+        toast.error(projectViewErrorMessage(result.error))
       }
     },
     [currentCacheKey, patchProjectRowIssueType]
@@ -68,7 +68,7 @@ export function useProjectRowMutations(currentCacheKey: string | null) {
         ? await updateProjectFieldValue(currentCacheKey, row.id, fieldId, value)
         : await clearProjectFieldValue(currentCacheKey, row.id, fieldId)
       if (!result.ok) {
-        toast.error(formatGitHubProjectErrorMessage(result.error.message))
+        toast.error(projectViewErrorMessage(result.error))
       }
     },
     [clearProjectFieldValue, currentCacheKey, updateProjectFieldValue]

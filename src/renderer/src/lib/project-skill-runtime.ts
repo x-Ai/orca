@@ -1,3 +1,4 @@
+// COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
 import type { ProjectExecutionRuntimeResolution } from '../../../shared/project-execution-runtime'
 import type { SkillDiscoveryTarget } from '../../../shared/skills'
 import type { GlobalSettings } from '../../../shared/global-settings-types'
@@ -49,8 +50,7 @@ export function getProjectAgentSkillTerminalShellOverride(
   if (runtime?.runtime === 'wsl') {
     return 'powershell.exe'
   }
-  // Why: generated skill commands are PowerShell/cmd syntax, so a POSIX-family
-  // Windows shell (wsl.exe, Git Bash) would mangle the wrapper we hand it.
+  // POSIX-family Windows shells (WSL/Git Bash) would mangle generated PowerShell/cmd skill wrappers.
   return resolveWindowsShellStartupFamily(settings?.terminalWindowsShell) === 'posix'
     ? 'powershell.exe'
     : undefined
@@ -86,6 +86,6 @@ function getWslAgentSkillRuntime(distro: string | null): ProjectAgentSkillRuntim
   return {
     runtime: 'wsl',
     wslDistro: distro,
-    label: distro ? `WSL ${distro}` : translate('auto.lib.projectSkillRuntime.wslDefault', 'WSL')
+    label: distro ? `WSL ${distro}` : translate('auto.lib.projectSkillRuntime.wslDefault', 'WSL default')
   }
 }
