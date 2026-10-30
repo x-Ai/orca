@@ -13020,7 +13020,11 @@
           "themes": "Thèmes",
           "languages": "Langages",
           "icons": "Icônes",
-          "commands": "Commandes et panneaux"
+          "commands": "Commandes et panneaux",
+          "editors": "Éditeurs",
+          "remoteVms": "Distants/VM",
+          "games": "Jeux",
+          "catalogLabel": "Filtrer par catalogue"
         },
         "PluginUpdateAllDialog": {
           "previewError": "Impossible de lire cette mise à jour",
@@ -13074,7 +13078,9 @@
           "contentOnly": "Contenu uniquement"
         },
         "PluginSettingsMenu": {
-          "autoUpdateHint": "Ne redemande que pour un nouvel accès"
+          "autoUpdateHint": "Ne redemande que pour un nouvel accès",
+          "autoUpdateLabel": "Mettre à jour les plugins automatiquement",
+          "development": "Dossiers de développement…"
         },
         "PluginInUseAction": {
           "inUseDark": "Utilisé · Sombre",
@@ -16725,7 +16731,10 @@
           "2d5b9fabf9": "Accès au micro refusé. Accordez l'autorisation dans les réglages système, puis redémarrez Orca.",
           "5d2c3e7ae3": "Aucune parole détectée.",
           "micFallback": "Micro sélectionné indisponible. Utilisation du micro par défaut du système.",
-          "micDisconnected": "Micro déconnecté. Dictée arrêtée."
+          "micDisconnected": "Micro déconnecté. Dictée arrêtée.",
+          "dictationDisabled": "La dictée vocale est désactivée. Activez-la dans Paramètres > Voix.",
+          "speechModelNotReady": "Le modèle vocal n'est pas encore prêt. Téléchargez-le dans Paramètres > Voix.",
+          "speechModelUnavailable": "Le modèle sélectionné n'est plus disponible. Choisissez-en un autre dans Paramètres > Voix."
         },
         "DictationIndicator": {
           "335e1bc6cb": "Arrêter la dictée",
@@ -18297,10 +18306,12 @@
           "searchLabel": "Rechercher des plugins",
           "searchPlaceholder": "Rechercher des plugins",
           "updates": "Mises à jour",
-          "clearSearch": "Effacer la recherche"
+          "clearSearch": "Effacer la recherche",
+          "notInstalled": "Non installé"
         },
         "PluginListGroup": {
-          "showAll": "Afficher {{value0}} de plus"
+          "showAll": "Afficher {{value0}} de plus",
+          "showAllTotal": "Afficher les {{value0}} plugins"
         },
         "PluginListRow": {
           "official": "Officiel"
@@ -18332,7 +18343,9 @@
         "failingChip": "{{value0}} en échec",
         "pendingChip": "{{value0}} en attente",
         "needsActionChip": "{{value0}} action requise",
-        "unresolvedChip": "{{value0}} non résolus"
+        "unresolvedChip": "{{value0}} non résolus",
+        "noChecks": "Aucune vérification trouvée",
+        "passingSummary": "{{value0}} vérifications sur {{value1}} réussies"
       },
       "BrowserPane": {
         "streamConnectionLost": "Connexion au serveur distant perdue.",
@@ -18787,6 +18800,13 @@
           "noTabGroup": "Impossible d’exécuter « {{action}} » — aucun groupe d’onglets n’est disponible.",
           "noMovableChat": "Impossible d’exécuter « {{action}} » — aucun chat déplaçable n’est actif.",
           "clientUnsupported": "Impossible d’exécuter « {{action}} » — ce client et cet environnement d’exécution ne le prennent pas en charge."
+        }
+      },
+      "plugins": {
+        "list": {
+          "PluginsSectionDescription": {
+            "openWith": "Ouvrir à tout moment avec"
+          }
         }
       }
     },

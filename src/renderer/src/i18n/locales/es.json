@@ -12796,7 +12796,11 @@
           "themes": "Temas",
           "languages": "Lenguajes",
           "icons": "Iconos",
-          "commands": "Comandos y paneles"
+          "commands": "Comandos y paneles",
+          "editors": "Editores",
+          "remoteVms": "Remotos/VM",
+          "games": "Juegos",
+          "catalogLabel": "Filtrar por catálogo"
         },
         "PluginUpdateAllDialog": {
           "previewError": "No se pudo leer esta actualización",
@@ -12850,7 +12854,9 @@
           "contentOnly": "Solo contenido"
         },
         "PluginSettingsMenu": {
-          "autoUpdateHint": "Solo vuelve a preguntar por accesos nuevos"
+          "autoUpdateHint": "Solo vuelve a preguntar por accesos nuevos",
+          "autoUpdateLabel": "Actualizar plugins automáticamente",
+          "development": "Carpetas de desarrollo…"
         },
         "PluginInUseAction": {
           "inUseDark": "En uso · Oscuro",
@@ -16501,7 +16507,10 @@
           "2d5b9fabf9": "Acceso al micrófono denegado. Conceda acceso en la configuración del sistema, luego reinicie Orca.",
           "5d2c3e7ae3": "No se detectó ninguna voz.",
           "micFallback": "Micrófono seleccionado no disponible. Se usará el predeterminado del sistema.",
-          "micDisconnected": "Micrófono desconectado. Dictado detenido."
+          "micDisconnected": "Micrófono desconectado. Dictado detenido.",
+          "dictationDisabled": "El dictado por voz está desactivado. Actívelo en Configuración > Voz.",
+          "speechModelNotReady": "El modelo de voz aún no está listo. Descárguelo en Configuración > Voz.",
+          "speechModelUnavailable": "El modelo seleccionado ya no está disponible. Elija otro en Configuración > Voz."
         },
         "DictationIndicator": {
           "335e1bc6cb": "Detener dictado",
@@ -18087,10 +18096,12 @@
           "searchLabel": "Search plugins",
           "searchPlaceholder": "Buscar plugins",
           "updates": "Actualizaciones",
-          "clearSearch": "Borrar búsqueda"
+          "clearSearch": "Borrar búsqueda",
+          "notInstalled": "No instalado"
         },
         "PluginListGroup": {
-          "showAll": "Mostrar {{value0}} más"
+          "showAll": "Mostrar {{value0}} más",
+          "showAllTotal": "Mostrar los {{value0}} plugins"
         },
         "PluginListRow": {
           "official": "Oficial"
@@ -18106,7 +18117,9 @@
         "failingChip": "{{value0}} fallando",
         "pendingChip": "{{value0}} pendiente",
         "needsActionChip": "{{value0}} requiere acción",
-        "unresolvedChip": "{{value0}} sin resolver"
+        "unresolvedChip": "{{value0}} sin resolver",
+        "noChecks": "No se encontraron verificaciones",
+        "passingSummary": "{{value0}} de {{value1}} verificaciones superadas"
       },
       "artifacts": {
         "ArtifactsPage": {
@@ -18581,6 +18594,13 @@
           "noTabGroup": "No se puede ejecutar «{{action}}» — no hay ningún grupo de pestañas disponible.",
           "noMovableChat": "No se puede ejecutar «{{action}}» — no hay ningún chat activo que se pueda mover.",
           "clientUnsupported": "No se puede ejecutar «{{action}}» — este cliente y este entorno de ejecución no lo admiten."
+        }
+      },
+      "plugins": {
+        "list": {
+          "PluginsSectionDescription": {
+            "openWith": "Abrir en cualquier momento con"
+          }
         }
       }
     },

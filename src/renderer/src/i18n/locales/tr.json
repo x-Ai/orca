@@ -12950,6 +12950,16 @@
               "windowsFailureDescription": "Windows Settings bölümünde Orca için bildirimleri etkinleştirin."
             }
           }
+        },
+        "PluginFilterPopover": {
+          "editors": "Düzenleyiciler",
+          "remoteVms": "Uzak/VM'ler",
+          "games": "Oyunlar",
+          "catalogLabel": "Kataloğa göre filtrele"
+        },
+        "PluginSettingsMenu": {
+          "autoUpdateLabel": "Eklentileri otomatik güncelle",
+          "development": "Geliştirme klasörleri…"
         }
       },
       "right": {
@@ -16460,7 +16470,10 @@
           "2d5b9fabf9": "Mikrofon erişimi reddedildi. Sistem ayarlarından erişim verin, ardından Orca'yı yeniden başlatın.",
           "5d2c3e7ae3": "Konuşma algılanmadı.",
           "micFallback": "Seçili mikrofon kullanılamıyor. Sistem varsayılanı kullanılıyor.",
-          "micDisconnected": "Mikrofon bağlantısı kesildi. Dikte durduruldu."
+          "micDisconnected": "Mikrofon bağlantısı kesildi. Dikte durduruldu.",
+          "dictationDisabled": "Sesli dikte devre dışı. Ayarlar > Ses bölümünden etkinleştirin.",
+          "speechModelNotReady": "Ses modeli henüz hazır değil. Ayarlar > Ses bölümünden indirin.",
+          "speechModelUnavailable": "Seçili model artık kullanılamıyor. Ayarlar > Ses bölümünden başka bir model seçin."
         },
         "DictationIndicator": {
           "335e1bc6cb": "Dikteyi durdur",
@@ -18001,7 +18014,11 @@
           "all": "Tümü",
           "installed": "Yüklü",
           "searchLabel": "Eklentileri ara",
-          "searchPlaceholder": "Eklentileri, kategorileri veya yayıncıları ara"
+          "searchPlaceholder": "Eklentileri, kategorileri veya yayıncıları ara",
+          "notInstalled": "Yüklü değil"
+        },
+        "PluginListGroup": {
+          "showAllTotal": "{{value0}} eklentinin tümünü göster"
         }
       },
       "terminalPane": {
@@ -18030,7 +18047,9 @@
         "failingChip": "{{value0}} başarısız",
         "pendingChip": "{{value0}} bekleyen",
         "needsActionChip": "{{value0}} işlem gerekiyor",
-        "unresolvedChip": "{{value0}} çözülmemiş"
+        "unresolvedChip": "{{value0}} çözülmemiş",
+        "noChecks": "Kontrol bulunamadı",
+        "passingSummary": "{{value0}}/{{value1}} kontrol başarılı"
       },
       "BrowserPane": {
         "streamConnectionLost": "Uzak sunucuyla bağlantı kesildi.",
@@ -18428,6 +18447,13 @@
           "noTabGroup": "“{{action}}” çalıştırılamıyor — kullanılabilir sekme grubu yok.",
           "noMovableChat": "“{{action}}” çalıştırılamıyor — taşınabilir etkin sohbet yok.",
           "clientUnsupported": "“{{action}}” çalıştırılamıyor — bu istemci ve çalışma zamanı bunu desteklemiyor."
+        }
+      },
+      "plugins": {
+        "list": {
+          "PluginsSectionDescription": {
+            "openWith": "İstediğiniz zaman açın:"
+          }
         }
       }
     },

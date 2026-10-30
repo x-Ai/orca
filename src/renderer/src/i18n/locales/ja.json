@@ -12510,7 +12510,11 @@
           "themes": "テーマ",
           "languages": "言語",
           "icons": "アイコン",
-          "commands": "コマンドとパネル"
+          "commands": "コマンドとパネル",
+          "editors": "エディター",
+          "remoteVms": "リモート/VM",
+          "games": "ゲーム",
+          "catalogLabel": "カタログで絞り込む"
         },
         "PluginUpdateAllDialog": {
           "previewError": "このアップデートを読み取れませんでした",
@@ -12564,7 +12568,9 @@
           "contentOnly": "コンテンツのみ"
         },
         "PluginSettingsMenu": {
-          "autoUpdateHint": "新しいアクセスがあるときだけ確認します"
+          "autoUpdateHint": "新しいアクセスがあるときだけ確認します",
+          "autoUpdateLabel": "プラグインを自動更新",
+          "development": "開発フォルダー…"
         },
         "PluginInUseAction": {
           "inUseDark": "使用中 · ダーク",
@@ -16100,7 +16106,10 @@
           "2d5b9fabf9": "マイクへのアクセスが拒否されました。システム設定でアクセスを許可し、Orca を再起動。",
           "5d2c3e7ae3": "音声が検出されませんでした。",
           "micFallback": "選択したマイクが使用できません。システムのデフォルトを使用します。",
-          "micDisconnected": "マイクが接続されていません。ディクテーションが停止しました。"
+          "micDisconnected": "マイクが接続されていません。ディクテーションが停止しました。",
+          "dictationDisabled": "音声入力は無効です。「設定 > 音声」で有効にしてください。",
+          "speechModelNotReady": "音声モデルの準備ができていません。「設定 > 音声」でダウンロードしてください。",
+          "speechModelUnavailable": "選択したモデルは利用できなくなりました。「設定 > 音声」で別のモデルを選択してください。"
         },
         "DictationIndicator": {
           "335e1bc6cb": "ディクテーションを停止する",
@@ -17627,10 +17636,12 @@
           "searchLabel": "プラグインを検索",
           "searchPlaceholder": "プラグインを検索",
           "updates": "アップデート",
-          "clearSearch": "検索をクリア"
+          "clearSearch": "検索をクリア",
+          "notInstalled": "未インストール"
         },
         "PluginListGroup": {
-          "showAll": "さらに {{value0}} 件を表示"
+          "showAll": "さらに {{value0}} 件を表示",
+          "showAllTotal": "{{value0}} 個のプラグインをすべて表示"
         },
         "PluginListRow": {
           "official": "公式"
@@ -17646,7 +17657,9 @@
         "failingChip": "{{value0}} 件失敗",
         "pendingChip": "{{value0}} 件保留中",
         "needsActionChip": "{{value0}} 件の対応が必要",
-        "unresolvedChip": "{{value0}} 件未解決"
+        "unresolvedChip": "{{value0}} 件未解決",
+        "noChecks": "チェックが見つかりません",
+        "passingSummary": "{{value0}}/{{value1}} 件のチェックが通過"
       },
       "artifacts": {
         "ArtifactsPage": {
@@ -18109,6 +18122,13 @@
           "noTabGroup": "「{{action}}」を実行できません。利用可能なタブグループがありません。",
           "noMovableChat": "「{{action}}」を実行できません。移動できるアクティブなチャットがありません。",
           "clientUnsupported": "「{{action}}」を実行できません。このクライアントとランタイムは対応していません。"
+        }
+      },
+      "plugins": {
+        "list": {
+          "PluginsSectionDescription": {
+            "openWith": "いつでも開く:"
+          }
         }
       }
     },

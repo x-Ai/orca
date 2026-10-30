@@ -12787,6 +12787,16 @@
               "windowsFailureDescription": "在 Windows 的「設定」中開啟 Orca 的通知。"
             }
           }
+        },
+        "PluginFilterPopover": {
+          "editors": "編輯器",
+          "remoteVms": "遠端/虛擬機",
+          "games": "遊戲",
+          "catalogLabel": "依目錄篩選"
+        },
+        "PluginSettingsMenu": {
+          "autoUpdateLabel": "自動更新外掛",
+          "development": "開發資料夾…"
         }
       },
       "right": {
@@ -16249,7 +16259,10 @@
           "2d5b9fabf9": "麥克風存取被拒絕。在系統設定中授予存取權限，然後重新啟動 Orca。",
           "5d2c3e7ae3": "未偵測到語音。",
           "micFallback": "所選麥克風不可用。使用系統預設值。",
-          "micDisconnected": "麥克風已中斷連線。聽寫已停止。"
+          "micDisconnected": "麥克風已中斷連線。聽寫已停止。",
+          "dictationDisabled": "語音聽寫已停用，請前往「設定 > 語音」啟用。",
+          "speechModelNotReady": "語音模型尚未就緒，請前往「設定 > 語音」下載模型。",
+          "speechModelUnavailable": "所選模型已無法使用，請前往「設定 > 語音」選擇其他模型。"
         },
         "DictationIndicator": {
           "335e1bc6cb": "停止聽寫",
@@ -17762,7 +17775,11 @@
           "all": "全部",
           "installed": "已安裝",
           "searchLabel": "搜尋外掛",
-          "searchPlaceholder": "搜尋外掛、分類或發布者"
+          "searchPlaceholder": "搜尋外掛、分類或發布者",
+          "notInstalled": "未安裝"
+        },
+        "PluginListGroup": {
+          "showAllTotal": "顯示全部 {{value0}} 個外掛"
         }
       },
       "terminalPane": {
@@ -17791,7 +17808,9 @@
         "failingChip": "{{value0}} 失敗",
         "pendingChip": "{{value0}} 個等待中",
         "needsActionChip": "{{value0}} 個需要操作",
-        "unresolvedChip": "{{value0}} 個未解決"
+        "unresolvedChip": "{{value0}} 個未解決",
+        "noChecks": "找不到檢查項目",
+        "passingSummary": "{{value0}}/{{value1}} 項檢查通過"
       },
       "BrowserPane": {
         "streamConnectionLost": "已與遠端伺服器斷線。",
@@ -18183,6 +18202,13 @@
           "noTabGroup": "無法執行「{{action}}」— 沒有可用的分頁群組。",
           "noMovableChat": "無法執行「{{action}}」— 沒有作用中且可移動的聊天。",
           "clientUnsupported": "無法執行「{{action}}」— 此用戶端與執行環境不支援此操作。"
+        }
+      },
+      "plugins": {
+        "list": {
+          "PluginsSectionDescription": {
+            "openWith": "隨時開啟"
+          }
         }
       }
     },

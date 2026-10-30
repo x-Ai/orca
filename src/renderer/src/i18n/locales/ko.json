@@ -12510,7 +12510,11 @@
           "themes": "테마",
           "languages": "언어",
           "icons": "아이콘",
-          "commands": "명령 및 패널"
+          "commands": "명령 및 패널",
+          "editors": "편집기",
+          "remoteVms": "원격/VM",
+          "games": "게임",
+          "catalogLabel": "카탈로그로 필터링"
         },
         "PluginUpdateAllDialog": {
           "previewError": "이 업데이트를 읽지 못했습니다",
@@ -12564,7 +12568,9 @@
           "contentOnly": "콘텐츠만"
         },
         "PluginSettingsMenu": {
-          "autoUpdateHint": "새 접근 권한이 있을 때만 다시 묻습니다"
+          "autoUpdateHint": "새 접근 권한이 있을 때만 다시 묻습니다",
+          "autoUpdateLabel": "플러그인 자동 업데이트",
+          "development": "개발 폴더…"
         },
         "PluginInUseAction": {
           "inUseDark": "사용 중 · 다크",
@@ -16100,7 +16106,10 @@
           "2d5b9fabf9": "마이크 액세스가 거부되었습니다. 시스템 설정에서 액세스 권한을 부여한 다음 Orca를 다시 시작하세요.",
           "5d2c3e7ae3": "음성이 감지되지 않았습니다.",
           "micFallback": "선택한 마이크를 사용할 수 없습니다. 시스템 기본값을 사용합니다.",
-          "micDisconnected": "마이크 연결이 끊어졌습니다. 받아쓰기가 중지되었습니다."
+          "micDisconnected": "마이크 연결이 끊어졌습니다. 받아쓰기가 중지되었습니다.",
+          "dictationDisabled": "음성 받아쓰기가 비활성화되어 있습니다. 설정 > 음성에서 활성화하세요.",
+          "speechModelNotReady": "음성 모델이 아직 준비되지 않았습니다. 설정 > 음성에서 다운로드하세요.",
+          "speechModelUnavailable": "선택한 모델을 더 이상 사용할 수 없습니다. 설정 > 음성에서 다른 모델을 선택하세요."
         },
         "DictationIndicator": {
           "335e1bc6cb": "받아쓰기 중지",
@@ -17627,10 +17636,12 @@
           "searchLabel": "Search plugins",
           "searchPlaceholder": "플러그인 검색",
           "updates": "업데이트",
-          "clearSearch": "검색 지우기"
+          "clearSearch": "검색 지우기",
+          "notInstalled": "설치되지 않음"
         },
         "PluginListGroup": {
-          "showAll": "{{value0}}개 더 보기"
+          "showAll": "{{value0}}개 더 보기",
+          "showAllTotal": "플러그인 {{value0}}개 모두 표시"
         },
         "PluginListRow": {
           "official": "공식"
@@ -17646,7 +17657,9 @@
         "failingChip": "{{value0}} 실패",
         "pendingChip": "{{value0}} 보류 중",
         "needsActionChip": "{{value0}}개 조치 필요",
-        "unresolvedChip": "{{value0}}개 미해결"
+        "unresolvedChip": "{{value0}}개 미해결",
+        "noChecks": "검사를 찾을 수 없음",
+        "passingSummary": "{{value0}}/{{value1}}개 검사 통과"
       },
       "artifacts": {
         "ArtifactsPage": {
@@ -18109,6 +18122,13 @@
           "noTabGroup": "“{{action}}” 실행 불가 — 사용 가능한 탭 그룹이 없습니다.",
           "noMovableChat": "“{{action}}” 실행 불가 — 이동 가능한 활성 채팅이 없습니다.",
           "clientUnsupported": "“{{action}}” 실행 불가 — 이 클라이언트와 런타임에서 지원하지 않습니다."
+        }
+      },
+      "plugins": {
+        "list": {
+          "PluginsSectionDescription": {
+            "openWith": "언제든 열기:"
+          }
         }
       }
     },

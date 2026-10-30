@@ -9218,7 +9218,9 @@
           "contentOnly": "Somente conteúdo"
         },
         "PluginSettingsMenu": {
-          "autoUpdateHint": "Só pergunta de novo por novo acesso"
+          "autoUpdateHint": "Só pergunta de novo por novo acesso",
+          "autoUpdateLabel": "Atualizar plugins automaticamente",
+          "development": "Pastas de desenvolvimento…"
         },
         "PluginUpdateAllDialog": {
           "allAccess": "Ver todo o acesso",
@@ -9306,6 +9308,12 @@
             "mod": "mod",
             "shortcut": "atalho"
           }
+        },
+        "PluginFilterPopover": {
+          "editors": "Editores",
+          "remoteVms": "Remotos/VMs",
+          "games": "Jogos",
+          "catalogLabel": "Filtrar por catálogo"
         }
       },
       "right": {
@@ -18794,7 +18802,10 @@
           "2d5b9fabf9": "Acesso ao microfone negado. Conceda acesso nas configurações do sistema e reinicie o Orca.",
           "5d2c3e7ae3": "Nenhuma fala detectada.",
           "micFallback": "O microfone selecionado não está disponível. Usando o padrão do sistema.",
-          "micDisconnected": "Microfone desconectado. O ditado foi interrompido."
+          "micDisconnected": "Microfone desconectado. O ditado foi interrompido.",
+          "dictationDisabled": "O ditado por voz está desativado. Ative-o em Configurações > Voz.",
+          "speechModelNotReady": "O modelo de voz ainda não está pronto. Baixe-o em Configurações > Voz.",
+          "speechModelUnavailable": "O modelo selecionado não está mais disponível. Escolha outro em Configurações > Voz."
         },
         "DictationIndicator": {
           "335e1bc6cb": "Parar ditado",
@@ -19122,7 +19133,11 @@
           "all": "Todos",
           "installed": "Instalados",
           "searchLabel": "Buscar plugins",
-          "searchPlaceholder": "Pesquisar plugins"
+          "searchPlaceholder": "Pesquisar plugins",
+          "notInstalled": "Não instalado"
+        },
+        "PluginListGroup": {
+          "showAllTotal": "Mostrar todos os {{value0}} plugins"
         }
       },
       "native": {
@@ -19151,7 +19166,9 @@
         "failingChip": "{{value0}} com falha",
         "pendingChip": "{{value0}} pendentes",
         "needsActionChip": "{{value0}} ação necessária",
-        "unresolvedChip": "{{value0}} não resolvidas"
+        "unresolvedChip": "{{value0}} não resolvidas",
+        "noChecks": "Nenhuma verificação encontrada",
+        "passingSummary": "{{value0}} de {{value1}} verificações aprovadas"
       },
       "ComposerParentWorktreePicker": {
         "label": "Worktree pai",
@@ -19538,6 +19555,13 @@
           "noTabGroup": "Não é possível executar “{{action}}” — nenhum grupo de abas está disponível.",
           "noMovableChat": "Não é possível executar “{{action}}” — nenhum chat que possa ser movido está ativo.",
           "clientUnsupported": "Não é possível executar “{{action}}” — este cliente e este runtime não oferecem suporte a essa ação."
+        }
+      },
+      "plugins": {
+        "list": {
+          "PluginsSectionDescription": {
+            "openWith": "Abrir a qualquer momento com"
+          }
         }
       }
     },
