@@ -6482,10 +6482,12 @@
             "storage": "Guardar os próprios dados",
             "secrets": "Guardar os próprios segredos criptografados",
             "settingsOwn": "Ler e alterar as próprias configurações",
-            "terminalRun": "Executar comandos nos seus terminais, incluindo SSH"
+            "terminalRun": "Executar comandos nos seus terminais, incluindo SSH",
+            "agentsRead": "Receber notificações quando o status do agente mudar"
           },
           "decisionFailed": "Não foi possível salvar a decisão de permissão. Tente novamente.",
-          "fullAccessWarning": "Acesso total: é executado como um programa normal e pode ler seus arquivos, usar a rede e executar outros programas."
+          "fullAccessWarning": "Acesso total: é executado como um programa normal e pode ler seus arquivos, usar a rede e executar outros programas.",
+          "uiWarning": "Executa o código do editor dentro do Orca para desenhar a visualização. O Orca mostra a que ele pode acessar e pergunta antes de ativá-lo."
         },
         "SparsePresetSettingsSection": {
           "6fa754d20f": "Excluir",

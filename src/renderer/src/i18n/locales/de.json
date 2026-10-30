@@ -11928,9 +11928,13 @@
             "notificationsShow": "Desktop-Benachrichtigungen mit dem Plugin-Namen anzeigen",
             "storage": "Daten im eigenen Speicherordner des Plugins speichern",
             "secrets": "Geheimnisse im eigenen verschlüsselten Tresor des Plugins speichern und lesen",
-            "settingsOwn": "Die eigenen Einstellungen des Plugins lesen und ändern"
+            "settingsOwn": "Die eigenen Einstellungen des Plugins lesen und ändern",
+            "agentsRead": "Benachrichtigung bei Änderungen des Agent-Status",
+            "terminalRun": "Befehle in deinen Terminals ausführen, auch über SSH"
           },
-          "decisionFailed": "Die Berechtigungsentscheidung konnte nicht gespeichert werden. Erneut versuchen."
+          "decisionFailed": "Die Berechtigungsentscheidung konnte nicht gespeichert werden. Erneut versuchen.",
+          "uiWarning": "Führt den Code des Herausgebers in Orca aus, um dessen Ansicht zu rendern. Orca zeigt, worauf er zugreifen kann, und fragt vor dem Aktivieren nach.",
+          "fullAccessWarning": "Vollzugriff: Läuft als normales Programm und kann deine Dateien lesen, das Netzwerk nutzen und andere Programme ausführen."
         },
         "PluginConsentProvenance": {
           "official": "Offiziell",

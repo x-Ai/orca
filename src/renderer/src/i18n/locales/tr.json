@@ -11914,9 +11914,13 @@
             "notificationsShow": "Eklenti adıyla etiketlenmiş masaüstü bildirimleri gösterir",
             "storage": "Eklentinin kendi depolama klasöründe veri saklar",
             "secrets": "Eklentinin kendi şifreli kasasında gizli bilgileri saklar ve okur",
-            "settingsOwn": "Eklentinin kendi ayarlarını okur ve değiştirir"
+            "settingsOwn": "Eklentinin kendi ayarlarını okur ve değiştirir",
+            "agentsRead": "Ajan durumu değiştiğinde bildirim al",
+            "terminalRun": "SSH dahil terminalinizde komut çalıştır"
           },
-          "decisionFailed": "İzin kararı kaydedilemedi. Tekrar deneyin."
+          "decisionFailed": "İzin kararı kaydedilemedi. Tekrar deneyin.",
+          "uiWarning": "Görünümünü çizmek için yayıncının kodunu Orca içinde çalıştırır. Orca nelerin erişebileceğini gösterir ve etkinleştirmeden önce sorar.",
+          "fullAccessWarning": "Tam erişim: normal bir program olarak çalışır; dosyalarınızı okuyabilir, ağı kullanabilir ve başka programları çalıştırabilir."
         },
         "PluginConsentProvenance": {
           "official": "Resmi",

@@ -11828,7 +11828,8 @@
             "terminalRun": "Exécuter des commandes dans vos terminaux, y compris SSH"
           },
           "decisionFailed": "Impossible d'enregistrer la décision d'autorisation. Réessayez.",
-          "fullAccessWarning": "Accès complet : s’exécute comme un programme normal et peut lire vos fichiers, utiliser le réseau et lancer d’autres programmes."
+          "fullAccessWarning": "Accès complet : s’exécute comme un programme normal et peut lire vos fichiers, utiliser le réseau et lancer d’autres programmes.",
+          "uiWarning": "Exécute le code de l’éditeur dans Orca pour dessiner sa vue. Orca indique à quoi il peut accéder et demande avant de l’activer."
         },
         "PluginConsentProvenance": {
           "official": "Officiel",

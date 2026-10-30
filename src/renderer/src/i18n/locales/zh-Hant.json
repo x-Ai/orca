@@ -11751,9 +11751,13 @@
             "notificationsShow": "顯示標有外掛名稱的桌面通知",
             "storage": "在外掛自己的儲存資料夾中儲存資料",
             "secrets": "在外掛自己的加密保險庫中儲存和讀取機密資料",
-            "settingsOwn": "讀取和變更外掛自己的設定"
+            "settingsOwn": "讀取和變更外掛自己的設定",
+            "agentsRead": "代理程式狀態變更時收到通知",
+            "terminalRun": "在您的終端機中執行命令，包括 SSH"
           },
-          "decisionFailed": "無法儲存權限決定。請重試。"
+          "decisionFailed": "無法儲存權限決定。請重試。",
+          "uiWarning": "在 Orca 中執行發佈者的程式碼來繪製其檢視畫面。Orca 會顯示它能存取什麼，並在啟用前徵求您的同意。",
+          "fullAccessWarning": "完整存取權限：以一般程式執行，可以讀取您的檔案、使用網路並執行其他程式。"
         },
         "PluginConsentProvenance": {
           "official": "官方",
