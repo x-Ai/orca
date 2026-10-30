@@ -1385,6 +1385,35 @@
         "title": "Windows ドライブ上のフォルダーはこのコンピューターで追加してください",
         "descriptionWithPath": "{{value0}} は Windows ドライブ上にあります。WSL の Git はそこで誤った改行コードの変更を報告し、Windows から行った編集を見逃し、検索も遅くなります。",
         "description": "このフォルダーは Windows ドライブ上にあります。WSL の Git はそこで誤った改行コードの変更を報告し、Windows から行った編集を見逃し、検索も遅くなります。"
+      },
+      "cli": {
+        "detail": {
+          "registerForWsl": "WSL から Orca を使用するには {{path}} を登録してください。",
+          "registerForTerminal": "ターミナルから Orca を使用するには {{path}} を登録してください。",
+          "registerForWindowsShell": "コマンド プロンプトまたは PowerShell から Orca を使用するには {{path}} を登録してください。",
+          "devLauncherOnly": "開発モードでは検証専用の生成されたランチャーを使用します。",
+          "differentLauncher": "{{path}} は別のランチャーを指しています。",
+          "launcherMissing": "この Orca ビルドには同梱の CLI ランチャーがありません。",
+          "noWslDistro": "利用可能な WSL ディストリビューションがありません。",
+          "notOrcaLauncherScript": "{{path}} は存在しますが、Orca のランチャー スクリプトではありません。",
+          "notOrcaSymlink": "{{path}} は存在しますが、Orca のシンボリックリンクではありません。",
+          "olderLauncher": "{{path}} には古い Orca ランチャーが含まれています。",
+          "platformUnsupported": "このプラットフォームでは CLI の登録が実装されていません。",
+          "readlinkPermissionDenied": "Orca には {{path}} を確認する権限がありません。パスとその親ディレクトリの権限を確認してから、もう一度お試しください。",
+          "registeredAt": "{{path}} に登録済みです。",
+          "registeredInDistroAt": "{{distro}} の {{path}} に登録済みです。",
+          "registrationUnavailable": "このビルドでは CLI の登録を利用できません。",
+          "unreadableSymlink": "{{path}} を読み取れません。再登録して修復してください。",
+          "windowsLauncherMissing": "Windows 版 Orca CLI ランチャーがありません。",
+          "windowsPathCheckFailed": "Orca ランチャーは存在しますが、Orca は Windows ユーザー PATH を確認できませんでした。",
+          "windowsPathTimedOut": "Windows PATH コマンドが {{ms}} ミリ秒後にタイムアウトしました。",
+          "wslCommandTimedOut": "WSL コマンドが {{ms}} ミリ秒後にタイムアウトしました。",
+          "wslDistroUnreachable": "WSL ディストリビューションに接続できませんでした。もう一度お試しください。",
+          "wslHomeUnresolved": "WSL のホーム ディレクトリを解決できません。",
+          "wslInteropUnavailable": "WSL の Windows 相互運用が利用できないため、Orca は WSL から Windows CLI を起動できません。",
+          "wslRegistrationUnavailable": "WSL CLI の登録を利用できません。",
+          "wslWindowsOnly": "WSL CLI の登録は Windows でのみ利用できます。"
+        }
       }
     },
     "hooks": {
@@ -19779,6 +19808,21 @@
     }
   },
   "browser": {
+    "googleCookieClear": {
+      "heading": "Google Cookie",
+      "signInKeyword": "ログイン",
+      "unavailable": "選択したホストではこのプロファイルを利用できません。",
+      "explanation": "Google はログイン状態をログイン時のブラウザーに結び付けるため、Orca は他のブラウザーから Google Cookie をインポートしません。Google が誤ったアカウントのままになっている場合や、繰り返しログアウトされる場合は、アクティブなプロファイルの Google Cookie を消去してから、Orca で Google に再度ログインしてください。他のサイトはログインしたままになります。",
+      "action": "Google Cookie を消去…",
+      "confirmTitle": "{{profile}} の Google Cookie を消去しますか？",
+      "confirmDescription": "このプロファイルでは Orca のブラウザーで Google からログアウトします。他のサイトはログインしたままになります。",
+      "clear": "消去",
+      "cancel": "キャンセル",
+      "cleared": "{{profile}} の Google Cookie を消去しました。",
+      "empty": "{{profile}} に消去する Google Cookie はありません。",
+      "remaining": "{{profile}} から一部の Google Cookie を削除できませんでした。もう一度お試しください。",
+      "unverified": "{{profile}} の Google Cookie を確認できませんでした。もう一度お試しください。"
+    },
     "loadFailure": {
       "connectionNotSecure": "接続は安全ではありません",
       "cantReachHost": "{{value0}} に接続できません",

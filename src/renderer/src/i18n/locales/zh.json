@@ -1506,6 +1506,7 @@
           "registeredAt": "已注册到 {{path}}",
           "registeredInDistroAt": "已在 {{distro}} 中注册到 {{path}}",
           "registrationUnavailable": "此构建版本不支持 CLI 注册",
+          "unreadableSymlink": "无法读取 {{path}}，请重新注册以修复",
           "windowsLauncherMissing": "缺少 Windows 版 Orca CLI 启动器",
           "windowsPathCheckFailed": "Orca 启动器已存在，但 Orca 无法检查你的 Windows 用户 PATH",
           "windowsPathTimedOut": "Windows PATH 命令在 {{ms}} 毫秒后超时",

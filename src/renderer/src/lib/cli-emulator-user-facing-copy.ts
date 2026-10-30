@@ -123,6 +123,12 @@ const KNOWN_CLI_DETAILS: {
     key: 'auto.lib.cli.detail.olderLauncher',
     fallback: '{{path}} contains an older Orca launcher.',
     vars: (match) => ({ path: match?.[1] ?? '' })
+  },
+  {
+    test: /^(.+) cannot be read\. Register again to repair it\.?$/i,
+    key: 'auto.lib.cli.detail.unreadableSymlink',
+    fallback: '{{path}} cannot be read. Register again to repair it.',
+    vars: (match) => ({ path: match?.[1] ?? 'orca' })
   }
 ]
 

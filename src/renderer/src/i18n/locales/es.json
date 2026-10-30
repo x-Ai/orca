@@ -1391,6 +1391,35 @@
         "title": "Agrega las carpetas de unidades de Windows en este equipo",
         "descriptionWithPath": "{{value0}} está en una unidad de Windows. Git en WSL informa allí de cambios de final de línea falsos, no detecta las ediciones hechas desde Windows y busca en ella lentamente.",
         "description": "Esta carpeta está en una unidad de Windows. Git en WSL informa allí de cambios de final de línea falsos, no detecta las ediciones hechas desde Windows y busca en ella lentamente."
+      },
+      "cli": {
+        "detail": {
+          "registerForWsl": "Registra {{path}} para usar Orca desde WSL.",
+          "registerForTerminal": "Registra {{path}} para usar Orca desde la terminal.",
+          "registerForWindowsShell": "Registra {{path}} para usar Orca desde el Símbolo del sistema o PowerShell.",
+          "devLauncherOnly": "El modo de desarrollo usa un lanzador generado solo para validación.",
+          "differentLauncher": "{{path}} apunta a un lanzador diferente.",
+          "launcherMissing": "Falta el lanzador de la CLI incluido en esta compilación de Orca.",
+          "noWslDistro": "No hay ninguna distribución de WSL disponible.",
+          "notOrcaLauncherScript": "{{path}} existe, pero no es un script de lanzamiento de Orca.",
+          "notOrcaSymlink": "{{path}} existe, pero no es un enlace simbólico de Orca.",
+          "olderLauncher": "{{path}} contiene un lanzador de Orca más antiguo.",
+          "platformUnsupported": "El registro de la CLI no está implementado en esta plataforma.",
+          "readlinkPermissionDenied": "Orca no tiene permiso para inspeccionar {{path}}. Comprueba los permisos de la ruta y de su directorio principal e inténtalo de nuevo.",
+          "registeredAt": "Registrado en {{path}}.",
+          "registeredInDistroAt": "Registrado en {{distro}} en {{path}}.",
+          "registrationUnavailable": "El registro de la CLI no está disponible en esta compilación.",
+          "unreadableSymlink": "No se puede leer {{path}}. Vuelve a registrarlo para repararlo.",
+          "windowsLauncherMissing": "Falta el lanzador de la CLI de Orca para Windows.",
+          "windowsPathCheckFailed": "El lanzador de Orca existe, pero Orca no pudo comprobar el PATH de tu usuario de Windows.",
+          "windowsPathTimedOut": "El comando del PATH de Windows agotó el tiempo de espera tras {{ms}} ms.",
+          "wslCommandTimedOut": "El comando de WSL agotó el tiempo de espera tras {{ms}} ms.",
+          "wslDistroUnreachable": "No se pudo contactar con la distribución de WSL. Inténtalo de nuevo.",
+          "wslHomeUnresolved": "No se pudo resolver el directorio principal de WSL.",
+          "wslInteropUnavailable": "La interoperabilidad de WSL con Windows no está disponible; Orca no puede iniciar la CLI de Windows desde WSL.",
+          "wslRegistrationUnavailable": "El registro de la CLI de WSL no está disponible.",
+          "wslWindowsOnly": "El registro de la CLI de WSL solo está disponible en Windows."
+        }
       }
     },
     "hooks": {
@@ -20364,6 +20393,21 @@
     }
   },
   "browser": {
+    "googleCookieClear": {
+      "heading": "Cookies de Google",
+      "signInKeyword": "inicio de sesión",
+      "unavailable": "No disponible para este perfil en el host seleccionado.",
+      "explanation": "Google vincula los inicios de sesión al navegador en el que se hicieron, así que Orca no importa cookies de Google de otros navegadores. Si Google se queda en la cuenta equivocada o te cierra la sesión una y otra vez, borra las cookies de Google del perfil activo y vuelve a iniciar sesión en Google desde Orca. Los demás sitios mantienen la sesión iniciada.",
+      "action": "Borrar cookies de Google…",
+      "confirmTitle": "¿Borrar las cookies de Google de {{profile}}?",
+      "confirmDescription": "Se cerrará tu sesión de Google en el navegador de Orca para este perfil. Los demás sitios mantienen la sesión iniciada.",
+      "clear": "Borrar",
+      "cancel": "Cancelar",
+      "cleared": "Se borraron las cookies de Google de {{profile}}.",
+      "empty": "No hay cookies de Google que borrar en {{profile}}.",
+      "remaining": "No se pudieron quitar algunas cookies de Google de {{profile}}. Inténtalo de nuevo.",
+      "unverified": "No se pudieron comprobar las cookies de Google de {{profile}}. Inténtalo de nuevo."
+    },
     "newTab": {
       "emptyHint": "Busca o introduce una dirección arriba. Aquí aparecerán los sitios que visites, los servidores de desarrollo que se ejecuten en este espacio de trabajo, y su PR e incidencia.",
       "openServerFailed": "No se pudo abrir {{address}}",

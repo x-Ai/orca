@@ -992,6 +992,21 @@
     }
   },
   "browser": {
+    "googleCookieClear": {
+      "heading": "Cookies do Google",
+      "signInKeyword": "login",
+      "unavailable": "Indisponível para este perfil no host selecionado.",
+      "explanation": "O Google vincula os inícios de sessão ao navegador em que foram feitos, então o Orca não importa cookies do Google de outros navegadores. Se o Google ficar preso na conta errada ou encerrar sua sessão repetidamente, limpe os cookies do Google do perfil ativo e entre novamente no Google pelo Orca. Outros sites continuam conectados.",
+      "action": "Limpar cookies do Google…",
+      "confirmTitle": "Limpar os cookies do Google de {{profile}}?",
+      "confirmDescription": "Você será desconectado do Google no navegador do Orca para este perfil. Outros sites continuam conectados.",
+      "clear": "Limpar",
+      "cancel": "Cancelar",
+      "cleared": "Cookies do Google limpos de {{profile}}.",
+      "empty": "Não há cookies do Google para limpar em {{profile}}.",
+      "remaining": "Não foi possível remover alguns cookies do Google de {{profile}}. Tente novamente.",
+      "unverified": "Não foi possível verificar os cookies do Google de {{profile}}. Tente novamente."
+    },
     "history": {
       "clear": "Limpar histórico de navegação",
       "clearAllTime": "Todo o período",
@@ -2724,6 +2739,35 @@
         "title": "Adicione pastas de unidades do Windows neste computador",
         "descriptionWithPath": "{{value0}} está em uma unidade do Windows. O Git no WSL relata falsas alterações de fim de linha nela, não detecta edições feitas pelo Windows e faz buscas nela lentamente.",
         "description": "Esta pasta está em uma unidade do Windows. O Git no WSL relata falsas alterações de fim de linha nela, não detecta edições feitas pelo Windows e faz buscas nela lentamente."
+      },
+      "cli": {
+        "detail": {
+          "registerForWsl": "Registre {{path}} para usar o Orca pelo WSL.",
+          "registerForTerminal": "Registre {{path}} para usar o Orca pelo terminal.",
+          "registerForWindowsShell": "Registre {{path}} para usar o Orca pelo Prompt de Comando ou PowerShell.",
+          "devLauncherOnly": "O modo de desenvolvimento usa um launcher gerado apenas para validação.",
+          "differentLauncher": "{{path}} aponta para outro launcher.",
+          "launcherMissing": "O launcher da CLI incluído está ausente nesta versão do Orca.",
+          "noWslDistro": "Nenhuma distribuição WSL está disponível.",
+          "notOrcaLauncherScript": "{{path}} existe, mas não é um script inicializador do Orca.",
+          "notOrcaSymlink": "{{path}} existe, mas não é um link simbólico do Orca.",
+          "olderLauncher": "{{path}} contém um launcher do Orca mais antigo.",
+          "platformUnsupported": "O registro da CLI não está implementado nesta plataforma.",
+          "readlinkPermissionDenied": "O Orca não tem permissão para inspecionar {{path}}. Verifique as permissões do caminho e do diretório pai e tente novamente.",
+          "registeredAt": "Registrado em {{path}}.",
+          "registeredInDistroAt": "Registrado em {{distro}} em {{path}}.",
+          "registrationUnavailable": "O registro da CLI não está disponível nesta versão.",
+          "unreadableSymlink": "Não é possível ler {{path}}. Registre novamente para repará-lo.",
+          "windowsLauncherMissing": "O launcher da CLI do Orca para Windows está ausente.",
+          "windowsPathCheckFailed": "O launcher do Orca existe, mas o Orca não conseguiu verificar o PATH do seu usuário do Windows.",
+          "windowsPathTimedOut": "O comando de PATH do Windows atingiu o tempo limite após {{ms}} ms.",
+          "wslCommandTimedOut": "O comando do WSL atingiu o tempo limite após {{ms}} ms.",
+          "wslDistroUnreachable": "Não foi possível alcançar a distribuição WSL. Tente novamente.",
+          "wslHomeUnresolved": "Não foi possível resolver o diretório inicial do WSL.",
+          "wslInteropUnavailable": "A interoperabilidade WSL-Windows não está disponível; o Orca não pode iniciar a CLI do Windows pelo WSL.",
+          "wslRegistrationUnavailable": "O registro da CLI do WSL não está disponível.",
+          "wslWindowsOnly": "O registro da CLI do WSL está disponível apenas no Windows."
+        }
       }
     },
     "components": {

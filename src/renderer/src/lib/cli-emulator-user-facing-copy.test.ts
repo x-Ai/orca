@@ -86,6 +86,10 @@ describe('formatCliUserFacingDetail', () => {
     [
       '/usr/local/bin/orca contains an older Orca launcher.',
       '/usr/local/bin/orca 包含旧版 Orca 启动器'
+    ],
+    [
+      '/usr/local/bin/orca cannot be read. Register again to repair it.',
+      '无法读取 /usr/local/bin/orca，请重新注册以修复'
     ]
   ])('localizes known CLI detail %s in Chinese', async (raw, expected) => {
     await setRendererUiLanguage('zh')

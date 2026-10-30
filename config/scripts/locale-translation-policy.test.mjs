@@ -514,7 +514,7 @@ describe('locale-translation-policy', () => {
         localeValue: '添加了评论评论。',
         locale: 'zh'
       })
-    ).toBe('已添加评审评论。')
+    ).toBe('已添加评审评论')
     expect(
       repairTranslatedValue({
         key: 'auto.components.GitHubItemDialog.6e43a16435',

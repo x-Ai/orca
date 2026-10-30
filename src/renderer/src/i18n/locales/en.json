@@ -2009,6 +2009,7 @@
           "registeredAt": "Registered at {{path}}.",
           "registeredInDistroAt": "Registered in {{distro}} at {{path}}.",
           "registrationUnavailable": "CLI registration is unavailable on this build.",
+          "unreadableSymlink": "{{path}} cannot be read. Register again to repair it.",
           "windowsLauncherMissing": "The Windows Orca CLI launcher is missing.",
           "windowsPathCheckFailed": "The Orca launcher exists, but Orca could not check your Windows user PATH.",
           "windowsPathTimedOut": "Windows PATH command timed out after {{ms}}ms.",

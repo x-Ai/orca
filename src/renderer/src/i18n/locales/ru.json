@@ -268,6 +268,21 @@
     }
   },
   "browser": {
+    "googleCookieClear": {
+      "heading": "Файлы cookie Google",
+      "signInKeyword": "вход",
+      "unavailable": "Недоступно для этого профиля на выбранном хосте.",
+      "explanation": "Google привязывает вход к браузеру, в котором он выполнен, поэтому Orca не импортирует куки Google из других браузеров. Если Google застрял на неверном аккаунте или постоянно завершает сеанс, удалите куки Google из активного профиля и войдите в Google заново в Orca. Остальные сайты останутся в системе.",
+      "action": "Удалить куки Google…",
+      "confirmTitle": "Удалить куки Google из {{profile}}?",
+      "confirmDescription": "В браузере Orca для этого профиля вы выйдете из Google. Остальные сайты останутся в системе.",
+      "clear": "Удалить",
+      "cancel": "Отмена",
+      "cleared": "Куки Google удалены из {{profile}}.",
+      "empty": "В {{profile}} нет куков Google для удаления.",
+      "remaining": "Не удалось удалить некоторые куки Google из {{profile}}. Повторите попытку.",
+      "unverified": "Не удалось проверить куки Google для {{profile}}. Повторите попытку."
+    },
     "loadFailure": {
       "connectionNotSecure": "Соединение не защищено",
       "cantReachHost": "Не удаётся связаться с {{value0}}",
@@ -1870,6 +1885,35 @@
         "description": "Эта папка находится на диске Windows. Git в WSL показывает ложные изменения окончаний строк, пропускает правки из Windows и медленно выполняет поиск в этой папке.",
         "descriptionWithPath": "{{value0}} находится на диске Windows. Git в WSL показывает ложные изменения окончаний строк, пропускает правки из Windows и медленно выполняет поиск в этой папке.",
         "title": "Добавить папки с дисков Windows на этом компьютере"
+      },
+      "cli": {
+        "detail": {
+          "registerForWsl": "Зарегистрируйте {{path}}, чтобы использовать Orca из WSL.",
+          "registerForTerminal": "Зарегистрируйте {{path}}, чтобы использовать Orca из терминала.",
+          "registerForWindowsShell": "Зарегистрируйте {{path}}, чтобы использовать Orca из командной строки или PowerShell.",
+          "devLauncherOnly": "В режиме разработки используется сгенерированный лаунчер только для проверки.",
+          "differentLauncher": "{{path}} указывает на другой лаунчер.",
+          "launcherMissing": "В этой сборке Orca отсутствует встроенный лаунчер CLI.",
+          "noWslDistro": "Нет доступных дистрибутивов WSL.",
+          "notOrcaLauncherScript": "{{path}} существует, но это не скрипт запуска Orca.",
+          "notOrcaSymlink": "{{path}} существует, но это не символическая ссылка Orca.",
+          "olderLauncher": "{{path}} содержит устаревший лаунчер Orca.",
+          "platformUnsupported": "Регистрация CLI не реализована на этой платформе.",
+          "readlinkPermissionDenied": "У Orca нет разрешения на проверку {{path}}. Проверьте разрешения для пути и его родительского каталога и повторите попытку.",
+          "registeredAt": "Зарегистрировано в {{path}}.",
+          "registeredInDistroAt": "Зарегистрировано в {{distro}} по пути {{path}}.",
+          "registrationUnavailable": "Регистрация CLI недоступна в этой сборке.",
+          "unreadableSymlink": "Не удаётся прочитать {{path}}. Зарегистрируйте снова, чтобы исправить.",
+          "windowsLauncherMissing": "Отсутствует лаунчер CLI Orca для Windows.",
+          "windowsPathCheckFailed": "Лаунчер Orca существует, но Orca не удалось проверить PATH пользователя Windows.",
+          "windowsPathTimedOut": "Команда PATH Windows не завершилась за {{ms}} мс.",
+          "wslCommandTimedOut": "Команда WSL не завершилась за {{ms}} мс.",
+          "wslDistroUnreachable": "Не удалось связаться с дистрибутивом WSL. Повторите попытку.",
+          "wslHomeUnresolved": "Не удалось определить домашний каталог WSL.",
+          "wslInteropUnavailable": "Взаимодействие WSL с Windows недоступно; Orca не может запустить Windows CLI из WSL.",
+          "wslRegistrationUnavailable": "Регистрация WSL CLI недоступна.",
+          "wslWindowsOnly": "Регистрация WSL CLI доступна только в Windows."
+        }
       }
     },
     "hooks": {

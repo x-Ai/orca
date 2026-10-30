@@ -220,6 +220,21 @@
     }
   },
   "browser": {
+    "googleCookieClear": {
+      "heading": "Google çerezleri",
+      "signInKeyword": "oturum açma",
+      "unavailable": "Seçili ana bilgisayarda bu profil kullanılamıyor.",
+      "explanation": "Google oturum açma bilgilerini, girişin yapıldığı tarayıcıya bağlar; bu nedenle Orca diğer tarayıcılardan Google çerezlerini içe aktarmaz. Google yanlış hesapta takılı kalıyorsa veya sizi sürekli oturumdan çıkarıyorsa, etkin profilden Google çerezlerini temizleyin ve ardından Orca’da Google’a yeniden giriş yapın. Diğer siteler oturum açmış durumda kalır.",
+      "action": "Google çerezlerini temizle…",
+      "confirmTitle": "{{profile}} profilinden Google çerezleri temizlensin mi?",
+      "confirmDescription": "Bu profilde Orca tarayıcısında Google oturumunuz kapatılacak. Diğer siteler oturum açmış durumda kalır.",
+      "clear": "Temizle",
+      "cancel": "İptal",
+      "cleared": "{{profile}} profilinden Google çerezleri temizlendi.",
+      "empty": "{{profile}} profilinde temizlenecek Google çerezi yok.",
+      "remaining": "{{profile}} profilinden bazı Google çerezleri kaldırılamadı. Yeniden deneyin.",
+      "unverified": "{{profile}} profilinin Google çerezleri denetlenemedi. Yeniden deneyin."
+    },
     "loadFailure": {
       "connectionNotSecure": "Bağlantı güvenli değil",
       "cantReachHost": "{{value0}} adresine ulaşılamıyor",
@@ -1806,6 +1821,35 @@
         "title": "Windows sürücüsündeki klasörleri bu bilgisayarda ekleyin",
         "descriptionWithPath": "{{value0}} bir Windows sürücüsünde bulunuyor. WSL'deki Git burada gerçekte olmayan satır sonu değişiklikleri bildirir, Windows üzerinden yapılan düzenlemeleri algılamaz ve yavaş arama yapar.",
         "description": "Bu klasör bir Windows sürücüsünde bulunuyor. WSL'deki Git burada gerçekte olmayan satır sonu değişiklikleri bildirir, Windows üzerinden yapılan düzenlemeleri algılamaz ve yavaş arama yapar."
+      },
+      "cli": {
+        "detail": {
+          "registerForWsl": "Orca’yı WSL’den kullanmak için {{path}} kaydedin.",
+          "registerForTerminal": "Orca’yı terminalden kullanmak için {{path}} kaydedin.",
+          "registerForWindowsShell": "Orca’yı Komut İstemi veya PowerShell’den kullanmak için {{path}} kaydedin.",
+          "devLauncherOnly": "Geliştirme modu yalnızca doğrulama için oluşturulmuş bir başlatıcı kullanır.",
+          "differentLauncher": "{{path}} farklı bir başlatıcıyı gösteriyor.",
+          "launcherMissing": "Bu Orca derlemesinde paketlenmiş CLI başlatıcısı eksik.",
+          "noWslDistro": "Kullanılabilir WSL dağıtımı yok.",
+          "notOrcaLauncherScript": "{{path}} mevcut ancak bir Orca başlatıcı betiği değil.",
+          "notOrcaSymlink": "{{path}} mevcut ancak bir Orca sembolik bağlantısı değil.",
+          "olderLauncher": "{{path}} eski bir Orca başlatıcısı içeriyor.",
+          "platformUnsupported": "CLI kaydı bu platformda uygulanmamış.",
+          "readlinkPermissionDenied": "Orca’nın {{path}} öğesini denetleme izni yok. Yolun ve üst dizininin izinlerini kontrol edip yeniden deneyin.",
+          "registeredAt": "{{path}} konumuna kaydedildi.",
+          "registeredInDistroAt": "{{distro}} içinde {{path}} konumuna kaydedildi.",
+          "registrationUnavailable": "CLI kaydı bu derlemede kullanılamıyor.",
+          "unreadableSymlink": "{{path}} okunamıyor. Onarmak için yeniden kaydedin.",
+          "windowsLauncherMissing": "Windows Orca CLI başlatıcısı eksik.",
+          "windowsPathCheckFailed": "Orca başlatıcısı mevcut ancak Orca Windows kullanıcı PATH’inizi denetleyemedi.",
+          "windowsPathTimedOut": "Windows PATH komutu {{ms}} ms sonra zaman aşımına uğradı.",
+          "wslCommandTimedOut": "WSL komutu {{ms}} ms sonra zaman aşımına uğradı.",
+          "wslDistroUnreachable": "WSL dağıtımına ulaşılamadı. Yeniden deneyin.",
+          "wslHomeUnresolved": "WSL ana dizini çözümlenemedi.",
+          "wslInteropUnavailable": "WSL Windows birlikte çalışabilirliği kullanılamıyor; Orca, Windows CLI’yi WSL’den başlatamıyor.",
+          "wslRegistrationUnavailable": "WSL CLI kaydı kullanılamıyor.",
+          "wslWindowsOnly": "WSL CLI kaydı yalnızca Windows’ta kullanılabilir."
+        }
       }
     },
     "hooks": {

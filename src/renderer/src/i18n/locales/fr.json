@@ -19,6 +19,21 @@
     }
   },
   "browser": {
+    "googleCookieClear": {
+      "heading": "Cookies Google",
+      "signInKeyword": "connexion",
+      "unavailable": "Indisponible pour ce profil sur l’hôte sélectionné.",
+      "explanation": "Google lie ses connexions au navigateur dans lequel elles ont été faites, donc Orca n’importe pas les cookies Google des autres navigateurs. Si Google reste bloqué sur le mauvais compte ou vous déconnecte sans cesse, effacez les cookies Google du profil actif, puis reconnectez-vous à Google dans Orca. Les autres sites restent connectés.",
+      "action": "Effacer les cookies Google…",
+      "confirmTitle": "Effacer les cookies Google de {{profile}} ?",
+      "confirmDescription": "Vous serez déconnecté de Google dans le navigateur d’Orca pour ce profil. Les autres sites restent connectés.",
+      "clear": "Effacer",
+      "cancel": "Annuler",
+      "cleared": "Cookies Google effacés de {{profile}}.",
+      "empty": "Aucun cookie Google à effacer dans {{profile}}.",
+      "remaining": "Certains cookies Google n’ont pas pu être supprimés de {{profile}}. Réessayez.",
+      "unverified": "Impossible de vérifier les cookies Google de {{profile}}. Réessayez."
+    },
     "newTab": {
       "emptyHint": "Recherchez ou saisissez une adresse ci-dessus. Les sites que vous visitez, les serveurs de développement exécutés dans cet espace de travail, ainsi que sa PR et son ticket s’afficheront ici.",
       "openServerFailed": "Impossible d’ouvrir {{address}}",
@@ -1611,6 +1626,35 @@
         "title": "Ajoutez les dossiers des lecteurs Windows sur cet ordinateur",
         "descriptionWithPath": "{{value0}} se trouve sur un lecteur Windows. Git dans WSL y signale de faux changements de fin de ligne, ne voit pas les modifications faites depuis Windows et y effectue les recherches lentement.",
         "description": "Ce dossier se trouve sur un lecteur Windows. Git dans WSL y signale de faux changements de fin de ligne, ne voit pas les modifications faites depuis Windows et y effectue les recherches lentement."
+      },
+      "cli": {
+        "detail": {
+          "registerForWsl": "Enregistrez {{path}} pour utiliser Orca depuis WSL.",
+          "registerForTerminal": "Enregistrez {{path}} pour utiliser Orca depuis le terminal.",
+          "registerForWindowsShell": "Enregistrez {{path}} pour utiliser Orca depuis l’invite de commandes ou PowerShell.",
+          "devLauncherOnly": "Le mode développement utilise un lanceur généré uniquement pour la validation.",
+          "differentLauncher": "{{path}} pointe vers un autre lanceur.",
+          "launcherMissing": "Le lanceur CLI fourni est absent de cette version d’Orca.",
+          "noWslDistro": "Aucune distribution WSL n’est disponible.",
+          "notOrcaLauncherScript": "{{path}} existe, mais ce n’est pas un script de lancement Orca.",
+          "notOrcaSymlink": "{{path}} existe, mais ce n’est pas un lien symbolique Orca.",
+          "olderLauncher": "{{path}} contient un lanceur Orca plus ancien.",
+          "platformUnsupported": "L’enregistrement de la CLI n’est pas implémenté sur cette plateforme.",
+          "readlinkPermissionDenied": "Orca n’a pas l’autorisation d’inspecter {{path}}. Vérifiez les autorisations du chemin et de son dossier parent, puis réessayez.",
+          "registeredAt": "Enregistré dans {{path}}.",
+          "registeredInDistroAt": "Enregistré dans {{distro}} sous {{path}}.",
+          "registrationUnavailable": "L’enregistrement de la CLI n’est pas disponible dans cette version.",
+          "unreadableSymlink": "Impossible de lire {{path}}. Réenregistrez-le pour le réparer.",
+          "windowsLauncherMissing": "Le lanceur CLI Orca pour Windows est absent.",
+          "windowsPathCheckFailed": "Le lanceur Orca existe, mais Orca n’a pas pu vérifier le PATH de votre utilisateur Windows.",
+          "windowsPathTimedOut": "La commande PATH de Windows a expiré après {{ms}} ms.",
+          "wslCommandTimedOut": "La commande WSL a expiré après {{ms}} ms.",
+          "wslDistroUnreachable": "Impossible de joindre la distribution WSL. Réessayez.",
+          "wslHomeUnresolved": "Impossible de résoudre le répertoire personnel WSL.",
+          "wslInteropUnavailable": "L’interopérabilité WSL-Windows n’est pas disponible ; Orca ne peut pas lancer la CLI Windows depuis WSL.",
+          "wslRegistrationUnavailable": "L’enregistrement de la CLI WSL n’est pas disponible.",
+          "wslWindowsOnly": "L’enregistrement de la CLI WSL est disponible uniquement sous Windows."
+        }
       }
     },
     "hooks": {
