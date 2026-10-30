@@ -15,7 +15,7 @@ import type {
   GitHubWorkItem
 } from './mobile-tasks-provider-detail-types'
 import { GITHUB_PR_MERGE_METHOD_I18N_KEYS } from '../../../src/shared/github/pull-request-merge-methods'
-import { translate } from '../../../src/renderer/src/i18n/i18n'
+import { translate } from '../i18n/mobile-i18n'
 
 export const LINEAR_PRIORITY_LABELS: Record<number, string> = {
   0: 'None',
