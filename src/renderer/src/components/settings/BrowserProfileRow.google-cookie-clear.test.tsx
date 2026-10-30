@@ -223,7 +223,7 @@ it('places one Google section after the rows and clears the current Active profi
   await i18n.changeLanguage('zh')
   store.setState({ settingsSearchQuery: '谷歌' })
   mount(<SessionSection />)
-  expect(screen.getByRole('button', { name: 'Clear Google cookies…' })).toBeTruthy()
+  expect(screen.getByRole('button', { name: '清除 Google Cookie…' })).toBeTruthy()
 })
 
 it('captures the selected Host and Active profile at press through delayed capture/confirmation, cancel and repeat', async () => {

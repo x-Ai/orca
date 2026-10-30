@@ -20553,6 +20553,21 @@
         "imported_other": "已为 {{domains}} 导入 {{count}} 个 Cookie。请重新加载页面以使用它们",
         "failed": "Cookie 导入失败：{{reason}}"
       }
+    },
+    "googleCookieClear": {
+      "heading": "Google Cookie",
+      "signInKeyword": "登录",
+      "unavailable": "所选主机上的此配置文件不可用",
+      "explanation": "Google 的登录状态绑定在登录时所用的浏览器上，因此 Orca 不会从其他浏览器导入 Google Cookie。如果 Google 停留在错误的账户，或反复让您退出登录，请清除当前配置文件中的 Google Cookie，然后在 Orca 中重新登录 Google。其他网站仍保持登录状态",
+      "action": "清除 Google Cookie…",
+      "confirmTitle": "清除 {{profile}} 中的 Google Cookie？",
+      "confirmDescription": "此配置文件在 Orca 浏览器中将退出 Google 登录，其他网站仍保持登录状态",
+      "clear": "清除",
+      "cancel": "取消",
+      "cleared": "已清除 {{profile}} 中的 Google Cookie",
+      "empty": "{{profile}} 中没有可清除的 Google Cookie",
+      "remaining": "无法从 {{profile}} 中移除部分 Google Cookie，请重试",
+      "unverified": "无法检查 {{profile}} 的 Google Cookie，请重试"
     }
   },
   "runtimeRpc": {

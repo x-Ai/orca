@@ -18,6 +18,7 @@ import { getBrowserSitePermissionsSearchEntry } from './browser-site-permissions
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host'
 import { useAppStore } from '../../store'
 import { translate } from '@/i18n/i18n'
+import { translateBrowserSessionProfileLabel } from '@/lib/browser-session-profile-label'
 
 function SitePermissionRow({
   entry,
@@ -135,7 +136,7 @@ export function BrowserSitePermissionsSetting(): React.JSX.Element {
             <SelectContent align="end">
               {profiles.map((profile) => (
                 <SelectItem key={profile.id} value={profile.id}>
-                  {profile.label}
+                  {translateBrowserSessionProfileLabel(profile.label, profile.id)}
                 </SelectItem>
               ))}
             </SelectContent>

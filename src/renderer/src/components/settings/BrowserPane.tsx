@@ -37,6 +37,7 @@ import {
 } from '../../../../shared/execution-host'
 import { isMacUserAgent } from '@/components/terminal-pane/pane-helpers'
 import { translate } from '@/i18n/i18n'
+import { translateBrowserSessionProfileLabel } from '@/lib/browser-session-profile-label'
 import { useUiLanguageRevision } from '@/i18n/use-ui-language-revision'
 import { resolveAvailableBrowserSessionHostId } from './browser-session-host-selection'
 import { getDefaultBrowserProfileForHost } from '@/store/slices/browser/browser-host-state'
@@ -345,10 +346,11 @@ export function BrowserPane({
       selectedBrowserSessionHostId === LOCAL_EXECUTION_HOST_ID ? (
         <BrowserExtensionsSection
           profileId={activeBrowserSessionProfileId}
-          profileLabel={
+          profileLabel={translateBrowserSessionProfileLabel(
             browserSessionProfiles.find((profile) => profile.id === activeBrowserSessionProfileId)
-              ?.label ?? activeBrowserSessionProfileId
-          }
+              ?.label,
+            activeBrowserSessionProfileId
+          )}
         />
       ) : null}
 
