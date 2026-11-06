@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { useAppStore } from '@/store'
 import { RepoBadgeMark } from '@/components/repo/RepoBadgeLabel'
 import { AgentTypeIcon } from '@/lib/agent-type-icon'
-import { formatAgentTypeLabel } from '@/lib/agent-status'
+import { formatAgentTypeLabel } from '../../../../shared/agent-status/presentation/agent-type-label'
 import { getWorktreeGitIdentityDisplay } from '../../../../shared/worktree/git-identity-display'
 import { jumpToWorktreeFromSidebar } from '@/lib/worktree-jump-navigation'
 import { translate } from '@/i18n/i18n'
@@ -21,11 +21,14 @@ import type { GlobalSettings } from '../../../../shared/global-settings-types'
 import { getHostDisplayLabelOverrides } from '../../../../shared/host-setting-overrides'
 import CommentMarkdown from '../sidebar/CommentMarkdown'
 import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
-import { DetailHeader, MetadataActionIcon } from '../sidebar/WorktreeCardMetadataControls'
+import {
+  DetailHeader,
+  MetadataActionIcon
+} from '../sidebar/workspace-card/metadata/WorktreeCardMetadataControls'
 import {
   WorktreeCardDetailSection,
   WorktreeCardDetailSectionContent
-} from '../sidebar/WorktreeCardDetailSection'
+} from '../sidebar/workspace-card/details/WorktreeCardDetailSection'
 import { EventTime, ThreadAgentStateIndicator } from './activity-thread-controls'
 import { activityThreadRowCopy, threadAgentStateLabel } from './activity-thread-presentation'
 import { getActivityThreadWorkspaceTitle } from '@/lib/activity-thread-display'

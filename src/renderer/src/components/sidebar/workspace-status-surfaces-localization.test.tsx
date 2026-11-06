@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { i18n, translate } from '@/i18n/i18n'
-import { ReviewChecksBadge } from './WorktreeCardMetadataStatusBadges'
+import { ReviewChecksBadge } from './workspace-card/metadata/WorktreeCardMetadataStatusBadges'
 import { translateWorkspaceBoardStatusLabel } from './workspace-board-status-label'
 
 afterEach(async () => {

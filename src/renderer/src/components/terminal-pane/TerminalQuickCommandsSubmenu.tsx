@@ -8,9 +8,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger
 } from '@/components/ui/dropdown-menu'
-import type { TerminalQuickCommand } from '../../../../shared/terminal-quick-command-types'
+import type { TerminalQuickCommand } from '../../../../shared/terminal/quick-commands/terminal-quick-command-types'
 import type { ExecutionHostId } from '../../../../shared/execution-host'
-import { isTerminalAgentQuickCommand } from '../../../../shared/terminal-quick-commands'
+import { isTerminalAgentQuickCommand } from '../../../../shared/terminal/quick-commands/terminal-quick-commands'
 import { AgentIcon } from '@/lib/agent-catalog'
 import { translate } from '@/i18n/i18n'
 import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
@@ -25,6 +25,8 @@ type TerminalQuickCommandsSubmenuProps = {
   hostLoadFailed: boolean
   hostOwnershipPending: boolean
   repoLabel: string | null
+  /** Off where every command runs in a new tab, since that runs it even without Enter. */
+  showInsertHint?: boolean
   onAdd: (hostId: ExecutionHostId) => void
   onClose: () => void
   onRun: (command: TerminalQuickCommand, historyId: string) => void
@@ -35,6 +37,7 @@ export function TerminalQuickCommandsSubmenu({
   hostLoadFailed,
   hostOwnershipPending,
   repoLabel,
+  showInsertHint = true,
   onAdd,
   onClose,
   onRun
@@ -61,7 +64,7 @@ export function TerminalQuickCommandsSubmenu({
         />
       )}
       <span className="min-w-0 flex-1 truncate">{command.label}</span>
-      {!isTerminalAgentQuickCommand(command) && !command.appendEnter ? (
+      {showInsertHint && !isTerminalAgentQuickCommand(command) && !command.appendEnter ? (
         <DropdownMenuShortcut className="shrink-0">
           {translate('auto.components.terminal.pane.TerminalContextMenu.c2f0b72b8d', 'Insert')}
         </DropdownMenuShortcut>

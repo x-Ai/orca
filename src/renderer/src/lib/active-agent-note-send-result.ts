@@ -1,4 +1,5 @@
-import { agentSessionWriteNoticeEnglish } from '../../../shared/agent-session-refusal-notice'
+import { agentSessionWriteNoticeEnglish } from '../../../shared/agent-session/failures/agent-session-refusal-notice'
+import { translate } from '@/i18n/i18n'
 
 export type ActiveAgentNotesSendStatus =
   | 'sent'
@@ -46,7 +47,12 @@ export type ActiveAgentNotesSendResult = {
 
 export function activeAgentNotesSendFailureMessage(
   status: ActiveAgentNotesSendStatus,
-  options: { explicitTarget?: boolean; code?: ActiveAgentNotesSendFailureCode } = {}
+  options: {
+    explicitTarget?: boolean
+    code?: ActiveAgentNotesSendFailureCode
+    /** What was being delivered; Add to chat reuses this wording for a selection. */
+    subject?: 'notes' | 'selection'
+  } = {}
 ): string {
   const target = options.explicitTarget
     ? translate('components.agentNotes.targetSelected', 'selected')
@@ -100,11 +106,18 @@ export function activeAgentNotesSendFailureMessage(
       )
       break
     case 'not-writable':
-      message = translate(
-        'components.agentNotes.notWritable',
-        'The {{target}} agent did not accept the notes.',
-        { target }
-      )
+      message =
+        options.subject === 'selection'
+          ? translate(
+              'components.agentNotes.notWritableSelection',
+              'The {{target}} agent did not accept the selection.',
+              { target }
+            )
+          : translate(
+              'components.agentNotes.notWritable',
+              'The {{target}} agent did not accept the notes.',
+              { target }
+            )
       break
     case 'partial-submit-failed':
       message = options.explicitTarget
@@ -126,4 +139,3 @@ export function activeAgentNotesSendFailureMessage(
   }
   return options.code ? `${message} (${options.code})` : message
 }
-import { translate } from '@/i18n/i18n'

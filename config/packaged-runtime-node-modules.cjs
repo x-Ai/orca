@@ -8,14 +8,17 @@ const {
   rmSync
 } = require('node:fs')
 const { dirname, join, resolve } = require('node:path')
-const { createRequire, isBuiltin } = require('node:module')
-const { PE_MACHINE, readPeMachine } = require('./scripts/windows-pe-machine.cjs')
+const { builtinModules, createRequire } = require('node:module')
+const {
+  PE_MACHINE,
+  readPeMachine
+} = require('./scripts/native-build/windows/windows-pe-machine.cjs')
 const { adoptPackagedNativeBuildEntries } = require('./packaged-native-build-entries.cjs')
 const { runtimePackageExcludeFilter } = require('./packaged-windows-only-runtime-files.cjs')
 const {
   NATIVE_BUILD_PACKAGES,
   TRANSIENT_NATIVE_BUILD_ENTRY_FILTER
-} = require('./scripts/native-build-entry.cjs')
+} = require('./scripts/native-build/node-addons/native-build-entry.cjs')
 
 const projectDir = resolve(__dirname, '..')
 const requireFromProject = createRequire(join(projectDir, 'package.json'))
@@ -80,6 +83,11 @@ const TYPE_DECLARATION_ARTIFACT_RE = /\.d\.(?:c|m)?ts(?:\.map)?$/
 const JS_SOURCE_MAP_ARTIFACT_RE = /\.(?:c|m)?js\.map$/
 const VERSIONED_ONNXRUNTIME_DYLIB_RE = /^libonnxruntime\.\d[\d.]*\.dylib$/
 
+const NODE_BUILTINS = new Set([
+  ...builtinModules,
+  ...builtinModules.map((moduleName) => `node:${moduleName}`)
+])
+
 function packageNameFromSpecifier(specifier) {
   if (specifier.startsWith('@')) {
     const [scope, name] = specifier.split('/')
@@ -93,7 +101,7 @@ function isPackagedExternalSpecifier(specifier) {
     !specifier.startsWith('.') &&
     !specifier.startsWith('/') &&
     specifier !== 'electron' &&
-    !isBuiltin(specifier)
+    !NODE_BUILTINS.has(specifier)
   )
 }
 

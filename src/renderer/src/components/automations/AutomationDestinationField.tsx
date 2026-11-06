@@ -32,6 +32,7 @@ export function AutomationDestinationField({
   return (
     <Field label={label} labelClassName={labelClassName}>
       <HostCombobox
+        notifyOnReselect
         value={selected?.stableKey ?? ''}
         onChange={control.onSelect}
         ariaLabel={label}
@@ -58,7 +59,7 @@ export function AutomationDestinationField({
           }))
         )}
       />
-      {selected && control.projects.length === 0 ? (
+      {selected && control.projects.length === 0 && !control.recordedProject ? (
         // Otherwise Create is disabled for an empty project list with nothing said.
         <p className="text-xs text-destructive" data-testid="automation-create-no-projects">
           {translate(

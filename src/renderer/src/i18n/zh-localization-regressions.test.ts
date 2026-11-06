@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { getNotificationSoundOptions } from '../components/notification-sound-options'
 import { getCheckCountChips } from '../components/pr-check-counts'
-import { STATUS_LABELS } from '../components/settings/SshTargetCard'
+import { STATUS_LABELS } from '../components/settings/ssh/targets/SshTargetCard'
 import { getTaskSourceContextSummary } from '../components/task-source-context-summary'
 import {
   translateExecutionHostDetail,
@@ -56,7 +56,14 @@ describe('Chinese localization regressions', () => {
       )
     ).toBe('在文件资源管理器中显示')
     expect(
-      getCheckCountChips({ passing: 0, failing: 7, needsAction: 0, pending: 0, neutral: 0 })
+      getCheckCountChips({
+        passing: 0,
+        failing: 7,
+        cancelled: 0,
+        needsAction: 0,
+        pending: 0,
+        neutral: 0
+      })
     ).toEqual([{ tone: 'failure', label: '7 失败' }])
   })
 

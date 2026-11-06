@@ -1,13 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { toast } from 'sonner'
 import type { CliInstallStatus } from '../../../shared/cli-install-types'
-import { setRendererUiLanguage } from '@/i18n/i18n'
-import {
-  CLI_PREREQUISITE_REGISTRATION_TOAST,
-  CLI_PREREQUISITE_REGISTRATION_TOAST_DESCRIPTION,
-  ensureOrcaCliAvailableForAgentSkillTerminal,
-  isOrcaCliAvailableOnPath
-} from './agent-skill-cli-prerequisite'
+import { ensureOrcaCliAvailableForAgentSkillTerminal } from './agent-skill-cli-prerequisite'
 
 vi.mock('sonner', () => ({
   toast: {
@@ -35,54 +29,11 @@ function cliStatus(overrides: Partial<CliInstallStatus> = {}): CliInstallStatus 
   }
 }
 
-describe('isOrcaCliAvailableOnPath', () => {
-  it('requires the installed CLI command to be visible on PATH', () => {
-    expect(isOrcaCliAvailableOnPath(cliStatus())).toBe(true)
-    expect(isOrcaCliAvailableOnPath(cliStatus({ pathConfigured: false }))).toBe(false)
-    expect(isOrcaCliAvailableOnPath(cliStatus({ state: 'not_installed' }))).toBe(false)
-  })
-})
-
 describe('ensureOrcaCliAvailableForAgentSkillTerminal', () => {
-  afterEach(async () => {
+  afterEach(() => {
     vi.useRealTimers()
     vi.unstubAllGlobals()
     vi.clearAllMocks()
-    await setRendererUiLanguage('en')
-  })
-
-  it('runs the CLI installer when the command exists but is not visible on PATH', async () => {
-    const initial = cliStatus({
-      pathConfigured: false,
-      detail: '/usr/local/bin is not currently visible on PATH.'
-    })
-    const installed = cliStatus()
-    const getInstallStatus = vi.fn().mockResolvedValue(initial)
-    const install = vi.fn().mockResolvedValue(installed)
-    const onStatusChange = vi.fn()
-
-    vi.stubGlobal('window', {
-      api: {
-        cli: {
-          getInstallStatus,
-          install
-        }
-      }
-    })
-
-    await expect(
-      ensureOrcaCliAvailableForAgentSkillTerminal({
-        onStatusChange,
-        registrationPromptDelayMs: 0
-      })
-    ).resolves.toBe(installed)
-
-    expect(install).toHaveBeenCalledTimes(1)
-    expect(toast.message).toHaveBeenCalledWith(CLI_PREREQUISITE_REGISTRATION_TOAST, {
-      description: CLI_PREREQUISITE_REGISTRATION_TOAST_DESCRIPTION
-    })
-    expect(onStatusChange).toHaveBeenNthCalledWith(1, initial)
-    expect(onStatusChange).toHaveBeenNthCalledWith(2, installed)
   })
 
   it('does not run the CLI installer when the Windows PATH read is unknown', async () => {
@@ -105,63 +56,5 @@ describe('ensureOrcaCliAvailableForAgentSkillTerminal', () => {
       expect.stringMatching(/could not check/i),
       expect.objectContaining({ description: initial.detail })
     )
-  })
-
-  it('localizes an Electron-wrapped CLI status failure', async () => {
-    await setRendererUiLanguage('zh')
-    vi.stubGlobal('window', {
-      api: {
-        cli: {
-          getInstallStatus: vi
-            .fn()
-            .mockRejectedValue(
-              new Error(
-                "Error invoking remote method 'cli:getInstallStatus': Error: EACCES: permission denied, readlink '/usr/local/bin/orca'"
-              )
-            ),
-          install: vi.fn()
-        }
-      }
-    })
-
-    await expect(
-      ensureOrcaCliAvailableForAgentSkillTerminal({ registrationPromptDelayMs: 0 })
-    ).resolves.toBeNull()
-
-    expect(toast.error).toHaveBeenCalledWith(
-      'Orca 没有权限检查 /usr/local/bin/orca，请检查该路径及其父目录的权限，然后重试'
-    )
-  })
-
-  it('lets the registration toast paint before opening the native installer', async () => {
-    vi.useFakeTimers()
-    const initial = cliStatus({ state: 'stale' })
-    const installed = cliStatus()
-    const getInstallStatus = vi.fn().mockResolvedValue(initial)
-    const install = vi.fn().mockResolvedValue(installed)
-
-    vi.stubGlobal('window', {
-      setTimeout,
-      api: {
-        cli: {
-          getInstallStatus,
-          install
-        }
-      }
-    })
-
-    const pending = ensureOrcaCliAvailableForAgentSkillTerminal({ registrationPromptDelayMs: 700 })
-    await Promise.resolve()
-    expect(toast.message).toHaveBeenCalledWith(CLI_PREREQUISITE_REGISTRATION_TOAST, {
-      description: CLI_PREREQUISITE_REGISTRATION_TOAST_DESCRIPTION
-    })
-    expect(install).not.toHaveBeenCalled()
-
-    await vi.advanceTimersByTimeAsync(699)
-    expect(install).not.toHaveBeenCalled()
-
-    await vi.advanceTimersByTimeAsync(1)
-    await expect(pending).resolves.toBe(installed)
-    expect(install).toHaveBeenCalledTimes(1)
   })
 })

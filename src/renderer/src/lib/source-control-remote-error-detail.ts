@@ -1,4 +1,4 @@
-import { stripCredentialsFromMessage } from '../../../shared/git-remote-error'
+import { stripCredentialsFromMessage } from '../../../shared/git/remotes/git-remote-error'
 
 const REMOTE_OPERATION_DETAIL_MAX_LENGTH = 200
 

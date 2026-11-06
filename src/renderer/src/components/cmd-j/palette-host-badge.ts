@@ -1,5 +1,5 @@
 import { LOCAL_EXECUTION_HOST_ID, type ExecutionHostId } from '../../../../shared/execution-host'
-import type { SidebarHostOption } from '../sidebar/sidebar-host-options'
+import type { SidebarHostOption } from '../sidebar/worktree-list/controls/sidebar-host-options'
 import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
 
 export type PaletteHostBadge = {

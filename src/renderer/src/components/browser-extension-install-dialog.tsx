@@ -13,7 +13,7 @@ import {
 import { translate } from '@/i18n/i18n'
 import { translateBrowserSessionProfileLabel } from '@/lib/browser-session-profile-label'
 import { useAppStore } from '@/store'
-import type { BrowserExtensionInstallPromptRequest } from '../../../shared/browser-extension-webstore'
+import type { BrowserExtensionInstallPromptRequest } from '../../../shared/browser/extensions/browser-extension-webstore'
 import {
   describeBrowserExtensionAccess,
   describeUnsupportedBrowserExtensionFeatures

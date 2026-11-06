@@ -1,5 +1,5 @@
 import { useAppStore } from '@/store'
-import { formatSshErrorOrFallback } from '@/components/settings/ssh-user-facing-error'
+import { formatSshErrorOrFallback } from '@/components/settings/ssh/targets/ssh-user-facing-error'
 import { sshConnectFailureText } from './ssh-host-server-status-copy'
 
 /** Upstream's connect-failure toast text, with main's known SSH errors translated first. */

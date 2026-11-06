@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { translate } from '@/i18n/i18n'
 import { translateExecutionHostLabel } from '../../execution-host-label'
 import type { HostHeaderRow } from '../../../../../../shared/sidebar-list/host-section-rows'
-import { HostSectionHeaderMenu } from '../../HostSectionHeaderMenu'
+import { HostSectionHeaderMenu } from './HostSectionHeaderMenu'
 import { stopRepoHeaderMenuEvent } from './header-event-guards'
 import { getHostHeaderDetail } from './host-header-detail'
 

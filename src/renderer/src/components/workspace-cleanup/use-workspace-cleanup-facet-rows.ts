@@ -3,12 +3,12 @@ import { useShallow } from 'zustand/react/shallow'
 import { useAppStore } from '@/store'
 import { getLiveAgentStatusByWorktreeId } from '@/lib/worktree-activity-state'
 import { translateWorkspaceBoardStatusLabel } from '@/components/sidebar/workspace-board-status-label'
-import type { HostedReviewProvider } from '../../../../shared/hosted-review'
-import type { WorkspaceCleanupCandidate } from '../../../../shared/workspace-cleanup'
+import type { HostedReviewProvider } from '../../../../shared/source-control/hosted-review/hosted-review-contracts'
+import type { WorkspaceCleanupCandidate } from '../../../../shared/workspace-cleanup/workspace-cleanup'
 import type {
   WorkspaceCleanupFilterState,
   WorkspaceCleanupSortState
-} from '../../../../shared/workspace-cleanup-filter-model'
+} from '../../../../shared/workspace-cleanup/workspace-cleanup-filter-model'
 import {
   countWorkspaceCleanupMeasuredRows,
   type WorkspaceCleanupFacets

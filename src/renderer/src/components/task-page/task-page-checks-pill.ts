@@ -1,7 +1,29 @@
 import { translate } from '@/i18n/i18n'
+import {
+  getCancelledCheckCount,
+  getProviderChecksOutcome
+} from '../../../../shared/source-control/checks/provider-check-summary'
 import type { ProviderCheckSummary } from '../../../../shared/github/pull-request-types'
 
 type ChecksPillItem = { checksSummary?: ProviderCheckSummary }
+
+function getPipelineChecksLabel(state: ProviderCheckSummary['state']): string {
+  switch (state) {
+    case 'success':
+      return translate('auto.components.task-page.checksPill.pipelinePassed', 'Pipeline passed')
+    case 'failure':
+      return translate('auto.components.task-page.checksPill.pipelineFailed', 'Pipeline failed')
+    case 'pending':
+      return translate('auto.components.task-page.checksPill.pipelinePending', 'Pipeline pending')
+    case 'neutral':
+      return translate(
+        'auto.components.task-page.checksPill.pipelineUnresolved',
+        'Pipeline unresolved'
+      )
+    case 'none':
+      return translate('auto.components.pr-check-counts.noChecks', 'No checks found')
+  }
+}
 
 /** Derive label and tone from the same summary so neutral checks cannot contradict a successful state. */
 export function getChecksLabel(item: ChecksPillItem): string {
@@ -9,18 +31,25 @@ export function getChecksLabel(item: ChecksPillItem): string {
   if (!summary) {
     return translate('auto.components.TaskPage.a7396b05c6', 'Checks')
   }
+  if (summary.scope === 'pipeline') {
+    return getPipelineChecksLabel(summary.state)
+  }
   if (summary.total === 0) {
     return translate('auto.components.pr-check-counts.noChecks', 'No checks found')
   }
-  if (summary.failed > 0) {
+  const outcome = getProviderChecksOutcome(summary)
+  if (outcome === 'failure') {
     return translate('auto.components.pr-check-counts.failingChip', '{{value0}} failing', {
-      value0: summary.failed
+      value0: summary.failed - (getCancelledCheckCount(summary) ?? 0)
     })
   }
-  if (summary.pending > 0) {
+  if (outcome === 'pending') {
     return translate('auto.components.pr-check-counts.pendingChip', '{{value0}} pending', {
       value0: summary.pending
     })
+  }
+  if (outcome === 'cancelled') {
+    return translate('auto.components.editor.CheckRunDetailsPanel.91a4c7e2b0', 'Cancelled')
   }
   if (summary.state === 'neutral') {
     return translate('auto.components.pr-check-counts.unresolvedChip', '{{value0}} unresolved', {
@@ -35,7 +64,7 @@ export function getChecksLabel(item: ChecksPillItem): string {
 }
 
 export function getChecksPillTone(item: ChecksPillItem): string {
-  const state = item.checksSummary?.state
+  const state = getProviderChecksOutcome(item.checksSummary)
   if (state === 'success') {
     return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-200'
   }
