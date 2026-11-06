@@ -4,7 +4,10 @@ import { describe, expect, it } from 'vitest'
 import en from '@/i18n/locales/en.json'
 import zh from '@/i18n/locales/zh.json'
 
-const terminalPaneSource = readFileSync(path.join(import.meta.dirname, 'TerminalPane.tsx'), 'utf8')
+const terminalPaneSource = readFileSync(
+  path.join(import.meta.dirname, 'terminal', 'TerminalPane.tsx'),
+  'utf8'
+)
 
 // Upstream's extracted keys for the default-shell section, by role.
 const DEFAULT_SHELL_KEYS = {
