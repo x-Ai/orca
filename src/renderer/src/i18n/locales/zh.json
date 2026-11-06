@@ -1392,38 +1392,6 @@
               "googleCookiesSkippedLocal": "未导入 Google Cookie，请在 Orca 中使用此配置文件打开浏览器，然后登录 Google",
               "googleCookiesSkippedClientHosted": "未导入 Google Cookie，请在 {{value0}} 工作区中使用此配置文件打开浏览器标签页（该标签页会在此设备上打开），然后登录 Google",
               "googleCookiesSkippedRemoteWorkspace": "未导入 Google Cookie，请在 {{value0}} 工作区中使用此配置文件打开浏览器标签页，然后登录 Google"
-            },
-            "failure": {
-              "notAuthorized": "未获授权",
-              "sessionProfileMissing": "找不到会话配置文件",
-              "invalidBrowserProfile": "浏览器配置文件名称无效",
-              "browserNotFound": "在此系统上找不到该浏览器",
-              "targetDatabaseMissing": "找不到目标 Cookie 数据库，请先打开一个浏览器标签页",
-              "unreadablePartitionUnprotected": "无法导入：一个站点分区不可读的 Cookie 没有可注册域名，因此无法保护其现有会话",
-              "partitionReportUnsupported": "此 Orca 客户端无法报告因站点分区不可读而跳过的 Cookie，请更新此设备上的 Orca 后重试",
-              "replaceExistingFailed": "无法替换已导入站点的现有 Cookie",
-              "replaceSafelyFailed": "无法安全替换已导入站点的 Cookie",
-              "readFileFailed": "无法读取所选文件",
-              "invalidJson": "文件不是有效的 JSON",
-              "expectedJsonArray": "应为由 Cookie 对象组成的 JSON 数组",
-              "emptyFile": "Cookie 文件为空",
-              "safariFullDiskAccess": "macOS 拒绝访问 Safari Cookie，请在\"系统设置\"→\"隐私与安全性\"→\"完全磁盘访问权限\"中授予 Orca 权限",
-              "connectionEnded": "导入期间与此服务器的连接已中断，请重新连接后重试",
-              "serverRepaired": "导入期间此服务器被重新配对，请重试",
-              "routePartitionConflict": "浏览器存储绑定已更改，请重新连接后再次导入",
-              "profileDatabaseMissing": "找不到配置文件\"{{value0}}\"的 Cookie 数据库",
-              "copyDatabaseFailed": "无法复制 {{value0}} Cookie 数据库，请先关闭 {{value1}} 后重试",
-              "sourceDatabaseMissing": "找不到 {{value0}} Cookie 数据库",
-              "noCookies": "在 {{value0}} 中未找到 Cookie",
-              "noValidCookies": "在 {{value0}} 中未找到有效 Cookie",
-              "encryptionKeyDenied": "无法访问 {{value0}} 加密密钥，操作系统可能拒绝了访问",
-              "importFailedCloseBrowser": "无法从 {{value0}} 导入 Cookie，请先关闭 {{value1}} 后重试",
-              "importFailedWithDetail": "无法从 {{value0}} 导入 Cookie：{{value1}}",
-              "readBrowserCookiesFailed": "无法读取 {{value0}} Cookie",
-              "allBrowserCookiesExpired": "{{value0}} 中的所有 Cookie 均已过期",
-              "importFailed": "无法从 {{value0}} 导入 Cookie",
-              "invalidEntries": "未找到有效 Cookie，由于字段缺失或无效，已跳过 {{value0}} 个条目",
-              "diagnosticDetails": "{{value0}}，详细信息已写入 {{value1}}"
             }
           }
         }
@@ -1578,20 +1546,6 @@
           "wslRegistrationUnavailable": "WSL CLI 注册不可用",
           "wslWindowsOnly": "WSL CLI 注册仅适用于 Windows"
         }
-      },
-      "github": {
-        "project": {
-          "error": {
-            "copy": {
-              "7ef26724e4": "找不到此项目或视图"
-            }
-          }
-        }
-      },
-      "taskSourceError": {
-        "invalidRequest": "请求无效",
-        "commandFailed": "命令执行失败：",
-        "validationFailed": "验证失败"
       },
       "emulator": {
         "androidSdkNotFound": "未找到 Android SDK，请安装 Android Studio 并设置 ANDROID_HOME",
@@ -3236,12 +3190,6 @@
           "ProjectPickerPanels": {
             "04ec212ccb": "路线图",
             "9fe1ac868c": "不支持"
-          },
-          "error": {
-            "projectOrViewNotFound": "找不到项目或视图",
-            "projectNotFound": "找不到项目",
-            "selectedViewNotFound": "找不到所选视图",
-            "networkError": "网络错误 — 请检查连接"
           }
         },
         "GitHubMarkdownComposer": {
@@ -6144,13 +6092,7 @@
           "deleteWorktree": "删除工作树",
           "sleepWithDescendants": "连同后代一起休眠 ({{value0}})",
           "sleepWithDescendantsDescription": "关闭此工作区及所有嵌套后代中的活动面板，以释放内存和 CPU",
-          "deleteWithDescendants": "连同后代一起删除…",
-          "ad9068e91a": "休眠",
-          "b50091a3e1": "休眠 1 个工作区",
-          "f28bf93f81": "休眠 {{count}} 个工作区",
-          "287b12a639": "删除所选",
-          "59bb2e3856": "删除 1 个工作区",
-          "fc5d59429d": "删除 {{count}} 个工作区"
+          "deleteWithDescendants": "连同后代一起删除…"
         },
         "WorktreeList": {
           "d880ea0744": "创建一个组并将该项目移入其中",
@@ -7450,14 +7392,7 @@
           "9fd4023db0": "在文件管理器中显示",
           "installFailureUnknownReason": "Orca 无法完成 CLI 注册，且未提供原因",
           "installFailureConflictRemedy": "如果不再需要 {{value0}}，请将其移除后重新注册",
-          "outsideOrcaDescription": "Orca 终端已内置 `orca`，开启后可在 Orca 以外的其他终端中使用 `orca`",
-          "showInFinder": "在 Finder 中显示",
-          "showInExplorer": "在资源管理器中显示",
-          "showInFileManager": "在文件管理器中显示",
-          "registerInUsrLocalBin": "在 /usr/local/bin 注册 `orca`",
-          "registerInLocalBin": "在 ~/.local/bin 注册 `orca-ide`",
-          "registerInUserPath": "在用户 PATH 中注册 `orca`",
-          "registrationUnavailable": "此平台尚不支持 CLI 注册"
+          "outsideOrcaDescription": "Orca 终端已内置 `orca`，开启后可在 Orca 以外的其他终端中使用 `orca`"
         },
         "CliSkillRuntimeSetup": {
           "c47127f222": "WSL"
@@ -14896,9 +14831,6 @@
             "browse": "浏览项目",
             "listLabel": "项目",
             "noProjects": "尚无项目",
-            "recentSection": "最近使用",
-            "projectsSection": "项目",
-            "foldersSection": "文件夹",
             "projectDetail": "项目"
           },
           "RunTargetCombobox": {
@@ -15546,40 +15478,6 @@
             "reopenHint": "可随时从 帮助 > 探索 Orca 重新打开",
             "done": "完成",
             "continue": "继续"
-          },
-          "setupSteps": {
-            "notifications": {
-              "name": "开启通知",
-              "description": "代理完成、需要关注或受阻时立即收到提醒"
-            },
-            "defaultAgent": {
-              "name": "选择默认代理",
-              "description": "预先选好常用代理，开始新工作时更快"
-            },
-            "agentCapabilities": {
-              "name": "启用 Orca CLI",
-              "description": "将 Orca 命令注册到 PATH，并安装浏览器、电脑控制和编排相关的代理技能"
-            },
-            "taskSources": {
-              "name": "连接集成",
-              "description": "从任务一键启动代理，并持续查看 PR 状态"
-            },
-            "setupScript": {
-              "name": "自动完成工作区准备",
-              "description": "自动运行安装与配置命令，让每个新工作树都能直接给代理使用"
-            },
-            "addTwoRepos": {
-              "name": "在多个仓库中开始工作",
-              "description": "把常用仓库加入 Orca，启动代理时不必再翻文件夹"
-            },
-            "twoWorktrees": {
-              "name": "并行处理多项任务",
-              "description": "同时在 2 个工作树中工作，即使属于同一项目也彼此隔离，适合并行推进两个功能"
-            },
-            "browser": {
-              "name": "使用 Orca 浏览器",
-              "description": "无需离开 Orca 即可浏览网页应用，一键抓取元素，并把精确源码与样式发给代理"
-            }
           }
         },
         "tips": {
@@ -16880,46 +16778,6 @@
                       }
                     }
                   }
-                },
-                "localized": {
-                  "copy": {
-                    "dc2d7ebbfa": "什么是自动化？",
-                    "1a9ac96bc5": "自动化按计划运行代理工作，点击此按钮添加自动化",
-                    "e69e126045": "查找结果",
-                    "65a7cf9b63": "运行记录显示自动化何时执行、结果如何，以及在何处查看输出",
-                    "c1fc08cd8f": "拆分终端窗格",
-                    "0376fb14f8": "使用 {terminal.splitRight} 打开第二个终端窗格，或右键窗格查看拆分选项",
-                    "6170819178": "并行开始另一项任务",
-                    "2342da9c9f": "每个工作树都有自己的分支，因此并行工作可以彼此隔离",
-                    "67991d08bb": "选择项目",
-                    "3995148eb8": "Orca 会把每个任务隔离到独立的工作树中，并从你的基线分支创建",
-                    "128db835f5": "命名，或从现有工作开始",
-                    "6976d66061": "从关联任务开始可得到简短的议题或 PR 名称，也可留空，以便根据你的第一条代理消息自动命名",
-                    "f780b45969": "选择启动工作的代理",
-                    "0314261987": "选择创建此工作树时要打开的代理",
-                    "7cf856f55d": "选择工作来源",
-                    "78aa70314e": "可在不切换页面的情况下，在已连接的提供方与项目筛选之间切换",
-                    "f392edd975": "筛选你需要的工作",
-                    "15ea06d23f": "使用预设和搜索缩小议题、评审、合并请求或任务范围",
-                    "819bcf6f00": "从工作项开始",
-                    "be99666806": "在任务、议题、评审或合并请求上使用「开始」或「打开」，将其上下文带入工作区",
-                    "a1b2c3d4e5": "在看板上规划工作",
-                    "f6g7h8i9j0": "当你想按状态而非按项目查看工作区时，使用看板",
-                    "k1l2m3n4o5": "在泳道间移动工作",
-                    "p6q7r8s9t0": "随着工作区状态变化，在泳道间拖动工作区",
-                    "browserGrabTitle": "为代理获取页面上下文",
-                    "browserGrabBody": "使用抓取工具复制页面元素的上下文并提供给代理",
-                    "browserAnnotateTitle": "直接标注设计反馈",
-                    "browserAnnotateBody": "标注页面元素，并将这些备注发送给代理",
-                    "browserImportTitle": "保持登录状态",
-                    "browserImportBody": "将现有登录信息导入 Orca，立即保持登录状态",
-                    "floatingAllReposTitle": "让代理跨所有仓库工作",
-                    "floatingAllReposBody": "这里的代理可以在你选择的任意文件夹中运行，选择各服务的上级目录，即可一次处理所有仓库",
-                    "floatingScratchpadTitle": "也可将其用作临时工作区",
-                    "floatingScratchpadBody": "打开代理、临时终端、笔记和浏览器标签页，同时避免弄乱当前聚焦的工作树",
-                    "31ca5cb3e0": "拆分终端",
-                    "012036e8ca": "下一步"
-                  }
                 }
               }
             }
@@ -18004,66 +17862,6 @@
           "actionsUnavailable": "此客户端不支持插件操作",
           "messageTooLarge": "消息超过大小限制",
           "tooManyRequests": "请求过多"
-        },
-        "sourceControl": {
-          "linkedReviewBranchExists": "关联评审分支已存在",
-          "publishBranchToOrigin": "将此分支发布到 origin",
-          "commitChangesFirst": "请先提交更改",
-          "checkoutBranchFirst": "请先检出分支",
-          "switchToFeatureBranch": "请切换到功能分支",
-          "pushFirst": "请先推送",
-          "forcePushFirst": "请先强制推送",
-          "syncFirst": "请先同步",
-          "authRequiredInEnvironment": "请在此环境中{{instruction}}",
-          "unsupportedProvider": "不支持的提供方",
-          "reviewAlreadyExists": "已存在 {{reviewLabel}}",
-          "forkHeadUnsupported": "不支持 fork head",
-          "baseBranchNotOnRemote": "基础分支不在远程上",
-          "branchNotReady": "分支尚未就绪",
-          "createReviewForBranch": "为此分支创建 {{reviewLabel}}",
-          "forcePushBeforeCreateReview": "创建 {{reviewLabel}} 前先使用带租约的强制推送",
-          "pushBeforeCreateReview": "创建 {{reviewLabel}} 前先推送本地提交",
-          "operationInProgress": "操作进行中…",
-          "abortConflictInProgress": "中止进行中的 {{operation}}",
-          "commitStagedChanges": "提交已暂存的更改",
-          "checkingBranchStatus": "正在检查分支状态…",
-          "checkingPrStatus": "正在检查 PR 状态…",
-          "prAlreadyMerged": "PR 已合并",
-          "checkoutBeforePush": "请先检出分支再 Push 提交",
-          "checkoutBeforeForcePush": "请先检出分支再 Force Push 提交",
-          "checkoutBeforePull": "请先检出分支再 Pull 提交",
-          "checkoutBeforeFastForward": "请先检出分支再 Fast-forward",
-          "checkoutBeforeSync": "请先检出分支再 Sync 提交",
-          "checkoutBeforePublish": "请先检出分支再发布提交",
-          "linkedReviewTargetUnavailable": "关联评审分支目标不可用",
-          "publishFirstToPush": "请先发布分支，再推送提交",
-          "publishFirstToPull": "请先发布分支，再拉取提交",
-          "publishFirstToFastForward": "请先发布分支，再快进",
-          "publishFirstToSync": "请先发布分支，再同步提交",
-          "commitAndForcePushWithLease": "提交已暂存更改并使用带租约的强制推送",
-          "commitAndTryPush": "提交已暂存更改并尝试推送",
-          "commitAndPush": "提交已暂存更改并推送",
-          "useCommitAndForcePush": "请使用\"提交并强制推送\"——远程仅有较旧的本地提交副本",
-          "commitThenPullPush": "先提交，再拉取并推送",
-          "pushSetUpstream": "推送此分支，并在需要时设置上游",
-          "pushLinkedReviewUpdates": "将更新推送到关联评审分支",
-          "tryRegularPushMayForce": "尝试常规推送，Git 可能要求强制推送",
-          "pushMayRequireSync": "推送本地提交，Git 可能要求先同步",
-          "nothingToPushTo": "没有可推送到 {{upstream}} 的内容",
-          "nothingToPush": "没有可推送的内容",
-          "nothingToForcePushTo": "没有可强制推送到 {{upstream}} 的内容",
-          "nothingToForcePush": "没有可强制推送的内容",
-          "nothingNewToPullOlderRemote": "没有新的可拉取内容——远程仅有较旧的本地提交副本",
-          "nothingNewToFastForwardOlderRemote": "没有新的可快进内容——远程仅有较旧的本地提交副本",
-          "tryFastForwardMayReject": "尝试快进拉取，Git 可能拒绝本地提交",
-          "useForcePushOlderRemote": "请使用强制推送——远程仅有较旧的本地提交副本",
-          "branchUpToDate": "分支已是最新",
-          "nothingToPull": "没有可拉取的内容",
-          "nothingToFastForward": "没有可快进的内容",
-          "tryRebasingDirty": "尝试变基，Git 可能要求先提交或暂存本地更改",
-          "branchAlreadyPublished": "分支已发布",
-          "chooseRemoteBaseToRebase": "请选择要变基到的远程基础分支",
-          "rebaseCurrentFromBase": "使用 {{base}} 的最新提交变基当前分支"
         }
       },
       "link": {
@@ -18175,19 +17973,7 @@
         "statusConnectionIssue": "连接异常",
         "statusDisconnected": "已断开连接",
         "hostStatus": "{{host}} {{status}}",
-        "availabilityTitle": "可用性：{{hosts}}",
-        "checkingServerCapabilities": "正在检查服务器能力",
-        "taskSourceServerUpdateNeeded": "任务来源需要更新服务器",
-        "providerAuthNeeded": "需要提供商认证",
-        "sourceToolUnavailable": "来源工具不可用",
-        "providerUnsupported": "此主机不支持该提供商",
-        "connecting": "正在连接",
-        "serverUpdateNeeded": "需要更新服务器",
-        "disconnected": "已断开连接",
-        "connectionIssue": "连接异常",
-        "unavailableCount": "{{value0}} 个不可用",
-        "connected": "已连接",
-        "authNeeded": "需要认证"
+        "availabilityTitle": "可用性：{{hosts}}"
       },
       "ShortcutKeyCombo": {
         "07eb4985a1": "双击 {{value0}}"

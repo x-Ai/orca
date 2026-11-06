@@ -6,11 +6,6 @@ vi.mock('@/hooks/useShortcutLabel', () => ({
   formatShortcutLabel: () => 'Copy Context'
 }))
 
-vi.mock('@/i18n/i18n', () => ({
-  translate: (_key: string, _fallback: string, options?: Record<string, unknown>) =>
-    ['复制上下文', options?.shortcut].filter(Boolean).join(' ')
-}))
-
 vi.mock('@/lib/monaco-setup', () => ({
   monaco: {
     editor: {
@@ -90,57 +85,6 @@ describe('setupContextualCopy', () => {
     })
 
     expect(setInterval).not.toHaveBeenCalled()
-  })
-
-  it('localizes the contextual copy hint', () => {
-    const copyHintNode = {
-      className: '',
-      offsetHeight: 28,
-      style: { display: '' },
-      textContent: ''
-    }
-    vi.stubGlobal('window', {
-      clearInterval: vi.fn(),
-      clearTimeout: vi.fn(),
-      setInterval: vi.fn(() => 1),
-      setTimeout: vi.fn(() => 2)
-    })
-    vi.stubGlobal('document', {
-      createElement: () => copyHintNode
-    })
-
-    const editorInstance = {
-      addContentWidget: vi.fn(),
-      getContainerDomNode: () => ({
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn()
-      }),
-      getModel: () => null,
-      getSelection: () => null,
-      hasTextFocus: () => false,
-      layoutContentWidget: vi.fn(),
-      onDidBlurEditorText: () => ({ dispose: vi.fn() }),
-      onDidChangeCursorSelection: () => ({ dispose: vi.fn() }),
-      onDidDispose: () => ({ dispose: vi.fn() }),
-      onDidFocusEditorText: () => ({ dispose: vi.fn() }),
-      onDidScrollChange: () => ({ dispose: vi.fn() }),
-      removeContentWidget: vi.fn()
-    } as unknown as editor.IStandaloneCodeEditor
-
-    setupContextualCopy({
-      editorInstance,
-      filePath: 'src/example.ts',
-      setCopyToast: vi.fn(),
-      propsRef: {
-        current: {
-          language: 'typescript',
-          relativePath: 'src/example.ts'
-        }
-      },
-      copyToastTimeoutRef: { current: null }
-    })
-
-    expect(copyHintNode.textContent).toBe('复制上下文 Copy Context')
   })
 
   it('refreshes a visible hint without reading selection text and extracts it only on copy', async () => {

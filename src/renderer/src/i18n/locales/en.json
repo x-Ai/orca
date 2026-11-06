@@ -2062,38 +2062,6 @@
               "googleCookiesSkippedLocal": "Google cookies were not imported. Open a browser in Orca with this profile, then sign into Google.",
               "googleCookiesSkippedClientHosted": "Google cookies were not imported. Open a browser tab in the {{value0}} workspace with this profile — it opens on this device — then sign into Google.",
               "googleCookiesSkippedRemoteWorkspace": "Google cookies were not imported. Open a browser tab in the {{value0}} workspace with this profile, then sign into Google."
-            },
-            "failure": {
-              "notAuthorized": "Not authorized",
-              "sessionProfileMissing": "Session profile not found.",
-              "invalidBrowserProfile": "Invalid browser profile name.",
-              "browserNotFound": "Browser not found on this system.",
-              "targetDatabaseMissing": "Target cookie database not found. Open a browser tab first.",
-              "unreadablePartitionUnprotected": "Could not import: a cookie with an unreadable site partition has no registrable domain, so its existing session cannot be protected.",
-              "partitionReportUnsupported": "This Orca client cannot report cookies skipped for an unreadable site partition. Update Orca on this device and try again.",
-              "replaceExistingFailed": "Could not replace existing cookies for the imported sites.",
-              "replaceSafelyFailed": "Could not safely replace cookies for the imported sites.",
-              "readFileFailed": "Could not read the selected file.",
-              "invalidJson": "File is not valid JSON.",
-              "expectedJsonArray": "Expected a JSON array of cookie objects.",
-              "emptyFile": "Cookie file is empty.",
-              "safariFullDiskAccess": "macOS denied access to Safari cookies. Grant Full Disk Access to Orca in System Settings → Privacy & Security → Full Disk Access.",
-              "connectionEnded": "The connection to this server ended during the import. Reconnect and try again.",
-              "serverRepaired": "This server was re-paired during the import. Try again.",
-              "routePartitionConflict": "The browser storage binding changed. Reconnect and try the import again.",
-              "profileDatabaseMissing": "No cookies database found for profile \"{{value0}}\".",
-              "copyDatabaseFailed": "Could not copy {{value0}} cookies database. Try closing {{value1}} first.",
-              "sourceDatabaseMissing": "{{value0}} cookies database not found.",
-              "noCookies": "No cookies found in {{value0}}.",
-              "noValidCookies": "No valid cookies found in {{value0}}.",
-              "encryptionKeyDenied": "Could not access {{value0}} encryption key. The OS may have denied access.",
-              "importFailedCloseBrowser": "Could not import cookies from {{value0}}. Try closing {{value1}} first.",
-              "importFailedWithDetail": "Could not import cookies from {{value0}}: {{value1}}.",
-              "readBrowserCookiesFailed": "Could not read {{value0}} cookies.",
-              "allBrowserCookiesExpired": "All {{value0}} cookies are expired.",
-              "importFailed": "Could not import cookies from {{value0}}.",
-              "invalidEntries": "No valid cookies found. {{value0}} entries were skipped due to missing or invalid fields.",
-              "diagnosticDetails": "{{value0}} Details were written to {{value1}}."
             }
           }
         }
@@ -2252,20 +2220,6 @@
           "wslRegistrationUnavailable": "WSL CLI registration is unavailable.",
           "wslWindowsOnly": "WSL CLI registration is only available on Windows."
         }
-      },
-      "github": {
-        "project": {
-          "error": {
-            "copy": {
-              "7ef26724e4": "Could not find this project or view."
-            }
-          }
-        }
-      },
-      "taskSourceError": {
-        "invalidRequest": "Invalid request",
-        "commandFailed": "Command failed:",
-        "validationFailed": "Validation Failed"
       },
       "ephemeralVm": {
         "provisionedRootNeedsUpdate": "The Orca server on this VM cannot adopt a provisioned root. Update Orca on the VM."
@@ -3984,12 +3938,6 @@
           "ProjectViewStates": {
             "3b9c1d5e47": "This view has no items yet.",
             "7e4a2f80c6": "Recently added items can take a while to appear."
-          },
-          "error": {
-            "projectOrViewNotFound": "Project or view not found.",
-            "projectNotFound": "Project not found.",
-            "selectedViewNotFound": "Could not find the selected view.",
-            "networkError": "Network error — check your connection."
           }
         },
         "GitHubMarkdownComposer": {
@@ -7063,13 +7011,7 @@
           "deleteWorktree": "Delete Worktree",
           "sleepWithDescendants": "Sleep with Descendants ({{value0}})",
           "sleepWithDescendantsDescription": "Close active panels in this workspace and every nested descendant to free up memory and CPU.",
-          "deleteWithDescendants": "Delete with Descendants…",
-          "ad9068e91a": "Sleep",
-          "b50091a3e1": "Sleep 1 Workspace",
-          "f28bf93f81": "Sleep {{count}} Workspaces",
-          "287b12a639": "Delete Selected",
-          "59bb2e3856": "Delete 1 Workspace",
-          "fc5d59429d": "Delete {{count}} Workspaces"
+          "deleteWithDescendants": "Delete with Descendants…"
         },
         "WorktreeList": {
           "7a8b9c0d1e": "Update required",
@@ -8375,14 +8317,7 @@
           "installFailureConflictRemedy": "Remove {{value0}} and register again if it is no longer needed.",
           "6f894ef9c2": "Show in Finder",
           "cbe55e4d48": "Show in Explorer",
-          "9fd4023db0": "Show in File Manager",
-          "showInFinder": "Show in Finder",
-          "showInExplorer": "Show in Explorer",
-          "showInFileManager": "Show in File Manager",
-          "registerInUsrLocalBin": "Register `orca` in /usr/local/bin.",
-          "registerInLocalBin": "Register `orca-ide` in ~/.local/bin.",
-          "registerInUserPath": "Register `orca` in your user PATH.",
-          "registrationUnavailable": "CLI registration is not yet available on this platform."
+          "9fd4023db0": "Show in File Manager"
         },
         "CliSkillRuntimeSetup": {
           "c47127f222": "WSL default"
@@ -15944,9 +15879,6 @@
             "browse": "Browse projects",
             "listLabel": "Projects",
             "noProjects": "No projects yet.",
-            "recentSection": "Recent",
-            "projectsSection": "Projects",
-            "foldersSection": "Folders",
             "projectDetail": "Project"
           },
           "RunTargetCombobox": {
@@ -16597,40 +16529,6 @@
             "reopenHint": "Reopen any time from Help > Explore Orca.",
             "done": "Done",
             "continue": "Continue"
-          },
-          "setupSteps": {
-            "notifications": {
-              "name": "Turn on notifications",
-              "description": "Know the moment an agent finishes, needs attention, or gets blocked."
-            },
-            "defaultAgent": {
-              "name": "Choose your default agent",
-              "description": "Start new work faster with your preferred agent already selected."
-            },
-            "agentCapabilities": {
-              "name": "Enable Orca CLI",
-              "description": "Register the Orca shell command and install agent skills for browser, computer, and orchestration workflows."
-            },
-            "taskSources": {
-              "name": "Connect integrations",
-              "description": "Start an agent from a task in one click and keep PR status in view."
-            },
-            "setupScript": {
-              "name": "Automate workspace setup",
-              "description": "Run install and setup commands automatically so every new worktree is ready for agents."
-            },
-            "addTwoRepos": {
-              "name": "Start work in multiple repos",
-              "description": "Bring your key repos into Orca so you can start agent work without hunting for folders."
-            },
-            "twoWorktrees": {
-              "name": "Multi-task",
-              "description": "Work in 2 different worktrees at once. Each one is isolated (even in the same project). Perfect for working on 2 features at once."
-            },
-            "browser": {
-              "name": "Use Orca's browser",
-              "description": "Browse your web app without leaving Orca. Grab any element and send its exact source and styles to an agent with one click."
-            }
           }
         },
         "tips": {
@@ -17958,46 +17856,6 @@
                       }
                     }
                   }
-                },
-                "localized": {
-                  "copy": {
-                    "dc2d7ebbfa": "What is an automation?",
-                    "1a9ac96bc5": "Automations run agent work on a schedule. Add an automation by clicking this button.",
-                    "e69e126045": "Find the results",
-                    "65a7cf9b63": "Runs show when automations ran, what happened, and where to inspect their output.",
-                    "c1fc08cd8f": "Split a terminal pane",
-                    "0376fb14f8": "Open a second terminal pane with {terminal.splitRight}, or right-click the pane for split options.",
-                    "6170819178": "Start another task in parallel",
-                    "2342da9c9f": "Each worktree gets its own branch, so parallel work stays separate.",
-                    "67991d08bb": "Pick a project",
-                    "3995148eb8": "Orca isolates each task in its own worktree, branched off your base.",
-                    "128db835f5": "Name it, or start from existing work",
-                    "6976d66061": "Start from a linked task for a short issue or PR name. Or leave it blank to auto-name it from your first agent message.",
-                    "f780b45969": "Choose what agent starts the work",
-                    "0314261987": "Pick the agent that should be opened when this worktree is created.",
-                    "7cf856f55d": "Choose the work source",
-                    "78aa70314e": "Switch between connected providers and project filters without changing pages.",
-                    "f392edd975": "Filter to the work you need",
-                    "15ea06d23f": "Use presets and search to narrow issues, reviews, merge requests, or tasks.",
-                    "819bcf6f00": "Start from work items",
-                    "be99666806": "Use Start or Open on a task, issue, review, or merge request to bring its context into a workspace.",
-                    "a1b2c3d4e5": "Plan work on the board",
-                    "f6g7h8i9j0": "Use the board when you want to see workspaces by status instead of by project.",
-                    "k1l2m3n4o5": "Move work through lanes",
-                    "p6q7r8s9t0": "Drag workspaces between lanes as their status changes.",
-                    "browserGrabTitle": "Grab page context for agents",
-                    "browserGrabBody": "Use the grab tool to copy a page element's context for agents.",
-                    "browserAnnotateTitle": "Mark design feedback in place",
-                    "browserAnnotateBody": "Annotate elements and send those notes to an agent.",
-                    "browserImportTitle": "Stay logged in",
-                    "browserImportBody": "Bring your existing logins into Orca to stay signed in immediately.",
-                    "floatingAllReposTitle": "Run an agent across every repo",
-                    "floatingAllReposBody": "Agents here run in any folder you choose. Point one at the directory above your services to work across all your repos at once.",
-                    "floatingScratchpadTitle": "Or use it as a scratchpad",
-                    "floatingScratchpadBody": "Open agents, scratch terminals, notes, and browser tabs without cluttering the worktree you’re focused on.",
-                    "31ca5cb3e0": "Split terminal",
-                    "012036e8ca": "Next"
-                  }
                 }
               }
             }
@@ -19108,66 +18966,6 @@
           "messageTooLarge": "Message exceeds the size limit.",
           "tooManyRequests": "Too many requests."
         },
-        "sourceControl": {
-          "linkedReviewBranchExists": "Linked review branch already exists",
-          "publishBranchToOrigin": "Publish this branch to origin",
-          "commitChangesFirst": "Commit changes first",
-          "checkoutBranchFirst": "Check out a branch first",
-          "switchToFeatureBranch": "Switch to a feature branch",
-          "pushFirst": "Push first",
-          "forcePushFirst": "Force Push first",
-          "syncFirst": "Sync first",
-          "authRequiredInEnvironment": "{{instruction}} in this environment",
-          "unsupportedProvider": "Unsupported provider",
-          "reviewAlreadyExists": "A {{reviewLabel}} already exists",
-          "forkHeadUnsupported": "Fork head unsupported",
-          "baseBranchNotOnRemote": "Base branch is not on the remote",
-          "branchNotReady": "Branch is not ready",
-          "createReviewForBranch": "Create a {{reviewLabel}} for this branch",
-          "forcePushBeforeCreateReview": "Force push with lease before creating a {{reviewLabel}}",
-          "pushBeforeCreateReview": "Push local commits before creating a {{reviewLabel}}",
-          "operationInProgress": "Operation in progress…",
-          "abortConflictInProgress": "Abort the {{operation}} in progress",
-          "commitStagedChanges": "Commit staged changes",
-          "checkingBranchStatus": "Checking branch status…",
-          "checkingPrStatus": "Checking PR status…",
-          "prAlreadyMerged": "PR is already merged",
-          "checkoutBeforePush": "Check out a branch before pushing commits",
-          "checkoutBeforeForcePush": "Check out a branch before force pushing commits",
-          "checkoutBeforePull": "Check out a branch before pulling commits",
-          "checkoutBeforeFastForward": "Check out a branch before fast-forwarding",
-          "checkoutBeforeSync": "Check out a branch before syncing commits",
-          "checkoutBeforePublish": "Check out a branch before publishing commits",
-          "linkedReviewTargetUnavailable": "Linked review branch target is unavailable",
-          "publishFirstToPush": "Publish the branch first to push commits",
-          "publishFirstToPull": "Publish the branch first to pull commits",
-          "publishFirstToFastForward": "Publish the branch first to fast-forward",
-          "publishFirstToSync": "Publish the branch first to sync commits",
-          "commitAndForcePushWithLease": "Commit staged changes and force push with lease",
-          "commitAndTryPush": "Commit staged changes and try to push",
-          "commitAndPush": "Commit staged changes and push",
-          "useCommitAndForcePush": "Use Commit & Force Push — remote only has older copies of local commits",
-          "commitThenPullPush": "Commit, then pull and push",
-          "pushSetUpstream": "Push this branch and set an upstream if needed",
-          "pushLinkedReviewUpdates": "Push updates to the linked review branch",
-          "tryRegularPushMayForce": "Try a regular push; git may require force push",
-          "pushMayRequireSync": "Push local commits; git may require syncing first",
-          "nothingToPushTo": "Nothing to push to {{upstream}}",
-          "nothingToPush": "Nothing to push",
-          "nothingToForcePushTo": "Nothing to force push to {{upstream}}",
-          "nothingToForcePush": "Nothing to force push",
-          "nothingNewToPullOlderRemote": "Nothing new to pull — remote only has older copies of local commits",
-          "nothingNewToFastForwardOlderRemote": "Nothing new to fast-forward — remote only has older copies of local commits",
-          "tryFastForwardMayReject": "Try a fast-forward pull; git may reject local commits",
-          "useForcePushOlderRemote": "Use Force Push — remote only has older copies of local commits",
-          "branchUpToDate": "Branch is up to date",
-          "nothingToPull": "Nothing to pull",
-          "nothingToFastForward": "Nothing to fast-forward",
-          "tryRebasingDirty": "Try rebasing; git may require committing or stashing local changes first",
-          "branchAlreadyPublished": "Branch is already published",
-          "chooseRemoteBaseToRebase": "Choose a remote base branch to rebase from",
-          "rebaseCurrentFromBase": "Rebase current branch with latest commits from {{base}}"
-        },
         "PluginDeclarativePanel": {
           "dismissLoadError": "Dismiss",
           "invalidTree": "The panel sent a layout Orca cannot show.",
@@ -19291,19 +19089,7 @@
         "projectCount_one": "{{count}} project",
         "selectedProjectCount_one": "{{count}} selected project",
         "sourceHostCount_one": "{{count}} source host",
-        "unavailableCount_one": "{{count}} unavailable",
-        "checkingServerCapabilities": "checking server capabilities",
-        "taskSourceServerUpdateNeeded": "server update needed for task sources",
-        "providerAuthNeeded": "provider auth needed",
-        "sourceToolUnavailable": "source tool unavailable",
-        "providerUnsupported": "provider unsupported on this host",
-        "connecting": "connecting",
-        "serverUpdateNeeded": "server update needed",
-        "disconnected": "disconnected",
-        "connectionIssue": "connection issue",
-        "unavailableCount": "{{value0}} unavailable",
-        "connected": "connected",
-        "authNeeded": "auth needed"
+        "unavailableCount_one": "{{count}} unavailable"
       },
       "ShortcutKeyCombo": {
         "07eb4985a1": "Double-tap {{value0}}"
