@@ -1,5 +1,6 @@
 import type { AiVaultSession } from '../../../../shared/ai-vault-types'
 import { getExecutionHostLabel, type ExecutionHostId } from '../../../../shared/execution-host'
+import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
 import type { AiVaultHostScopeOption } from './ai-vault-host-scope'
 
 /** Use host-menu names to distinguish cross-host copies; return null when all hits share a host. */
@@ -14,5 +15,10 @@ export function aiVaultSearchHitHostLabels(
   const optionLabels = new Map<string, string>(
     hostOptions.map((option) => [option.id, option.label])
   )
-  return new Map([...hostIds].map((id) => [id, optionLabels.get(id) ?? getExecutionHostLabel(id)]))
+  return new Map(
+    [...hostIds].map((id) => [
+      id,
+      translateExecutionHostLabel(optionLabels.get(id) ?? getExecutionHostLabel(id))
+    ])
+  )
 }
