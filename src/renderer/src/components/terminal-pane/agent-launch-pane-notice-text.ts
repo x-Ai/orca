@@ -54,11 +54,14 @@ export function agentLaunchPaneNoticeText(
       { agent }
     )
     return refusal.kind === 'unconfirmed'
-      ? `${translate(
-          'auto.components.terminal.pane.AgentLaunchPaneNotice.unconfirmed',
-          "Couldn't confirm {{agent}} started. Check its terminal before trying again.",
-          { agent }
-        )} ${explanation}`
+      ? joinSentences([
+          translate(
+            'auto.components.terminal.pane.AgentLaunchPaneNotice.unconfirmed',
+            "Couldn't confirm {{agent}} started. Check its terminal before trying again.",
+            { agent }
+          ),
+          explanation
+        ])
       : explanation
   }
   if (refusal.kind === 'unconfirmed') {
