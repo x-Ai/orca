@@ -1,7 +1,7 @@
 import { translate } from '@/i18n/i18n'
 import { translateUnassignedLabel } from '@/i18n/unassigned-label'
 import type { KeybindingActionId } from '../../../../../shared/keybindings'
-import { TUI_AGENT_DISPLAY_NAMES } from '../../../../../shared/agent-launch/catalog/tui-agent-display-names'
+import { tuiAgentDisplayName } from '../../../../../shared/agent-launch/catalog/tui-agent-display-names'
 import type { ShortcutFilter } from './ShortcutFilterRail'
 
 const GROUP_KEYS: Record<string, string> = {
@@ -21,8 +21,7 @@ const GROUP_KEYS: Record<string, string> = {
 export function translateShortcutActionTitle(actionId: string, fallback: string): string {
   if (actionId.startsWith('tab.newAgent.')) {
     const agent = actionId.slice('tab.newAgent.'.length)
-    const agentName =
-      TUI_AGENT_DISPLAY_NAMES[agent as keyof typeof TUI_AGENT_DISPLAY_NAMES] ?? agent
+    const agentName = tuiAgentDisplayName(agent) ?? agent
     return translate('settings.shortcuts.actions.tab.newAgentNamed', 'New {{agent}} tab', {
       agent: agentName
     })

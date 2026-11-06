@@ -42,9 +42,9 @@ export function TerminalQuickCommandsSubmenu({
   onClose,
   onRun
 }: TerminalQuickCommandsSubmenuProps): React.JSX.Element {
-  const nonEmptyHosts = hosts.filter(
-    (host) => host.repoCommands.length > 0 || host.globalCommands.length > 0
-  )
+  const nonEmptyHosts = hosts
+    .filter((host) => host.repoCommands.length > 0 || host.globalCommands.length > 0)
+    .map((host) => ({ ...host, label: translateExecutionHostLabel(host.label) }))
   const showHostOwnership = shouldShowTerminalQuickCommandHostOwnership(hosts)
   const singleHost = hosts[0]
   const renderCommand = (hostId: ExecutionHostId, command: TerminalQuickCommand) => (
@@ -87,9 +87,7 @@ export function TerminalQuickCommandsSubmenu({
             nonEmptyHosts.map((host, index) => (
               <div key={host.hostId}>
                 {index > 0 ? <DropdownMenuSeparator /> : null}
-                <DropdownMenuLabel className="truncate">
-                  {translateExecutionHostLabel(host.label)}
-                </DropdownMenuLabel>
+                <DropdownMenuLabel className="truncate">{host.label}</DropdownMenuLabel>
                 {[...host.repoCommands, ...host.globalCommands].map((command) =>
                   renderCommand(host.hostId, command)
                 )}
