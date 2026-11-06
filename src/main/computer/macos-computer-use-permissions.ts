@@ -3,7 +3,6 @@ import { RuntimeClientError } from './runtime-client-error'
 import { isHostShuttingDown } from '../startup/quit/host-shutdown-state'
 import { readMacosBundleId, resetMacosTccPermission } from '../macos-permissions/macos-tcc-reset'
 import { resolveMacOSComputerUseAppPath } from './macos-native-provider-paths'
-import { mainI18n } from '../i18n/main-i18n'
 import { resolveComputerUseHelperUnavailableReason } from './macos-computer-use-permission-status'
 import { computerUsePermissionStatusGate } from './macos-computer-use-permission-status-gate'
 import type {
@@ -30,10 +29,12 @@ let setupGeneration = 0
 // Opens that arrive mid-reset wait for it, so reset's helper cleanup can't kill what they open.
 let resetInProgress: Promise<unknown> | null = null
 
+/** `locale` comes from the desktop caller; orcad and CLI opens leave the helper on its default copy. */
 export function openComputerUsePermissions(
-  permissionId?: ComputerUsePermissionId
+  permissionId?: ComputerUsePermissionId,
+  locale?: string
 ): Promise<ComputerUsePermissionSetupResult> {
-  return openComputerUsePermissionsAsync(permissionId, ++setupRequestSeq, setupGeneration)
+  return openComputerUsePermissionsAsync(permissionId, locale, ++setupRequestSeq, setupGeneration)
 }
 
 function cancelPendingSetupLaunches(): void {
@@ -124,6 +125,7 @@ function launchSetupHelper(request: SetupLaunchRequest): void {
 
 async function openComputerUsePermissionsAsync(
   permissionId: ComputerUsePermissionId | undefined,
+  locale: string | undefined,
   seq: number,
   generation: number
 ): Promise<ComputerUsePermissionSetupResult> {
@@ -175,8 +177,10 @@ async function openComputerUsePermissionsAsync(
     }
   }
   const helperArgs = permissionId ? ['--permission', permissionId] : ['--permissions']
-  // Why: the helper renders permission copy in the app's UI language.
-  helperArgs.push('--locale', mainI18n.resolvedLanguage ?? mainI18n.language)
+  if (locale) {
+    // Why: the helper renders permission copy in the app's UI language.
+    helperArgs.push('--locale', locale)
+  }
   const launch = requestSetupHelperLaunch({ seq, helperAppPath, helperArgs })
 
   return {
