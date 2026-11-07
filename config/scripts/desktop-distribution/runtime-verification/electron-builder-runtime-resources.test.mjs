@@ -22,7 +22,7 @@ describe('packaged runtime resources', () => {
       await mkdir(join(resourcesDir, 'node_modules', 'zod'), { recursive: true })
 
       const sources = new Map([
-        ['out\\main\\index.js', 'const z = require("zod")'],
+        ['out\\main\\index.js', 'const z = require("zod"); require("node:sqlite")'],
         ['out\\main\\agent-hooks\\managed-agent-hook-controls.js', 'const YAML = require("yaml")']
       ])
       const asar = {
@@ -31,6 +31,9 @@ describe('packaged runtime resources', () => {
       }
 
       expect(() => verifyPackagedMainRuntimeDeps(resourcesDir, asar)).not.toThrow()
+
+      sources.set('out\\main\\index.js', 'require("node:foo")')
+      expect(() => verifyPackagedMainRuntimeDeps(resourcesDir, asar)).toThrow(/node:foo/)
     } finally {
       await removeTree(resourcesDir)
     }

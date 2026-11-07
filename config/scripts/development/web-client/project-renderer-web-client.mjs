@@ -158,7 +158,7 @@ async function minifyWebOutput() {
           minifyIdentifiers: !outputPath.startsWith('assets/'),
           minifySyntax: true,
           minifyWhitespace: true,
-          target: 'es2020'
+          target: 'es2022'
         })
         writeFileSync(targetPath, result.code)
       })
