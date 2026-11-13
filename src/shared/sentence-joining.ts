@@ -11,6 +11,14 @@ function separatorAfter(previous: string): string {
   return CJK_TEXT.test(previous) && !ENDS_IN_PUNCTUATION.test(previous) ? '。' : ' '
 }
 
+/** Stop a caller appends to a sentence it styles apart from the next one: 。 after CJK text, "." otherwise. */
+export function sentenceStop(sentence: string): string {
+  if (ENDS_IN_PUNCTUATION.test(sentence)) {
+    return ''
+  }
+  return CJK_TEXT.test(sentence) ? '。' : '.'
+}
+
 /** Use each preceding sentence’s language, not UI locale, so English fallback text keeps its space beside translations. */
 export function joinSentences(sentences: readonly string[]): string {
   return sentences
