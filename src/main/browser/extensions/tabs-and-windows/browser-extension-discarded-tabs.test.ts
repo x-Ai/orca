@@ -39,7 +39,7 @@ const mocks = vi.hoisted(() => {
 vi.mock('electron', () => ({
   webContents: { fromId: (id: number) => mocks.guests.get(id) }
 }))
-vi.mock('../../browser-manager', () => ({
+vi.mock('../../guest-lifecycle/manager/browser-manager', () => ({
   browserManager: {
     getGuestWebContentsId: (pageId: string) =>
       [...mocks.pageByGuest].find(([, page]) => page === pageId)?.[0] ?? null,
@@ -99,7 +99,7 @@ vi.mock('./browser-extension-window-model', () => ({
   presentBrowserExtensionWindow: vi.fn()
 }))
 vi.mock('../api/tabs-capture', () => ({ captureVisibleTabMethod: {} }))
-vi.mock('../api/permissions', () => ({
+vi.mock('../permissions/browser-extension-session-permissions', () => ({
   browserExtensionHostPatternsInSession: (_extension: unknown, sess: unknown) =>
     sess === mocks.sessions.default ? mocks.grantedOrigins : []
 }))
@@ -109,7 +109,7 @@ const discardedTabs = await import('./browser-extension-discarded-tabs')
 const { recordActiveBrowserPage } = await import('./browser-extension-tab-model')
 const { registerTabsNamespace } = await import('../api/tabs')
 const { announceRegisteredBrowserExtensionTab, observeBrowserExtensionTabLifecycle } =
-  await import('../api/tabs-lifecycle')
+  await import('./browser-extension-tab-lifecycle')
 await import('../../../../preload/browser-extension-document-targets')
 
 function page(id: string, workspaceId: string, overrides: Partial<BrowserPage> = {}): BrowserPage {
@@ -265,6 +265,10 @@ beforeEach(() => {
     }
   })
   discardedTabs.forgetBrowserPageGuestsGone()
+  // Retire ids an earlier test handed out, so each test starts with none listed.
+  for (const pageId of ['live', 'cold', 'doc', 'notes', 'job', 'remote', 'streamed']) {
+    discardedTabs.takeDiscardedBrowserTabId(pageId)
+  }
   registerTabsNamespace()
   guest(11, mocks.sessions.default, 'https://live.test/')
   mocks.pageByGuest.set(11, 'live')
@@ -345,6 +349,24 @@ describe('restored browser pages without a guest are discarded tabs', () => {
     // A write that still saves the page: its guest was evicted, so it is discarded now.
     writeListener?.('local')
     expect(await urls()).toContain('https://live.test/')
+  })
+
+  it('showing one restored page gives no other page a tab id extensions never saw', async () => {
+    recordActiveBrowserPage('cold')
+    guest(12, mocks.sessions.default, 'https://cold.test/')
+    mocks.pageByGuest.set(12, 'cold')
+    announceRegisteredBrowserExtensionTab('cold', 12)
+    saved.local.browserPagesByWorkspace = Object.fromEntries(
+      Object.entries(saved.local.browserPagesByWorkspace ?? {}).map(([id, pages]) => [
+        id,
+        pages.filter((entry) => entry.id !== 'notes')
+      ])
+    )
+    writeListener?.('local')
+    expect(events('onRemoved')).toEqual([])
+    expect((await query({ discarded: true })).map((entry) => entry.url)).toEqual([
+      'https://remote.test/'
+    ])
   })
 
   it('reports a discarded tab closed once, when the session save drops its page', async () => {

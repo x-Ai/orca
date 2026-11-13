@@ -2,8 +2,9 @@ import {
   TerminalStreamOpcode,
   encodeTerminalStreamJson
 } from '../../../../../../shared/terminal/stream/terminal-stream-protocol'
-import { e2eDisableRemoteTerminalStallRecovery } from '@/lib/e2e-config'
-import { recordRendererCrashBreadcrumb } from '@/lib/crash-breadcrumb-recorder'
+import type { TerminalOutputCadence } from '../../../../../../shared/terminal/stream/terminal-multiplex-flow-control'
+import { e2eDisableRemoteTerminalStallRecovery } from '@/app-shell/startup/e2e-config'
+import { recordRendererCrashBreadcrumb } from '@/diagnostics/crash-reporting/crash-breadcrumb-recorder'
 import { RemoteRuntimeTerminalBinaryController } from '../frames/remote-runtime-terminal-binary-controller'
 import { CONTROL_STREAM_ID } from '../frames/remote-terminal-multiplex-event'
 import { disposeRemoteTerminalStreamState } from '../remote-terminal-stream-disposal'
@@ -24,9 +25,12 @@ export class RemoteRuntimeTerminalMultiplexer extends RemoteRuntimeTerminalBinar
     inputSessionId?: string
     /** A terminal pane pauses output while hidden, so the host may count it as showing the terminal. */
     reportsPaneVisibility?: boolean
+    /** Set by callers that retune cadence via setOutputCadence; absent leaves the capability unadvertised. */
+    outputCadence?: TerminalOutputCadence
     callbacks: RemoteRuntimeMultiplexedTerminalCallbacks
   }): Promise<RemoteRuntimeMultiplexedTerminal> {
     const streamId = this.allocateStreamId()
+    const outputCadence = args.outputCadence ?? 'focused'
     const state: RemoteRuntimeMultiplexedTerminalState = {
       streamId,
       terminal: args.terminal,
@@ -40,6 +44,9 @@ export class RemoteRuntimeTerminalMultiplexer extends RemoteRuntimeTerminalBinar
       supportsInputAck: false,
       inputLedgerId: null,
       outputPaused: false,
+      supportsOutputCadence: false,
+      outputCadence,
+      hostOutputCadence: outputCadence,
       streamGeneration: null,
       sourceAckedEndByte: 0,
       heldAckBytes: 0,
@@ -118,6 +125,7 @@ export class RemoteRuntimeTerminalMultiplexer extends RemoteRuntimeTerminalBinar
         return claimed && resized
       },
       setOutputPaused: (paused) => this.setOutputPaused(state, paused),
+      setOutputCadence: (cadence) => this.setOutputCadence(state, cadence),
       reportsPausedOutputDrops: () =>
         this.isRegisteredStream(state) && state.supportsPausedOutputDropNotice,
       serializeBuffer: (opts) => this.requestSnapshot(state, opts),
@@ -159,9 +167,11 @@ export class RemoteRuntimeTerminalMultiplexer extends RemoteRuntimeTerminalBinar
             ...(args.client.type === 'desktop'
               ? { desktopViewportClaims: 1, endpointLossNotice: 1 }
               : {}),
-            ...(args.inputSessionId ? { inputAck: 1 } : {})
+            ...(args.inputSessionId ? { inputAck: 1 } : {}),
+            ...(args.outputCadence ? { outputCadence: 1 } : {})
           },
-          ...(args.inputSessionId ? { inputSessionId: args.inputSessionId } : {})
+          ...(args.inputSessionId ? { inputSessionId: args.inputSessionId } : {}),
+          ...(outputCadence !== 'focused' ? { outputCadence } : {})
         })
       )
       if (!sent) {

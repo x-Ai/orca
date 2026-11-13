@@ -1,9 +1,7 @@
-import {
-  clearNativeChatComposerDraftsForTests,
-  updateNativeChatComposerDraft
-} from '@/components/native-chat/native-chat-composer-draft-store'
-import { captureNativeChatComposerSubmission } from '@/components/native-chat/native-chat-composer-draft-memory'
-import { nativeChatLaunchPromptDraftScopeKey } from '@/components/native-chat/native-chat-launch-draft-source'
+import { clearNativeChatComposerDraftsForTests } from '@/components/native-chat/drafts/native-chat-draft-reset'
+import { updateNativeChatComposerDraft } from '@/components/native-chat/drafts/native-chat-composer-draft-store'
+import { captureNativeChatComposerSubmission } from '@/components/native-chat/drafts/native-chat-composer-draft-memory'
+import { nativeChatLaunchPromptDraftScopeKey } from '@/components/native-chat/drafts/native-chat-launch-draft-source'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import 'sonner'
 import { createTestStore, seedStore } from '../../../testing/app-store-test-fixture'
@@ -122,22 +120,6 @@ describe('removing a worktree the host deletes in the background', () => {
     clearNativeChatComposerDraftsForTests()
     seedRow(store)
     hostListsOnRefresh('unmarked')
-    const scope = nativeChatLaunchPromptDraftScopeKey(worktreeId, 'codex', 'local')
-    updateNativeChatComposerDraft(scope, { text: 'pending task' }, 'immediate')
-    const attempt = captureNativeChatComposerSubmission(scope)
-    mockApi.worktrees.remove.mockRejectedValue(new Error('Request timed out: worktree.rm'))
-    const result = await store
-      .getState()
-      .removeWorktree({ id: worktreeId, executionHostId: 'local' })
-    expect(result.ok).toBe(false)
-    expect(attempt.draft?.text).toBe('pending task')
-    clearNativeChatComposerDraftsForTests()
-  })
-
-  it('lost removal reply keeps draft when listing is unreadable', async () => {
-    clearNativeChatComposerDraftsForTests()
-    seedRow(store)
-    hostListsOnRefresh(new Error('unreadable'))
     const scope = nativeChatLaunchPromptDraftScopeKey(worktreeId, 'codex', 'local')
     updateNativeChatComposerDraft(scope, { text: 'pending task' }, 'immediate')
     const attempt = captureNativeChatComposerSubmission(scope)

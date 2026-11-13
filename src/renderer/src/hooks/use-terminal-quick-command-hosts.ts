@@ -9,7 +9,7 @@ import {
   type ExecutionHostId
 } from '../../../shared/execution-host'
 import { getHostDisplayLabelOverrides } from '../../../shared/host-setting-overrides'
-import { buildExecutionHostRegistry } from '../../../shared/execution-host-registry'
+import { buildExecutionHostRegistry } from '../../../shared/execution-host/execution-host-registry'
 import type { PublicKnownRuntimeEnvironment } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { useAppStore } from '@/store'
 import type {
@@ -17,7 +17,10 @@ import type {
   TerminalQuickCommandHostsSlice
 } from '@/store/terminals/terminal-quick-command-hosts'
 import { getExecutionHostIdForWorktree } from '@/lib/workspace/ownership/worktree-runtime-owner'
-import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
+import {
+  getTranslatedExecutionHostLabel,
+  translateHostDisplayLabel
+} from '@/components/sidebar/execution-host-label'
 import { readUiLanguageMemoInput } from '@/i18n/ui-language-memo-input'
 
 export type TerminalQuickCommandHost = {
@@ -91,14 +94,18 @@ export function flattenTerminalQuickCommandHosts(
 export function getTerminalQuickCommandHostOptions(
   settings: GlobalSettings | null | undefined,
   runtimeEnvironments: readonly Pick<PublicKnownRuntimeEnvironment, 'id' | 'name'>[]
-): { id: ExecutionHostId; label: string }[] {
+): { id: ExecutionHostId; label: string; isDefaultLocalLabel?: boolean }[] {
   return buildExecutionHostRegistry({
     repos: [],
     settings,
     hostSource: 'configured-only',
     runtimeEnvironments,
     hostLabelOverrides: getHostDisplayLabelOverrides(settings)
-  }).map((host) => ({ id: host.id, label: host.label }))
+  }).map((host) => ({
+    id: host.id,
+    label: host.label,
+    isDefaultLocalLabel: host.isDefaultLocalLabel
+  }))
 }
 
 export function useTerminalQuickCommandHosts(
@@ -180,13 +187,14 @@ export function useTerminalQuickCommandHosts(
       return DISABLED_TERMINAL_QUICK_COMMAND_HOSTS
     }
     const hostOptions = getTerminalQuickCommandHostOptions(settings, runtimeEnvironments)
+    const localHost = hostOptions.find((host) => host.id === LOCAL_EXECUTION_HOST_ID)
     const result: TerminalQuickCommandHost[] = [
       {
         commands: settings?.terminalQuickCommands ?? [],
         hostId: LOCAL_EXECUTION_HOST_ID,
-        label: translateExecutionHostLabel(
-          hostOptions.find((host) => host.id === LOCAL_EXECUTION_HOST_ID)?.label ?? 'This computer'
-        )
+        label: localHost
+          ? translateHostDisplayLabel(localHost)
+          : getTranslatedExecutionHostLabel(LOCAL_EXECUTION_HOST_ID)
       }
     ]
     if (

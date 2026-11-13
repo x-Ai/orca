@@ -1,62 +1,60 @@
 import { translate } from '@/i18n/i18n'
+import type { Translate } from '@/i18n/use-translate'
 import {
   getCancelledCheckCount,
   getProviderChecksOutcome
 } from '../../../../shared/source-control/checks/provider-check-summary'
-import type { ProviderCheckSummary } from '../../../../shared/github/pull-request-types'
+import type { ProviderCheckSummary } from '../../../../shared/github/pull-requests/pull-request-types'
 
 type ChecksPillItem = { checksSummary?: ProviderCheckSummary }
 
-function getPipelineChecksLabel(state: ProviderCheckSummary['state']): string {
+function getPipelineChecksLabel(state: ProviderCheckSummary['state'], t: Translate): string {
   switch (state) {
     case 'success':
-      return translate('auto.components.task-page.checksPill.pipelinePassed', 'Pipeline passed')
+      return t('auto.components.task-page.checksPill.pipelinePassed', 'Pipeline passed')
     case 'failure':
-      return translate('auto.components.task-page.checksPill.pipelineFailed', 'Pipeline failed')
+      return t('auto.components.task-page.checksPill.pipelineFailed', 'Pipeline failed')
     case 'pending':
-      return translate('auto.components.task-page.checksPill.pipelinePending', 'Pipeline pending')
+      return t('auto.components.task-page.checksPill.pipelinePending', 'Pipeline pending')
     case 'neutral':
-      return translate(
-        'auto.components.task-page.checksPill.pipelineUnresolved',
-        'Pipeline unresolved'
-      )
+      return t('auto.components.task-page.checksPill.pipelineUnresolved', 'Pipeline unresolved')
     case 'none':
-      return translate('auto.components.pr-check-counts.noChecks', 'No checks found')
+      return t('auto.components.pr-check-counts.noChecks', 'No checks found')
   }
 }
 
 /** Derive label and tone from the same summary so neutral checks cannot contradict a successful state. */
-export function getChecksLabel(item: ChecksPillItem): string {
+export function getChecksLabel(item: ChecksPillItem, t: Translate = translate): string {
   const summary = item.checksSummary
   if (!summary) {
-    return translate('auto.components.TaskPage.a7396b05c6', 'Checks')
+    return t('auto.components.TaskPage.a7396b05c6', 'Checks')
   }
   if (summary.scope === 'pipeline') {
-    return getPipelineChecksLabel(summary.state)
+    return getPipelineChecksLabel(summary.state, t)
   }
   if (summary.total === 0) {
-    return translate('auto.components.pr-check-counts.noChecks', 'No checks found')
+    return t('auto.components.pr-check-counts.noChecks', 'No checks found')
   }
   const outcome = getProviderChecksOutcome(summary)
   if (outcome === 'failure') {
-    return translate('auto.components.pr-check-counts.failingChip', '{{value0}} failing', {
+    return t('auto.components.pr-check-counts.failingChip', '{{value0}} failing', {
       value0: summary.failed - (getCancelledCheckCount(summary) ?? 0)
     })
   }
   if (outcome === 'pending') {
-    return translate('auto.components.pr-check-counts.pendingChip', '{{value0}} pending', {
+    return t('auto.components.pr-check-counts.pendingChip', '{{value0}} pending', {
       value0: summary.pending
     })
   }
   if (outcome === 'cancelled') {
-    return translate('auto.components.editor.CheckRunDetailsPanel.91a4c7e2b0', 'Cancelled')
+    return t('auto.components.editor.CheckRunDetailsPanel.91a4c7e2b0', 'Cancelled')
   }
   if (summary.state === 'neutral') {
-    return translate('auto.components.pr-check-counts.unresolvedChip', '{{value0}} unresolved', {
+    return t('auto.components.pr-check-counts.unresolvedChip', '{{value0}} unresolved', {
       value0: summary.neutral || summary.total
     })
   }
-  return translate(
+  return t(
     'auto.components.pr-check-counts.passingSummary',
     '{{value0}} of {{value1}} checks passing',
     { value0: summary.passed, value1: summary.total }

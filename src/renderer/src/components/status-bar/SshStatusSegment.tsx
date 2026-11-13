@@ -8,18 +8,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { useAppStore } from '../../store'
-import type { SshConnectionStatus } from '../../../../shared/ssh-types'
+import { useAppStore } from '../../store/index'
 import { translate } from '@/i18n/i18n'
-import { translateExecutionHostLabel } from '../sidebar/execution-host-label'
+import { useTranslate } from '@/i18n/use-translate'
+import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
 import { getHostDisplayLabelOverrides } from '../../../../shared/host-setting-overrides'
 import {
   isOwnedSshTargetId,
   toRuntimeExecutionHostId,
   toSshExecutionHostId
 } from '../../../../shared/execution-host'
-import { buildExecutionHostRegistry } from '../../../../shared/execution-host-registry'
-import { pickerExecutionHosts } from '../../../../shared/managed-orcad-execution-host'
+import { buildExecutionHostRegistry } from '../../../../shared/execution-host/execution-host-registry'
+import { pickerExecutionHosts } from '../../../../shared/execution-host/managed-orcad-execution-host'
 import {
   isListedRemoteServer,
   runtimePairingRepairRoute
@@ -29,19 +29,20 @@ import { connectedHostCountLabel, moreSshHostsLabel } from './ssh-status-segment
 import { SshHostFindPopover } from './SshHostFindPopover'
 import { splitSshStatusMenuRows } from './ssh-status-menu-rows'
 import { SshTargetStatusRow } from './SshTargetStatusRow'
-import { syncSshConfigTargetsPassively } from '../../lib/ssh-config-passive-sync'
+import { syncSshConfigTargetsPassively } from '../../runtime/hosts/ssh/ssh-config-passive-sync'
 import { connectRuntimeHostAndReloadProjects } from './runtime-environment-explicit-connect'
 import {
   runtimeHostBlockedCopy,
   runtimeHostBlockedRecovery,
   runtimeHostConnectionDetail,
   runtimeHostStatusForOverall,
-  sshStatusForOverall,
-  type RuntimeHostBlockedRecovery
+  sshStatusForOverall
 } from './remote-host-connection-status'
+import type { RuntimeHostBlockedRecovery } from './remote-host-connection-status'
 import { runtimeHostConnectionStateForEntry } from '@/runtime/hosts/connections/runtime-host-connection-state'
 import { isConnectedRuntimeHostState } from '../../../../shared/remote-runtime/host-status/runtime-host-connection-state'
 import { RuntimeRepairDialog } from '../runtime-access/RuntimeRepairDialog'
+import type { SshConnectionStatus } from '../../../../shared/ssh-types'
 
 export function SshStatusSegment({
   compact,
@@ -50,6 +51,7 @@ export function SshStatusSegment({
   compact: boolean
   iconOnly: boolean
 }): React.JSX.Element | null {
+  const t = useTranslate()
   const sshConnectionStates = useAppStore((s) => s.sshConnectionStates)
   const sshTargetLabels = useAppStore((s) => s.sshTargetLabels)
   const repos = useAppStore((s) => s.repos)
@@ -113,7 +115,7 @@ export function SshStatusSegment({
         blockedReason,
         blocked: blockedReason
           ? {
-              ...runtimeHostBlockedCopy(blockedReason, registryHost?.compatibility, repairRoute),
+              ...runtimeHostBlockedCopy(blockedReason, registryHost?.compatibility, repairRoute, t),
               recovery: runtimeHostBlockedRecovery(blockedReason, repairRoute)
             }
           : null,
@@ -172,7 +174,7 @@ export function SshStatusSegment({
   }
 
   const statuses = [
-    ...targets.map((t) => sshStatusForOverall(t.status)),
+    ...targets.map((target) => sshStatusForOverall(target.status)),
     ...runtimeHostRows.map((host) => runtimeHostStatusForOverall(host.state, host.blockedReason))
   ]
   const connectedHostCount = statuses.filter((status) => status === 'connected').length
@@ -208,7 +210,7 @@ export function SshStatusSegment({
           ref={triggerRef}
           type="button"
           className="inline-flex shrink-0 items-center gap-1.5 cursor-pointer rounded px-1 py-0.5 text-muted-foreground hover:bg-accent/70"
-          aria-label={translate(
+          aria-label={t(
             'auto.components.status.bar.SshStatusSegment.fdc57e9970',
             'Remote host connection status'
           )}
@@ -222,13 +224,13 @@ export function SshStatusSegment({
                 <span className="inline-grid text-2xs tabular-nums">
                   {/* Reserve both localized forms so count changes don't resize the bar. */}
                   <span aria-hidden className="invisible col-start-1 row-start-1">
-                    {connectedHostCountLabel(1)}
+                    {connectedHostCountLabel(1, t)}
                   </span>
                   <span aria-hidden className="invisible col-start-1 row-start-1">
-                    {connectedHostCountLabel(Math.max(99, statuses.length))}
+                    {connectedHostCountLabel(Math.max(99, statuses.length), t)}
                   </span>
                   <span className="col-start-1 row-start-1">
-                    {connectedHostCountLabel(connectedHostCount)}
+                    {connectedHostCountLabel(connectedHostCount, t)}
                   </span>
                 </span>
               )}
@@ -249,14 +251,14 @@ export function SshStatusSegment({
         }}
       >
         <div className="px-2 pt-1.5 pb-1 text-[10px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
-          {translate('auto.components.status.bar.SshStatusSegment.6e8a9a4242', 'Remote Hosts')}
+          {t('auto.components.status.bar.SshStatusSegment.6e8a9a4242', 'Remote Hosts')}
         </div>
         {connectedRuntimeHosts.map((host) => (
           <RuntimeHostStatusRow
             key={host.id}
-            label={translateExecutionHostLabel(host.label)}
+            label={translateExecutionHostLabel(host.label, t)}
             state={host.state}
-            detail={runtimeHostConnectionDetail(host.remoteControl)}
+            detail={runtimeHostConnectionDetail(host.remoteControl, t)}
             diagnostics={host.remoteControl}
             blocked={host.blocked}
             onConnect={() => connectRuntimeHost(host.id)}
@@ -264,15 +266,20 @@ export function SshStatusSegment({
             onRecover={() => openRecovery(host)}
           />
         ))}
-        {connectedTargets.map((t) => (
-          <SshTargetStatusRow key={t.id} targetId={t.id} label={t.label} status={t.status} />
+        {connectedTargets.map((target) => (
+          <SshTargetStatusRow
+            key={target.id}
+            targetId={target.id}
+            label={target.label}
+            status={target.status}
+          />
         ))}
         {inactiveRuntimeHosts.map((host) => (
           <RuntimeHostStatusRow
             key={host.id}
-            label={translateExecutionHostLabel(host.label)}
+            label={translateExecutionHostLabel(host.label, t)}
             state={host.state}
-            detail={runtimeHostConnectionDetail(host.remoteControl)}
+            detail={runtimeHostConnectionDetail(host.remoteControl, t)}
             diagnostics={host.remoteControl}
             blocked={host.blocked}
             onConnect={() => connectRuntimeHost(host.id)}
@@ -280,13 +287,18 @@ export function SshStatusSegment({
             onRecover={() => openRecovery(host)}
           />
         ))}
-        {disconnectedTargets.map((t) => (
-          <SshTargetStatusRow key={t.id} targetId={t.id} label={t.label} status={t.status} />
+        {disconnectedTargets.map((target) => (
+          <SshTargetStatusRow
+            key={target.id}
+            targetId={target.id}
+            label={target.label}
+            status={target.status}
+          />
         ))}
         {hiddenIdleCount > 0 ? (
           // Why a search and not a Settings link: web clients connect hosts here but have no SSH pane.
           <DropdownMenuItem onSelect={() => setFindOpen(true)}>
-            {moreSshHostsLabel(hiddenIdleCount)}
+            {moreSshHostsLabel(hiddenIdleCount, t)}
           </DropdownMenuItem>
         ) : null}
         <DropdownMenuSeparator />
@@ -297,10 +309,7 @@ export function SshStatusSegment({
             setActiveView('settings')
           }}
         >
-          {translate(
-            'auto.components.status.bar.SshStatusSegment.3ad70e0365',
-            'Manage Remote Hosts…'
-          )}
+          {t('auto.components.status.bar.SshStatusSegment.3ad70e0365', 'Manage Remote Hosts…')}
         </DropdownMenuItem>
       </DropdownMenuContent>
       <SshHostFindPopover

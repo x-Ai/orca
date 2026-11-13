@@ -2,6 +2,7 @@ import { selectWslHostsServing } from '../../use-wsl-hosts-enabled'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppStore } from '@/store'
+import { selectEphemeralVmHostLifecycles } from '@/store/slices/ephemeral-vm/ephemeral-vm-lifecycle'
 import { readUiLanguageMemoInput } from '@/i18n/ui-language-memo-input'
 import { getHostDisplayLabelOverrides } from '../../../../../../shared/host-setting-overrides'
 import {
@@ -26,6 +27,7 @@ export function useSidebarHostScopeOptions(): {
   const runtimeStatusByEnvironmentId = useAppStore((s) => s.runtimeStatusByEnvironmentId)
   const wslHostStatuses = useAppStore((s) => s.wslHostStatuses)
   const wslHostServerFilesMissing = useAppStore((s) => s.wslHostServerFiles === 'missing')
+  const ephemeralVmHosts = useAppStore(selectEphemeralVmHostLifecycles)
 
   const hostLabelOverrides = useMemo(() => getHostDisplayLabelOverrides(settings), [settings])
   const hostOptions = useMemo(() => {
@@ -40,7 +42,8 @@ export function useSidebarHostScopeOptions(): {
       hostLabelOverrides,
       wslHostStatuses,
       wslHostsEnabled: selectWslHostsServing({ settings, runtimeEnvironments }),
-      wslHostServerFilesMissing
+      wslHostServerFilesMissing,
+      ephemeralVmHosts
     })
   }, [
     repos,
@@ -52,6 +55,7 @@ export function useSidebarHostScopeOptions(): {
     hostLabelOverrides,
     wslHostStatuses,
     wslHostServerFilesMissing,
+    ephemeralVmHosts,
     language
   ])
   const hostScopeOptions = useMemo(() => buildSidebarHostScopeOptions(hostOptions), [hostOptions])

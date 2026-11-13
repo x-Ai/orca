@@ -4,13 +4,14 @@ import { ChevronDown, Gauge, LoaderCircle, Tag, UserRound } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/class-names'
 import { getLinearStateMarkerStyle } from '@/components/linear-state-pill-style'
 import { LinearPriorityIcon } from '@/components/linear-priority-icon'
 import { getLinearPriorityLabel } from '@/components/task-page/task-page-localized-options'
 import { translate } from '@/i18n/i18n'
-import { translateUnassignedLabel } from '@/i18n/unassigned-label'
+import type { Translate } from '@/i18n/use-translate'
 import { translateDefaultWorkflowStateLabel } from '@/components/sidebar/workspace-board-status-label'
+import { translateUnassignedLabel } from '@/i18n/unassigned-label'
 import {
   LINEAR_EDIT_MENU_ITEM_CLASS,
   LINEAR_EDIT_MENU_ITEM_WITH_ICON_CLASS,
@@ -21,7 +22,8 @@ import {
 import type { LinearIssueEditController } from '@/components/linear-item-drawer-edit-controller'
 
 export function renderLinearIssuePropertiesLayout(
-  controller: LinearIssueEditController
+  controller: LinearIssueEditController,
+  t: Translate = translate
 ): React.JSX.Element {
   const {
     statePending,
@@ -63,7 +65,7 @@ export function renderLinearIssuePropertiesLayout(
     <div className="space-y-3">
       <section className="rounded-xl border border-border/60 bg-card text-card-foreground shadow-xs">
         <div className="flex h-10 items-center gap-1 border-b border-border/50 px-4 text-sm font-medium text-muted-foreground">
-          <span>{translate('auto.components.LinearItemDrawer.dd304de85a', 'Properties')}</span>
+          <span>{t('auto.components.LinearItemDrawer.dd304de85a', 'Properties')}</span>
           <ChevronDown className="size-3.5" />
         </div>
         <div className="space-y-1 p-3">
@@ -80,7 +82,7 @@ export function renderLinearIssuePropertiesLayout(
                   style={getLinearStateMarkerStyle(localState.color)}
                 />
                 <span className="min-w-0 flex-1 truncate">
-                  {translateDefaultWorkflowStateLabel(localState.name)}
+                  {translateDefaultWorkflowStateLabel(localState.name, t)}
                 </span>
                 <LinearEditChipAdornment loading={states.loading} pending={statePending} />
               </button>
@@ -96,7 +98,7 @@ export function renderLinearIssuePropertiesLayout(
               ) : states.loading ? (
                 <div className="flex items-center gap-2 px-2 py-3 text-[12px] text-muted-foreground">
                   <LoaderCircle className="size-3 animate-spin" />
-                  {translate('auto.components.LinearItemDrawer.59b6cd3706', 'Loading states')}
+                  {t('auto.components.LinearItemDrawer.59b6cd3706', 'Loading states')}
                 </div>
               ) : states.data.length > 0 ? (
                 <div>
@@ -114,13 +116,13 @@ export function renderLinearIssuePropertiesLayout(
                         className="inline-block size-2 rounded-full"
                         style={{ backgroundColor: s.color }}
                       />
-                      {translateDefaultWorkflowStateLabel(s.name)}
+                      {translateDefaultWorkflowStateLabel(s.name, t)}
                     </button>
                   ))}
                 </div>
               ) : (
                 <div className="px-2 py-3 text-center text-[12px] text-muted-foreground">
-                  {translate('auto.components.LinearItemDrawer.780ea6ed89', 'No states found')}
+                  {t('auto.components.LinearItemDrawer.780ea6ed89', 'No states found')}
                 </div>
               )}
             </PopoverContent>
@@ -201,7 +203,7 @@ export function renderLinearIssuePropertiesLayout(
                 ) : members.loading ? (
                   <div className="flex items-center gap-2 px-2 py-3 text-[12px] text-muted-foreground">
                     <LoaderCircle className="size-3 animate-spin" />
-                    {translate('auto.components.LinearItemDrawer.b2376d0179', 'Loading members')}
+                    {t('auto.components.LinearItemDrawer.b2376d0179', 'Loading members')}
                   </div>
                 ) : (
                   members.data.map((m) => (
@@ -232,7 +234,7 @@ export function renderLinearIssuePropertiesLayout(
               >
                 <Gauge className={propertyIconClass} />
                 <span className="min-w-0 flex-1 truncate">
-                  {formatLinearEstimateLabel(localEstimate)}
+                  {formatLinearEstimateLabel(localEstimate, t)}
                 </span>
                 <LinearEditChipAdornment pending={estimatePending} />
               </button>
@@ -264,10 +266,7 @@ export function renderLinearIssuePropertiesLayout(
                     }
                   }}
                   inputMode="numeric"
-                  placeholder={translate(
-                    'auto.components.LinearItemDrawer.fbb90300e2',
-                    'Custom estimate'
-                  )}
+                  placeholder={t('auto.components.LinearItemDrawer.fbb90300e2', 'Custom estimate')}
                   className="h-8 text-sm"
                 />
                 <div className="flex items-center justify-between gap-2">
@@ -277,7 +276,7 @@ export function renderLinearIssuePropertiesLayout(
                     size="sm"
                     onClick={() => handleEstimateChange(null)}
                   >
-                    {translate('auto.components.LinearItemDrawer.ceeb8c6153', 'Clear')}
+                    {t('auto.components.LinearItemDrawer.ceeb8c6153', 'Clear')}
                   </Button>
                   <Button
                     type="button"
@@ -286,7 +285,7 @@ export function renderLinearIssuePropertiesLayout(
                     disabled={estimatePending}
                   >
                     {estimatePending ? <LoaderCircle className="size-3.5 animate-spin" /> : null}
-                    {translate('auto.components.LinearItemDrawer.b5675b0694', 'Save')}
+                    {t('auto.components.LinearItemDrawer.b5675b0694', 'Save')}
                   </Button>
                 </div>
               </div>
@@ -297,7 +296,7 @@ export function renderLinearIssuePropertiesLayout(
 
       <section className="rounded-xl border border-border/60 bg-card text-card-foreground shadow-xs">
         <div className="flex h-10 items-center gap-1 border-b border-border/50 px-4 text-sm font-medium text-muted-foreground">
-          <span>{translate('auto.components.LinearItemDrawer.64bfffc4dd', 'Labels')}</span>
+          <span>{t('auto.components.LinearItemDrawer.64bfffc4dd', 'Labels')}</span>
           <ChevronDown className="size-3.5" />
         </div>
         <div className="p-3">
@@ -309,12 +308,10 @@ export function renderLinearIssuePropertiesLayout(
                 className={propertyRowClass}
                 aria-label={
                   localLabels.length
-                    ? translate(
-                        'auto.components.LinearItemDrawer.7f7b89b631',
-                        'Labels: {{value0}}',
-                        { value0: localLabels.join(', ') }
-                      )
-                    : translate('auto.components.LinearItemDrawer.23886c7eec', 'Add label')
+                    ? t('auto.components.LinearItemDrawer.7f7b89b631', 'Labels: {{value0}}', {
+                        value0: localLabels.join(', ')
+                      })
+                    : t('auto.components.LinearItemDrawer.23886c7eec', 'Add label')
                 }
                 aria-busy={labelsPending || labels.loading}
               >
@@ -322,7 +319,7 @@ export function renderLinearIssuePropertiesLayout(
                 <span className="min-w-0 flex-1 truncate">
                   {localLabels.length
                     ? labelSummary
-                    : translate('auto.components.LinearItemDrawer.23886c7eec', 'Add label')}
+                    : t('auto.components.LinearItemDrawer.23886c7eec', 'Add label')}
                 </span>
                 <LinearEditChipAdornment loading={labels.loading} pending={labelsPending} />
               </button>
@@ -338,7 +335,7 @@ export function renderLinearIssuePropertiesLayout(
               ) : labels.loading ? (
                 <div className="flex items-center gap-2 px-2 py-3 text-[12px] text-muted-foreground">
                   <LoaderCircle className="size-3 animate-spin" />
-                  {translate('auto.components.LinearItemDrawer.cddd9b04a7', 'Loading labels')}
+                  {t('auto.components.LinearItemDrawer.cddd9b04a7', 'Loading labels')}
                 </div>
               ) : labels.data.length > 0 ? (
                 <div>
@@ -369,7 +366,7 @@ export function renderLinearIssuePropertiesLayout(
                 </div>
               ) : (
                 <div className="px-2 py-3 text-center text-[12px] text-muted-foreground">
-                  {translate('auto.components.LinearItemDrawer.367f828482', 'No labels found')}
+                  {t('auto.components.LinearItemDrawer.367f828482', 'No labels found')}
                 </div>
               )}
             </PopoverContent>
