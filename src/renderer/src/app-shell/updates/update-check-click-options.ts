@@ -1,5 +1,5 @@
-import type { UpdateCheckOptions } from '../../../../shared/update-status-types'
-import { joinSentences } from '../../../../shared/sentence-joining'
+import type { UpdateCheckOptions } from '../../../../shared/updater/update-status-types'
+import { joinSentences } from '../../../../shared/text/sentence-joining'
 import { translate } from '@/i18n/i18n'
 import { getShortcutPlatform } from '../../lib/keyboard/shortcut-platform'
 

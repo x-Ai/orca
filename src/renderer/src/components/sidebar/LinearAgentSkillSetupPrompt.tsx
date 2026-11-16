@@ -1,7 +1,7 @@
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { RefreshCw, TicketCheck, X } from 'lucide-react'
 import type { ProjectExecutionRuntimeResolution } from '../../../../shared/execution-host/project-execution-runtime'
-import { joinSentences } from '../../../../shared/sentence-joining'
+import { joinSentences } from '../../../../shared/text/sentence-joining'
 import { Button } from '@/components/ui/button'
 import {
   GLOBAL_AGENT_SKILL_SOURCE_KINDS,
