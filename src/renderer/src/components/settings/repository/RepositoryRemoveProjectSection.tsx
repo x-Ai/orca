@@ -22,7 +22,6 @@ import type { SettingsSearchEntry } from '../search/settings-search'
 import { useAppStore } from '@/store'
 import type { AppState } from '@/store/types'
 import { selectExecutionHostDisplayLabel } from '@/runtime/hosts/display/execution-host-display-label'
-import { translateExecutionHostLabel } from '@/components/sidebar/execution-host-label'
 import { countOpenRepoTerminalTabs } from '@/store/repos/repo-removal'
 import { getRecipeVmRemovalTargets } from '@/store/repos/recipe-vm-project-removal'
 import { selectWorktreesByRepo } from '@/store/workspaces/catalog/workspace-record-fields'
@@ -54,9 +53,12 @@ function getRemoveProjectDescription(
 }
 
 function selectSetupHostLabel(state: AppState, setup: ProjectHostSetup, t: Translate): string {
-  const label = selectExecutionHostDisplayLabel(state, setup.hostId, {
-    sshEnvironmentId: setup.runtimeOwnerEnvironmentId ?? null
-  })
+  const label = selectExecutionHostDisplayLabel(
+    state,
+    setup.hostId,
+    { sshEnvironmentId: setup.runtimeOwnerEnvironmentId ?? null },
+    t
+  )
   const parsed = parseExecutionHostId(setup.hostId)
   const rawId =
     parsed?.kind === 'runtime'
@@ -67,7 +69,7 @@ function selectSetupHostLabel(state: AppState, setup: ProjectHostSetup, t: Trans
   // An unlabeled host falls back to its raw id, which users can't recognize.
   return label === rawId
     ? t('auto.components.settings.RepositoryRemoveProjectSection.unknownHost', 'Unknown host')
-    : translateExecutionHostLabel(label, t)
+    : label
 }
 
 // Group by host, not label: two machines can share a display name.

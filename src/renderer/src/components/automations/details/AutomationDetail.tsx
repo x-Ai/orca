@@ -152,11 +152,14 @@ export function AutomationDetail({
         t('auto.components.automations.AutomationDetail.projectDefault', 'Project default'))
       : workspaceName
   const sourceDisplay = getAutomationSourceDisplay(automation.sourceContext, hostLabelById, t)
-  const hostDisplay = getAutomationHostDetailDisplay({
-    automation,
-    entry: hostEntry,
-    hostLabelById
-  })
+  const hostDisplay = getAutomationHostDetailDisplay(
+    {
+      automation,
+      entry: hostEntry,
+      hostLabelById
+    },
+    t
+  )
   const needsMigration = Boolean(hostEntry?.servedBy)
   const latestRun = indexLatestAutomationRuns(runs).get(automation.id)
   const latestRunError =
