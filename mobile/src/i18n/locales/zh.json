@@ -429,6 +429,9 @@
       "on": "开启",
       "permissions": "权限",
       "sessionOptions": "会话选项",
+      "permissionAppliesNextMessage": "{{saved}} 从下一条消息起生效；当前为 {{active}}",
+      "permissionAppliesNextMessageCompact": "{{saved}} · 下一条消息",
+      "permissionAppliesNextMessageTiming": "下一条消息生效 · 当前为 {{active}}",
       "setWhenSessionStarts": "请在会话开始时设置",
       "speed": "速度",
       "standard": "标准",
@@ -672,6 +675,58 @@
       "outcomeUnknownReturned": "Orca 无法确认对话是否已返回到此消息。你的消息已回到输入框中，Orca 会在发送你的下一条消息前检查对话",
       "timeout": "返回到此消息后聊天未更新。请重新打开以查看最新内容",
       "pending": "请等待对话回溯到更早的消息"
+    },
+    "urlRequest": {
+      "title": "请求登录",
+      "open": "打开登录页面",
+      "decline": "拒绝",
+      "opened": "已在浏览器中打开登录页面",
+      "openAgain": "重新打开",
+      "finished": "登录已完成",
+      "finishedWith": "登录已完成 · {{message}}"
+    },
+    "mcp": {
+      "source": {
+        "project": "项目",
+        "local": "本地",
+        "user": "用户",
+        "plugin": "插件",
+        "session": "会话"
+      },
+      "status": {
+        "connected": "已连接",
+        "pending": "正在连接…",
+        "needsAuth": "需要登录",
+        "failedReason": "失败：{{error}}",
+        "failed": "失败",
+        "needsAuthAfterSend": "需要登录，发送一条消息即可在这里登录",
+        "finishOnPage": "请在打开的页面上完成登录",
+        "waitingForSignIn": "正在等待登录…",
+        "tools_other": "{{count}} 个工具",
+        "off": "已关闭"
+      },
+      "title": "MCP 服务器",
+      "notRunning": "MCP 服务器会在你发送下一条消息时连接",
+      "unsupported": "请更新此聊天所在主机上的 Orca，以便在这里管理 MCP 服务器",
+      "readFailed": "无法加载 MCP 服务器",
+      "retry": "重试",
+      "empty": "此聊天没有设置任何 MCP 服务器",
+      "signIn": "登录",
+      "reconnect": "重新连接",
+      "toggleLabel": "使用 {{name}}",
+      "actionFailed": "无法完成此操作，请重试",
+      "openAgain": "重新打开",
+      "pastePlaceholder": "粘贴地址",
+      "pasteLabel": "登录页面地址",
+      "finish": "完成登录",
+      "signInUnfinished": "尚未完成登录，请在打开的页面上完成，然后轻点“完成”",
+      "summary": {
+        "signingIn": "正在登录 {{name}}",
+        "connected": "{{count}} 个已连接",
+        "needsAuth_other": "{{count}} 个需要登录",
+        "failed": "{{count}} 个失败"
+      },
+      "pasteHint": "当浏览器跳转到一个无法加载的页面时，复制它的地址并粘贴到这里"
     },
     "fork": {
       "busy": "另一个聊天或终端正在打开。请稍候，再次为 {{agent}} 聊天创建分支",
