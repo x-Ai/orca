@@ -1,1 +1,1 @@
-Screenshots for an Orca pull request (Simplified Chinese consistency). Not code; nothing here is meant to be merged.
+Screenshots for Orca pull requests about Simplified Chinese. Not code; nothing here is meant to be merged.
