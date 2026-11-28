@@ -7,6 +7,7 @@ import type { AgentDetectionTarget } from '@/lib/agent-session/launch/inventory/
 import { useAgentCliUpdate } from '@/components/agent-cli-update/use-agent-cli-update'
 import { AgentCliUpdateButton } from '@/components/agent-cli-update/AgentCliUpdateButton'
 import type { RuntimeClientTarget } from '../../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
+import { sentenceSeparatorAfter } from '../../../../../../shared/text/sentence-joining'
 import { Button } from '../../../ui/button'
 
 export const AGY_INSTALL_DOCS_URL = 'https://antigravity.google/docs/getting-started?tab=cli'
@@ -26,6 +27,7 @@ export function AntigravityAgyCliRow({
   onCheckAgain: () => void
 }): React.JSX.Element | null {
   const t = useTranslate()
+  const notInstalled = t('accounts.antigravity.agyNotInstalled', 'Not installed on this host.')
   const { update } = useAgentCliUpdate(owner, 'antigravity')
   const checkAgentCliUpdates = useAppStore((s) => s.checkAgentCliUpdates)
   const environmentId = owner.kind === 'environment' ? owner.environmentId : null
@@ -55,7 +57,8 @@ export function AntigravityAgyCliRow({
             })
           ) : (
             <>
-              {t('accounts.antigravity.agyNotInstalled', 'Not installed on this host.')}{' '}
+              {notInstalled}
+              {sentenceSeparatorAfter(notInstalled)}
               <a
                 className="text-foreground underline underline-offset-2"
                 href={AGY_INSTALL_DOCS_URL}

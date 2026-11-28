@@ -1,5 +1,6 @@
 import { toast } from 'sonner'
 import { translate } from '@/i18n/i18n'
+import { joinSentences } from '../../../../shared/text/sentence-joining'
 import { INLINE_ACTION_CLASS_NAMES } from '@/components/ui/sonner'
 import type { ClaudeHostRunningSessionsMove } from '../../../../shared/agent-accounts/managed-account-types'
 import type { AccountSwitchCopy } from './account-switch-copy'
@@ -98,7 +99,7 @@ export function announceAccountRestart(
     return
   }
   toast.success(title, {
-    description: notes.join(' '),
+    description: joinSentences(notes),
     // A server's sessions have no rows here to review.
     ...(review && others > 0 ? reviewAction(review) : {})
   })

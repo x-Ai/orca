@@ -56,7 +56,12 @@
         "customCommandDescription": "选择自定义命令的配置共用此命令行，使用 {prompt} 将输入作为参数传递，否则通过标准输入传递",
         "saveFailed": "无法保存聊天命名设置",
         "searchAgent": "代理",
-        "searchTemplate": "命令模板"
+        "searchTemplate": "命令模板",
+        "antigravity": "用 Antigravity 生成聊天标题",
+        "antigravityEnterprise": "将每个聊天的第一条消息发送给 Antigravity 来命名，会占用你的 Gemini Enterprise 配额",
+        "antigravityApiKey": "将每个聊天的第一条消息发送给 Antigravity 来命名，费用计入你的 Gemini API 密钥",
+        "antigravityAgentPlatform": "将每个聊天的第一条消息发送给 Antigravity 来命名，费用计入你的 Google Cloud 项目",
+        "antigravityGoogle": "将每个聊天的第一条消息发送给 Antigravity 来命名，会占用你 Google 账户的 Antigravity 配额"
       },
       "providers": {
         "title": "提供方",
@@ -2374,6 +2379,12 @@
         "hostCannotOpen": "更新 Orca 后才能重新打开此聊天",
         "notLocatedNamed": "Orca 找不到 {{agent}} 的运行位置，因此无法打开它",
         "notLocated": "Orca 找不到此智能体的运行位置，因此无法打开它",
+        "pairedServerUnpaired": "{{agent}} 运行在一台已不再与此 Orca 配对的电脑上，因此无法打开它",
+        "pairedServerUnreachable": "Orca 无法连接 {{server}}，因此无法打开 {{agent}}",
+        "pairedServerGone": "{{agent}} 已不在 {{server}} 上运行",
+        "pairedServerElsewhere": "{{agent}} 运行在与 {{server}} 配对的电脑上，而不是与这台电脑配对，因此 Orca 无法在这里打开它",
+        "thisAgent": "此智能体",
+        "theAgent": "智能体",
         "worktreeDeleted": "工作树已删除",
         "projectRemoved": "项目已从 Orca 中移除",
         "folderWorkspaceRemoved": "文件夹工作区已移除",
@@ -4994,7 +5005,8 @@
             "chatNotInWsl": "WSL 中不支持聊天",
             "cliTag": "（CLI）",
             "chatNotOverSsh": "SSH 下不支持聊天",
-            "chatNotOnWindows": "Windows 暂不支持聊天"
+            "chatNotOnWindows": "Windows 暂不支持聊天",
+            "chatUpdateRequired": "更新 CLI 以使用聊天"
           },
           "RecentTabSwitcher": {
             "329638ff6f": "切换选项卡",
@@ -5608,7 +5620,9 @@
                   "sessionsGroupedByWorkspace": "终端会话按工作区分组",
                   "noTerminalSessions": "暂无终端会话",
                   "ariaLabel": "资源管理器，{{sessions}}",
-                  "ariaLabelWithSpaceScan": "资源管理器，{{sessions}}，{{spaceScan}}"
+                  "ariaLabelWithSpaceScan": "资源管理器，{{sessions}}，{{spaceScan}}",
+                  "appMemory": "Orca 应用内存：{{memory}}",
+                  "appMemoryAndSessions": "Orca 应用内存 {{memory}}（Orca 自身的进程，不含终端和智能体 CLI），{{sessions}}"
                 }
               }
             }
@@ -7916,6 +7930,7 @@
         },
         "wslHostRemoval": {
           "keptForOthers": "已从此 Orca 中移除。该主机将继续为 {{value0}} 运行",
+          "forgotten": "已从 Orca 中移除此主机，但未停止其服务器，服务器可能仍在发行版中运行：{{value0}}",
           "partial": "主机已被移除，但发行版中仍有内容在运行：{{value0}}",
           "pending": "Orca 尚未移除该主机：{{value0}} 可再次移除以重试，或连接以保留它",
           "unavailable": "此电脑上无法使用 WSL 主机"
@@ -10529,6 +10544,10 @@
             "c29089716e": "Kimi 使用情况",
             "96e32c1118": "MiniMax 使用情况",
             "aff6e6afdf": "IDE字体",
+            "statusBarMemory": {
+              "title": "在状态栏中显示内存",
+              "description": "在资源管理器图标旁显示 Orca 应用内存。窗口获得焦点时每 30 秒更新一次"
+            },
             "statusBarUsageFormat": {
               "title": "用量格式",
               "description": "使用占位符自定义各提供商的用量在状态栏中的显示方式",
@@ -13328,7 +13347,10 @@
               "disconnectFailed": "无法删除保存的 Bitbucket 凭据",
               "statusLoadFailed": "无法检查是否保存了 Bitbucket 凭据",
               "replaceCredentials": "管理凭据",
-              "credentialName": "你的 Bitbucket 凭证"
+              "credentialName": "你的 Bitbucket 凭证",
+              "storedCredentialRemote": "保存在所选服务器上的 Orca 中，该服务器上设置了 ORCA_BITBUCKET_* 环境变量时，环境变量优先",
+              "account_scope_prefix": "账户范围",
+              "scopeFollowsWorkspace": "在运行当前打开工作区的主机上检查。在这里保存的凭据会存储在该主机上"
             }
           }
         },
@@ -20122,6 +20144,9 @@
       },
       "runtimeGitWorkingTreeClient": {
         "resolveConflictNeedsNewerHost": "解决冲突需要此主机上安装更新版本的 Orca。请更新该主机上的 Orca"
+      },
+      "bitbucket": {
+        "credentialsNeedNewerServer": "请更新远程 Orca 服务器，才能在其上保存 Bitbucket 凭据"
       }
     },
     "ssh": {
@@ -20888,6 +20913,8 @@
         "autoReviewApproveFailed": "无法记录你的批准，请重试",
         "autoReviewApproveHint": "{{agent}} 可以将这个操作原样重试一次，重试仍会经过其审查",
         "truncatedResponse": "提供方响应已截断（原始大小：{{bytes}} 字节）",
+        "accountSwitch": "本轮将在 {{from}} 上完成，你的下一条消息将使用 {{to}}",
+        "accountNotMoved": "无法将此聊天切换到 {{to}}：{{reason}}",
         "forkedFrom": "分支来源",
         "forkedFromUnknown": "分支来源：另一个聊天",
         "modelFallback": "Claude 已切换模型：{{from}} → {{to}}"
@@ -21384,6 +21411,10 @@
         "continuesAt": "将于 {{time}} 继续",
         "autoContinuesAt": "将于 {{time}} 自动继续",
         "srSummary": "{{sentence}}。{{status}}",
+        "accountOutOfQuota": "{{account}} 的配额已用完，将于 {{time}} 恢复",
+        "statusAccountOutOfQuota": "{{account}} 的配额已用完，将于 {{time}} 恢复",
+        "unnamedAccountOutOfQuota": "该账户的配额已用完，将于 {{time}} 恢复",
+        "statusUnnamedAccountOutOfQuota": "该账户的配额已用完，将于 {{time}} 恢复",
         "canContinueAt": "可在 {{time}} 继续",
         "titleWeeklyReached": "{{agent}} 已达到每周上限",
         "titleExtraUsageReached": "{{agent}} 已达到额外用量上限",
@@ -23131,7 +23162,8 @@
             "requiredScopes": "所需范围",
             "apiBaseUrl": "API 基础 URL",
             "close": "关闭",
-            "verifyingEllipsis": "正在验证…"
+            "verifyingEllipsis": "正在验证…",
+            "savedOnSelectedServer": "发送到所选服务器并存储在那里，服务器支持时会加密存储"
           }
         }
       },
@@ -23171,7 +23203,9 @@
           "updateFailed": "无法更新 {{host}} 上的通知设置",
           "unsupported": "请更新 {{host}} 上的 Orca 以在这里更改其通知设置",
           "enabledDescription": "{{host}} 为其智能体和终端发出的通知，包括发送到你手机的推送",
-          "sectionDescription": "{{host}} 为其智能体和终端发出的通知"
+          "sectionDescription": "{{host}} 为其智能体和终端发出的通知",
+          "loadFailed": "无法从 {{host}} 加载通知",
+          "retry": "重试"
         }
       },
       "orcaAccount": {
@@ -24196,6 +24230,8 @@
         "serviceUnconfirmed": "WSL 服务未确认该发行版是否正在运行",
         "peerCheckFailed": "Orca 无法向 WSL 主机询问此电脑上的另一个 Orca 是否仍在使用该主机：{{detail}}",
         "removalUnrecorded": "Orca 无法记录此次移除后仍在运行的内容：{{detail}}",
+        "serverIdentityReset": "它运行的是已重置或重新安装的服务器，不是这台电脑配对过的那个。请重新添加此主机以与其配对",
+        "runsAsOtherUser": "以 {{user}} 身份运行。如需使用 {{defaultUser}}，请移除此主机后重新添加",
         "installLockWait_other": "正在等待此发行版中的另一个 Orca 安装完成。如果未完成，Orca 将在约 {{count}} 分钟后接管",
         "installLockWaitGivesUp_other": "正在等待此发行版中的另一个 Orca 安装完成。如果未完成，Orca 将在约 {{count}} 分钟后停止等待",
         "installLockWaitHolderGone": "此发行版中的另一个 Orca 安装已停止。Orca 将在几秒内接管"
@@ -25131,6 +25167,9 @@
       "settingsSaveFailed": "Orca 无法保存 Antigravity 登录设置。请重试",
       "fd47b5a5dd": "Antigravity账户",
       "windowsChanged": "主机默认账户已更改，请选择已保存的账户以重新应用",
+      "switched": "已切换到 {{account}}",
+      "switchedDescription": "新聊天现在就会使用它，正在执行本轮的聊天会在下一条消息时切换",
+      "switchFailedToast": "Antigravity 账户更新失败",
       "enterprise": "Gemini Enterprise",
       "projectPlaceholder": "my-project-id",
       "locationPlaceholder": "us-central1",
@@ -25185,7 +25224,30 @@
       "loginNow": "agy 当前的登录",
       "signedInUnread": "agy 已登录",
       "unreadDetail": "显示账户以查看是哪一个。macOS 可能会要求你允许访问钥匙串。",
-      "showAccount": "显示账户"
+      "showAccount": "显示账户",
+      "agyCli": "agy CLI",
+      "agyUpdateAvailable": "v{{installed}} · 有可用的 v{{latest}}",
+      "agyNotInstalled": "此主机上未安装",
+      "agyInstallLink": "使用 Google 的安装程序安装",
+      "switchSessions": {
+        "bodyFresh": "有 1 个 Antigravity 会话仍在使用 {{previous}} 运行。Orca 不知道它对应的对话，因此重启后会使用 {{next}} 开始新的对话。忙碌的会话会停止当前工作并立即重启",
+        "body_other": "有 {{count}} 个 Antigravity 会话仍在使用 {{previous}} 运行。重启后会使用 {{next}} 继续各自的对话。忙碌的会话会停止当前工作并立即重启",
+        "bodyFreshCount_other": "其中 {{count}} 个会开始新的对话，因为 Orca 不知道原来对应的是哪个对话",
+        "reviewBody_other": "{{count}} 个 Antigravity 会话未切换到 {{next}}",
+        "listLabel": "要重启的 Antigravity 会话",
+        "session": "Antigravity 会话",
+        "reasonNewConversation": "开始新的对话",
+        "restartingOne": "正在使用 {{account}} 重启 1 个 Antigravity 会话",
+        "restartingOther": "正在使用 {{account}} 重启 {{count}} 个 Antigravity 会话",
+        "hostAskOne": "有 1 个 Antigravity 会话仍在使用 {{previous}}",
+        "hostAskOther": "有 {{count}} 个 Antigravity 会话仍在使用 {{previous}}",
+        "strandedOne": "有 1 个 Antigravity 会话可能仍在使用 {{previous}}，请手动重启以切换",
+        "strandedOther": "有 {{count}} 个 Antigravity 会话可能仍在使用 {{previous}}，请手动重启以切换",
+        "settingTitle": "在终端中运行 agy 时切换账户",
+        "settingDescription": "重启后会使用新账户继续每个终端对话；Orca 不知道对应对话时会开始新的对话。忙碌的会话会停止当前工作",
+        "unsavedLogin": "agy 之前的登录",
+        "freshRestarts_other": "{{count}} 个会开始新的对话，因为 Orca 不知道原来对应的是哪个对话"
+      }
     },
     "claude": {
       "added": "已添加账户，选择它即可将其用于你下次启动的 Claude",
@@ -26515,6 +26577,7 @@
       "invalidPairingCode": "配对码无效。需要 orca://pair?... URL 或原始配对数据",
       "selfPairingCode": "这是当前 Orca 的配对码。请改在另一台计算机上生成配对码",
       "managedDeployment": "Orca 为你在 SSH 主机上运行此服务器；无法在此替换或移除其配对。要停用它，请运行 `orca environment stop --environment <name> --yes`，或前往设置 > SSH 主机上的 Orca；如果主机已不存在，请运行 `orca environment forget --environment <name> --yes`",
+      "wslHostDeployment": "Orca 会在 WSL 发行版中为你运行此服务器，无法在这里替换或移除它的配对。请在 Orca 中移除该 WSL 主机，或运行 `orca environment forget --environment <name> --yes` 在不联系其发行版的情况下移除它",
       "sshAccessChangePending": "此服务器的 SSH 访问更改未完成。替换配对或移除此服务器之前，请在设置 > 远程 Orca 服务器 > 已配对服务器的 SSH 访问下重试或取消更改",
       "sshAccessLinked": "替换配对或移除此服务器之前，请在设置 > 远程 Orca 服务器 > 已配对服务器的 SSH 访问下解除此服务器的 SSH 访问关联",
       "alreadyPairedCloudWorkspace": "此服务器已作为“{{name}}”配对。它属于一个云工作区，该工作区恢复运行时会再次与其配对",
@@ -26884,10 +26947,12 @@
     "orchestrator": {
       "showTerminal": "显示终端",
       "moveAgain": "再次移动",
+      "move": "移动",
       "checkAgain": "重新检查",
       "deferred": "正在完成到 {{distro}} 主机的移动：部分终端仍在忙碌",
       "stuck": "之前一次到 {{distro}} 主机的移动尚未完全结束",
       "declined": "移动已暂停，因为你已将这些项目恢复到此电脑",
+      "stateLost": "Orca 丢失了你之前为 {{distro}} 做的选择，因此不会自动移动这些项目",
       "doneToast": "项目已移到 {{distro}} 主机",
       "terminalGone": "该终端已不在此窗口中打开。请重新检查以刷新",
       "blocker": "{{title}}。{{hint}}",
@@ -30983,6 +31048,7 @@
     "qwenCodeProduct": "Qwen Code",
     "devinProduct": "Devin CLI",
     "codebuddyProduct": "CodeBuddy Code",
+    "antigravityProduct": "Antigravity CLI",
     "commandCopied": "命令已复制",
     "commandNotCopied": "无法复制命令",
     "copyCommand": "复制",
